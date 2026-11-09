@@ -128,17 +128,21 @@ tasks.withType<Test>().configureEach {
                     }
                     if (hasIndex) {
                         val normalizedPath = file.toPath().toAbsolutePath().normalize().toString()
-                        val pathSha256 = MessageDigest.getInstance("SHA-256")
-                            .digest(normalizedPath.toByteArray(Charsets.UTF_8))
-                            .joinToString("") { "%02x".format(it) }
-                            .take(16)
-                        val dest = File(cleanJarsDir, "$pathSha256-${file.name}")
-                        val isUpToDate = dest.exists() &&
-                            dest.length() > 0L &&
-                            dest.lastModified() == file.lastModified()
+                        val digest = MessageDigest.getInstance("SHA-256")
+                        digest.update(normalizedPath.toByteArray(Charsets.UTF_8))
+                        file.inputStream().use { stream ->
+                            val buf = ByteArray(8192)
+                            var r: Int
+                            while (stream.read(buf).also { r = it } != -1) {
+                                digest.update(buf, 0, r)
+                            }
+                        }
+                        val cacheKey = digest.digest().joinToString("") { "%02x".format(it) }.take(24)
+                        val dest = File(cleanJarsDir, "$cacheKey-${file.name}")
+                        val isUpToDate = dest.exists() && dest.length() > 0L
                         if (!isUpToDate) {
                             dest.parentFile.mkdirs()
-                            val destTmp = File(cleanJarsDir, "$pathSha256-${file.name}.tmp")
+                            val destTmp = File(cleanJarsDir, "$cacheKey-${file.name}.tmp")
                             ZipFile(file).use { zipIn ->
                                 ZipOutputStream(destTmp.outputStream()).use { zipOut ->
                                     for (entry in zipIn.entries().asSequence()) {
@@ -154,7 +158,6 @@ tasks.withType<Test>().configureEach {
                                 dest.delete()
                             }
                             destTmp.renameTo(dest)
-                            dest.setLastModified(file.lastModified())
                         }
                         dest
                     } else {
