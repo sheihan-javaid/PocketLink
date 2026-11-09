@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+SPDX-FileCopyrightText: 2026 KDE Connect contributors
+
+SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
+-->
+
+<CheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/notification_filter_app_row"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/notification_filter_app_row_background"
+    android:checkMark="?android:attr/listChoiceIndicatorMultiple"
+    android:checkMarkTint="?attr/colorPrimary"
+    android:drawablePadding="@dimen/kde_spacing_medium"
+    android:gravity="center_vertical"
+    android:minHeight="@dimen/kde_min_touch_target"
+    android:paddingStart="@dimen/kde_spacing_medium"
+    android:paddingTop="@dimen/kde_spacing_small"
+    android:paddingEnd="@dimen/kde_spacing_medium"
+    android:paddingBottom="@dimen/kde_spacing_small"
+    android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+    android:textColor="?attr/colorOnSurface" />

@@ -68,7 +68,7 @@ class NotificationsSettingsFragment : PluginSettingsFragment() {
         override fun getItemId(position: Int): Long = (position - 1).toLong()
 
         override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-            val view = convertView ?: layoutInflater.inflate(android.R.layout.simple_list_item_multiple_choice, parent, false)
+            val view = convertView ?: layoutInflater.inflate(R.layout.notification_filter_app_row, parent, false)
             val checkedTextView = view as CheckedTextView
             if (position == 0) {
                 checkedTextView.setText(R.string.all)
