@@ -43,6 +43,7 @@ android {
         targetSdk = 37
         versionCode = 13702
         versionName = "1.37.2"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
     }
     buildFeatures {
@@ -266,7 +267,6 @@ dependencies {
     implementation(libs.androidx.compose.material.icons)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
-    implementation(libs.androidx.constraintlayout.compose)
     implementation(libs.androidx.compose.ui.tooling.preview)
     debugImplementation(libs.androidx.compose.ui.tooling)
 
@@ -321,6 +321,11 @@ dependencies {
         exclude(group = "org.robolectric", module = "nativeruntime-dist-compat")
     }
     testImplementation(libs.androidx.junit)
+    debugImplementation(libs.androidx.compose.ui.test.manifest)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.test.runner)
+    androidTestImplementation(libs.androidx.test.espresso)
+    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
 
     // For device controls
     implementation(libs.reactive.streams)
@@ -350,3 +355,4 @@ tasks.named("generateLicenseReport") {
 tasks.named("preBuild") {
     dependsOn("generateLicenseReport")
 }
+
