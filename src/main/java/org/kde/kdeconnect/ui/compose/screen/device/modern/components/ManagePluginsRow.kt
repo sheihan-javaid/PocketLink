@@ -30,6 +30,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import org.kde.kdeconnect.ui.compose.KdeSpacing
@@ -81,11 +82,11 @@ fun ManagePluginsRow(
 
                 Column(verticalArrangement = Arrangement.spacedBy(KdeSpacing.xSmall)) {
                     Text(
-                        text = "Manage Plugins",
+                        text = stringResource(R.string.manage_plugins_title),
                         style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold)
                     )
                     Text(
-                        text = "${summary.enabledCount} of ${summary.totalCount} plugins enabled",
+                        text = stringResource(R.string.manage_plugins_summary, summary.enabledCount, summary.totalCount),
                         style = MaterialTheme.typography.bodyMedium.copy(fontFeatureSettings = "tnum"),
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )

@@ -43,6 +43,7 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
@@ -52,6 +53,7 @@ import androidx.compose.ui.unit.dp
 import org.kde.kdeconnect.ui.compose.KdeSpacing
 import org.kde.kdeconnect.ui.compose.screen.device.modern.QuickActionAvailability
 import org.kde.kdeconnect.ui.compose.screen.device.modern.QuickActionUiModel
+import org.kde.kdeconnect_tp.R
 
 @Composable
 fun QuickActionsGrid(
@@ -242,7 +244,7 @@ private fun QuickActionTile(
             }
 
             Text(
-                text = action.label,
+                text = action.labelRes?.let { stringResource(it) } ?: action.label,
                 style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.SemiBold),
                 color = textColor,
                 textAlign = TextAlign.Center,
@@ -251,7 +253,7 @@ private fun QuickActionTile(
 
             if (isNeedsPermission) {
                 Text(
-                    text = "Permission",
+                    text = stringResource(R.string.permission_badge),
                     style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
                     color = if (isDark) Color(0xFFFF6B7A) else Color(0xFFDC2626),
                     textAlign = TextAlign.Center,

@@ -652,4 +652,42 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
     <string name="pref_mpris_volume_control_summary">Control the connected device\'s media volume using this phone\'s hardware buttons</string>
 
     <string name="pref_notification_screen_off_key" translatable="false">pref_notification_screen_off</string>
+
+    <string name="category_share_transfer">Share &amp; Transfer</string>
+    <string name="category_control_computer">Control Computer</string>
+    <string name="category_media_audio">Media &amp; Audio</string>
+    <string name="category_device_info">Device Information</string>
+    <string name="category_item_count_format">%1$d of %2$d</string>
+    <string name="category_plugins_count_format">%1$d plugins</string>
+    <string name="attention_feature_needs_permission">%1$d feature needs permission</string>
+    <string name="attention_features_need_permission">%1$d features need permission</string>
+    <string name="attention_optional_permissions">Additional permissions available (%1$d)</string>
+    <string name="attention_tap_to_review">Tap to review and grant access</string>
+    <string name="attention_pending_count">%1$d pending</string>
+    <string name="manage_plugins_title">Manage Plugins</string>
+    <string name="manage_plugins_summary">%1$d of %2$d plugins enabled</string>
+    <string name="manage_plugins_summary_with_disabled">%1$d of %2$d plugins enabled · %3$d disabled</string>
+    <string name="manage_plugins_search_hint">Search plugins…</string>
+    <string name="manage_plugins_search_description">Search</string>
+    <string name="manage_plugins_clear_search">Clear search</string>
+    <string name="manage_plugins_no_results">No plugins match "%1$s"</string>
+    <string name="manage_plugins_grant_permission">Grant Permission</string>
+    <string name="manage_plugins_optional_permission">Optional Permission</string>
+    <string name="manage_plugins_back">Back to dashboard</string>
+    <string name="now_playing">Now Playing</string>
+    <string name="permission_badge">Permission</string>
+    <string name="notification_sync_direction_format">%1$s → %2$s only</string>
+    <string name="this_device">This device</string>
+    <string name="ring_device_format">Ring %1$s</string>
+    <string name="battery_charging">Charging</string>
+    <string name="battery_discharging">Discharging</string>
+    <string name="volume_muted_desc">Muted. Tap to unmute.</string>
+    <string name="volume_low_desc">Low volume, %1$d percent. Tap to mute.</string>
+    <string name="volume_normal_desc">Volume, %1$d percent. Tap to mute.</string>
+    <string name="quick_action_send_files">Send Files</string>
+    <string name="quick_action_clipboard">Clipboard</string>
+    <string name="quick_action_remote_input">Remote Input</string>
+    <string name="quick_action_ring_device">Ring Device</string>
+    <string name="quick_action_run_command">Run Command</string>
+    <string name="quick_action_presenter">Presenter</string>
 </resources>

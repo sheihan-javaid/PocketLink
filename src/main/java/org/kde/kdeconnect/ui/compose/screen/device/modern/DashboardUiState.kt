@@ -7,17 +7,19 @@
 package org.kde.kdeconnect.ui.compose.screen.device.modern
 
 import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import androidx.compose.runtime.Immutable
 import org.kde.kdeconnect.plugins.Plugin
+import org.kde.kdeconnect_tp.R
 
 /**
  * High-level category for organizing PocketLink plugins on the modern dashboard.
  */
-enum class PluginCategory(val displayNameRes: Int? = null) {
-    ShareTransfer,
-    ControlComputer,
-    MediaAudio,
-    DeviceInfo
+enum class PluginCategory(@StringRes val displayNameRes: Int? = null) {
+    ShareTransfer(R.string.category_share_transfer),
+    ControlComputer(R.string.category_control_computer),
+    MediaAudio(R.string.category_media_audio),
+    DeviceInfo(R.string.category_device_info)
 }
 
 /**
@@ -77,7 +79,8 @@ data class QuickActionUiModel(
     val label: String,
     @DrawableRes val iconRes: Int,
     val availability: QuickActionAvailability = QuickActionAvailability.Ready,
-    val actionButton: Plugin.PluginUiButton? = null
+    val actionButton: Plugin.PluginUiButton? = null,
+    @StringRes val labelRes: Int? = null
 )
 
 @Immutable
@@ -89,6 +92,7 @@ data class ServiceRowUiModel(
     val supportingValue: String? = null,
     val isEnabled: Boolean = true,
     val needsPermission: Boolean = false,
+    val isRequiredPermission: Boolean = false,
     val buttons: List<Plugin.PluginUiButton> = emptyList()
 )
 
@@ -96,7 +100,8 @@ data class ServiceRowUiModel(
 data class ServiceSectionUiModel(
     val category: PluginCategory,
     val title: String,
-    val rows: List<ServiceRowUiModel>
+    val rows: List<ServiceRowUiModel>,
+    @StringRes val titleRes: Int? = null
 )
 
 @Immutable
@@ -108,7 +113,10 @@ data class MediaPlaybackUiState(
     val isPlaying: Boolean,
     val canPlayPause: Boolean = true,
     val canSkipNext: Boolean = true,
-    val canSkipPrev: Boolean = true
+    val canSkipPrev: Boolean = true,
+    val positionMs: Long = -1L,
+    val durationMs: Long = -1L,
+    val canSeek: Boolean = false
 )
 
 @Immutable
@@ -154,6 +162,7 @@ interface DashboardActions {
     fun onMediaPlayPause()
     fun onMediaNext()
     fun onMediaPrevious()
+    fun onMediaSeek(positionMs: Long) {}
     fun onVolumeChange(newVolume: Int)
 }
 

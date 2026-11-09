@@ -124,7 +124,7 @@ fun HeroDeviceCard(
                     ) {
                         BatteryRing(battery = hero.battery)
                         Text(
-                            text = if (hero.battery.isCharging) "Charging" else "Discharging",
+                            text = if (hero.battery.isCharging) stringResource(R.string.battery_charging) else stringResource(R.string.battery_discharging),
                             style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Medium),
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -160,7 +160,7 @@ fun HeroDeviceCard(
                         ) {
                             BatteryRing(battery = hero.battery)
                             Text(
-                                text = if (hero.battery.isCharging) "Charging" else "Discharging",
+                                text = if (hero.battery.isCharging) stringResource(R.string.battery_charging) else stringResource(R.string.battery_discharging),
                                 style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Medium),
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                             )

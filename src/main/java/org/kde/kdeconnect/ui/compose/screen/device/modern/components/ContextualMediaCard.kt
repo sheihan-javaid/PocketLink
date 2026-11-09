@@ -39,6 +39,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
@@ -55,6 +56,7 @@ fun ContextualMediaCard(
     onPlayPause: () -> Unit,
     onNext: () -> Unit,
     onPrevious: () -> Unit,
+    onSeek: (Long) -> Unit = {},
     modifier: Modifier = Modifier
 ) {
     val isDark = isDarkThemeMode()
@@ -108,7 +110,7 @@ fun ContextualMediaCard(
                         horizontalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
                         Text(
-                            text = media.title.ifEmpty { "Now Playing" },
+                            text = media.title.ifEmpty { stringResource(R.string.now_playing) },
                             style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold),
                             maxLines = 2,
                             softWrap = true,
@@ -132,56 +134,67 @@ fun ContextualMediaCard(
                         overflow = TextOverflow.Ellipsis
                     )
 
-                    // Thin neon progress line with contrast glowing playhead (no gap)
-                    val progressFraction = 0.42f
-                    val playheadCoreColor = if (isDark) Color(0xFF3DDBFF) else Color(0xFF6254C7)
-                    val playheadGlowColor = if (isDark) Color(0x663DDBFF) else Color(0x406254C7)
+                    // Real MPRIS playback progress (rendered only when valid duration and position are available)
+                    val hasValidProgress = media.durationMs > 0L && media.positionMs >= 0L
+                    if (hasValidProgress) {
+                        val progressFraction = (media.positionMs.toFloat() / media.durationMs.toFloat()).coerceIn(0f, 1f)
+                        val playheadCoreColor = if (isDark) Color(0xFF3DDBFF) else Color(0xFF6254C7)
+                        val playheadGlowColor = if (isDark) Color(0x663DDBFF) else Color(0x406254C7)
 
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 6.dp)
-                            .height(8.dp),
-                        contentAlignment = Alignment.CenterStart
-                    ) {
-                        // Background track
                         Box(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .height(2.5.dp)
-                                .clip(RoundedCornerShape(2.dp))
-                                .background(if (isDark) Color(0x33FFFFFF) else Color(0xFFE2E8F0))
-                        )
-                        // Active progress bar
-                        Box(
-                            modifier = Modifier
-                                .fillMaxWidth(progressFraction)
-                                .height(2.5.dp)
-                                .clip(RoundedCornerShape(2.dp))
-                                .background(
-                                    Brush.horizontalGradient(
-                                        listOf(neonIndigo, neonCyan)
-                                    )
-                                )
-                        )
-                        // Glowing playhead with high contrast core
-                        Box(
-                            modifier = Modifier.fillMaxWidth(progressFraction),
-                            contentAlignment = Alignment.CenterEnd
+                                .padding(top = 6.dp)
+                                .height(8.dp)
+                                .then(
+                                    if (media.canSeek) {
+                                        Modifier.clickable(role = Role.Button) {
+                                            // Tap to seek midpoint or handled via seeker
+                                            onSeek(media.positionMs)
+                                        }
+                                    } else Modifier
+                                ),
+                            contentAlignment = Alignment.CenterStart
                         ) {
+                            // Background track
                             Box(
                                 modifier = Modifier
-                                    .size(8.dp)
-                                    .clip(CircleShape)
-                                    .background(playheadGlowColor),
-                                contentAlignment = Alignment.Center
+                                    .fillMaxWidth()
+                                    .height(2.5.dp)
+                                    .clip(RoundedCornerShape(2.dp))
+                                    .background(if (isDark) Color(0x33FFFFFF) else Color(0xFFE2E8F0))
+                            )
+                            // Active progress bar
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxWidth(progressFraction)
+                                    .height(2.5.dp)
+                                    .clip(RoundedCornerShape(2.dp))
+                                    .background(
+                                        Brush.horizontalGradient(
+                                            listOf(neonIndigo, neonCyan)
+                                        )
+                                    )
+                            )
+                            // Glowing playhead with high contrast core
+                            Box(
+                                modifier = Modifier.fillMaxWidth(progressFraction),
+                                contentAlignment = Alignment.CenterEnd
                             ) {
                                 Box(
                                     modifier = Modifier
-                                        .size(5.dp)
+                                        .size(8.dp)
                                         .clip(CircleShape)
-                                        .background(playheadCoreColor)
-                                )
+                                        .background(playheadGlowColor),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    Box(
+                                        modifier = Modifier
+                                            .size(5.dp)
+                                            .clip(CircleShape)
+                                            .background(playheadCoreColor)
+                                    )
+                                }
                             }
                         }
                     }
@@ -201,7 +214,7 @@ fun ContextualMediaCard(
                     ) {
                         Image(
                             painter = painterResource(R.drawable.ic_previous_white),
-                            contentDescription = "Previous Track",
+                            contentDescription = stringResource(R.string.mpris_previous),
                             colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurfaceVariant),
                             modifier = Modifier.size(20.dp)
                         )
@@ -226,7 +239,10 @@ fun ContextualMediaCard(
                                 if (media.isPlaying) R.drawable.ic_pause_white
                                 else R.drawable.ic_play_white
                             ),
-                            contentDescription = if (media.isPlaying) "Pause" else "Play",
+                            contentDescription = stringResource(
+                                if (media.isPlaying) R.string.mpris_pause
+                                else R.string.mpris_play
+                            ),
                             colorFilter = ColorFilter.tint(Color.White),
                             modifier = Modifier.size(22.dp)
                         )
@@ -239,7 +255,7 @@ fun ContextualMediaCard(
                     ) {
                         Image(
                             painter = painterResource(R.drawable.ic_next_white),
-                            contentDescription = "Next Track",
+                            contentDescription = stringResource(R.string.mpris_next),
                             colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurfaceVariant),
                             modifier = Modifier.size(20.dp)
                         )

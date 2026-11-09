@@ -71,6 +71,7 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.CompositingStrategy
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
@@ -81,6 +82,7 @@ import org.kde.kdeconnect.plugins.Plugin
 import org.kde.kdeconnect.ui.compose.KdeSpacing
 import org.kde.kdeconnect.ui.compose.screen.device.DeviceErrorPanel
 import org.kde.kdeconnect.ui.compose.screen.device.DevicePluginUiModel
+import org.kde.kdeconnect.ui.compose.screen.device.PairingSuccessBanner
 import org.kde.kdeconnect.ui.compose.screen.device.modern.components.AttentionBanner
 import org.kde.kdeconnect.ui.compose.screen.device.modern.components.AuroraGlassCard
 import org.kde.kdeconnect.ui.compose.screen.device.modern.components.ContextualMediaCard
@@ -102,6 +104,8 @@ fun ModernConnectedDeviceDashboard(
     onButtonClick: (Plugin.PluginUiButton) -> Unit,
     onRequiredPermissionClick: (pluginKey: String) -> Unit,
     onOptionalPermissionClick: (pluginKey: String) -> Unit,
+    pairingSucceeded: Boolean = false,
+    onDismissPairingSuccess: () -> Unit = {},
     modifier: Modifier = Modifier
 ) {
     val isDark = isDarkThemeMode()
@@ -216,7 +220,8 @@ fun ModernConnectedDeviceDashboard(
                                         media = mediaState,
                                         onPlayPause = actions::onMediaPlayPause,
                                         onNext = actions::onMediaNext,
-                                        onPrevious = actions::onMediaPrevious
+                                        onPrevious = actions::onMediaPrevious,
+                                        onSeek = actions::onMediaSeek
                                     )
                                 }
                             }
@@ -239,7 +244,8 @@ fun ModernConnectedDeviceDashboard(
                             state.sections.forEach { section ->
                                 ServiceSection(
                                     section = section,
-                                    onPluginButtonClick = actions::onPluginButtonClick
+                                    onPluginButtonClick = actions::onPluginButtonClick,
+                                    onPermissionClick = actions::onPermissionItemClick
                                 )
                             }
 
@@ -270,6 +276,17 @@ fun ModernConnectedDeviceDashboard(
                         )
                     )
             )
+
+            // 8. Pairing Success Banner (Animated top overlay when pairing succeeds)
+            if (pairingSucceeded) {
+                PairingSuccessBanner(
+                    deviceName = state.hero.deviceName,
+                    onDismiss = onDismissPairingSuccess,
+                    modifier = Modifier
+                        .align(Alignment.TopCenter)
+                        .padding(top = topInset + KdeSpacing.medium, start = KdeSpacing.medium, end = KdeSpacing.medium)
+                )
+            }
         }
     }
 }
@@ -389,7 +406,12 @@ fun ManagePluginsPage(
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         Text(
-                            text = "$enabledCount of $totalCount plugins enabled · $disabledCount disabled",
+                            text = stringResource(
+                                R.string.manage_plugins_summary_with_disabled,
+                                enabledCount,
+                                totalCount,
+                                disabledCount
+                            ),
                             style = MaterialTheme.typography.labelMedium.copy(
                                 fontWeight = FontWeight.Medium,
                                 fontFeatureSettings = "tnum"
@@ -404,12 +426,28 @@ fun ManagePluginsPage(
                                     .padding(horizontal = 8.dp, vertical = 2.dp)
                             ) {
                                 Text(
-                                    text = "$pendingPermissionsCount pending",
+                                    text = stringResource(R.string.attention_pending_count, pendingPermissionsCount),
                                     style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
                                     color = if (isDark) Color(0xFFFF6B7A) else Color(0xFFDC2626)
                                 )
                             }
                         }
+                    }
+                }
+
+                // Empty search results state
+                if (filteredPlugins.isEmpty() && searchQuery.isNotBlank()) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 32.dp),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(
+                            text = stringResource(R.string.manage_plugins_no_results, searchQuery),
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
                     }
                 }
 
@@ -431,7 +469,8 @@ fun ManagePluginsPage(
                                 horizontalArrangement = Arrangement.SpaceBetween
                             ) {
                                 Text(
-                                    text = PluginCategoryRegistry.categoryTitle(category).uppercase(),
+                                    text = (category.displayNameRes?.let { stringResource(it) }
+                                        ?: PluginCategoryRegistry.categoryTitle(category)).uppercase(),
                                     style = MaterialTheme.typography.labelSmall.copy(
                                         letterSpacing = 1.2.sp,
                                         fontWeight = FontWeight.Bold
@@ -440,7 +479,7 @@ fun ManagePluginsPage(
                                     modifier = Modifier.semantics { heading() }
                                 )
                                 Text(
-                                    text = "${categoryPlugins.size} plugins",
+                                    text = stringResource(R.string.category_plugins_count_format, categoryPlugins.size),
                                     style = MaterialTheme.typography.labelSmall.copy(
                                         fontWeight = FontWeight.Medium,
                                         fontFeatureSettings = "tnum"
@@ -482,12 +521,12 @@ fun ManagePluginsPage(
                 .align(Alignment.TopCenter)
         ) {
             TopAppBar(
-                title = { Text("Manage Plugins", fontWeight = FontWeight.SemiBold) },
+                title = { Text(stringResource(R.string.manage_plugins_title), fontWeight = FontWeight.SemiBold) },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back to dashboard"
+                            contentDescription = stringResource(R.string.manage_plugins_back)
                         )
                     }
                 },
@@ -504,11 +543,11 @@ fun ManagePluginsPage(
                 OutlinedTextField(
                     value = searchQuery,
                     onValueChange = { searchQuery = it },
-                    placeholder = { Text("Search plugins...") },
+                    placeholder = { Text(stringResource(R.string.manage_plugins_search_hint)) },
                     leadingIcon = {
                         Icon(
                             imageVector = Icons.Default.Search,
-                            contentDescription = "Search",
+                            contentDescription = stringResource(R.string.manage_plugins_search_description),
                             tint = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     },
@@ -517,7 +556,7 @@ fun ManagePluginsPage(
                             IconButton(onClick = { searchQuery = "" }) {
                                 Icon(
                                     imageVector = Icons.Default.Clear,
-                                    contentDescription = "Clear search",
+                                    contentDescription = stringResource(R.string.manage_plugins_clear_search),
                                     tint = MaterialTheme.colorScheme.onSurfaceVariant
                                 )
                             }
@@ -695,7 +734,10 @@ private fun CompactManagePluginRow(
                         ),
                         modifier = Modifier.height(30.dp)
                     ) {
-                        Text("Grant Permission", style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.SemiBold))
+                        Text(
+                            text = stringResource(R.string.manage_plugins_grant_permission),
+                            style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.SemiBold)
+                        )
                     }
                 }
                 if (plugin.needsOptionalPermission) {
@@ -708,7 +750,10 @@ private fun CompactManagePluginRow(
                         ),
                         modifier = Modifier.height(30.dp)
                     ) {
-                        Text("Optional Permission", style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.SemiBold))
+                        Text(
+                            text = stringResource(R.string.manage_plugins_optional_permission),
+                            style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.SemiBold)
+                        )
                     }
                 }
                 plugin.actionButtons.forEach { button ->

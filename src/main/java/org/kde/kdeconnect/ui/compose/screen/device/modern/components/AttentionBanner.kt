@@ -43,6 +43,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
@@ -51,6 +52,7 @@ import androidx.compose.ui.unit.dp
 import org.kde.kdeconnect.ui.compose.KdeSpacing
 import org.kde.kdeconnect.ui.compose.screen.device.modern.AttentionUiState
 import org.kde.kdeconnect.ui.compose.screen.device.modern.PermissionSeverity
+import org.kde.kdeconnect_tp.R
 
 @Composable
 fun AttentionBanner(
@@ -143,9 +145,13 @@ fun AttentionBanner(
                 ) {
                     Text(
                         text = if (isRequired) {
-                            "${attention.totalCount} feature${if (attention.totalCount > 1) "s need" else " needs"} permission"
+                            if (attention.totalCount == 1) {
+                                stringResource(R.string.attention_feature_needs_permission, attention.totalCount)
+                            } else {
+                                stringResource(R.string.attention_features_need_permission, attention.totalCount)
+                            }
                         } else {
-                            "Additional permissions available (${attention.optionalCount})"
+                            stringResource(R.string.attention_optional_permissions, attention.optionalCount)
                         },
                         style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold),
                         color = contentColor,
@@ -153,7 +159,7 @@ fun AttentionBanner(
                         softWrap = true
                     )
                     Text(
-                        text = "Tap to review and grant access",
+                        text = stringResource(R.string.attention_tap_to_review),
                         style = MaterialTheme.typography.bodySmall,
                         color = contentColor.copy(alpha = 0.85f),
                         maxLines = 1,

@@ -33,6 +33,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
@@ -40,6 +41,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.kde.kdeconnect.ui.compose.screen.device.modern.BatteryUiState
+import org.kde.kdeconnect_tp.R
 import kotlin.math.cos
 import kotlin.math.sin
 
@@ -82,12 +84,10 @@ fun BatteryRing(
         else -> neonCyan
     }
 
-    val accessibilityDesc = buildString {
-        append("Battery ")
-        append(battery.percent)
-        append(" percent")
-        if (battery.isCharging) append(", charging")
-        if (battery.isLow) append(", low battery")
+    val accessibilityDesc = when {
+        battery.isCharging -> stringResource(R.string.battery_status_charging_format, battery.percent)
+        battery.isLow -> stringResource(R.string.battery_status_low_format, battery.percent)
+        else -> stringResource(R.string.battery_status_format, battery.percent)
     }
 
     Box(

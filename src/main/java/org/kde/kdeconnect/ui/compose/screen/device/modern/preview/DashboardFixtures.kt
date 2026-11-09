@@ -44,6 +44,7 @@ object DashboardFixtures {
         override fun onMediaPlayPause() {}
         override fun onMediaNext() {}
         override fun onMediaPrevious() {}
+        override fun onMediaSeek(positionMs: Long) {}
         override fun onVolumeChange(newVolume: Int) {}
     }
 

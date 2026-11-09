@@ -54,7 +54,8 @@ object DashboardUiStateMapper {
         connectivitySummary: String? = null,
         mediaState: MediaPlaybackUiState? = null,
         volumeState: VolumeControlUiState? = null,
-        isRefreshing: Boolean = false
+        isRefreshing: Boolean = false,
+        localDeviceName: String? = null
     ): DashboardUiState {
         // Enforce policy: filter out reverse notification plugin
         val activePlugins = plugins.filter { it.pluginKey != POLICY_HIDDEN_PLUGIN_KEY }
@@ -108,10 +109,10 @@ object DashboardUiStateMapper {
         }
 
         // Quick actions: 6 primary action tiles mapped directly to underlying plugin actions
-        val quickActions = buildQuickActions(activePlugins)
+        val quickActions = buildQuickActions(activePlugins, deviceName)
 
         // Grouped service sections
-        val groupedSections = buildServiceSections(activePlugins, batteryUiState, connectivitySummary)
+        val groupedSections = buildServiceSections(activePlugins, batteryUiState, connectivitySummary, deviceName, localDeviceName)
 
         // Manage plugins summary
         val enabledCount = activePlugins.count { it.isEnabled }
@@ -133,23 +134,24 @@ object DashboardUiStateMapper {
         )
     }
 
-    private fun buildQuickActions(plugins: List<DevicePluginUiModel>): List<QuickActionUiModel> {
+    private fun buildQuickActions(plugins: List<DevicePluginUiModel>, deviceName: String): List<QuickActionUiModel> {
         val pluginMap = plugins.associateBy { it.pluginKey }
 
         data class ActionSpec(
             val id: String,
             val label: String,
             val pluginKey: String,
-            val iconRes: Int
+            val iconRes: Int,
+            val labelRes: Int? = null
         )
 
         val specs = listOf(
-            ActionSpec("send_files", "Send Files", "SharePlugin", R.drawable.ic_share_white),
-            ActionSpec("clipboard", "Clipboard", "ClipboardPlugin", R.drawable.ic_baseline_content_paste_24),
-            ActionSpec("remote_input", "Remote Input", "MousePadPlugin", R.drawable.ic_finger_24dp),
-            ActionSpec("ring_device", "Ring Mac", "FindRemoteDevicePlugin", R.drawable.ic_notification),
-            ActionSpec("run_command", "Run Command", "RunCommandPlugin", R.drawable.ic_baseline_code_24),
-            ActionSpec("presenter", "Presenter", "PresenterPlugin", R.drawable.ic_presenter_24dp)
+            ActionSpec("send_files", "Send Files", "SharePlugin", R.drawable.ic_share_white, R.string.quick_action_send_files),
+            ActionSpec("clipboard", "Clipboard", "ClipboardPlugin", R.drawable.ic_baseline_content_paste_24, R.string.quick_action_clipboard),
+            ActionSpec("remote_input", "Remote Input", "MousePadPlugin", R.drawable.ic_finger_24dp, R.string.quick_action_remote_input),
+            ActionSpec("ring_device", "Ring $deviceName", "FindRemoteDevicePlugin", R.drawable.ic_notification, R.string.quick_action_ring_device),
+            ActionSpec("run_command", "Run Command", "RunCommandPlugin", R.drawable.ic_baseline_code_24, R.string.quick_action_run_command),
+            ActionSpec("presenter", "Presenter", "PresenterPlugin", R.drawable.ic_presenter_24dp, R.string.quick_action_presenter)
         )
 
         return specs.map { spec ->
@@ -166,7 +168,8 @@ object DashboardUiStateMapper {
                 label = spec.label,
                 iconRes = spec.iconRes,
                 availability = availability,
-                actionButton = firstButton
+                actionButton = firstButton,
+                labelRes = spec.labelRes
             )
         }
     }
@@ -174,7 +177,9 @@ object DashboardUiStateMapper {
     private fun buildServiceSections(
         plugins: List<DevicePluginUiModel>,
         batteryState: BatteryUiState?,
-        connectivitySummary: String?
+        connectivitySummary: String?,
+        deviceName: String,
+        localDeviceName: String?
     ): List<ServiceSectionUiModel> {
         val byCategory = plugins.groupBy { PluginCategoryRegistry.categoryFor(it.pluginKey) }
 
@@ -193,7 +198,7 @@ object DashboardUiStateMapper {
                         "${it.percent}%${if (it.isCharging) " · Charging" else ""}"
                     }
                     "ConnectivityReportPlugin" -> connectivitySummary
-                    "NotificationsPlugin" -> "Samsung → Mac only"
+                    "NotificationsPlugin" -> "${localDeviceName ?: "This device"} → $deviceName only"
                     else -> null
                 }
 
@@ -205,6 +210,7 @@ object DashboardUiStateMapper {
                     supportingValue = supporting,
                     isEnabled = plugin.isEnabled,
                     needsPermission = plugin.needsRequiredPermission || plugin.needsOptionalPermission,
+                    isRequiredPermission = plugin.needsRequiredPermission,
                     buttons = plugin.actionButtons
                 )
             }
@@ -212,7 +218,8 @@ object DashboardUiStateMapper {
             ServiceSectionUiModel(
                 category = cat,
                 title = PluginCategoryRegistry.categoryTitle(cat),
-                rows = rows
+                rows = rows,
+                titleRes = cat.displayNameRes
             )
         }
     }

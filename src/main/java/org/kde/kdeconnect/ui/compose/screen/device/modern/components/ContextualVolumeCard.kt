@@ -40,6 +40,7 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import org.kde.kdeconnect.ui.compose.KdeSpacing
@@ -75,9 +76,9 @@ fun ContextualVolumeCard(
     }
 
     val speakerContentDesc = when {
-        isMuted -> "Muted. Tap to unmute."
-        isLowVolume -> "Low volume, ${sliderPosition.toInt()} percent. Tap to mute."
-        else -> "Volume, ${sliderPosition.toInt()} percent. Tap to mute."
+        isMuted -> stringResource(R.string.volume_muted_desc)
+        isLowVolume -> stringResource(R.string.volume_low_desc, sliderPosition.toInt())
+        else -> stringResource(R.string.volume_normal_desc, sliderPosition.toInt())
     }
 
     val neonThumbBorder = if (isDark) Color(0xFF3DDBFF) else Color(0xFF6254C7)
@@ -120,7 +121,7 @@ fun ContextualVolumeCard(
                     }
                     Spacer(modifier = Modifier.width(KdeSpacing.xSmall))
                     Text(
-                        text = volumeState.sinkName.ifEmpty { "System Volume" },
+                        text = volumeState.sinkName.ifEmpty { stringResource(R.string.pref_plugin_systemvolume) },
                         style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold)
                     )
                 }
