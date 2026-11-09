@@ -22,7 +22,6 @@
   <string name="clipboard_preference_summary_skip_sensitive">Parolaları veya hassas olarak imlenmiş diğer içerikleri kendiliğinden eşzamanlamayın</string>
   <string name="pref_plugin_mousepad">Uzaktan giriş</string>
   <string name="pref_plugin_mousepad_desc_nontv">Telefonunuzu veya tabletinizi, dokunmatik yüzey veya klavye olarak kullanın</string>
-  <string name="pref_plugin_mousepad_desc_tv">Telefonunuzu veya tabletinizi, televizyon kumandası olarak kullanın</string>
   <string name="pref_plugin_presenter">Sunum uzaktan kumandası</string>
   <string name="pref_plugin_presenter_desc">Sunumdaki slaytları değiştirmek için aygıtınızı kullanın</string>
   <string name="pref_plugin_remotekeyboard_ime">Klavye alıcısı (Android klavyesi ile)</string>
@@ -46,7 +45,6 @@
   <string name="pref_plugin_inputdevicesreceiver_desc">Fareyi ve klavyeyi uzak aygıtlarla paylaş</string>
   <string name="device_list_empty">Aygıt yok</string>
   <string name="ok">Tamam</string>
-  <string name="sad_ok">Tamam :(</string>
   <string name="cancel">İptal</string>
   <string name="open_settings">Ayarları aç</string>
   <string name="open_accessibility_settings">Erişilebilirlik ayarlarını aç</string>
@@ -132,7 +130,6 @@
   <string name="unknown_device">Bİlinmeyen aygıt</string>
   <string name="unknown_sender">Bİlinmeyen gönderici</string>
   <string name="error_not_reachable">Aygıt ulaşılabilir değil</string>
-  <string name="error_already_paired">Aygıt zaten eşleşmiş</string>
   <string name="error_timed_out">Zaman aşımı</string>
   <string name="error_clocks_not_match">Aygıt saatleri eşzamanlı değil</string>
   <string name="error_canceled_by_user">Kullanıcı tarafından iptal edildi</string>
@@ -142,6 +139,10 @@
   <string name="remote_device_fingerprint">Uzak aygıt sertifikanızın SHA256 parmak izi:</string>
   <string name="pair_requested">Eşleşme talep edildi</string>
   <string name="pair_succeeded">Eşleşme başarılı</string>
+  <string name="pairing_verification_code_title">Doğrulama kodu</string>
+  <string name="pairing_compare_verification_code">Kabul etmeden önce bu kodu her iki cihazda da karşılaştırın.</string>
+  <string name="pairing_waiting_for_device">%1$s isteği kabul edene kadar bekleniyor.</string>
+  <string name="pairing_trusted_device">%1$s ile eşleştirildi. Bu cihaza artık güveniliyor.</string>
   <string name="pairing_request_from">“%1s” için eşleşme talebi</string>
   <plurals name="incoming_file_title">
     <item quantity="one">%2$s içinden %1$d dosya alınıyor</item>
@@ -178,7 +179,6 @@
   <string name="tap_to_open">Açmak için dokunun</string>
   <string name="received_file_text">“%1s” açmak için dokunun</string>
   <string name="cannot_create_file">Dosya oluşturulamıyor %s</string>
-  <string name="tap_to_answer">Cevap için dokunun</string>
   <string name="left_click">Sol Tık Gönder</string>
   <string name="right_click">Sağ Tık Gönder</string>
   <string name="middle_click">Orta Tık Gönder</string>
@@ -227,7 +227,6 @@
   <string name="custom_device_list">IP’ye göre aygıtları ekle</string>
   <string name="custom_device_deleted">Özel aygıt silindi</string>
   <string name="custom_device_list_help">Aygıtınız kendiliğinden algılanmazsa aşağıdaki düğmeye tıklayarak IP adresini veya ana bilgisayar adını ekleyebilirsiniz</string>
-  <string name="custom_device_fab_hint">Aygıt ekle</string>
   <string name="undo">Geri al</string>
   <string name="share_notification_preference">Sesli bildirimler</string>
   <string name="share_notification_preference_summary">Bir dosya alırken, ses çıkar ve titret</string>
@@ -263,8 +262,6 @@
   <string name="digitizer_preference_title_hide_draw_button">Çizim düğmesini gizle</string>
   <string name="digitizer_preference_summary_hide_draw_button">Çizim düğmesini tümüyle gizleyerek parmakla çizim yapmayı tümüyle olanaksız kılar. Bunu yalnızca aygıtınız kalemle girişi destekliyorsa etkinleştirin.</string>
   <string name="digitizer_preference_title_draw_button_side">“Parmakla çizim yap” düğmesinin yanı</string>
-  <string name="digitizer_preference_title_enable_exit_fullscreen_gesture">Tam ekrandan çıkış hareketini etkinleştir</string>
-  <string name="digitizer_preference_summary_enable_exit_fullscreen_gesture">Etkinleştirilmişse çizim alanına parmağınızla basıp basılı tutmak tam ekran kipinden çıkar.</string>
   <string-array name="digitizer_preference_entries_draw_button_side">
     <item>Sol üst</item>
     <item>Sağ üst</item>
@@ -284,8 +281,6 @@
   <string name="no_file_browser">Kurulu bir dosya tarayıcı yok.</string>
   <string name="pref_plugin_telepathy">SMS Gönder</string>
   <string name="pref_plugin_telepathy_desc">Masaüstünden metin iletisi gönder</string>
-  <string name="pref_plugin_telepathy_mms">MMS Gönder</string>
-  <string name="pref_plugin_telepathy_mms_desc">KDE Connect üzerinden MMS göndermek için onu öntanımlı SMS uygulaması olarak ayarlayın.</string>
   <string name="findmyphone_title">Telefonumu bul</string>
   <string name="findmyphone_title_tablet">Tabletimi bul</string>
   <string name="findmyphone_title_tv">TV’mi bul</string>
@@ -295,7 +290,6 @@
   <string name="close">Kapat</string>
   <string name="plugins_need_permission">Bazı Eklentiler çalışmak için izne gereksinim duyar (daha fazla bilgi için dokunun):</string>
   <string name="permission_explanation">Bu eklenti, çalışmak için izne gereksinim duyuyor</string>
-  <string name="all_permissions_granted">Tüm izinler verildi 🎉</string>
   <string name="optional_permission_explanation">Tüm işlevleri etkinleştirmek için daha fazla yetkiye gereksiniminiz var</string>
   <string name="plugins_need_optional_permission">Bazı eklentilerin özellikleri, izin yetersizliğinden kapalı gelmektedir (daha fazla bilgi için dokunun):</string>
   <string name="share_optional_permission_explanation">Dosyalar almak için depolama erişimini etkinleştirmelisiniz</string>
@@ -308,15 +302,12 @@
   <string name="select_ringtone">Bir zil sesi seç</string>
   <string name="telephony_pref_blocked_title">Engellenen numaralar</string>
   <string name="telephony_pref_blocked_dialog_desc">Bu numaralardan gelen aramaları göstermeyin. Lütfen satır başına bir numara belirtin.</string>
-  <string name="mpris_coverart_description">Geçerli ortamın kapak resmi</string>
-  <string name="settings_icon_description">Ayarlar simgesi</string>
   <string name="presenter_fullscreen">Tam ekran</string>
   <string name="presenter_exit">Sunumdan çık</string>
   <string name="presenter_change_zoom">Yakınlaştırmayı değiştir</string>
   <string name="presenter_zoom">Yakınlaştırma</string>
   <string name="presenter_zoom_in">Yakınlaştır</string>
   <string name="presenter_zoom_out">Uzaklaştır</string>
-  <string name="presenter_lock_tip">Bir önceki/bir sonraki slayta geçmek için aygıtınızı kilitleyebilir ve ses düzeyi düğmelerini kullanabilirsiniz</string>
   <string name="add_command">Komut ekle</string>
   <string name="addcommand_explanation">Kayıtlı komut yok</string>
   <string name="addcommand_explanation2">KDE Connect Sistem Ayarlarında yeni komutlar ekleyebilirsiniz</string>
@@ -352,7 +343,6 @@
   <string name="all">Tümü</string>
   <string name="devices">Aygıtlar</string>
   <string name="settings_rename">Aygıt adı</string>
-  <string name="settings_dark_mode">Karanlık tema</string>
   <string name="settings_export_logs">KDE Connect Günlüklerini Dışa Aktar</string>
   <string name="settings_export_logs_text">Sorun tanılama konusunda yandımcı olabilecek yürütme bilgisini içeren bir dosya üretin.</string>
   <string name="settings_more_settings_title">Daha fazla ayar</string>
@@ -378,7 +368,6 @@
   <string name="location_permission_needed_title">İzin gerekli</string>
   <string name="bluetooth_permission_needed_desc">KDE Connect, Bluetooth kullanarak eşleştirilmiş aygıtların KDE Connect’te görülebilir olmasını sağlamak için yakındaki aygıtlara bağlanma iznine gereksinim duyar.</string>
   <string name="location_permission_needed_desc">KDE Connect, uygulama arka planda olsa bile bağlı olduğunuz Wi-Fi ağını bilmek için arka plan konumu iznine gereksinim duyar. Bunun nedeni, çevrenizdeki Wi-Fi ağlarının adının, KDE Connect’in yaptığı bu olmasa bile konumunuzu bulmak için kullanılabilmesidir.</string>
-  <string name="clipboard_android_x_incompat">Android 10, tüm uygulamalara pano erişimini kaldırdı. Bu eklenti devre dışı bırakılacak.</string>
   <string name="mpris_open_url">Oynamayı burada sürdürün</string>
   <string name="cant_open_url">Oynamayı sürdürmek için URL açılamıyor</string>
   <string name="bigscreen_home">Başlangıç</string>
@@ -391,13 +380,8 @@
   <string name="bigscreen_back">Geri</string>
   <string name="bigscreen_mic">Mikrofon</string>
   <string name="pref_plugin_bigscreen">TV kumandası</string>
-  <string name="pref_plugin_bigscreen_desc">Aygıtınızı Plasma Büyükekran için uzaktan kumanda olarak kullanın</string>
   <string name="bigscreen_optional_permission_explanation">Telefonunuzdan mikrofon girişini paylaşmak için telefonun ses girişine erişim izni vermeniz gerekir</string>
   <string name="bigscreen_speech_extra_prompt">Konuşma</string>
-  <string name="message_reply_label">YANITLA</string>
-  <string name="mark_as_read_label">OKUNDU OLARAK İMLE</string>
-  <string name="user_display_name">Siz</string>
-  <string name="set_default_sms_app_title">MMS Gönder</string>
   <string name="set_group_message_as_mms_title">Grup MMS gönder</string>
   <string name="set_long_text_as_mms_title">Uzun metni MMS olarak gönder</string>
   <string name="convert_to_mms_after_title">MMS’e dönüştür</string>
@@ -426,17 +410,11 @@
   <string name="website">Web Sitesi</string>
   <string name="about">Hakkında</string>
   <string name="authors">Yazarlar</string>
-  <string name="thanks_to">Teşekkürler</string>
   <string name="easter_egg">Sürpriz Yumurta</string>
-  <string name="email_contributor">E-posta katkıcısı\n%s</string>
-  <string name="visit_contributors_homepage">Katkıcının web sayfasını ziyaret edin\n%s</string>
   <string name="version">Sürüm %s</string>
   <string name="about_kde">KDE Hakkında</string>
   <string name="kde_be_free">KDE — Özgür olun!</string>
-  <string name="kde">KDE</string>
   <string name="konqi">Konqi</string>
-  <string name="rise_up">Kalk</string>
-  <string name="rise_down">İndir</string>
   <string name="click_here_to_type">Yazmak için buraya dokunun</string>
   <string name="clear_compose">Temiz</string>
   <string name="send_compose">Gönder</string>
@@ -463,7 +441,6 @@
   <string name="send_clipboard">Pano Gönder</string>
   <string name="tap_to_execute">Yürütmek için Dokun</string>
   <string name="plugin_stats">Eklenti İstatistikleri</string>
-  <string name="enable_udp_broadcast">UDP Aygıt Keşfini Etkinleştir</string>
   <string name="enable_bluetooth">Bluetooth’u Etkinleştir (Beta)</string>
   <string name="receive_notifications_permission_explanation">Başka aygıtlardan gelen bildirimleri alabilmek için bildirimlere izin verilmesi gereklidir</string>
   <string name="findmyphone_notifications_explanation">Uygulama arka plandayken telefonun çalabilmesi için bildirim izni gereklidir</string>

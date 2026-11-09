@@ -22,7 +22,6 @@
   <string name="clipboard_preference_summary_skip_sensitive">Nie synchronizuj samoczynnie haseł lub innych treści oznaczonych jako wrażliwe</string>
   <string name="pref_plugin_mousepad">Obsługa zdalna</string>
   <string name="pref_plugin_mousepad_desc_nontv">Używa telefonu lub tabletu jako gładzika i klawiatury do sterowania innym urządzeniem</string>
-  <string name="pref_plugin_mousepad_desc_tv">Używa telefonu lub tabletu jako pilota do TV</string>
   <string name="pref_plugin_presenter">Pilot do prezentacji</string>
   <string name="pref_plugin_presenter_desc">Przełącza strony przy użyciu telefonu</string>
   <string name="pref_plugin_remotekeyboard_ime">Odbieranie klawiatury (przez klawiaturę Androida)</string>
@@ -46,7 +45,6 @@
   <string name="pref_plugin_inputdevicesreceiver_desc">Współdzielenie myszy i klawiatury z urządzeniem zdalnym</string>
   <string name="device_list_empty">Brak urządzeń</string>
   <string name="ok">OK</string>
-  <string name="sad_ok">OK :(</string>
   <string name="cancel">Anuluj</string>
   <string name="open_settings">Otwórz ustawienia</string>
   <string name="open_accessibility_settings">Otwórz ustawienia dostępności</string>
@@ -131,7 +129,6 @@
   <string name="unknown_device">Nieznane urządzenie</string>
   <string name="unknown_sender">Nieznany nadawca</string>
   <string name="error_not_reachable">Urządzenie nieosiągalne</string>
-  <string name="error_already_paired">Urządzenie już sparowano</string>
   <string name="error_timed_out">Upłynął czas na odpowiedź</string>
   <string name="error_clocks_not_match">Zegary urządzenia nie są zsynchronizowane</string>
   <string name="error_canceled_by_user">Użytkownik zaniechał</string>
@@ -141,6 +138,10 @@
   <string name="remote_device_fingerprint">Odcisk palca SHA256 certyfikatu twojego zdalnego urządzenia to:</string>
   <string name="pair_requested">Poproszono o sparowanie</string>
   <string name="pair_succeeded">Parowanie udane</string>
+  <string name="pairing_verification_code_title">Kod weryfikacyjny</string>
+  <string name="pairing_compare_verification_code">Porównaj ten kod na obu urządzeniach przed zaakceptowaniem.</string>
+  <string name="pairing_waiting_for_device">Oczekiwanie, aż %1$s zaakceptuje prośbę.</string>
+  <string name="pairing_trusted_device">Sparowano z %1$s. To urządzenie jest teraz zaufane.</string>
   <string name="pairing_request_from">Prośba o sparowanie od \'%1s\'</string>
   <plurals name="incoming_file_title">
     <item quantity="one">Pobieranie %1$d pliku z %2$s</item>
@@ -193,7 +194,6 @@
   <string name="tap_to_open">Stuknij, aby otworzyć</string>
   <string name="received_file_text">Stuknij, aby otworzyć „%1s”</string>
   <string name="cannot_create_file">Nie można utworzyć pliku %s</string>
-  <string name="tap_to_answer">Stuknij, aby odpowiedzieć</string>
   <string name="left_click">Wyślij kliknięcie lewym</string>
   <string name="right_click">Wyślij kliknięcie prawym</string>
   <string name="middle_click">Wyślij kliknięcie środkowym</string>
@@ -242,7 +242,6 @@
   <string name="custom_device_list">Dodaj urządzenie po adresie IP</string>
   <string name="custom_device_deleted">Usunięto własne urządzenie</string>
   <string name="custom_device_list_help">Jeśli twoje urządzenie nie zostało wykryte samoczynnie, to możesz dodać je ręcznie po wpisaniu jego adresu IP lub nazwy gospodarza. Aby to zrobić, naciśnij na przycisk u dołu ekranu.</string>
-  <string name="custom_device_fab_hint">Dodaj urządzenie</string>
   <string name="undo">Cofnij</string>
   <string name="share_notification_preference">Hałaśliwe powiadomienia</string>
   <string name="share_notification_preference_summary">Zadrżyj i odegraj dźwięk przy odebraniu pliku</string>
@@ -277,8 +276,6 @@
   <string name="digitizer_preference_title_hide_draw_button">Ukryj przycisk rysowania</string>
   <string name="digitizer_preference_summary_hide_draw_button">Całkowicie ukrywa przycisk rysowania, uniemożliwiając rysowanie palcem. Włącz to, tylko gdy twoje urządzenie da się obsługiwać rysikiem.</string>
   <string name="digitizer_preference_title_draw_button_side">Strona przycisku \"Rysuj palcem\"</string>
-  <string name="digitizer_preference_title_enable_exit_fullscreen_gesture">Włącz gest wyjścia z trybu pełnego ekranu</string>
-  <string name="digitizer_preference_summary_enable_exit_fullscreen_gesture">Po włączeniu, stuknięcie i przytrzymanie palcem na obszarze rysowania zaprzestanie wyświetlania w trybie na całym ekranie.</string>
   <string-array name="digitizer_preference_entries_draw_button_side">
     <item>Na górze po lewej</item>
     <item>Na górze po prawej</item>
@@ -298,8 +295,6 @@
   <string name="no_file_browser">Nie wgrano żadnych przeglądarek plików.</string>
   <string name="pref_plugin_telepathy">Wysyłanie SMSów</string>
   <string name="pref_plugin_telepathy_desc">Wysyła wiadomości tekstowe tym urządzeniem z innego urządzenia</string>
-  <string name="pref_plugin_telepathy_mms">Wyślij MMSa</string>
-  <string name="pref_plugin_telepathy_mms_desc">Aby móc wysyłać MMSa z KDE Connect, musisz ustawić go jako domyślny program do SMSów</string>
   <string name="findmyphone_title">Poszukiwania tego telefonu</string>
   <string name="findmyphone_title_tablet">Poszukiwania tego tabletu</string>
   <string name="findmyphone_title_tv">Poszukiwania tego telewizora</string>
@@ -309,7 +304,6 @@
   <string name="close">Zamknij</string>
   <string name="plugins_need_permission">Niektóre wtyczki wymagają uprawnień do swojego działania (stuknij, aby dowiedzieć się więcej)</string>
   <string name="permission_explanation">Ta wtyczka wymaga uprawnień do działania</string>
-  <string name="all_permissions_granted">Przyznano wszystkie uprawnienia 🎉</string>
   <string name="optional_permission_explanation">Musisz przydzielić dodatkowe uprawnienia, aby włączyć wszystkie funkcje</string>
   <string name="plugins_need_optional_permission">Niektóre wtyczki mają ograniczone możliwości ze względu na ograniczone uprawnienia (stuknij, aby dowiedzieć się więcej)</string>
   <string name="share_optional_permission_explanation">Aby odbierać pliki musisz zezwolić na dostęp do pamięci</string>
@@ -321,11 +315,8 @@
   <string name="contacts_per_device_confirmation">Twoje kontakty telefoniczne zostaną skopiowane na to urządzenie, aby aplikacja do SMSów KDE Connect i inne mogły ich używać.</string>
   <string name="select_ringtone">Wybierz dzwonek</string>
   <string name="telephony_pref_blocked_title">Zablokowane numery</string>
-  <string name="mpris_coverart_description">Okładka dla bieżących multimediów</string>
-  <string name="settings_icon_description">Ikona ustawień</string>
   <string name="presenter_fullscreen">Pełny ekran</string>
   <string name="presenter_exit">Zakończ prezentację</string>
-  <string name="presenter_lock_tip">Możesz zablokować swoje urządzenie i używać przycisków głośności, aby przejść do kolejnej/poprzedniej strony</string>
   <string name="add_command">Dodaj polecenie</string>
   <string name="addcommand_explanation">Nie zarejestrowano żadnych poleceń</string>
   <string name="addcommand_explanation2">Nowe polecenie można dodać w ustawieniach systemowych KDE Connect</string>
@@ -360,7 +351,6 @@
   <string name="all">Wszystkie</string>
   <string name="devices">Urządzenia</string>
   <string name="settings_rename">Nazwa urządzenia</string>
-  <string name="settings_dark_mode">Ciemny wygląd</string>
   <string name="settings_export_logs">Wyeksportuj dziennik KDE Connect</string>
   <string name="settings_export_logs_text">Utwórz plik zawierający ślad wykonywania, który może pomóc w rozwiązywaniu błędów.</string>
   <string name="settings_more_settings_title">Więcej ustawień</string>
@@ -386,7 +376,6 @@
   <string name="location_permission_needed_title">Wymagana zgoda</string>
   <string name="bluetooth_permission_needed_desc">KDE Connect wymaga pozwolenia na łączenie do sąsiednich urządzeń, aby urządzenia sparowane przy pomocy Bluetooth były widoczne w KDE Connect.</string>
   <string name="location_permission_needed_desc">KDE Connect potrzebuje uprawnień do sprawdzania twojego położenia w tle, aby móc poznać sieć WiFi, do której jesteś podłączony także wtedy, gdy aplikacja działa w tle. Jest tak dlatego, że nazwy sieci WiFi wokół ciebie mogą zostać użyte do ustalenia twojego położenia, mimo że KDE Connect nie robi tego w ten sposób.</string>
-  <string name="clipboard_android_x_incompat">Android 10 odebrał dostęp do schowka wszystkim programom. Ta wtyczka pozostanie wyłączona.</string>
   <string name="mpris_open_url">Kontynuuj odtwarzanie tutaj</string>
   <string name="cant_open_url">Nie można otworzyć adresu URL, aby kontynuować odtwarzanie</string>
   <string name="bigscreen_home">Dom</string>
@@ -399,13 +388,8 @@
   <string name="bigscreen_back">Wstecz</string>
   <string name="bigscreen_mic">Mikrofon</string>
   <string name="pref_plugin_bigscreen">Pilot do TV</string>
-  <string name="pref_plugin_bigscreen_desc">Steruje Dużym Ekranem Plazmy</string>
   <string name="bigscreen_optional_permission_explanation">Aby zezwolić na używanie mikrofonu twojego telefonu, musisz udzielić do niego dostępu na telefonie</string>
   <string name="bigscreen_speech_extra_prompt">Mowa</string>
-  <string name="message_reply_label">ODPOWIEDZ</string>
-  <string name="mark_as_read_label">OZNACZ JAKO PRZECZYTANĄ</string>
-  <string name="user_display_name">Ty</string>
-  <string name="set_default_sms_app_title">Wyślij SMSa</string>
   <string name="set_group_message_as_mms_title">Wyślij MMSa do grupy</string>
   <string name="set_long_text_as_mms_title">Wyślij długi tekst jako MMS</string>
   <string name="convert_to_mms_after_title">Przekształć na MMS</string>
@@ -434,17 +418,11 @@
   <string name="website">Strona sieciowa</string>
   <string name="about">O programie</string>
   <string name="authors">Autorzy</string>
-  <string name="thanks_to">Podziękowania</string>
   <string name="easter_egg">Jajka wielkanocne</string>
-  <string name="email_contributor">Napisz do twórcy\n%s</string>
-  <string name="visit_contributors_homepage">Odwiedź stronę twórcy\n%s</string>
   <string name="version">Wersja %s</string>
   <string name="about_kde">Opis KDE</string>
   <string name="kde_be_free">KDE - Bądź wolny!</string>
-  <string name="kde">KDE</string>
   <string name="konqi">Konqi</string>
-  <string name="rise_up">Podnieś</string>
-  <string name="rise_down">Obniż</string>
   <string name="click_here_to_type">Stuknij tutaj, aby wpisać</string>
   <string name="clear_compose">Wyczyść</string>
   <string name="send_compose">Wyślij</string>
@@ -471,7 +449,6 @@
   <string name="send_clipboard">Wysyłanie schowka</string>
   <string name="tap_to_execute">Stuknij, aby wykonać</string>
   <string name="plugin_stats">Statystyki wtyczek</string>
-  <string name="enable_udp_broadcast">Włącz wykrywanie urządzeń UDP</string>
   <string name="enable_bluetooth">Włącz Bluetooth (beta)</string>
   <string name="receive_notifications_permission_explanation">Należy zezwolić na powiadomienia, aby móc je otrzymywać z innych urządzeń</string>
   <string name="findmyphone_notifications_explanation">Uprawnienia powiadomień są potrzebne, aby telefon mógł dzwonić, gdy aplikacja działa w tle</string>

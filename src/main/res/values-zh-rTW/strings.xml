@@ -22,7 +22,6 @@
   <string name="clipboard_preference_summary_skip_sensitive">不自動同步密碼或是其他標記為敏感的內容</string>
   <string name="pref_plugin_mousepad">遠端輸入</string>
   <string name="pref_plugin_mousepad_desc_nontv">使用手機或平板電腦作為觸控板和鍵盤</string>
-  <string name="pref_plugin_mousepad_desc_tv">使用手機或平板電腦作為電視遙控器</string>
   <string name="pref_plugin_presenter">簡報遙控</string>
   <string name="pref_plugin_presenter_desc">使用您的裝置來切換簡報中的投影片</string>
   <string name="pref_plugin_remotekeyboard_ime">鍵盤接收器（透過 Android 鍵盤）</string>
@@ -46,7 +45,6 @@
   <string name="pref_plugin_inputdevicesreceiver_desc">與遠端裝置分享滑鼠與鍵盤</string>
   <string name="device_list_empty">沒有裝置</string>
   <string name="ok">確認</string>
-  <string name="sad_ok">好吧 :(</string>
   <string name="cancel">取消</string>
   <string name="open_settings">開啟設定</string>
   <string name="open_accessibility_settings">開啟輔助使用設定</string>
@@ -131,7 +129,6 @@
   <string name="unknown_device">不明的裝置</string>
   <string name="unknown_sender">不明的傳送者</string>
   <string name="error_not_reachable">裝置無法存取</string>
-  <string name="error_already_paired">裝置已經配對</string>
   <string name="error_timed_out">逾時</string>
   <string name="error_clocks_not_match">裝置時鐘不同步</string>
   <string name="error_canceled_by_user">使用者中斷</string>
@@ -141,6 +138,10 @@
   <string name="remote_device_fingerprint">遠端裝置憑證的 SHA256 指紋是：</string>
   <string name="pair_requested">已請求配對</string>
   <string name="pair_succeeded">配對成功</string>
+  <string name="pairing_verification_code_title">驗證碼</string>
+  <string name="pairing_compare_verification_code">接受前，請在兩台裝置上核對此代碼。</string>
+  <string name="pairing_waiting_for_device">正在等待 %1$s 接受要求。</string>
+  <string name="pairing_trusted_device">已與 %1$s 配對。此裝置現在已受信任。</string>
   <string name="pairing_request_from">來自「%1s」的配對請求</string>
   <plurals name="incoming_file_title">
     <item quantity="other">正在從 %2$s 接收 %1$d 個檔案</item>
@@ -169,7 +170,6 @@
   <string name="tap_to_open">點擊以開啟</string>
   <string name="received_file_text">點擊以開啟「%1s」</string>
   <string name="cannot_create_file">無法建立 %s 檔案</string>
-  <string name="tap_to_answer">點擊即可回應</string>
   <string name="left_click">傳送左鍵點擊</string>
   <string name="right_click">傳送右鍵點擊</string>
   <string name="middle_click">傳送中鍵點擊</string>
@@ -218,7 +218,6 @@
   <string name="custom_device_list">透過 IP 新增裝置</string>
   <string name="custom_device_deleted">自訂裝置已刪除</string>
   <string name="custom_device_list_help">如果未自動偵測到您的裝置，您可以點擊下方按鈕來新增其 IP 位址或主機名稱</string>
-  <string name="custom_device_fab_hint">新增裝置</string>
   <string name="undo">復原</string>
   <string name="share_notification_preference">通知方式</string>
   <string name="share_notification_preference_summary">接收檔案時振動並播放聲音</string>
@@ -253,8 +252,6 @@
   <string name="digitizer_preference_title_hide_draw_button">隱藏繪圖按鈕</string>
   <string name="digitizer_preference_summary_hide_draw_button">完全隱藏繪圖按鈕以停用手指繪圖。適用於支援畫筆輸入的裝置。</string>
   <string name="digitizer_preference_title_draw_button_side">「使用手指繪圖」按鈕位址</string>
-  <string name="digitizer_preference_title_enable_exit_fullscreen_gesture">啟用全螢幕離開手勢</string>
-  <string name="digitizer_preference_summary_enable_exit_fullscreen_gesture">啟用此選項時，用滑鼠在繪圖版上輕點後按住來停用全螢幕模式。</string>
   <string-array name="digitizer_preference_entries_draw_button_side">
     <item>左上</item>
     <item>右上</item>
@@ -274,8 +271,6 @@
   <string name="no_file_browser">沒有安裝檔案瀏覽器。</string>
   <string name="pref_plugin_telepathy">傳送簡訊</string>
   <string name="pref_plugin_telepathy_desc">傳送文字訊息到您的電腦桌面</string>
-  <string name="pref_plugin_telepathy_mms">傳送 MMS</string>
-  <string name="pref_plugin_telepathy_mms_desc">要能夠從 KDE Connect 傳送 MMS 您必須先將其設為預設簡訊應用程式。</string>
   <string name="findmyphone_title">尋找我的手機</string>
   <string name="findmyphone_title_tablet">尋找我的平板</string>
   <string name="findmyphone_title_tv">尋找我的電視</string>
@@ -285,7 +280,6 @@
   <string name="close">關閉</string>
   <string name="plugins_need_permission">部份的外掛程式需要權限才能運作（點擊以取得更多資訊）</string>
   <string name="permission_explanation">這外掛程式需要權限以運作</string>
-  <string name="all_permissions_granted">已給予所有權限 🎉</string>
   <string name="optional_permission_explanation">您必須給予額外權限才能啟用所有功能</string>
   <string name="plugins_need_optional_permission">某些外掛程式由於缺乏權限而功能被停用（點擊以了解更多）：</string>
   <string name="share_optional_permission_explanation">要接收檔案您必須允許存取儲存裝置</string>
@@ -297,11 +291,8 @@
   <string name="contacts_per_device_confirmation">您的電話通訊錄將會被複製到這個裝置，讓它們能夠被 KDE Connect 的簡訊應用程式和其他應用程式使用。</string>
   <string name="select_ringtone">選擇一個鈴聲</string>
   <string name="telephony_pref_blocked_title">封鎖的號碼</string>
-  <string name="mpris_coverart_description">目前媒體的專輯封面</string>
-  <string name="settings_icon_description">設定圖示</string>
   <string name="presenter_fullscreen">全螢幕</string>
   <string name="presenter_exit">離開簡報模式</string>
-  <string name="presenter_lock_tip">您能鎖定裝置並使用音量鍵前往上 / 下一張投影片</string>
   <string name="add_command">增加一行命令</string>
   <string name="addcommand_explanation">沒有註冊的命令</string>
   <string name="addcommand_explanation2">您可以在 KDE Con​​nect 系統設定中新增命令</string>
@@ -336,7 +327,6 @@
   <string name="all">全部</string>
   <string name="devices">裝置</string>
   <string name="settings_rename">裝置名稱</string>
-  <string name="settings_dark_mode">暗色主題</string>
   <string name="settings_export_logs">匯出 KDE Connect 紀錄</string>
   <string name="settings_export_logs_text">產生包含執行資訊的檔案來幫助發現問題。</string>
   <string name="settings_more_settings_title">更多設定</string>
@@ -362,7 +352,6 @@
   <string name="location_permission_needed_title">需要權限</string>
   <string name="bluetooth_permission_needed_desc">KDE Con​​nect 需要連線到附近裝置的權限，以便在 KDE Con​​nect 中使用藍牙進行配對。</string>
   <string name="location_permission_needed_desc">KDE Connect 需要背景位置權限，才能在背景執行時也能知道您目前所連線的 WiFi 網路。這是因為您週遭的 WiFi 網路名稱可以被用來推斷您的位置，即使這不是 KDE Connect 在做的事情。</string>
-  <string name="clipboard_android_x_incompat">Android 10 已移除所有應用程式的剪貼簿存取權限。此外掛程式將停用。</string>
   <string name="mpris_open_url">繼續在此播放</string>
   <string name="cant_open_url">無法開啟 URL 以繼續播放</string>
   <string name="bigscreen_home">首頁</string>
@@ -375,13 +364,8 @@
   <string name="bigscreen_back">返回</string>
   <string name="bigscreen_mic">麥克風</string>
   <string name="pref_plugin_bigscreen">電視遙控器</string>
-  <string name="pref_plugin_bigscreen_desc">使用您的裝置作為 Plasma Bigscreen 的遙控器</string>
   <string name="bigscreen_optional_permission_explanation">為了與電腦共享手機麥克風端的音效輸入，需要您允許本軟體存取手機的音訊輸入權限</string>
   <string name="bigscreen_speech_extra_prompt">聲控功能</string>
-  <string name="message_reply_label">回覆</string>
-  <string name="mark_as_read_label">標示為已讀</string>
-  <string name="user_display_name">您</string>
-  <string name="set_default_sms_app_title">傳送 MMS</string>
   <string name="set_group_message_as_mms_title">傳送群組 MMS</string>
   <string name="set_long_text_as_mms_title">用 MMS 傳送較長簡訊</string>
   <string name="convert_to_mms_after_title">轉換為 MMS</string>
@@ -410,17 +394,11 @@
   <string name="website">網站</string>
   <string name="about">關於</string>
   <string name="authors">作者群</string>
-  <string name="thanks_to">感謝</string>
   <string name="easter_egg">Easter Egg</string>
-  <string name="email_contributor">傳送電子郵件給貢獻者\n%s</string>
-  <string name="visit_contributors_homepage">造訪貢獻者的首頁\n%s</string>
   <string name="version">版本 %s</string>
   <string name="about_kde">關於 KDE</string>
   <string name="kde_be_free">KDE ─ 擁抱自由！</string>
-  <string name="kde">KDE</string>
   <string name="konqi">Konqi</string>
-  <string name="rise_up">往上</string>
-  <string name="rise_down">往下</string>
   <string name="click_here_to_type">點擊這裡以打字</string>
   <string name="clear_compose">清除</string>
   <string name="send_compose">傳送</string>
@@ -447,7 +425,6 @@
   <string name="send_clipboard">傳送剪貼簿</string>
   <string name="tap_to_execute">點擊以執行</string>
   <string name="plugin_stats">外掛程式統計</string>
-  <string name="enable_udp_broadcast">啟用 UDP 裝置探索</string>
   <string name="enable_bluetooth">啟用藍牙 (beta)</string>
   <string name="receive_notifications_permission_explanation">需要被允許從其他裝置收到通知</string>
   <string name="findmyphone_notifications_explanation">需要通知權限，以便當應用程式在背景時手機可以響鈴</string>

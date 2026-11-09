@@ -34,7 +34,6 @@
   <string name="pref_plugin_sharereceiver_desc">Berbagi file dan URL antara peranti</string>
   <string name="device_list_empty">Tidak ada peranti</string>
   <string name="ok">Oke</string>
-  <string name="sad_ok">Oke :(</string>
   <string name="cancel">Batal</string>
   <string name="open_settings">Buka pengaturan</string>
   <string name="no_permissions">Anda perlu memberikan izin untuk mengakses notifikasi</string>
@@ -103,7 +102,6 @@
   <string name="pair_new_device">Sandingkan peranti baru</string>
   <string name="unknown_device">Perangkat tidak diketahui</string>
   <string name="error_not_reachable">Peranti tidak dapat dicapai</string>
-  <string name="error_already_paired">Peranti sudah disandingkan</string>
   <string name="error_timed_out">Waktu habis</string>
   <string name="error_canceled_by_user">Dibatalkan oleh pengguna</string>
   <string name="error_canceled_by_other_peer">Dibatalkan oleh kawan lain</string>
@@ -138,7 +136,6 @@
   <string name="tap_to_open">Ketuk untuk membuka</string>
   <string name="received_file_text">Ketuk untuk membuka \'%1s\'</string>
   <string name="cannot_create_file">Tidak dapat membuat file %s</string>
-  <string name="tap_to_answer">Ketuk untuk menjawab</string>
   <string name="right_click">Kirim Klik Kanan</string>
   <string name="middle_click">Kirim Klik Tengah</string>
   <string name="show_keyboard">Tampilkan Papan Tik</string>
@@ -176,7 +173,6 @@
   <string name="custom_devices_settings">Kustom daftar peranti</string>
   <string name="custom_device_list">Tambahkan peranti dengan IP</string>
   <string name="custom_device_deleted">Perangkat kustom yang dihapus</string>
-  <string name="custom_device_fab_hint">Tambahkan sebuah peranti</string>
   <string name="undo">Urungkan</string>
   <string name="share_notification_preference">Notifikasi bising</string>
   <string name="share_notification_preference_summary">Getar dan putarkan suara ketika menerima sebuah file</string>
@@ -221,8 +217,6 @@
   <string name="no_file_browser">Tidak adanya penelusur file yang terinstal.</string>
   <string name="pref_plugin_telepathy">Kirim SMS</string>
   <string name="pref_plugin_telepathy_desc">Kirim teks perpesanan dari desktop Anda</string>
-  <string name="pref_plugin_telepathy_mms">Kirim MMS</string>
-  <string name="pref_plugin_telepathy_mms_desc">Supaya dapat mengirim MMS dari KDE Connect, Anda perlu mengaturnya sebagai aplikasi SMS default.</string>
   <string name="findmyphone_title">Temukan ponsel saya</string>
   <string name="findmyphone_title_tablet">Temukan tablet saya</string>
   <string name="findmyphone_title_tv">Temukan TV saya</string>
@@ -240,11 +234,8 @@
   <string name="contacts_permission_explanation">Untuk membagikan buku kontak dengan desktop, Anda harus memberikan perizinan kontak</string>
   <string name="select_ringtone">Pilih sebuah ringtone</string>
   <string name="telephony_pref_blocked_title">Nomor yang diblokir</string>
-  <string name="mpris_coverart_description">Seni sampul media saat ini</string>
-  <string name="settings_icon_description">Ikon pengaturan</string>
   <string name="presenter_fullscreen">Layar penuh</string>
   <string name="presenter_exit">Keluarkan presentasi</string>
-  <string name="presenter_lock_tip">Anda dapat mengunci peranti Anda dan gunakanlah tombol volume untuk menuju ke salindia sebelumnya/selanjutnya</string>
   <string name="add_command">Tambahkan sebuah perintah</string>
   <string name="addcommand_explanation">Tidak ada perintah yang diregister</string>
   <string name="addcommand_explanation2">Anda dapat menambahkan perintah baru dalam System Settings KDE Connect</string>
@@ -270,7 +261,6 @@
   <string name="all">Semua</string>
   <string name="devices">Peranti</string>
   <string name="settings_rename">Nama perangkat</string>
-  <string name="settings_dark_mode">Tema gelap</string>
   <string name="settings_more_settings_title">Pengaturan selebihnya</string>
   <string name="settings_more_settings_text">Tiap pengaturan peranti bisa ditemukan di bawah \'Pengaturan plugin\' dari setiap sebuah peranti.</string>
   <string name="setting_persistent_notification">Tampilkan notifikasi kukuh</string>
@@ -291,7 +281,6 @@
   <string name="empty_trusted_networks_list_text">Anda belum memiliki jaringan terpercaya apa pun yang ditambahkan</string>
   <string name="allow_all_networks_text">Perbolehkan semua</string>
   <string name="location_permission_needed_title">Diperlukan perizinan</string>
-  <string name="clipboard_android_x_incompat">Android 10 telah menghapus akses papan klip ke semua aplikasi. Plugin ini akan dinonaktifkan.</string>
   <string name="mpris_open_url">Lanjut putar di sini</string>
   <string name="cant_open_url">Tidak bisa membuka URL untuk melanjutkan pemutaran</string>
   <string name="bigscreen_home">Rumah</string>
@@ -301,13 +290,8 @@
   <string name="bigscreen_right">Kanan</string>
   <string name="bigscreen_down">Turun</string>
   <string name="bigscreen_mic">Mic</string>
-  <string name="pref_plugin_bigscreen_desc">Gunakan peranti Anda sebagai remot untuk Plasma Bigscreen</string>
   <string name="bigscreen_optional_permission_explanation">Untuk membagikan masukan mikrofon dari ponsel Anda perlu memberikan akses terhadap masukan audio ponsel</string>
   <string name="bigscreen_speech_extra_prompt">Lisankan</string>
-  <string name="message_reply_label">BALAS</string>
-  <string name="mark_as_read_label">TANDAI SEBAGAI DIBACA</string>
-  <string name="user_display_name">Anda</string>
-  <string name="set_default_sms_app_title">Kirim MMS</string>
   <string name="set_group_message_as_mms_title">Kirim MMS grup</string>
   <string name="set_long_text_as_mms_title">Kirim pesan teks panjang sebagai MMS</string>
   <string name="convert_to_mms_after_title">Konversikan ke MMS</string>
@@ -336,17 +320,11 @@
   <string name="website">Situs</string>
   <string name="about">Tentang</string>
   <string name="authors">Penulis</string>
-  <string name="thanks_to">Terima Kasih Kepada</string>
   <string name="easter_egg">Easter Egg</string>
-  <string name="email_contributor">Email kontributor\n%s</string>
-  <string name="visit_contributors_homepage">Kunjungi laman kontributor\n%s</string>
   <string name="version">Versi %s</string>
   <string name="about_kde">Tentang KDE</string>
   <string name="kde_be_free">KDE - Bebas!</string>
-  <string name="kde">KDE</string>
   <string name="konqi">Konqi</string>
-  <string name="rise_up">Naik</string>
-  <string name="rise_down">Turun</string>
   <string name="click_here_to_type">Ketuk di sini untuk mengetik</string>
   <string name="clear_compose">Hapus</string>
   <string name="send_compose">Kirim</string>
@@ -368,4 +346,8 @@
   <string name="send_clipboard">Kirim papan klip</string>
   <string name="tap_to_execute">Ketuk untuk menjalankan</string>
   <string name="enable_bluetooth">Aktifkan Bluetooth (beta)</string>
+  <string name="pairing_verification_code_title">Kode verifikasi</string>
+  <string name="pairing_compare_verification_code">Bandingkan kode ini di kedua perangkat sebelum menerima.</string>
+  <string name="pairing_waiting_for_device">Menunggu %1$s menerima permintaan.</string>
+  <string name="pairing_trusted_device">Dipadukan dengan %1$s. Perangkat ini kini tepercaya.</string>
 </resources>

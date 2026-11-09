@@ -59,14 +59,12 @@
   <string name="pair_new_device">Par med ny enhed</string>
   <string name="unknown_device">Ukendt enhed</string>
   <string name="error_not_reachable">Enheden kan ikke nås</string>
-  <string name="error_already_paired">Enhed allerede parret</string>
   <string name="error_timed_out">Tidsudløb</string>
   <string name="error_canceled_by_user">Annulleret af brugeren</string>
   <string name="error_canceled_by_other_peer">Annulleret af modpart</string>
   <string name="encryption_info_title">Krypteringsinfo</string>
   <string name="pair_requested">Anmodet om parring</string>
   <string name="received_file_text">Tap for at åbne \"%1s\"</string>
-  <string name="tap_to_answer">Tap for at svare</string>
   <string name="right_click">Send højreklik</string>
   <string name="middle_click">Send midterklik</string>
   <string name="show_keyboard">Vis tastatur</string>
@@ -146,4 +144,8 @@
     <item/>
     <item>Dark</item>
   </string-array>
+  <string name="pairing_verification_code_title">Bekræftelseskode</string>
+  <string name="pairing_compare_verification_code">Sammenlign denne kode på begge enheder, før du accepterer.</string>
+  <string name="pairing_waiting_for_device">Venter på, at %1$s accepterer anmodningen.</string>
+  <string name="pairing_trusted_device">Parret med %1$s. Denne enhed er nu betroet.</string>
 </resources>

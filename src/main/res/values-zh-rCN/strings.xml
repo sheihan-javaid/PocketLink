@@ -22,7 +22,6 @@
   <string name="clipboard_preference_summary_skip_sensitive">不要自动同步密码或其他标记为敏感的内容</string>
   <string name="pref_plugin_mousepad">远程输入</string>
   <string name="pref_plugin_mousepad_desc_nontv">将您的手机或平板电脑用作触摸板和键盘</string>
-  <string name="pref_plugin_mousepad_desc_tv">将您的手机或平板电脑用作电视遥控器</string>
   <string name="pref_plugin_presenter">演示遥控</string>
   <string name="pref_plugin_presenter_desc">使用移动设备切换幻灯片</string>
   <string name="pref_plugin_remotekeyboard_ime">键盘接收器 (通过安卓键盘)</string>
@@ -46,7 +45,6 @@
   <string name="pref_plugin_inputdevicesreceiver_desc">与远程设备共享鼠标和键盘</string>
   <string name="device_list_empty">无设备</string>
   <string name="ok">确定</string>
-  <string name="sad_ok">确定 :(</string>
   <string name="cancel">取消</string>
   <string name="open_settings">打开设置</string>
   <string name="open_accessibility_settings">打开无障碍辅助设置</string>
@@ -132,7 +130,6 @@
   <string name="unknown_device">未知设备</string>
   <string name="unknown_sender">未知发送者</string>
   <string name="error_not_reachable">设备不可及</string>
-  <string name="error_already_paired">设备已配对</string>
   <string name="error_timed_out">超时</string>
   <string name="error_clocks_not_match">设备时钟不同步</string>
   <string name="error_canceled_by_user">已被用户取消</string>
@@ -142,6 +139,10 @@
   <string name="remote_device_fingerprint">远程设备证书的 SHA256 指纹是：</string>
   <string name="pair_requested">已请求配对</string>
   <string name="pair_succeeded">配对成功</string>
+  <string name="pairing_verification_code_title">验证码</string>
+  <string name="pairing_compare_verification_code">接受前，请在两台设备上核对该代码。</string>
+  <string name="pairing_waiting_for_device">正在等待 %1$s 接受请求。</string>
+  <string name="pairing_trusted_device">已与 %1$s 配对。此设备现已受信任。</string>
   <string name="pairing_request_from">来自“%1s”的配对请求</string>
   <plurals name="incoming_file_title">
     <item quantity="other">正在从 %2$s 接收 %1$d 个文件</item>
@@ -170,7 +171,6 @@
   <string name="tap_to_open">点击打开</string>
   <string name="received_file_text">点击打开“%1s”</string>
   <string name="cannot_create_file">无法创建文件 %s</string>
-  <string name="tap_to_answer">点击应答</string>
   <string name="left_click">发送左键点击</string>
   <string name="right_click">发送右键点击</string>
   <string name="middle_click">发送中键点击</string>
@@ -219,7 +219,6 @@
   <string name="custom_device_list">通过 IP 添加设备</string>
   <string name="custom_device_deleted">自定义设备已删除</string>
   <string name="custom_device_list_help">如果您的设备未被自动检测到，您可以点击下面的按钮添加其 IP 地址或主机名。</string>
-  <string name="custom_device_fab_hint">添加设备</string>
   <string name="undo">撤销</string>
   <string name="share_notification_preference">出声通知</string>
   <string name="share_notification_preference_summary">当收到文件时震动并播放声音</string>
@@ -255,8 +254,6 @@
   <string name="digitizer_preference_title_hide_draw_button">隐藏绘画按钮</string>
   <string name="digitizer_preference_summary_hide_draw_button">完全隐藏绘画按钮，不允许用手指绘画。请仅在您的设备支持压感笔输入时才启用此选项。</string>
   <string name="digitizer_preference_title_draw_button_side">“用手指绘画”按钮的旁边</string>
-  <string name="digitizer_preference_title_enable_exit_fullscreen_gesture">启用全屏退出手势</string>
-  <string name="digitizer_preference_summary_enable_exit_fullscreen_gesture">如果启用，用手指点击并按住数位板将退出全屏模式。</string>
   <string-array name="digitizer_preference_entries_draw_button_side">
     <item>左上</item>
     <item>右上</item>
@@ -276,8 +273,6 @@
   <string name="no_file_browser">未安装文件浏览器</string>
   <string name="pref_plugin_telepathy">发送短消息</string>
   <string name="pref_plugin_telepathy_desc">从桌面发送短消息</string>
-  <string name="pref_plugin_telepathy_mms">发送彩信</string>
-  <string name="pref_plugin_telepathy_mms_desc">您需要将 KDE Connect 设置为默认短信应用程序才能通过它发送彩信。</string>
   <string name="findmyphone_title">找到我的手机</string>
   <string name="findmyphone_title_tablet">找到我的平板电脑</string>
   <string name="findmyphone_title_tv">查找我的电视</string>
@@ -287,7 +282,6 @@
   <string name="close">关闭</string>
   <string name="plugins_need_permission">某些插件需要权限才能工作 (点击以获取更多信息)：</string>
   <string name="permission_explanation">这个插件需要权限才能工作</string>
-  <string name="all_permissions_granted">已授予所有权限 🎉</string>
   <string name="optional_permission_explanation">您需要授予额外权限以启用全部功能</string>
   <string name="plugins_need_optional_permission">因缺少权限，某些插件的一些功能已禁用（点击以查看更多信息）：</string>
   <string name="share_optional_permission_explanation">要接收文件，您必须允许存储访问权限</string>
@@ -300,11 +294,8 @@
   <string name="select_ringtone">选择铃声</string>
   <string name="telephony_pref_blocked_title">已屏蔽的号码</string>
   <string name="telephony_pref_blocked_dialog_desc">不要显示来自这些号码的电话。一行一个号码</string>
-  <string name="mpris_coverart_description">当前媒体的封面艺术</string>
-  <string name="settings_icon_description">设置图标</string>
   <string name="presenter_fullscreen">全屏</string>
   <string name="presenter_exit">退出演示</string>
-  <string name="presenter_lock_tip">您可以锁定设备，用音量键作为上一页/下一页按钮</string>
   <string name="add_command">添加命令</string>
   <string name="addcommand_explanation">没有已注册的命令</string>
   <string name="addcommand_explanation2">您可以在 KDE Connect 系统设置中添加新命令</string>
@@ -340,7 +331,6 @@
   <string name="all">全部</string>
   <string name="devices">设备</string>
   <string name="settings_rename">设备名</string>
-  <string name="settings_dark_mode">深色主题</string>
   <string name="settings_export_logs">导出 KDE Connect 日志</string>
   <string name="settings_export_logs_text">生成一个包含程序执行信息的文件，有助于排查故障。</string>
   <string name="settings_more_settings_title">更多设置</string>
@@ -366,7 +356,6 @@
   <string name="location_permission_needed_title">需要权限</string>
   <string name="bluetooth_permission_needed_desc">KDE Connect 需要权限才能使用蓝牙连接并配对附近的设备。</string>
   <string name="location_permission_needed_desc">KDE Connect 需要后台位置权限才能在后台检测您连接到的 WiFi 网络。后台位置权限是一个敏感权限，这是因为该权限可以让应用程序通过您周围的 WiFi 网络名称来查找您的位置。尽管 KDE Connect 申请了该权限，但它不会对您进行定位。</string>
-  <string name="clipboard_android_x_incompat">Android 10 已删除所有应用的剪贴板访问权限。此插件将被禁用。</string>
   <string name="mpris_open_url">继续在此播放</string>
   <string name="cant_open_url">无法大概 URL 继续播放</string>
   <string name="bigscreen_home">主页</string>
@@ -379,13 +368,8 @@
   <string name="bigscreen_back">返回</string>
   <string name="bigscreen_mic">麦克风</string>
   <string name="pref_plugin_bigscreen">电视遥控器</string>
-  <string name="pref_plugin_bigscreen_desc">使用您手机遥控 Plasma 电视</string>
   <string name="bigscreen_optional_permission_explanation">请开启手机的麦克风以共享语音输入。</string>
   <string name="bigscreen_speech_extra_prompt">语音</string>
-  <string name="message_reply_label">回复</string>
-  <string name="mark_as_read_label">标记为已读</string>
-  <string name="user_display_name">您</string>
-  <string name="set_default_sms_app_title">发送彩信</string>
   <string name="set_group_message_as_mms_title">群发彩信</string>
   <string name="set_long_text_as_mms_title">将长文本以彩信形式发送</string>
   <string name="convert_to_mms_after_title">转换为彩信</string>
@@ -414,17 +398,11 @@
   <string name="website">网站</string>
   <string name="about">关于</string>
   <string name="authors">作者</string>
-  <string name="thanks_to">致谢</string>
   <string name="easter_egg">彩蛋</string>
-  <string name="email_contributor">写信给贡献者\n%s</string>
-  <string name="visit_contributors_homepage">访问贡献者主页\n%s</string>
   <string name="version">版本 %s</string>
   <string name="about_kde">关于 KDE</string>
   <string name="kde_be_free">KDE - 为自由而生！</string>
-  <string name="kde">KDE</string>
   <string name="konqi">Konqi</string>
-  <string name="rise_up">上升</string>
-  <string name="rise_down">下降</string>
   <string name="click_here_to_type">轻触此处输入</string>
   <string name="clear_compose">清除</string>
   <string name="send_compose">发送</string>
@@ -451,7 +429,6 @@
   <string name="send_clipboard">发送剪贴板</string>
   <string name="tap_to_execute">轻触执行</string>
   <string name="plugin_stats">插件状态</string>
-  <string name="enable_udp_broadcast">启用 UPnP 设备发现</string>
   <string name="enable_bluetooth">启用蓝牙 (测试)</string>
   <string name="receive_notifications_permission_explanation">需要允许通知才能从其他设备接收通知</string>
   <string name="findmyphone_notifications_explanation">需要通知权限，这样当应用程序处于后台时手机可以发出铃声</string>

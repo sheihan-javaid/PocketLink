@@ -22,7 +22,6 @@
   <string name="clipboard_preference_summary_skip_sensitive">Älä tahdista salasanoja tai muuta arkaluontoiseksi merkittyä sisältöä automaattisesti</string>
   <string name="pref_plugin_mousepad">Kauko-ohjaus</string>
   <string name="pref_plugin_mousepad_desc_nontv">Käytä puhelinta tai tablettia kosketuslevynä ja näppäimistönä</string>
-  <string name="pref_plugin_mousepad_desc_tv">Käytä puhelinta tai tablettia TV-kaukosäätimenä</string>
   <string name="pref_plugin_presenter">Esityskaukosäädin</string>
   <string name="pref_plugin_presenter_desc">Käytä laitettasi esitysdiojen vaihtamiseen</string>
   <string name="pref_plugin_remotekeyboard_ime">Näppäimistövastaanotin (Android-näppäimistön kautta)</string>
@@ -46,7 +45,6 @@
   <string name="pref_plugin_inputdevicesreceiver_desc">Jaa hiiri ja näppäimistö etälaitteen kanssa</string>
   <string name="device_list_empty">Ei laitteita</string>
   <string name="ok">OK</string>
-  <string name="sad_ok">OK :(</string>
   <string name="cancel">Peru</string>
   <string name="open_settings">Avaa asetukset</string>
   <string name="open_accessibility_settings">Avaa esteettömyysasetukset</string>
@@ -131,7 +129,6 @@
   <string name="unknown_device">Tuntematon laite</string>
   <string name="unknown_sender">Tuntematon lähettäjä</string>
   <string name="error_not_reachable">Laite tavoittamattomissa</string>
-  <string name="error_already_paired">Laite on jo kytketty pariksi</string>
   <string name="error_timed_out">Aikakatkaisu</string>
   <string name="error_clocks_not_match">Laitteiden kelloja ei ole tahdistettu</string>
   <string name="error_canceled_by_user">Käyttäjä perui</string>
@@ -141,6 +138,10 @@
   <string name="remote_device_fingerprint">Etälaitteen varmenteen SHA256-sormenjälki on:</string>
   <string name="pair_requested">Paripyyntö</string>
   <string name="pair_succeeded">Paritus onnistui</string>
+  <string name="pairing_verification_code_title">Vahvistuskoodi</string>
+  <string name="pairing_compare_verification_code">Vertaa tätä koodia molemmissa laitteissa ennen hyväksymistä.</string>
+  <string name="pairing_waiting_for_device">Odotetaan, että %1$s hyväksyy pyynnön.</string>
+  <string name="pairing_trusted_device">Paritettu laitteeseen %1$s. Tämä laite on nyt luotettu.</string>
   <string name="pairing_request_from">Parituspyyntö laitteesta ”%1s”</string>
   <plurals name="incoming_file_title">
     <item quantity="one">Vastaanotetaan %1$d tiedosto lähettäjältä %2$s</item>
@@ -177,7 +178,6 @@
   <string name="tap_to_open">Avaa napauttamalla</string>
   <string name="received_file_text">Avaa ”%1s” napauttamalla</string>
   <string name="cannot_create_file">Ei voida luoda tiedostoa %s</string>
-  <string name="tap_to_answer">Vastaa napauttamalla</string>
   <string name="left_click">Lähetä vasemman painikkeen napsautus</string>
   <string name="right_click">Lähetä oikean painikkeen napsautus</string>
   <string name="middle_click">Lähetä keskipainikkeen napsautus</string>
@@ -226,7 +226,6 @@
   <string name="custom_device_list">Lisää laitteita IP:llä</string>
   <string name="custom_device_deleted">Poistettiin mukautettu laite</string>
   <string name="custom_device_list_help">Ellei laitetta tunnisteta automaattisesti, sen IP-osoitteen tai konenimen voi lisätä napsauttamalla alla olevaa painiketta</string>
-  <string name="custom_device_fab_hint">Lisää laite</string>
   <string name="undo">Kumoa</string>
   <string name="share_notification_preference">Äänekkäät ilmoitukset</string>
   <string name="share_notification_preference_summary">Värise ja soita ääni tiedoston saapuessa</string>
@@ -261,8 +260,6 @@
   <string name="digitizer_preference_title_hide_draw_button">Piilota piirtämiskuvake</string>
   <string name="digitizer_preference_summary_hide_draw_button">Piilottaa piirtämiskuvakkeen kokonaan, jolloin sormella ei voi piirtää. Käytä vain, jos laite tukee piirtokynäsyötettä.</string>
   <string name="digitizer_preference_title_draw_button_side">”Piirrä sormella” -painikkeen kylki</string>
-  <string name="digitizer_preference_title_enable_exit_fullscreen_gesture">Salli koko näytön poistumisele</string>
-  <string name="digitizer_preference_summary_enable_exit_fullscreen_gesture">Jos käytössä, piirtopöydän napautus ja pitäminen sormella poistaa koko näytön tilan käytöstä.</string>
   <string-array name="digitizer_preference_entries_draw_button_side">
     <item>Ylävasen</item>
     <item>Yläoikea</item>
@@ -282,8 +279,6 @@
   <string name="no_file_browser">Tiedostoselaimia ei asennettu.</string>
   <string name="pref_plugin_telepathy">Lähetä tekstiviesti</string>
   <string name="pref_plugin_telepathy_desc">Lähetä tekstiviestejä työpöydältäsi</string>
-  <string name="pref_plugin_telepathy_mms">Lähetä multimediaviesti</string>
-  <string name="pref_plugin_telepathy_mms_desc">Multimediaviestien lähettämiseksi KDE Connect on asetettava oletustekstiviestisovellukseksi.</string>
   <string name="findmyphone_title">Löydä puhelimeni</string>
   <string name="findmyphone_title_tablet">Löydä tablettini</string>
   <string name="findmyphone_title_tv">Etsi televeisioni</string>
@@ -293,7 +288,6 @@
   <string name="close">Sulje</string>
   <string name="plugins_need_permission">Jotkin liitännäiset vaativat toimiakseen lisäkäyttöoikeuksia (lisätietoa napsauttamalla):</string>
   <string name="permission_explanation">Liitännäinen tarvitsee toimiakseen lisäkäyttöoikeuksia</string>
-  <string name="all_permissions_granted">Kaikki oikeudet myönnetty 🎉</string>
   <string name="optional_permission_explanation">Kaikkien toimintojen käyttämiseksi sinun on annettava lisäkäyttöoikeuksia</string>
   <string name="plugins_need_optional_permission">Jotkin liitännäisten ominaisuudet eivät ole käytössä puuttuvien käyttöoikeuksien takia (lisätietoa napsauttamalla):</string>
   <string name="share_optional_permission_explanation">Talletustilan käyttö on sallittava tiedostojen vastaanottamiseksi</string>
@@ -305,11 +299,8 @@
   <string name="contacts_per_device_confirmation">Puhelimen yhteystiedot kopioidaan tälle laitteelle, jotta KDE Connectin tekstiviesti- ja muut sovellukset voivat käyttää niitä.</string>
   <string name="select_ringtone">Valitse soittoääni</string>
   <string name="telephony_pref_blocked_title">Estetyt numerot</string>
-  <string name="mpris_coverart_description">Nykyisen median kansikuva</string>
-  <string name="settings_icon_description">Asetuskuvake</string>
   <string name="presenter_fullscreen">Koko näyttö</string>
   <string name="presenter_exit">Poistu esitystilasta</string>
-  <string name="presenter_lock_tip">Laitteen voi lukita ja käyttää äänenvoimakkuuspainikkeita edellinen/seuraava dia -painikkeina</string>
   <string name="add_command">Lisää komento</string>
   <string name="addcommand_explanation">Komentoja ei ole rekisteröity</string>
   <string name="addcommand_explanation2">Voit lisätä uusia komentoja KDE Connectin järjestelmäasetuksissa</string>
@@ -344,7 +335,6 @@
   <string name="all">Kaikki</string>
   <string name="devices">Laitteet</string>
   <string name="settings_rename">Laitenimi</string>
-  <string name="settings_dark_mode">Tumma teema</string>
   <string name="settings_export_logs">Vie KDE Connectin lokit</string>
   <string name="settings_export_logs_text">Luo suoritustietotiedosto, josta voi olla apua ongelmien selvityksessä.</string>
   <string name="settings_more_settings_title">Lisää asetuksia</string>
@@ -370,7 +360,6 @@
   <string name="location_permission_needed_title">Käyttöoikeus vaaditaan</string>
   <string name="bluetooth_permission_needed_desc">KDE Connect vaatii oikeuden yhdistää lähellä oleviin laitteisiin, jotta voisi kytkeä niitä Bluetoothilla pariksi.</string>
   <string name="location_permission_needed_desc">KDE Connect tarvitsee taustasijaintioikeudet tietääkseen myös sovelluksen olleessa taustalla, mihin langattomaan verkkoon on kirjauduttu. Ympärilläsi olevien langattomien verkkojen nimiä voi käyttää sijaintisi selvittämiseen, vaikka KDE Connect ei tietoa siihen käytäkään.</string>
-  <string name="clipboard_android_x_incompat">Android 10 on poistanut kaikkien sovellusten leikepöytäkäytön. Liitännäinen poistetaan käytöstä.</string>
   <string name="mpris_open_url">Jatka toistoa tästä</string>
   <string name="cant_open_url">Verkko-osoitetta ei voi avata toiston jatkamiseksi</string>
   <string name="bigscreen_home">Koti</string>
@@ -383,13 +372,8 @@
   <string name="bigscreen_back">Takaisin</string>
   <string name="bigscreen_mic">Mikrofoni</string>
   <string name="pref_plugin_bigscreen">TV-kaukosäädin</string>
-  <string name="pref_plugin_bigscreen_desc">Käytä laitetta Plasma Bigscreen -kaukosäätimenä</string>
   <string name="bigscreen_optional_permission_explanation">Jakaaksesi puhelimen mikrofonisyötteen puhelimen äänisyötteeseen on annettava käyttöoikeus</string>
   <string name="bigscreen_speech_extra_prompt">Puhe</string>
-  <string name="message_reply_label">VASTAA</string>
-  <string name="mark_as_read_label">MERKITSE LUETUKSI</string>
-  <string name="user_display_name">Sinä</string>
-  <string name="set_default_sms_app_title">Lähetä multimediaviesti</string>
   <string name="set_group_message_as_mms_title">Lähetä ryhmämultimediaviesti</string>
   <string name="set_long_text_as_mms_title">Lähetä pitkä teksti multimediaviestinä</string>
   <string name="convert_to_mms_after_title">Muunna multimediaviestiksi</string>
@@ -418,17 +402,11 @@
   <string name="website">Sivusto</string>
   <string name="about">Tietoa</string>
   <string name="authors">Tekijät</string>
-  <string name="thanks_to">Kiitokset</string>
   <string name="easter_egg">Yllätysmuna</string>
-  <string name="email_contributor">Sähköpostiavustaja\n%s</string>
-  <string name="visit_contributors_homepage">Käy avustajan sivustolla\n%s</string>
   <string name="version">Versio %s</string>
   <string name="about_kde">Tietoa KDE:stä</string>
   <string name="kde_be_free">KDE – Ole vapaa!</string>
-  <string name="kde">KDE</string>
   <string name="konqi">Konqi</string>
-  <string name="rise_up">Nouse ylemmäs</string>
-  <string name="rise_down">Laskeudu alemmas</string>
   <string name="click_here_to_type">Napauta ja kirjoita</string>
   <string name="clear_compose">Tyhjennä</string>
   <string name="send_compose">Lähetä</string>
@@ -455,7 +433,6 @@
   <string name="send_clipboard">Lähetä leikepöytä</string>
   <string name="tap_to_execute">Suorita napauttamalla</string>
   <string name="plugin_stats">Liitännäisen tilastot</string>
-  <string name="enable_udp_broadcast">Käytä UDP-laitehakua</string>
   <string name="enable_bluetooth">Käytä Bluetoothia (beeta)</string>
   <string name="receive_notifications_permission_explanation">Ilmoitukset tulee sallia, jotta niitä voi vastaanottaa muilta laitteilta</string>
   <string name="findmyphone_notifications_explanation">Ilmoituskäyttöoikeus vaaditaan, jotta puhelin voisi soida sovelluksen toimiessa taustalla</string>

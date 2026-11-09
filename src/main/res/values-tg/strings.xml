@@ -54,4 +54,8 @@
     <item>Light</item>
     <item>Dark</item>
   </string-array>
+  <string name="pairing_verification_code_title">Рамзи тасдиқ</string>
+  <string name="pairing_compare_verification_code">Пеш аз қабул ин рамзро дар ҳар ду дастгоҳ муқоиса кунед.</string>
+  <string name="pairing_waiting_for_device">Интизори қабули дархост аз ҷониби %1$s.</string>
+  <string name="pairing_trusted_device">Бо %1$s пайваст шуд. Акнун ба ин дастгоҳ эътимод доранд.</string>
 </resources>

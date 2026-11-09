@@ -35,7 +35,6 @@
   <string name="pref_plugin_sharereceiver_desc">Share files and URLs between devices</string>
   <string name="device_list_empty">No devices</string>
   <string name="ok">OK</string>
-  <string name="sad_ok">OK :(</string>
   <string name="cancel">Cancel</string>
   <string name="open_settings">Open settings</string>
   <string name="no_permissions">You need to grant permission to access notifications</string>
@@ -108,7 +107,6 @@
   <string name="cancel_pairing">Cancel pairing</string>
   <string name="unknown_device">Unknown device</string>
   <string name="error_not_reachable">Device not reachable</string>
-  <string name="error_already_paired">Device already paired</string>
   <string name="error_timed_out">Timed out</string>
   <string name="error_canceled_by_user">Cancelled by user</string>
   <string name="error_canceled_by_other_peer">Cancelled by other peer</string>
@@ -153,7 +151,6 @@
   <string name="tap_to_open">Tap to open</string>
   <string name="received_file_text">Tap to open \'%1s\'</string>
   <string name="cannot_create_file">Cannot create file %s</string>
-  <string name="tap_to_answer">Tap to answer</string>
   <string name="left_click">Send Left Click</string>
   <string name="right_click">Send Right Click</string>
   <string name="middle_click">Send Middle Click</string>
@@ -193,7 +190,6 @@
   <string name="custom_devices_settings">Custom device list</string>
   <string name="custom_device_list">Add devices by IP</string>
   <string name="custom_device_deleted">Custom device deleted</string>
-  <string name="custom_device_fab_hint">Add a device</string>
   <string name="undo">Undo</string>
   <string name="share_notification_preference">Noisy notifications</string>
   <string name="share_notification_preference_summary">Vibrate and play a sound when receiving a file</string>
@@ -241,8 +237,6 @@
   <string name="no_file_browser">There are no file browsers installed.</string>
   <string name="pref_plugin_telepathy">Send SMS</string>
   <string name="pref_plugin_telepathy_desc">Send text messages from your desktop</string>
-  <string name="pref_plugin_telepathy_mms">Send MMS</string>
-  <string name="pref_plugin_telepathy_mms_desc">To be able to send MMS from KDE Connect you need to set it as the default SMS app.</string>
   <string name="findmyphone_title">Find my phone</string>
   <string name="findmyphone_title_tablet">Find my tablet</string>
   <string name="findmyphone_title_tv">Find my TV</string>
@@ -252,7 +246,6 @@
   <string name="close">Close</string>
   <string name="plugins_need_permission">Some Plugins need permissions to work (tap for more info):</string>
   <string name="permission_explanation">This plugin needs permissions to work</string>
-  <string name="all_permissions_granted">All permissions granted 🎉</string>
   <string name="optional_permission_explanation">You need to grant extra permissions to enable all functions</string>
   <string name="plugins_need_optional_permission">Some plugins have features disabled because of lack of permission (tap for more info):</string>
   <string name="share_optional_permission_explanation">To receive files you need to allow storage access</string>
@@ -264,11 +257,8 @@
   <string name="contacts_per_device_confirmation">Your phone contacts will be copied over to this device, so they can be used by the KDE Connect SMS app and other apps.</string>
   <string name="select_ringtone">Select a ringtone</string>
   <string name="telephony_pref_blocked_title">Blocked numbers</string>
-  <string name="mpris_coverart_description">Cover art of current media</string>
-  <string name="settings_icon_description">Settings icon</string>
   <string name="presenter_fullscreen">Full-screen</string>
   <string name="presenter_exit">Exit presentation</string>
-  <string name="presenter_lock_tip">You can lock your device and use the volume keys to go to the previous/next slide</string>
   <string name="add_command">Add a command</string>
   <string name="addcommand_explanation">There are no commands registered</string>
   <string name="addcommand_explanation2">You can add new commands in the KDE Connect System Settings</string>
@@ -302,7 +292,6 @@
   <string name="all">All</string>
   <string name="devices">Devices</string>
   <string name="settings_rename">Device name</string>
-  <string name="settings_dark_mode">Dark theme</string>
   <string name="settings_more_settings_title">More settings</string>
   <string name="settings_more_settings_text">Per-device settings can be found under \'Plugin settings\' from within a device.</string>
   <string name="setting_persistent_notification">Show persistent notification</string>
@@ -325,7 +314,6 @@
   <string name="location_permission_needed_title">Permission required</string>
   <string name="bluetooth_permission_needed_desc">KDE Connect needs permission to connect to nearby devices to make devices paired using Bluetooth available in KDE Connect.</string>
   <string name="location_permission_needed_desc">KDE Connect needs the background location permission to know the WiFi network you are connected to even when the app is in the background. This is because the name of the WiFi networks around you could be used to find your location, even when this is not what KDE Connect does.</string>
-  <string name="clipboard_android_x_incompat">Android 10 has removed clipboard access to all apps. This plugin will be disabled.</string>
   <string name="mpris_open_url">Continue playing here</string>
   <string name="cant_open_url">Cannot open URL to continue playing</string>
   <string name="bigscreen_home">Home</string>
@@ -335,13 +323,8 @@
   <string name="bigscreen_right">Right</string>
   <string name="bigscreen_down">Down</string>
   <string name="bigscreen_mic">Mic</string>
-  <string name="pref_plugin_bigscreen_desc">Use your device as a remote for Plasma Bigscreen</string>
   <string name="bigscreen_optional_permission_explanation">To share microphone input from your phone you need to give access to the phone\'s audio input</string>
   <string name="bigscreen_speech_extra_prompt">Speech</string>
-  <string name="message_reply_label">REPLY</string>
-  <string name="mark_as_read_label">MARK AS READ</string>
-  <string name="user_display_name">You</string>
-  <string name="set_default_sms_app_title">Send MMS</string>
   <string name="set_group_message_as_mms_title">Send group MMS</string>
   <string name="set_long_text_as_mms_title">Send long text as MMS</string>
   <string name="convert_to_mms_after_title">Convert to MMS</string>
@@ -370,17 +353,11 @@
   <string name="website">Website</string>
   <string name="about">About</string>
   <string name="authors">Authors</string>
-  <string name="thanks_to">Thanks To</string>
   <string name="easter_egg">Easter Egg</string>
-  <string name="email_contributor">Email contributor\n%s</string>
-  <string name="visit_contributors_homepage">Visit contributor\'s homepage\n%s</string>
   <string name="version">Version %s</string>
   <string name="about_kde">About KDE</string>
   <string name="kde_be_free">KDE - Be Free!</string>
-  <string name="kde">KDE</string>
   <string name="konqi">Konqi</string>
-  <string name="rise_up">Rise Up</string>
-  <string name="rise_down">Rise Down</string>
   <string name="click_here_to_type">Tap here to type</string>
   <string name="clear_compose">Clear</string>
   <string name="send_compose">Send</string>
@@ -407,7 +384,6 @@
   <string name="send_clipboard">Send clipboard</string>
   <string name="tap_to_execute">Tap to execute</string>
   <string name="plugin_stats">Plugin stats</string>
-  <string name="enable_udp_broadcast">Enable UDP device discovery</string>
   <string name="enable_bluetooth">Enable bluetooth (beta)</string>
   <string name="receive_notifications_permission_explanation">Notifications need to be allowed to receive them from other devices</string>
   <string name="findmyphone_notifications_explanation">The notifications permission is needed so the phone can ring when the app is in the background</string>
@@ -415,4 +391,8 @@
   <string name="mpris_keepwatching_settings_title">Continue playing</string>
   <string name="mpris_keepwatching_settings_summary">Show a silent notification to continue playing on this device after closing media</string>
   <string name="notification_channel_keepwatching">Continue playing</string>
+  <string name="pairing_verification_code_title">Verification code</string>
+  <string name="pairing_compare_verification_code">Compare this code on both devices before accepting.</string>
+  <string name="pairing_waiting_for_device">Waiting for %1$s to accept the request.</string>
+  <string name="pairing_trusted_device">Paired with %1$s. This device is now trusted.</string>
 </resources>

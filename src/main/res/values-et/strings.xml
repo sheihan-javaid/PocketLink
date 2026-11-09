@@ -31,7 +31,6 @@
   <string name="pref_plugin_sharereceiver_desc">Failide ja URL-ide jagamine seadmete vahel</string>
   <string name="device_list_empty">Seadmed puuduvad</string>
   <string name="ok">OK</string>
-  <string name="sad_ok">OK :(</string>
   <string name="cancel">Loobu</string>
   <string name="open_settings">Ava seadistused</string>
   <string name="no_permissions">Märguannete nägemiseks tuleb anda vastavad õigused</string>
@@ -71,7 +70,6 @@
   <string name="pair_new_device">Paarita uus seade</string>
   <string name="unknown_device">Tundmatu seade</string>
   <string name="error_not_reachable">Seade pole saadaval</string>
-  <string name="error_already_paired">Seade on juba paaritatud</string>
   <string name="error_timed_out">Ajaületus</string>
   <string name="error_canceled_by_user">Kasutaja katkestas</string>
   <string name="error_canceled_by_other_peer">Teine pool katkestas</string>
@@ -112,7 +110,6 @@
   <string name="tap_to_open">Koputa avamiseks</string>
   <string name="received_file_text">Koputa \"%1s\" avamiseks</string>
   <string name="cannot_create_file">Faili %s loomine nurjus</string>
-  <string name="tap_to_answer">Koputa vastamiseks</string>
   <string name="right_click">Saada paremklõps</string>
   <string name="middle_click">Saada keskklõps</string>
   <string name="show_keyboard">Näita klaviatuuri</string>
@@ -146,7 +143,6 @@
   <string name="custom_devices_settings">Kohandatud seadmete loend</string>
   <string name="custom_device_list">Lisa seadmeid IP järgi</string>
   <string name="custom_device_deleted">Kohandatud seade kustutati</string>
-  <string name="custom_device_fab_hint">Lisa seade</string>
   <string name="undo">Võta tagasi</string>
   <string name="share_notification_preference">Mürarikkad märguanded</string>
   <string name="share_notification_preference_summary">Vibreerimine ja heli esitamine faili saamisel</string>
@@ -190,8 +186,6 @@
   <string name="no_file_browser">Ühtegi failisirvijat pole paigaldatud</string>
   <string name="pref_plugin_telepathy">SMS-ide saatmine</string>
   <string name="pref_plugin_telepathy_desc">Tekstisõnumite saatmine oma töölaualt</string>
-  <string name="pref_plugin_telepathy_mms">MMS-ide saatmine</string>
-  <string name="pref_plugin_telepathy_mms_desc">KDE Connecti kaudu MMS-ide saatmiseks tuleb see määrata SMS-ide vaikerakenduseks.</string>
   <string name="findmyphone_title">Leia mu telefon</string>
   <string name="findmyphone_title_tablet">Leia mu tahvel</string>
   <string name="findmyphone_title_tv">Leia mu teler</string>
@@ -209,11 +203,8 @@
   <string name="contacts_permission_explanation">Oma kontaktide jagamiseks töölauaga tuleb anda õigused kontaktidele</string>
   <string name="select_ringtone">Vali helin</string>
   <string name="telephony_pref_blocked_title">Blokitud numbrid</string>
-  <string name="mpris_coverart_description">Aktiivse meedia kaanepilt</string>
-  <string name="settings_icon_description">Seadistuste ikoon</string>
   <string name="presenter_fullscreen">Täisekraan</string>
   <string name="presenter_exit">Välju esitlusest</string>
-  <string name="presenter_lock_tip">Seade on võimalik lukku panna ning liikuda eelmisele/järgmisele slaidile helitugevuse klahvidega</string>
   <string name="add_command">Lisa käsk</string>
   <string name="addcommand_explanation">Ühtegi käsku pole registreeritud</string>
   <string name="addcommand_explanation2">Uusi käske saab lisada Süsteemi seadistustes KDE Connecti all</string>
@@ -239,7 +230,6 @@
   <string name="all">Kõik</string>
   <string name="devices">Seadmed</string>
   <string name="settings_rename">Seadme nimi</string>
-  <string name="settings_dark_mode">Tume teema</string>
   <string name="settings_more_settings_title">Rohkem seadistusi</string>
   <string name="settings_more_settings_text">Seadmekaupa seadistusi leiab seadme \"Pluginate seadistuste \" all.</string>
   <string name="setting_persistent_notification">Püsimärguannete näitamine</string>
@@ -260,7 +250,6 @@
   <string name="empty_trusted_networks_list_text">Sa ei ole veel lisanud ühtegi usaldusväärset võrku</string>
   <string name="allow_all_networks_text">Luba kõik</string>
   <string name="location_permission_needed_title">Õigusenõue</string>
-  <string name="clipboard_android_x_incompat">Android 10 eemaldas lõikepuhvri kasutamise võimaluse kõigilt rakendustelt. See plugin enam ei tööta.</string>
   <string name="mpris_open_url">Jätka esitamist siin</string>
   <string name="cant_open_url">URL-i avamine esitamise jätkamiseks nurjus</string>
   <string name="bigscreen_home">Kodu</string>
@@ -270,11 +259,8 @@
   <string name="bigscreen_right">Paremal</string>
   <string name="bigscreen_down">All</string>
   <string name="bigscreen_mic">Mikrofon</string>
-  <string name="pref_plugin_bigscreen_desc">Oma seadme kasutamine Plasma suurekraani puldina</string>
   <string name="bigscreen_optional_permission_explanation">Oma telefoni mikrofonisisendi jagamiseks tuleb anda juurdepääs telefoni helisisendile</string>
   <string name="bigscreen_speech_extra_prompt">Kõne</string>
-  <string name="message_reply_label">VASTA</string>
-  <string name="mark_as_read_label">MÄRGI LOETUKS</string>
   <string-array name="convert_to_mms_after_entries">
     <item>After one message</item>
     <item>After two messages</item>
@@ -293,4 +279,8 @@
     <item>Hele</item>
     <item>Tume</item>
   </string-array>
+  <string name="pairing_verification_code_title">Kinnituskood</string>
+  <string name="pairing_compare_verification_code">Võrdle seda koodi mõlemas seadmes enne nõustumist.</string>
+  <string name="pairing_waiting_for_device">Oodatakse, kuni %1$s päringu vastu võtab.</string>
+  <string name="pairing_trusted_device">Seotud seadmega %1$s. See seade on nüüd usaldusväärne.</string>
 </resources>

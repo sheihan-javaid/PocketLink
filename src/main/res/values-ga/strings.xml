@@ -51,4 +51,8 @@
     <item>Light</item>
     <item>Dark</item>
   </string-array>
+  <string name="pairing_verification_code_title">Cód fíoraithe</string>
+  <string name="pairing_compare_verification_code">Cuir an cód seo i gcomparáid ar an dá ghléas sula nglacfaidh tú leis.</string>
+  <string name="pairing_waiting_for_device">Ag fanacht le %1$s glacadh leis an iarratas.</string>
+  <string name="pairing_trusted_device">Péireáilte le %1$s. Tá muinín as an ngléas seo anois.</string>
 </resources>

@@ -69,11 +69,6 @@ class KeyListenerView(
         // entering non-ascii characters, will not trigger KeyEvent events as documented
         // here: http://developer.android.com/reference/android/view/KeyEvent.html
 
-        // Log.e("KeyDown", "------------")
-        // Log.e("KeyDown", "keyChar:" + (int) event.getDisplayLabel())
-        // Log.e("KeyDown", "utfChar:" + (char)event.getUnicodeChar())
-        // Log.e("KeyDown", "intUtfChar:" + event.getUnicodeChar())
-
         val np = NetworkPacket(MousePadPlugin.PACKET_TYPE_MOUSEPAD_REQUEST)
 
         var modifier = false

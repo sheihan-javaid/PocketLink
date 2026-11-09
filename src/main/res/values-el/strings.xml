@@ -33,7 +33,6 @@
   <string name="pref_plugin_sharereceiver_desc">Διαμοιρασμός αρχείων και URL μεταξύ συσκευών</string>
   <string name="device_list_empty">Χωρίς συσκευές</string>
   <string name="ok">Εντάξει</string>
-  <string name="sad_ok">Εντάξει :(</string>
   <string name="cancel">Ακύρωση</string>
   <string name="open_settings">Ρυθμίσεις ανοίγματος</string>
   <string name="no_permissions">Απαιτείται παραχώρηση δικαιωμάτων για την πρόσβαση σε ειδοποιήσεις</string>
@@ -91,7 +90,6 @@
   <string name="pair_new_device">Σύζευξη νέας συσκευής</string>
   <string name="unknown_device">Άγνωστη συσκευή</string>
   <string name="error_not_reachable">Η συσκευή δεν είναι προσβάσιμη</string>
-  <string name="error_already_paired">Η συσκευή ήδη συζεύχθηκε</string>
   <string name="error_timed_out">Τέλος χρονικού ορίου</string>
   <string name="error_canceled_by_user">Ακυρώθηκε από τον χρήστη</string>
   <string name="error_canceled_by_other_peer">Ακυρώθηκε από άλλον χρήστη</string>
@@ -134,7 +132,6 @@
   <string name="tap_to_open">Χτυπήστε για άνοιγμα</string>
   <string name="received_file_text">Χτυπήστε για άνοιγμα \'%1s\'</string>
   <string name="cannot_create_file">Αδυναμία δημιουργίας αρχείου %s</string>
-  <string name="tap_to_answer">Χτυπήστε για να απαντήσετε</string>
   <string name="right_click">Αποστολή δεξιού κλικ</string>
   <string name="middle_click">Αποστολή μεσαίου κλικ</string>
   <string name="show_keyboard">Εμφάνιση πληκτρολογίου</string>
@@ -170,7 +167,6 @@
   <string name="custom_devices_settings">Προσαρμοσμένη λίστα συσκευών</string>
   <string name="custom_device_list">Προσθήκη συσκευών ανά IP</string>
   <string name="custom_device_deleted">Η προσαρμοσμένη λίστα διαγράφηκε</string>
-  <string name="custom_device_fab_hint">Προσθήκη συσκευής</string>
   <string name="undo">Αναίρεση</string>
   <string name="share_notification_preference">Θορυβώδεις ειδοποιήσεις</string>
   <string name="share_notification_preference_summary">Δόνηση και ηχητική ένδειξη με τη λήψη αρχείου</string>
@@ -214,8 +210,6 @@
   <string name="no_file_browser">Δεν υπάρχουν εγκατεστημένοι περιηγητές αρχείων.</string>
   <string name="pref_plugin_telepathy">Αποστολή SMS</string>
   <string name="pref_plugin_telepathy_desc">Αποστολή μηνυμάτων κειμένου από τον υπολογιστή σας</string>
-  <string name="pref_plugin_telepathy_mms">Αποστολή MMS</string>
-  <string name="pref_plugin_telepathy_mms_desc">Για να μπορείτε να στέλνετε MMS από το KDE Connect απαιτείται να το ρυθμίσετε ως την προκαθορισμένη εφαρμογή για SMS.</string>
   <string name="findmyphone_title">Αναζήτηση του κινητού μου</string>
   <string name="findmyphone_title_tablet">Αναζήτηση του πινακίου μου</string>
   <string name="findmyphone_title_tv">Αναζήτηση της τηλεόρασής μου</string>
@@ -233,11 +227,8 @@
   <string name="contacts_permission_explanation">Για να μοιραστείτε το βιβλίο επαφών σας με την επιφάνεια εργασίας, απαιτείται να δώσετε δικαιώματα στις επαφές</string>
   <string name="select_ringtone">Επιλογή ήχου κλήσης</string>
   <string name="telephony_pref_blocked_title">Αριθμοί σε φραγή</string>
-  <string name="mpris_coverart_description">Καλλιτεχνικό εξώφυλλο των πολυμέσων</string>
-  <string name="settings_icon_description">Εικονίδιο ρυθμίσεων</string>
   <string name="presenter_fullscreen">Πλήρης οθόνη</string>
   <string name="presenter_exit">Έξοδος από την παρουσίαση</string>
-  <string name="presenter_lock_tip">Μπορείτε να κλειδώσετε τη συσκευή σας και να χρησιμοποιήσετε τα πλήκτρα της έντασης για να μεταβείτε σε προηγούμενη/επόμενη διαφάνεια</string>
   <string name="add_command">Προσθήκη εντολής</string>
   <string name="addcommand_explanation">Δεν υπάρχουν καταχωρημένες εντολές</string>
   <string name="addcommand_explanation2">Μπορείτε να προσθέσετε νέες εντολές στις ρυθμίσεις συστήματος του KDE Connect</string>
@@ -263,7 +254,6 @@
   <string name="all">Όλα</string>
   <string name="devices">Συσκευές</string>
   <string name="settings_rename">Όνομα συσκευής</string>
-  <string name="settings_dark_mode">Σκούρο θέμα</string>
   <string name="settings_more_settings_title">Περισσότερες ρυθμίσεις</string>
   <string name="settings_more_settings_text">Ρυθμίσεις ανά συσκευή είναι στο \'Ρυθμίσεις προσθέτων\' μέσα από τη συσκευή.</string>
   <string name="setting_persistent_notification">Εμφάνιση μόνιμων ειδοποιήσεων</string>
@@ -284,7 +274,6 @@
   <string name="empty_trusted_networks_list_text">Δεν έχετε προσθέσει ακόμη κάποιο έμπιστο δίκτυο</string>
   <string name="allow_all_networks_text">Να επιτρέπονται όλα</string>
   <string name="location_permission_needed_title">Απαιτείται πρόσβαση</string>
-  <string name="clipboard_android_x_incompat">Το android έχει αφαιρέσει την πρόσβαση στο πρόχειρο από όλες τις εφαρμογές. Αυτό το πρόσθετο θα απενεργοποιηθεί.</string>
   <string name="mpris_open_url">Συνεχίστε να παίζετε εδώ</string>
   <string name="cant_open_url">Αδυναμία ανοίγματος URL για να συνεχίσετε να παίζετε</string>
   <string name="bigscreen_home">Αρχική</string>
@@ -294,13 +283,8 @@
   <string name="bigscreen_right">Δεξιά</string>
   <string name="bigscreen_down">Κάτω</string>
   <string name="bigscreen_mic">Μικ</string>
-  <string name="pref_plugin_bigscreen_desc">Χρησιμοποιήστε τη συσκευή σας ως απομακρυσμένη για το Plasma Bigscreen</string>
   <string name="bigscreen_optional_permission_explanation">Για να μοιραστείτε την είσοδο του μικροφώνου από το τηλέφωνό σας απαιτείται να παραχωρήσετε πρόσβαση στην είσοδο ήχου του τηλεφώνου</string>
   <string name="bigscreen_speech_extra_prompt">Ομιλία</string>
-  <string name="message_reply_label">ΑΠΑΝΤΗΣΗ</string>
-  <string name="mark_as_read_label">ΝΑ ΣΗΜΕΙΩΘΕΙ ΩΣ ΑΝΑΓΝΩΣΜΕΝΟ</string>
-  <string name="user_display_name">Εσείς</string>
-  <string name="set_default_sms_app_title">Αποστολή MMS</string>
   <string name="set_group_message_as_mms_title">Αποστολή MMS σε ομάδα</string>
   <string name="set_long_text_as_mms_title">Αποστολή μεγάλου κειμένου ως MMS</string>
   <string name="convert_to_mms_after_title">Μετατροπή σε MMS</string>
@@ -329,17 +313,11 @@
   <string name="website">Ιστότοπος</string>
   <string name="about">Σχετικά</string>
   <string name="authors">Συγγραφείς</string>
-  <string name="thanks_to">Ευχαριστίες</string>
   <string name="easter_egg">Πασχαλινό αυγό</string>
-  <string name="email_contributor">Email συμβαλλόμενου\n%s</string>
-  <string name="visit_contributors_homepage">Επισκεφθείτε τη σελίδα του συμβαλλόμενου\n%s</string>
   <string name="version">Έκδοση %s</string>
   <string name="about_kde">Σχετικά με το KDE</string>
   <string name="kde_be_free">KDE - Απελευθερωθείτε!</string>
-  <string name="kde">KDE</string>
   <string name="konqi">Konqi</string>
-  <string name="rise_up">Άνοδος</string>
-  <string name="rise_down">Κάθοδος</string>
   <string name="about_kde_about">&lt;h1&gt;Σχετικά&lt;/h1&gt; &lt;p&gt;Το KDE είναι μια παγκόσμια κοινότητα μηχανικών λογισμικού, καλλιτεχνών, συγγραφέων, μεταφραστών και δημιουργών οι οποίοι είναι αφοσιωμένοι στην ανάπτυξη του &lt;a href=https://www.gnu.org/philosophy/free-sw.html&gt;Ελεύθερου Λογισμικού&lt;/a&gt;. Το KDE παράγει το περιβάλλον γραφείου Plasma, εκατοντάδες εφαρμογές και πολλές βιβλιοθήκες που τις υποστηρίζουν.&lt;/p&gt; &lt;p&gt;Το KDE είναι ένα συνεργατικό εγχείρημα: καμιά οντότητα από μόνη της δεν ελέγχει την κατεύθυνση ή τα προϊόντα του. Αντίθετα, συνεργαζόμαστε για να επιτύχουμε τον κοινό στόχο της κατασκευής του πληρέστερου στον κόσμο Ελεύθερου Λογισμικού. Οποιοσδήποτε είναι ευπρόσδεκτος να &lt;a href=https://community.kde.org/Get_Involved&gt;γίνει μέλος και να συμβάλει&lt;/a&gt; στο KDE, και εσείς φυσικά.&lt;/p&gt; Επισκεφθείτε το &lt;a href=https://www.kde.org/&gt;https://www.kde.org/&lt;/a&gt; για περισσότερες πληροφορίες σχετικά με την κοινότητα του KDE και το λογισμικό που παράγουμε.</string>
   <string name="about_kde_report_bugs_or_wishes">&lt;h1&gt;Αναφέρετε σφάλματα ή επιθυμίες στο&lt;/h1&gt; &lt;p&gt;Το Λογισμικό μπορεί πάντα να βελτιώνεται και η ομάδα του KDE είναι έτοιμη γι\' αυτό. Ωστόσο, εσείς - ο χρήστης - πρέπει να μας ενημερώνετε αν κάτι δεν λειτουργεί όπως θα έπρεπε ή αν θα μπορούσε να γίνει καλύτερο.&lt;/p&gt; &lt;p&gt;Το KDE έχει ένα σύστημα ανίχνευσης σφαλμάτων. Επισκεφθείτε το &lt;a href=https://bugs.kde.org/&gt;https://bugs.kde.org/&lt;/a&gt; ή χρησιμοποιήστε το κουμπί «Αναφορά σφάλματος» από την οθόνη Σχετικά για να αναφέρετε σφάλματα.&lt;/p&gt; Αν έχετε κάποια πρόταση για βελτίωση, χρησιμοποιήστε το σύστημα ανίχνευσης σφαλμάτων για να εγγράψετε την επιθυμία σας. Βεβαιωθείτε ότι χρησιμοποιείτε τη «Λίστα επιθυμιών».</string>
   <string name="about_kde_support_kde">&lt;h1&gt;Υποστηρίξτε το KDE&lt;/h1&gt; &lt;p&gt;Το λογισμικό του KDE είναι και θα είναι πάντα διαθέσιμο δωρεάν, ωστόσο η δημιουργία του δεν είναι δωρεάν.&lt;/p&gt; &lt;p&gt;Για να υποστηρίξετε την ανάπτυξη η κοινότητα του KDE έχει δημιουργήσει στη Γερμανία το KDE e.V., έναν μη-κερδοσκοπικό οργανισμό. Το KDE e.V. εκπροσωπεί την κοινότητα του KDE σε νομικά και χρηματοοικονομικά θέματα. Δείτε το&lt;a href=https://ev.kde.org/&gt;https://ev.kde.org/&lt;/a&gt; για πληροφορίες για το KDE e.V.&lt;/p&gt; &lt;p&gt;Το KDE ωφελείται από πολλά είδη συνεισφορών, και οικονομικών. Χρησιμοποιούμε τους οικονομικούς πόρους για αμοιβές μελών και άλλων για έξοδα που παρουσιάζονται όταν συμμετέχουν. Άλλα κονδύλια χρησιμοποιούνται για τη νομική υποστήριξη και τη διοργάνωση συνεδρίων και συναντήσεων.&lt;/p&gt; &lt;p&gt;Θα θέλαμε να σας ενθαρρύνουμε να υποστηρίξετε τις προσπάθειές μας με μια δωρεά, με έναν από τους τρόπους που περιγράφονται στο &lt;a href=https://www.kde.org/community/donations/&gt;https://www.kde.org/community/donations/&lt;/a&gt;.&lt;/p&gt; Σας ευχαριστούμε πολύ εκ των προτέρων για την υποστήριξή σας.</string>
@@ -354,4 +332,8 @@
   <string name="holger_kaelberer_task">Πρόσθετο απομακρυσμένου πληκτρολπγίου και διορθώσεις σφαλμάτων</string>
   <string name="saikrishna_arcot_task">Υποστήριξη της χρήσης του πληκτρολογίου στο πρόσθετο απομακρυσμένης σύνδεσης, διορθώσεις σφαλμάτων και γενικές βελτιώσεις</string>
   <string name="everyone_else">Οποιοσδήποτε άλλος έχει συμβάλλει στο παρελθόν στο KDE Contact</string>
+  <string name="pairing_verification_code_title">Κωδικός επαλήθευσης</string>
+  <string name="pairing_compare_verification_code">Συγκρίνετε αυτόν τον κωδικό και στις δύο συσκευές πριν αποδεχτείτε.</string>
+  <string name="pairing_waiting_for_device">Αναμονή για να αποδεχτεί το αίτημα η συσκευή %1$s.</string>
+  <string name="pairing_trusted_device">Έγινε σύζευξη με το %1$s. Αυτή η συσκευή είναι πλέον αξιόπιστη.</string>
 </resources>

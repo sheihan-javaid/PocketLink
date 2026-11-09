@@ -22,7 +22,6 @@
   <string name="clipboard_preference_summary_skip_sensitive">Samodejno ne sinhroniziraj gesel ali druge vsebine označene kot občutljive</string>
   <string name="pref_plugin_mousepad">Oddaljeni vhod</string>
   <string name="pref_plugin_mousepad_desc_nontv">Uporabi telefon ali tablični računalnik kot sledilno ploščico in tipkovnico</string>
-  <string name="pref_plugin_mousepad_desc_tv">Uporabi telefon ali tablični računalnik kot oddaljeni TV</string>
   <string name="pref_plugin_presenter">Oddaljena predstavitev</string>
   <string name="pref_plugin_presenter_desc">S svojo napravo lahko menjate slike v predstavitvi</string>
   <string name="pref_plugin_remotekeyboard_ime">Tipkovnica sprejemnika (prek tipkovnice Android)</string>
@@ -46,7 +45,6 @@
   <string name="pref_plugin_inputdevicesreceiver_desc">Deli miško in tipkovnico z oddaljeno napravo</string>
   <string name="device_list_empty">Ni naprav</string>
   <string name="ok">V redu</string>
-  <string name="sad_ok">V redu :(</string>
   <string name="cancel">Prekliči</string>
   <string name="open_settings">Odpri nastavitve</string>
   <string name="open_accessibility_settings">Odpri nastavitve dostopnosti</string>
@@ -132,7 +130,6 @@
   <string name="unknown_device">Neznana naprava</string>
   <string name="unknown_sender">Neznani pošiljatelj</string>
   <string name="error_not_reachable">Naprava ni dosegljiva</string>
-  <string name="error_already_paired">Naprava je že uparjena</string>
   <string name="error_timed_out">Čas je potekel</string>
   <string name="error_clocks_not_match">Ure naprave niso sinhronizirane</string>
   <string name="error_canceled_by_user">Preklical uporabnik</string>
@@ -142,6 +139,10 @@
   <string name="remote_device_fingerprint">Prstni odtis SHA256 certifikata oddaljene naprave je:</string>
   <string name="pair_requested">Zahtevan je par</string>
   <string name="pair_succeeded">Uparjanje je uspelo</string>
+  <string name="pairing_verification_code_title">Koda za preverjanje</string>
+  <string name="pairing_compare_verification_code">Pred sprejemom primerjajte kodo na obeh napravah.</string>
+  <string name="pairing_waiting_for_device">Čakanje, da %1$s sprejme zahtevo.</string>
+  <string name="pairing_trusted_device">Seznanjeno z %1$s. Ta naprava je zdaj zaupanja vredna.</string>
   <string name="pairing_request_from">Zahtevek za uparjanje od \'%1s\'</string>
   <plurals name="incoming_file_title">
     <item quantity="one">Prejemanje %1$d datoteke od %2$s</item>
@@ -194,7 +195,6 @@
   <string name="tap_to_open">Tapkaj, da odpreš</string>
   <string name="received_file_text">Tapkaj, da odpreš \'%1s\'</string>
   <string name="cannot_create_file">Ni mogoče ustvariti datoteke %s</string>
-  <string name="tap_to_answer">Tapkaj za odgovor</string>
   <string name="left_click">Pošlji levi klik</string>
   <string name="right_click">Pošlji desni klik</string>
   <string name="middle_click">Pošlji sredinski klik</string>
@@ -243,7 +243,6 @@
   <string name="custom_device_list">Dodaj naprave po IP</string>
   <string name="custom_device_deleted">Zbrisana naprava po meri</string>
   <string name="custom_device_list_help">Če vaša naprava ni samodejno zaznana, lahko dodate njen IP naslov ali ime gostitelja s klikom na gumb spodaj</string>
-  <string name="custom_device_fab_hint">Dodaj napravo</string>
   <string name="undo">Razveljavi</string>
   <string name="share_notification_preference">Hrupna obvestila</string>
   <string name="share_notification_preference_summary">Vibriraj in predvajaj zvok, ko sprejemaš datoteko</string>
@@ -279,8 +278,6 @@
   <string name="digitizer_preference_title_hide_draw_button">Skrij gumb za risanje</string>
   <string name="digitizer_preference_summary_hide_draw_button">Popolnoma skrije gumb za risanje, zaradi česar je risanje s prsti nemogoče. To omogočite le, če vaša naprava podpira vnos s pisalom.</string>
   <string name="digitizer_preference_title_draw_button_side">Stran gumba »Risanje s prstom«</string>
-  <string name="digitizer_preference_title_enable_exit_fullscreen_gesture">Omogoči gesto za izhod iz celozaslonskega načina</string>
-  <string name="digitizer_preference_summary_enable_exit_fullscreen_gesture">Če je omogočeno, boste s tapkanjem in držanjem risalne površine s prstom onemogočili celozaslonski način.</string>
   <string-array name="digitizer_preference_entries_draw_button_side">
     <item>Zgoraj levo</item>
     <item>Zgoraj desno</item>
@@ -300,8 +297,6 @@
   <string name="no_file_browser">Ni nameščenega nobenega brskalnika datotek.</string>
   <string name="pref_plugin_telepathy">Pošlji SMS</string>
   <string name="pref_plugin_telepathy_desc">Pošlji besedilna sporočila z namizja</string>
-  <string name="pref_plugin_telepathy_mms">Pošlji MMS</string>
-  <string name="pref_plugin_telepathy_mms_desc">Če želite pošiljati MMS iz KDE Connect, ga morate nastaviti kot privzeto aplikacijo za SMS.</string>
   <string name="findmyphone_title">Poišči moj telefon</string>
   <string name="findmyphone_title_tablet">Poišči mojo tablico</string>
   <string name="findmyphone_title_tv">Poišči moj TV</string>
@@ -311,7 +306,6 @@
   <string name="close">Zapri</string>
   <string name="plugins_need_permission">Nekateri vtičniki potrebujejo dovoljenja za delovanje (tapnite za več informacij):</string>
   <string name="permission_explanation">Ti vtičniki potrebujejo dovoljenja za delovanje</string>
-  <string name="all_permissions_granted">Podeljene vse pravice 🎉</string>
   <string name="optional_permission_explanation">Če želite omogočiti vse funkcije, morate podeliti dodatna dovoljenja</string>
   <string name="plugins_need_optional_permission">Nekateri vtičniki imajo funkcije onemogočene zaradi pomanjkanja dovoljenj (tapnite za več informacij):</string>
   <string name="share_optional_permission_explanation">Če želite prejemati datoteke, morate dovoliti dostop do hrambe</string>
@@ -324,15 +318,12 @@
   <string name="select_ringtone">Izberite melodijo zvonjenja</string>
   <string name="telephony_pref_blocked_title">Blokirane številke</string>
   <string name="telephony_pref_blocked_dialog_desc">Ne prikazuj klicev s teh številk. Navedite po eno številko na vrstico</string>
-  <string name="mpris_coverart_description">Naslovnica trenutnega medija</string>
-  <string name="settings_icon_description">Ikona nastavitev</string>
   <string name="presenter_fullscreen">Polni zaslon</string>
   <string name="presenter_exit">Izhod iz predstavitve</string>
   <string name="presenter_change_zoom">Spremeni povečavo</string>
   <string name="presenter_zoom">Povečava</string>
   <string name="presenter_zoom_in">Povečaj</string>
   <string name="presenter_zoom_out">Pomanjšaj</string>
-  <string name="presenter_lock_tip">Napravo lahko zaklenete in s tipkami za glasnost prehajate na prejšnjo/naslednjo sliko</string>
   <string name="add_command">Dodaj ukaz</string>
   <string name="addcommand_explanation">Nobenih ukazov ni registriranih</string>
   <string name="addcommand_explanation2">Nove ukaze lahko dodate v sistemskih nastavitvah KDE Connect</string>
@@ -368,7 +359,6 @@
   <string name="all">Vse</string>
   <string name="devices">Naprave</string>
   <string name="settings_rename">Ime naprave</string>
-  <string name="settings_dark_mode">Temna tema</string>
   <string name="settings_export_logs">Izvozi dnevnike KDE Connect</string>
   <string name="settings_export_logs_text">Ustvari datoteko z informacijami o izvajanju, ki lahko pomagajo pri odpravljanju težav.</string>
   <string name="settings_more_settings_title">Več nastavitev</string>
@@ -394,7 +384,6 @@
   <string name="location_permission_needed_title">Zahtevano dovoljenje</string>
   <string name="bluetooth_permission_needed_desc">KDE Connect potrebuje dovoljenje za povezavo z bližnjimi napravami, da bodo naprave, seznanjene z Bluetoothom, na voljo v KDE Connect.</string>
   <string name="location_permission_needed_desc">"KDE Connect potrebuje dovoljenje omrežja, da pozna WiFi omrežje, s katerim ste povezani, tudi če je aplikacija v ozadju. To je zato, ker se ime omrežja wifi  lahko uporabi za iskanje svoje lokacije, četudi to ne počne KDE Connect."</string>
-  <string name="clipboard_android_x_incompat">Android 10 je odstranil dostop do odložišča za vse aplikacije. Ta vtičnik bo onemogočen.</string>
   <string name="mpris_open_url">Nadaljuj s predvajanjem tukaj</string>
   <string name="cant_open_url">Ne morem odpreti spletnega naslova za nadaljevanje predvajanja</string>
   <string name="bigscreen_home">Domov</string>
@@ -407,13 +396,8 @@
   <string name="bigscreen_back">Nazaj</string>
   <string name="bigscreen_mic">Mikrofon</string>
   <string name="pref_plugin_bigscreen">TV daljinec</string>
-  <string name="pref_plugin_bigscreen_desc">Uporabite svojo napravo kot daljinec za Plasmin veliki zaslon</string>
   <string name="bigscreen_optional_permission_explanation">Če želite deliti vhod mikrofona iz telefona, morate imeti dostop do avdio vhoda telefona</string>
   <string name="bigscreen_speech_extra_prompt">Govor</string>
-  <string name="message_reply_label">ODGOVORI</string>
-  <string name="mark_as_read_label">OZNAČI KOT PREBRANO</string>
-  <string name="user_display_name">Vi</string>
-  <string name="set_default_sms_app_title">Pošlji MMS</string>
   <string name="set_group_message_as_mms_title">Pošlji skupinski SMS</string>
   <string name="set_long_text_as_mms_title">Pošlji dolgo besedilo kot MMS</string>
   <string name="convert_to_mms_after_title">Pretvori v MMS</string>
@@ -442,17 +426,11 @@
   <string name="website">Spletišče</string>
   <string name="about">O programu</string>
   <string name="authors">Avtorji</string>
-  <string name="thanks_to">Zahvale tudi</string>
   <string name="easter_egg">Velikonočno jajce</string>
-  <string name="email_contributor">E-pošta sodelavca\n%s</string>
-  <string name="visit_contributors_homepage">Obiščite spletno stran sodelavca\n%s</string>
   <string name="version">Različica %s</string>
   <string name="about_kde">O KDE</string>
   <string name="kde_be_free">KDE - Bodite svobodni!</string>
-  <string name="kde">KDE</string>
   <string name="konqi">Konqi</string>
-  <string name="rise_up">Dvigni</string>
-  <string name="rise_down">Spusti</string>
   <string name="click_here_to_type">Tapkajte, tukaj za tipkanje</string>
   <string name="clear_compose">Očisti</string>
   <string name="send_compose">Pošlji</string>
@@ -479,7 +457,6 @@
   <string name="send_clipboard">Pošlji odložišče</string>
   <string name="tap_to_execute">Tapkajte za izvedbo</string>
   <string name="plugin_stats">Stanje vtičnikov</string>
-  <string name="enable_udp_broadcast">Omogoči odkrivanje naprav UDP</string>
   <string name="enable_bluetooth">Omogoči bluetooth (beta)</string>
   <string name="receive_notifications_permission_explanation">Morate imeti dovoljenje za obvestila, če jih želite sprejemati iz drugih naprav</string>
   <string name="findmyphone_notifications_explanation">Potrebno je dovoljenje za obvestila, da lahko telefon zazvoni, ko je aplikacija v ozadju</string>

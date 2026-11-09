@@ -22,7 +22,6 @@
   <string name="clipboard_preference_summary_skip_sensitive">Synkronisera inte automatiskt lösenord eller annat innehåll markerat som känsligt</string>
   <string name="pref_plugin_mousepad">Extern inmatning</string>
   <string name="pref_plugin_mousepad_desc_nontv">Använd telefonen eller surfplattan som mus och tangentbord</string>
-  <string name="pref_plugin_mousepad_desc_tv">Använd telefonen eller surfplattan som en tv-fjärrkontroll</string>
   <string name="pref_plugin_presenter">Fjärrkontroll för presentation</string>
   <string name="pref_plugin_presenter_desc">Använd apparaten för att byta bilder i en presentation</string>
   <string name="pref_plugin_remotekeyboard_ime">Tangentbordsmottagare (via Android-tangentbord)</string>
@@ -46,7 +45,6 @@
   <string name="pref_plugin_inputdevicesreceiver_desc">Dela mus och tangentbord med den andra apparaten</string>
   <string name="device_list_empty">Inga apparater</string>
   <string name="ok">Ok</string>
-  <string name="sad_ok">Ok</string>
   <string name="cancel">Avbryt</string>
   <string name="open_settings">Öppna inställningarna</string>
   <string name="open_accessibility_settings">Öppna åtkomstinställningarna</string>
@@ -131,7 +129,6 @@
   <string name="unknown_device">Okänd apparat</string>
   <string name="unknown_sender">Okänd avsändare</string>
   <string name="error_not_reachable">Apparaten kan inte nås</string>
-  <string name="error_already_paired">Apparat redan parkopplad</string>
   <string name="error_timed_out">Tidsgräns överskriden</string>
   <string name="error_clocks_not_match">Apparaternas klockor är inte synkroniserade</string>
   <string name="error_canceled_by_user">Avbruten av användaren</string>
@@ -141,6 +138,10 @@
   <string name="remote_device_fingerprint">SHA256-fingeravtryck för den andra apparatens certifikat är:</string>
   <string name="pair_requested">Parkoppling begärd</string>
   <string name="pair_succeeded">Parkoppling lyckades</string>
+  <string name="pairing_verification_code_title">Verifieringskod</string>
+  <string name="pairing_compare_verification_code">Jämför den här koden på båda enheterna innan du accepterar.</string>
+  <string name="pairing_waiting_for_device">Väntar på att %1$s ska acceptera begäran.</string>
+  <string name="pairing_trusted_device">Parkopplad med %1$s. Den här enheten är nu betrodd.</string>
   <string name="pairing_request_from">Parkopplingsförfrågan från \'%1s\'</string>
   <plurals name="incoming_file_title">
     <item quantity="one">Tar emot %1$d fil från %2$s</item>
@@ -177,7 +178,6 @@
   <string name="tap_to_open">Rör för att öppna</string>
   <string name="received_file_text">Rör för att öppna \'%1s\'</string>
   <string name="cannot_create_file">Kan inte skapa filen %s</string>
-  <string name="tap_to_answer">Rör för att svara</string>
   <string name="left_click">Skicka vänsterklick</string>
   <string name="right_click">Skicka högerklick</string>
   <string name="middle_click">Skicka mittenklick</string>
@@ -226,7 +226,6 @@
   <string name="custom_device_list">Lägg till apparater enligt IP-adress</string>
   <string name="custom_device_deleted">Egen apparat borttagen</string>
   <string name="custom_device_list_help">Om apparaten inte detekteras automatiskt kan dess IP-adress eller värddatornamn läggas till genom att klicka på knappen nedan.</string>
-  <string name="custom_device_fab_hint">Lägg till en apparat</string>
   <string name="undo">Ångra</string>
   <string name="share_notification_preference">Ljudliga underrättelser</string>
   <string name="share_notification_preference_summary">Vibrera och spela ett ljud när en fil tas emot</string>
@@ -261,8 +260,6 @@
   <string name="digitizer_preference_title_hide_draw_button">Dölj ritknappen</string>
   <string name="digitizer_preference_summary_hide_draw_button">Döljer ritknappen helt, vilket gör det omöjligt att rita med fingret. Aktivera det bara om apparaten stöder penninmatning.</string>
   <string name="digitizer_preference_title_draw_button_side">Sida på knappen \"Rita med ett finger\"</string>
-  <string name="digitizer_preference_title_enable_exit_fullscreen_gesture">Aktivera avslutningsgest för fullskärm</string>
-  <string name="digitizer_preference_summary_enable_exit_fullscreen_gesture">Om aktiverat inaktiveras fullskärmsläge vid tryck och håll nere på ritplattan med fingret.</string>
   <string-array name="digitizer_preference_entries_draw_button_side">
     <item>Överst till vänster</item>
     <item>Överst till höger</item>
@@ -282,8 +279,6 @@
   <string name="no_file_browser">Det finns inga filbläddrare installerade.</string>
   <string name="pref_plugin_telepathy">Skicka SMS</string>
   <string name="pref_plugin_telepathy_desc">Skicka textmeddelanden från skrivbordet</string>
-  <string name="pref_plugin_telepathy_mms">Skicka MMS</string>
-  <string name="pref_plugin_telepathy_mms_desc">För att kunna skicka MMS från KDE-anslut måste det anges som standardprogram för SMS.</string>
   <string name="findmyphone_title">Hitta min telefon</string>
   <string name="findmyphone_title_tablet">Hitta min surfplatta</string>
   <string name="findmyphone_title_tv">Hitta min tv</string>
@@ -293,7 +288,6 @@
   <string name="close">Stäng</string>
   <string name="plugins_need_permission">Vissa insticksprogram kräver rättigheter för att fungera (rör för mer information):</string>
   <string name="permission_explanation">Insticksprogrammet behöver rättigheter för att fungera</string>
-  <string name="all_permissions_granted">Alla rättigheter beviljade 🎉</string>
   <string name="optional_permission_explanation">Du måste ge extra rättigheter för att aktivera alla funktioner</string>
   <string name="plugins_need_optional_permission">Vissa insticksprogram har inaktiverade funktioner på grund av att rättigheter saknas (rör för mer information):</string>
   <string name="share_optional_permission_explanation">För att ta emot filer måste du tillåta lagringsåtkomst</string>
@@ -305,11 +299,8 @@
   <string name="contacts_per_device_confirmation">Dina telefonkontakter kopieras över till den här apparaten, så att de kan användas av SMS-programmet i KDE-anslut och andra program.</string>
   <string name="select_ringtone">Välj en ringsignal</string>
   <string name="telephony_pref_blocked_title">Blockerade nummer</string>
-  <string name="mpris_coverart_description">Omslag för aktuell media</string>
-  <string name="settings_icon_description">Inställningsikon</string>
   <string name="presenter_fullscreen">Fullskärm</string>
   <string name="presenter_exit">Avsluta presentation</string>
-  <string name="presenter_lock_tip">Apparaten kan låsas och volymtangenterna användas för att gå till föregående eller nästa bild</string>
   <string name="add_command">Lägg till ett kommando</string>
   <string name="addcommand_explanation">Det finns inga kommandon registrerade</string>
   <string name="addcommand_explanation2">Du kan lägga till nya kommandon i KDE-ansluts systeminställningar</string>
@@ -344,7 +335,6 @@
   <string name="all">Alla</string>
   <string name="devices">Apparater</string>
   <string name="settings_rename">Apparatnamn</string>
-  <string name="settings_dark_mode">Mörkt tema</string>
   <string name="settings_export_logs">Exportera loggar från KDE anslut</string>
   <string name="settings_export_logs_text">Generera en fil med körinformation som kan hjälpa till att felsöka problem.</string>
   <string name="settings_more_settings_title">Fler inställningar</string>
@@ -370,7 +360,6 @@
   <string name="location_permission_needed_title">Rättighet krävs</string>
   <string name="bluetooth_permission_needed_desc">KDE-anslut behöver behörighet för att ansluta till närliggande apparater för att göra apparater som är parkopplade med Blåtand tillgängliga i KDE-anslut.</string>
   <string name="location_permission_needed_desc">KDE-anslut behöver rättigheter för bakgrundsplats för att känna till WIFI-nätverket du är ansluten med även när programmet är i bakgrunden. Det beror på att namnen på WIFI-nätverk omkring dig skulle kunna användas för att ta reda på var du befinner dig, även om det inte är vad KDE-anslut gör.</string>
-  <string name="clipboard_android_x_incompat">Android 10 har tagit bort åtkomst till klippbordet för alla applikationer. Det här insticksprogrammet kommer att inaktiveras.</string>
   <string name="mpris_open_url">Fortsätt spela här</string>
   <string name="cant_open_url">Kan inte öppna webbadress för att sluta spela</string>
   <string name="bigscreen_home">Hem</string>
@@ -383,13 +372,8 @@
   <string name="bigscreen_back">Bakåt</string>
   <string name="bigscreen_mic">Mikrofon</string>
   <string name="pref_plugin_bigscreen">Tv-fjärrkontroll</string>
-  <string name="pref_plugin_bigscreen_desc">Använd apparaten som en fjärrkontroll för Plasma storskärm</string>
   <string name="bigscreen_optional_permission_explanation">För att dela mikrofoningången från telefonen måste du ge tillgång till telefonens ljudingång</string>
   <string name="bigscreen_speech_extra_prompt">Tal</string>
-  <string name="message_reply_label">SVARA</string>
-  <string name="mark_as_read_label">MARKERA SOM LÄST</string>
-  <string name="user_display_name">Du</string>
-  <string name="set_default_sms_app_title">Skicka MMS</string>
   <string name="set_group_message_as_mms_title">Skicka grupp-MMS</string>
   <string name="set_long_text_as_mms_title">Skicka lång text som MMS</string>
   <string name="convert_to_mms_after_title">Konvertera till MMS</string>
@@ -418,17 +402,11 @@
   <string name="website">Webbplats</string>
   <string name="about">Om</string>
   <string name="authors">Författare</string>
-  <string name="thanks_to">Tack till</string>
   <string name="easter_egg">Påskägg</string>
-  <string name="email_contributor">E-postbidragsgivare\n%s</string>
-  <string name="visit_contributors_homepage">Besök bidragsgivarens hemsida\n%s</string>
   <string name="version">Version %s</string>
   <string name="about_kde">Om KDE</string>
   <string name="kde_be_free">KDE - Lev fri!</string>
-  <string name="kde">KDE</string>
   <string name="konqi">Konqi</string>
-  <string name="rise_up">Höj upp</string>
-  <string name="rise_down">Höj ner</string>
   <string name="click_here_to_type">Rör här för att skriva</string>
   <string name="clear_compose">Rensa</string>
   <string name="send_compose">Skicka</string>
@@ -455,7 +433,6 @@
   <string name="send_clipboard">Skicka klippbord</string>
   <string name="tap_to_execute">Rör för att köra</string>
   <string name="plugin_stats">Insticksprogramstatistik</string>
-  <string name="enable_udp_broadcast">Aktivera UDP-enhetsupptäckt</string>
   <string name="enable_bluetooth">Aktivera Blåtand (beta)</string>
   <string name="receive_notifications_permission_explanation">Underrättelser måste vara tillåtna för att kunna ta emot dem från andra apparater</string>
   <string name="findmyphone_notifications_explanation">Underrättelserättigheter krävs så att telefonen kan ringa när programmet är i bakgrunden</string>

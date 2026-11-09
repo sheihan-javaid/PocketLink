@@ -17,7 +17,6 @@
   <string name="pref_plugin_clipboard_sent">Изпратено съдържание на клипборда</string>
   <string name="pref_plugin_mousepad">Отдалечено входно устройство</string>
   <string name="pref_plugin_mousepad_desc_nontv">Използване на телефона като тъчпад и клавиатура</string>
-  <string name="pref_plugin_mousepad_desc_tv">Използване на телефона като таблет и дистанционно за TV</string>
   <string name="pref_plugin_presenter">Отдалечена презентация</string>
   <string name="pref_plugin_presenter_desc">Използвайте устройството си за прелистване на слайдовете на презентация</string>
   <string name="pref_plugin_remotekeyboard_desc">Получаване на клавишни набирания от отдалечено устройство</string>
@@ -37,7 +36,6 @@
   <string name="pref_plugin_sharereceiver_desc">Споделяне на файлове и адреси между устройствата</string>
   <string name="device_list_empty">Няма устройства</string>
   <string name="ok">Добре</string>
-  <string name="sad_ok">OK :(</string>
   <string name="cancel">Отказ</string>
   <string name="open_settings">Отваряне на настройките</string>
   <string name="no_permissions">Трябва да осигурите права за достъп до уведомленията</string>
@@ -110,7 +108,6 @@
   <string name="cancel_pairing">Прекъсване на сдвояването</string>
   <string name="unknown_device">Неизвестно устройство</string>
   <string name="error_not_reachable">Устройството е недостъпно</string>
-  <string name="error_already_paired">Устройството вече е сдвоено</string>
   <string name="error_timed_out">Просрочка</string>
   <string name="error_clocks_not_match">Часовниците на устройствата не са синхронизирани</string>
   <string name="error_canceled_by_user">Отхвърлена от потребителя</string>
@@ -120,6 +117,10 @@
   <string name="remote_device_fingerprint">SHA256 отпечатък на сертификата на отдалеченото устройство е:</string>
   <string name="pair_requested">Заявено е сдвояване</string>
   <string name="pair_succeeded">Сдвояването е успешно</string>
+  <string name="pairing_verification_code_title">Код за потвърждение</string>
+  <string name="pairing_compare_verification_code">Сравнете този код и на двете устройства, преди да приемете.</string>
+  <string name="pairing_waiting_for_device">Изчакване %1$s да приеме заявката.</string>
+  <string name="pairing_trusted_device">Сдвоено с %1$s. Това устройство вече е доверено.</string>
   <string name="pairing_request_from">Заявено е сдвояване от %1s</string>
   <plurals name="incoming_file_title">
     <item quantity="one">Получаване на %1$d файл от %2$s</item>
@@ -156,7 +157,6 @@
   <string name="tap_to_open">Докоснете, за да отворите</string>
   <string name="received_file_text">Докоснете, за да отворите \'%1s\'</string>
   <string name="cannot_create_file">Не може да се създаде файл %s</string>
-  <string name="tap_to_answer">Докоснете за да отговорите</string>
   <string name="left_click">Изпращане на щракване с ляв бутон</string>
   <string name="right_click">Изпращане на щракване с десен бутон</string>
   <string name="middle_click">Изпращане на средно щракване</string>
@@ -202,7 +202,6 @@
   <string name="custom_devices_settings_summary">%d устройства, добавени ръчно</string>
   <string name="custom_device_list">Добавяне на устройства по IP адрес</string>
   <string name="custom_device_deleted">Изтрито потребителско устройство</string>
-  <string name="custom_device_fab_hint">Добавяне на устройство</string>
   <string name="undo">Отмяна</string>
   <string name="share_notification_preference">Шумни известия</string>
   <string name="share_notification_preference_summary">Вибриране и възпроизвеждане на звук при получаване на файл</string>
@@ -250,8 +249,6 @@
   <string name="no_file_browser">Няма инсталирани файлови браузъри.</string>
   <string name="pref_plugin_telepathy">Изпращане на SMS</string>
   <string name="pref_plugin_telepathy_desc">Изпращане на текстови съобщения от работния ви плот</string>
-  <string name="pref_plugin_telepathy_mms">Изпращане на MMS</string>
-  <string name="pref_plugin_telepathy_mms_desc">За да можете да изпращате MMS от KDE Connect, трябва да го зададете като SMS приложение по подразбиране.</string>
   <string name="findmyphone_title">Намиране на моя телефон</string>
   <string name="findmyphone_title_tablet">Намиране на моя таблет</string>
   <string name="findmyphone_title_tv">Намери моя телевизор</string>
@@ -261,7 +258,6 @@
   <string name="close">Затваряне</string>
   <string name="plugins_need_permission">Някои плъгини се нуждаят от разрешения, за да работят (докоснете за повече информация):</string>
   <string name="permission_explanation">Тази приставка се нуждае от разрешения, за да работи</string>
-  <string name="all_permissions_granted">Всички права са предоставени 🎉</string>
   <string name="optional_permission_explanation">Трябва да предоставите допълнителни разрешения, за да активирате всички функции</string>
   <string name="plugins_need_optional_permission">Някои плъгини имат деактивирани функции поради липса на разрешение (докоснете за повече информация):</string>
   <string name="share_optional_permission_explanation">За да получавате файлове, трябва да разрешите достъпа до хранилището</string>
@@ -273,11 +269,8 @@
   <string name="contacts_per_device_confirmation">Телефонните ви контакти ще бъдат копирани на това устройство, така че те могат да бъдат използвани от приложението за SMS на KDE Connect и от други програми.</string>
   <string name="select_ringtone">Избор на мелодия на звънене</string>
   <string name="telephony_pref_blocked_title">Блокирани номера</string>
-  <string name="mpris_coverart_description">Обложка на текущата медия</string>
-  <string name="settings_icon_description">Икона за настройки</string>
   <string name="presenter_fullscreen">Цял екран</string>
   <string name="presenter_exit">Изход от презентацията</string>
-  <string name="presenter_lock_tip">Можете да заключите устройството си и да използвате клавишите за сила на звука, за да преминете към предишната/следващата слайд</string>
   <string name="add_command">Добавяне на команда</string>
   <string name="addcommand_explanation">Няма регистрирани команди</string>
   <string name="addcommand_explanation2">Можете да добавите нови команди в системните настройки на KDE Connect</string>
@@ -311,7 +304,6 @@
   <string name="all">Всички</string>
   <string name="devices">Устройства</string>
   <string name="settings_rename">Име на устройство</string>
-  <string name="settings_dark_mode">Тъмна тема</string>
   <string name="settings_export_logs">Експортиране на дневниците на KDE Connect</string>
   <string name="settings_export_logs_text">Генерирайте файл с информация за изпълнени команди, която може да помогне за отстраняването на проблеми.</string>
   <string name="settings_more_settings_title">Още настройки</string>
@@ -336,7 +328,6 @@
   <string name="location_permission_needed_title">Изисква се разрешение</string>
   <string name="bluetooth_permission_needed_desc">KDE Connect се нуждае от разрешение за свързване с устройства наблизо, за да направи устройства, сдвоени чрез Bluetooth, достъпни в KDE Connect.</string>
   <string name="location_permission_needed_desc">KDE Connect се нуждае от разрешение за местоположението във фонов режим, за да познава WiFi към която сте свързани, дори когато приложението е във фонов режим. Това е така, защото имената на WiFi мрежите около вас могат да бъдат използвани за намиране на вашето местоположение, дори когато KDE Connect не прави това.</string>
-  <string name="clipboard_android_x_incompat">Android 10 премахна достъпа до клипборда за всички приложения. Тази приставка ще бъде деактивирана.</string>
   <string name="mpris_open_url">Продължаване на възпроизвеждането тук</string>
   <string name="cant_open_url">Не може да се отвори URL адреса, за да се продължи възпроизвежданете</string>
   <string name="bigscreen_home">Домашен адрес</string>
@@ -346,13 +337,8 @@
   <string name="bigscreen_right">Дясно</string>
   <string name="bigscreen_down">Преместване надолу</string>
   <string name="bigscreen_mic">Микрофон</string>
-  <string name="pref_plugin_bigscreen_desc">Използвайте устройството си като дистанционно за Plasma Bigscreen</string>
   <string name="bigscreen_optional_permission_explanation">За да споделите входа на микрофона от телефона си, трябва да дадете достъп до аудиовхода на телефона</string>
   <string name="bigscreen_speech_extra_prompt">Реч</string>
-  <string name="message_reply_label">ОТГОВОР</string>
-  <string name="mark_as_read_label">МАРКИРАНЕ КАТО ПРОЧЕТЕНО</string>
-  <string name="user_display_name">Вие</string>
-  <string name="set_default_sms_app_title">Изпращане на MMS</string>
   <string name="set_group_message_as_mms_title">Изпращане на групови MMS</string>
   <string name="set_long_text_as_mms_title">Изпращане на дълъг текст като MMS</string>
   <string name="convert_to_mms_after_title">Конвертиране в MMS</string>
@@ -381,17 +367,11 @@
   <string name="website">Уебсайт</string>
   <string name="about">За програмата</string>
   <string name="authors">Автори</string>
-  <string name="thanks_to">Благодарности на</string>
   <string name="easter_egg">Великденско яйце</string>
-  <string name="email_contributor">Сътрудник за имейл\n%s</string>
-  <string name="visit_contributors_homepage">Посетете домашната страница на автора\n%s</string>
   <string name="version">Версия %s</string>
   <string name="about_kde">Относно KDE</string>
   <string name="kde_be_free">KDE - Бъдете свободни!</string>
-  <string name="kde">KDE</string>
   <string name="konqi">Konqi</string>
-  <string name="rise_up">Разширяване на горе</string>
-  <string name="rise_down">Разширяване на долу</string>
   <string name="click_here_to_type">Докоснете тук, за да въведете</string>
   <string name="clear_compose">Изчистване</string>
   <string name="send_compose">Изпращане</string>
@@ -418,7 +398,6 @@
   <string name="send_clipboard">Изпращане на клипборд</string>
   <string name="tap_to_execute">Докоснете, за да се изпълни</string>
   <string name="plugin_stats">Данни на приставки</string>
-  <string name="enable_udp_broadcast">Активиране на откриване на устройства чрез UDP</string>
   <string name="enable_bluetooth">Активиране на Bluetooth(бета)</string>
   <string name="receive_notifications_permission_explanation">Известията трябва са разрешени, за да може да се получават от други устройства</string>
   <string name="findmyphone_notifications_explanation">Разрешение за известия е необходимо, за да може телефонът да звъни, когато приложението е във фонов режим</string>

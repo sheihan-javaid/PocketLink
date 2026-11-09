@@ -22,7 +22,6 @@
   <string name="clipboard_preference_summary_skip_sensitive">No sincronitza automàticament les contrasenyes o altre contingut marcat com a confidencial</string>
   <string name="pref_plugin_mousepad">Entrada remota</string>
   <string name="pref_plugin_mousepad_desc_nontv">Useu el vostre telèfon o tauleta com un ratolí tàctil i un teclat</string>
-  <string name="pref_plugin_mousepad_desc_tv">Useu el vostre telèfon o tauleta com un comandament a distància de TV</string>
   <string name="pref_plugin_presenter">Presentació remota</string>
   <string name="pref_plugin_presenter_desc">Usa el dispositiu per a canviar les diapositives d\'una presentació</string>
   <string name="pref_plugin_remotekeyboard_ime">Receptor de teclat (via teclat de l\'Android)</string>
@@ -46,7 +45,6 @@
   <string name="pref_plugin_inputdevicesreceiver_desc">Comparteix el ratolí i el teclat amb el dispositiu remot</string>
   <string name="device_list_empty">No hi ha cap dispositiu</string>
   <string name="ok">D\'acord</string>
-  <string name="sad_ok">D\'acord :(</string>
   <string name="cancel">Cancel·la</string>
   <string name="open_settings">Obre l\'arranjament</string>
   <string name="open_accessibility_settings">Obre la configuració d\'accessibilitat</string>
@@ -132,7 +130,6 @@
   <string name="unknown_device">Dispositiu desconegut</string>
   <string name="unknown_sender">Remitent desconegut</string>
   <string name="error_not_reachable">No es pot accedir al dispositiu</string>
-  <string name="error_already_paired">El dispositiu ja està aparellat</string>
   <string name="error_timed_out">Ha excedit el temps</string>
   <string name="error_clocks_not_match">Els rellotges dels dispositius no estan sincronitzats</string>
   <string name="error_canceled_by_user">Cancel·lat per l\'usuari</string>
@@ -142,6 +139,10 @@
   <string name="remote_device_fingerprint">L\'empremta digital SHA256 del certificat del dispositiu remot és:</string>
   <string name="pair_requested">S\'ha demanat aparellar</string>
   <string name="pair_succeeded">S\'ha aparellat correctament</string>
+  <string name="pairing_verification_code_title">Codi de verificació</string>
+  <string name="pairing_compare_verification_code">Compareu aquest codi als dos dispositius abans d\'acceptar.</string>
+  <string name="pairing_waiting_for_device">S\'està esperant que %1$s accepti la sol·licitud.</string>
+  <string name="pairing_trusted_device">S\'ha aparellat amb %1$s. Ara es confia en aquest dispositiu.</string>
   <string name="pairing_request_from">S\'ha demanat aparellar des de «%1s»</string>
   <plurals name="incoming_file_title">
     <item quantity="one">S\'està rebent %1$d fitxer des de %2$s</item>
@@ -178,7 +179,6 @@
   <string name="tap_to_open">Toqueu per a obrir</string>
   <string name="received_file_text">Toqueu per a obrir «%1s»</string>
   <string name="cannot_create_file">No s\'ha pogut crear el fitxer %s</string>
-  <string name="tap_to_answer">Toqueu per a respondre</string>
   <string name="left_click">Envia un clic esquerre</string>
   <string name="right_click">Envia un clic dret</string>
   <string name="middle_click">Envia un clic del mig</string>
@@ -227,7 +227,6 @@
   <string name="custom_device_list">Afegeix dispositius per la IP</string>
   <string name="custom_device_deleted">S\'ha suprimit un dispositiu personalitzat</string>
   <string name="custom_device_list_help">Si el dispositiu no es detecta automàticament, podeu afegir la seva adreça IP o el nom de la màquina fent clic al botó de sota</string>
-  <string name="custom_device_fab_hint">Afegeix un dispositiu</string>
   <string name="undo">Desfés</string>
   <string name="share_notification_preference">Notificacions sonores</string>
   <string name="share_notification_preference_summary">Vibra i reprodueix un so en rebre un fitxer</string>
@@ -263,8 +262,6 @@
   <string name="digitizer_preference_title_hide_draw_button">Oculta el botó de dibuixar</string>
   <string name="digitizer_preference_summary_hide_draw_button">Oculta completament el botó de dibuix, fent impossible el dibuix amb el dit. Activeu-ho només si el vostre dispositiu admet l\'entrada de llapis.</string>
   <string name="digitizer_preference_title_draw_button_side">El costat del botó «Dibuixa amb un dit»</string>
-  <string name="digitizer_preference_title_enable_exit_fullscreen_gesture">Activa el gest de sortida de pantalla completa</string>
-  <string name="digitizer_preference_summary_enable_exit_fullscreen_gesture">Si està activat, prémer i mantenir premut al plafó de dibuix amb el dit desactivarà el mode de pantalla completa.</string>
   <string-array name="digitizer_preference_entries_draw_button_side">
     <item>Part superior esquerra</item>
     <item>Part superior dreta</item>
@@ -284,8 +281,6 @@
   <string name="no_file_browser">No hi ha instal·lat cap navegador de fitxers.</string>
   <string name="pref_plugin_telepathy">Envia un SMS</string>
   <string name="pref_plugin_telepathy_desc">Envia missatges de text des de l\'escriptori</string>
-  <string name="pref_plugin_telepathy_mms">Envia un MMS</string>
-  <string name="pref_plugin_telepathy_mms_desc">Per a poder enviar MMS des del KDE Connect cal establir-la com a aplicació predeterminada d\'SMS.</string>
   <string name="findmyphone_title">Troba el meu telèfon</string>
   <string name="findmyphone_title_tablet">Troba la meva tauleta</string>
   <string name="findmyphone_title_tv">Troba el meu televisor</string>
@@ -295,7 +290,6 @@
   <string name="close">Tanca</string>
   <string name="plugins_need_permission">Alguns connectors necessiten permisos per a funcionar (toqueu per a més informació):</string>
   <string name="permission_explanation">Aquest connector necessita permisos per a funcionar</string>
-  <string name="all_permissions_granted">S\'han atorgat tots els permisos 🎉</string>
   <string name="optional_permission_explanation">Us caldrà atorgar permisos extres per a accedir a totes les característiques</string>
   <string name="plugins_need_optional_permission">Alguns connectors tenen característiques desactivades per la falta de permís (toqueu per a més informació):</string>
   <string name="share_optional_permission_explanation">Per a rebre fitxers cal permetre l\'accés a l\'emmagatzematge</string>
@@ -308,15 +302,12 @@
   <string name="select_ringtone">Seleccioneu un to de la trucada</string>
   <string name="telephony_pref_blocked_title">Números blocats</string>
   <string name="telephony_pref_blocked_dialog_desc">No es mostren les trucades d\'aquests números. Especifiqueu un número per línia</string>
-  <string name="mpris_coverart_description">Caràtula del fitxer multimèdia actual</string>
-  <string name="settings_icon_description">Icona d\'arranjament</string>
   <string name="presenter_fullscreen">Pantalla completa</string>
   <string name="presenter_exit">Surt de la presentació</string>
   <string name="presenter_change_zoom">Canvia el zoom</string>
   <string name="presenter_zoom">Zoom</string>
   <string name="presenter_zoom_in">Amplia</string>
   <string name="presenter_zoom_out">Allunya</string>
-  <string name="presenter_lock_tip">Podeu bloquejar el dispositiu i emprar les tecles de volum per a anar a la diapositiva anterior/següent</string>
   <string name="add_command">Afegeix una ordre</string>
   <string name="addcommand_explanation">No hi ha cap ordre registrada</string>
   <string name="addcommand_explanation2">Podeu afegir ordres noves a l\'Arranjament del sistema del KDE Connect</string>
@@ -352,7 +343,6 @@
   <string name="all">Tot</string>
   <string name="devices">Dispositius</string>
   <string name="settings_rename">Nom del dispositiu</string>
-  <string name="settings_dark_mode">Tema fosc</string>
   <string name="settings_export_logs">Exporta els registres del KDE Connect</string>
   <string name="settings_export_logs_text">Genera un fitxer amb informació d\'execució que pot ajudar a resoldre problemes.</string>
   <string name="settings_more_settings_title">Més opcions</string>
@@ -378,7 +368,6 @@
   <string name="location_permission_needed_title">Es requereix permís</string>
   <string name="bluetooth_permission_needed_desc">El KDE Connect necessita permís per a connectar als dispositius propers per a fer que els dispositius aparellats per Bluetooth estiguin disponibles al KDE Connect.</string>
   <string name="location_permission_needed_desc">El KDE Connect necessita el permís d\'ubicació en segon pla per a conèixer la xarxa Wi-Fi a la qual esteu connectat fins i tot quan l\'aplicació està en segon pla. Això és perquè el nom de les xarxes Wi-Fi que hi ha al voltant es podria utilitzar per a trobar la vostra ubicació, fins i tot quan això no és el que fa el KDE Connect.</string>
-  <string name="clipboard_android_x_incompat">L\'Android 10 ha tret l\'accés al porta-retalls a totes les aplicacions. Aquest connector estarà inhabilitat.</string>
   <string name="mpris_open_url">Continua reproduint aquí</string>
   <string name="cant_open_url">No s\'ha pogut obrir l\'URL per a continuar reproduint</string>
   <string name="bigscreen_home">Inici</string>
@@ -391,13 +380,8 @@
   <string name="bigscreen_back">Enrere</string>
   <string name="bigscreen_mic">Micròfon</string>
   <string name="pref_plugin_bigscreen">Comandament a distància de TV</string>
-  <string name="pref_plugin_bigscreen_desc">Useu el dispositiu com a remot per a la Bigscreen del Plasma</string>
   <string name="bigscreen_optional_permission_explanation">Per a compartir l\'entrada del micròfon del telèfon cal donar accés a l\'entrada d\'àudio del telèfon</string>
   <string name="bigscreen_speech_extra_prompt">Veu</string>
-  <string name="message_reply_label">RESPON</string>
-  <string name="mark_as_read_label">MARCA COM A LLEGIT</string>
-  <string name="user_display_name">Vós</string>
-  <string name="set_default_sms_app_title">Envia un MMS</string>
   <string name="set_group_message_as_mms_title">Envia un MMS de grup</string>
   <string name="set_long_text_as_mms_title">Envia un text llarg com a MMS</string>
   <string name="convert_to_mms_after_title">Converteix a MMS</string>
@@ -426,17 +410,11 @@
   <string name="website">Lloc web</string>
   <string name="about">Quant al</string>
   <string name="authors">Autors</string>
-  <string name="thanks_to">Gràcies a</string>
   <string name="easter_egg">Ou de Pasqua</string>
-  <string name="email_contributor">Correu electrònic del col·laborador\n%s</string>
-  <string name="visit_contributors_homepage">Visiteu la pàgina d\'inici del col·laborador\n%s</string>
   <string name="version">Versió %s</string>
   <string name="about_kde">Quant al KDE</string>
   <string name="kde_be_free">KDE - Sigues lliure!</string>
-  <string name="kde">KDE</string>
   <string name="konqi">Konqi</string>
-  <string name="rise_up">Cap amunt</string>
-  <string name="rise_down">Cap avall</string>
   <string name="click_here_to_type">Toqueu aquí per a teclejar</string>
   <string name="clear_compose">Neteja</string>
   <string name="send_compose">Envia</string>
@@ -463,7 +441,6 @@
   <string name="send_clipboard">Envia el porta-retalls</string>
   <string name="tap_to_execute">Toqueu per a executar</string>
   <string name="plugin_stats">Estadístiques del connector</string>
-  <string name="enable_udp_broadcast">Activa el descobriment UDP de dispositius</string>
   <string name="enable_bluetooth">Activa el Bluetooth (beta)</string>
   <string name="receive_notifications_permission_explanation">Cal permetre que les notificacions es rebin des d\'altres dispositius</string>
   <string name="findmyphone_notifications_explanation">Cal el permís de notificacions perquè el telèfon pugui sonar quan l\'aplicació estigui en segon pla</string>

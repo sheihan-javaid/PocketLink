@@ -20,7 +20,6 @@
   <string name="pref_plugin_clipboard_sent">クリップボードが送信されました</string>
   <string name="pref_plugin_mousepad">リモート入力</string>
   <string name="pref_plugin_mousepad_desc_nontv">スマートフォンやタブレットをタッチパッドやキーボードとして利用</string>
-  <string name="pref_plugin_mousepad_desc_tv">スマートフォンやタブレットをテレビリモコンとして利用</string>
   <string name="pref_plugin_presenter">プレゼンテーションリモート</string>
   <string name="pref_plugin_presenter_desc">デバイスを使ってプレゼンテーションのスライドを操作</string>
   <string name="pref_plugin_remotekeyboard_desc">リモートデバイスからキーイベントを受信</string>
@@ -40,7 +39,6 @@
   <string name="pref_plugin_sharereceiver_desc">デバイス間でファイルと URL を共有</string>
   <string name="device_list_empty">デバイスなし</string>
   <string name="ok">OK</string>
-  <string name="sad_ok">OK (´・ω・｀)</string>
   <string name="cancel">キャンセル</string>
   <string name="open_settings">設定を開く</string>
   <string name="no_permissions">通知にアクセスするには権限を付与する必要があります</string>
@@ -114,7 +112,6 @@
   <string name="cancel_pairing">ペアリングをキャンセル</string>
   <string name="unknown_device">不明なデバイス</string>
   <string name="error_not_reachable">デバイスに到達できません</string>
-  <string name="error_already_paired">デバイスは既にペアリング済みです</string>
   <string name="error_timed_out">タイムアウト</string>
   <string name="error_clocks_not_match">デバイスの時計が同期されていません。</string>
   <string name="error_canceled_by_user">ユーザにキャンセルされました</string>
@@ -124,6 +121,10 @@
   <string name="remote_device_fingerprint">リモートデバイスの証明書の SHA256 フィンガープリント:</string>
   <string name="pair_requested">ペアリング要求済み</string>
   <string name="pair_succeeded">ペアリングが成功しました</string>
+  <string name="pairing_verification_code_title">確認コード</string>
+  <string name="pairing_compare_verification_code">承認する前に、両方のデバイスでこのコードを比較してください。</string>
+  <string name="pairing_waiting_for_device">%1$s がリクエストを承認するのを待っています。</string>
+  <string name="pairing_trusted_device">%1$s とペアリングしました。このデバイスは信頼済みになりました。</string>
   <string name="pairing_request_from">\'%1s\' からペアリングを要求されました</string>
   <plurals name="incoming_file_title">
     <item quantity="other">%1$d ファイルを %2$s から受信しています</item>
@@ -152,7 +153,6 @@
   <string name="tap_to_open">タップして開く</string>
   <string name="received_file_text">タップして \'%1s\' を開く</string>
   <string name="cannot_create_file">ファイル %s を作成できません</string>
-  <string name="tap_to_answer">タップして応答</string>
   <string name="left_click">左クリックを送信</string>
   <string name="right_click">右クリックを送信</string>
   <string name="middle_click">中クリックを送信</string>
@@ -198,7 +198,6 @@
   <string name="custom_device_list">IP アドレスでデバイスを追加</string>
   <string name="custom_device_deleted">カスタムデバイスが削除されました</string>
   <string name="custom_device_list_help">デバイスが自動的に検出されない場合、下のボタンから手動で IP アドレスやホスト名を追加できます</string>
-  <string name="custom_device_fab_hint">デバイスを追加</string>
   <string name="undo">元に戻す</string>
   <string name="share_notification_preference">音声付きの通知</string>
   <string name="share_notification_preference_summary">ファイル受信時に振動し、音声を再生します</string>
@@ -251,8 +250,6 @@
   <string name="no_file_browser">ファイルブラウザがインストールされていません。</string>
   <string name="pref_plugin_telepathy">SMS を送信</string>
   <string name="pref_plugin_telepathy_desc">デスクトップからテキストメッセージを送信</string>
-  <string name="pref_plugin_telepathy_mms">SMS を送信</string>
-  <string name="pref_plugin_telepathy_mms_desc">KDE Connect から MMS を送信するには MMS をデフォルトの SMS アプリとして設定する必要があります。</string>
   <string name="findmyphone_title">スマートフォンを見つける</string>
   <string name="findmyphone_title_tablet">タブレットを見つける</string>
   <string name="findmyphone_title_tv">TV を探す</string>
@@ -262,7 +259,6 @@
   <string name="close">閉じる</string>
   <string name="plugins_need_permission">以下のプラグインの動作には権限が必要です。(タップして詳細情報を表示):</string>
   <string name="permission_explanation">このプラグインを機能させるには権限が必要です</string>
-  <string name="all_permissions_granted">すべての権限が付与されました 🎉</string>
   <string name="optional_permission_explanation">すべての機能を有効にするには、追加の権限を付与する必要があります</string>
   <string name="plugins_need_optional_permission">以下のプラグインは権限が不足しているため、一部の機能が無効化されています。(タップして詳細情報を表示):</string>
   <string name="share_optional_permission_explanation">ファイルを受信するにはストレージへのアクセスを許可する必要があります</string>
@@ -274,11 +270,8 @@
   <string name="contacts_per_device_confirmation">携帯電話に保存されている連絡先はこのデバイスにコピーされ、KDE Connect SMS App などのアプリで使用できるようになります。</string>
   <string name="select_ringtone">着信音を選択</string>
   <string name="telephony_pref_blocked_title">ブロックされた番号</string>
-  <string name="mpris_coverart_description">現在のメディアのカバーアート</string>
-  <string name="settings_icon_description">設定アイコン</string>
   <string name="presenter_fullscreen">フルスクリーン</string>
   <string name="presenter_exit">プレゼンテーションを終了</string>
-  <string name="presenter_lock_tip">デバイスをロックして、音量キーでスライドを前/次に移動できます</string>
   <string name="add_command">コマンドを追加</string>
   <string name="addcommand_explanation">コマンドが登録されていません</string>
   <string name="addcommand_explanation2">システム設定の KDE Connect ページで新しいコマンドを追加できます</string>
@@ -313,7 +306,6 @@
   <string name="all">すべて</string>
   <string name="devices">デバイス</string>
   <string name="settings_rename">デバイス名</string>
-  <string name="settings_dark_mode">ダークテーマ</string>
   <string name="settings_export_logs">KDE Connect のログをエクスポート</string>
   <string name="settings_export_logs_text">問題のトラブルシューティングに役立つアプリの実行情報ファイルを生成します。</string>
   <string name="settings_more_settings_title">その他の設定</string>
@@ -338,7 +330,6 @@
   <string name="location_permission_needed_title">許可が必要です</string>
   <string name="bluetooth_permission_needed_desc">Bluetooth でデバイスをペアリングするには、付近のデバイスの接続の権限が必要です。</string>
   <string name="location_permission_needed_desc">KDE Connect がバックグラウンドの間でも接続している WiFi ネットワークを識別できるよう、バックグラウンドでの位置情報へのアクセスの許可が必要です。WiFi ネットワーク名は位置情報としても使われることがあるため、この権限が必要です。(KDE Connect が位置情報を収集することはありません)</string>
-  <string name="clipboard_android_x_incompat">Android 10 はすべてのアプリからクリップボードへのアクセスを削除しました。このプラグインは無効化されます。</string>
   <string name="mpris_open_url">このデバイスで再生を続ける</string>
   <string name="cant_open_url">再生を続けるための URL を開けません</string>
   <string name="bigscreen_home">ホーム</string>
@@ -348,13 +339,8 @@
   <string name="bigscreen_right">右</string>
   <string name="bigscreen_down">下へ</string>
   <string name="bigscreen_mic">マイク</string>
-  <string name="pref_plugin_bigscreen_desc">デバイスを Plasma Bigscreen のリモコンとして使う</string>
   <string name="bigscreen_optional_permission_explanation">端末のマイク入力を共有するには、端末の音声入力へのアクセスを許可する必要があります</string>
   <string name="bigscreen_speech_extra_prompt">発声</string>
-  <string name="message_reply_label">返信</string>
-  <string name="mark_as_read_label">既読としてマーク</string>
-  <string name="user_display_name">あなた</string>
-  <string name="set_default_sms_app_title">SMS を送信</string>
   <string name="set_group_message_as_mms_title">グループ MMS を送信</string>
   <string name="set_long_text_as_mms_title">長いテキストを MMS として送信する</string>
   <string name="convert_to_mms_after_title">MMS に変換</string>
@@ -383,17 +369,11 @@
   <string name="website">ウェブサイト</string>
   <string name="about">情報</string>
   <string name="authors">作者</string>
-  <string name="thanks_to">感謝</string>
   <string name="easter_egg">イースターエッグ</string>
-  <string name="email_contributor">貢献者にメールを送る\n%s</string>
-  <string name="visit_contributors_homepage">貢献者のホームページを訪れる\n%s</string>
   <string name="version">バージョン %s</string>
   <string name="about_kde">KDE について</string>
   <string name="kde_be_free">KDE - Be Free!</string>
-  <string name="kde">KDE</string>
   <string name="konqi">Konqi</string>
-  <string name="rise_up">上へ</string>
-  <string name="rise_down">下へ</string>
   <string name="click_here_to_type">タップしてタイプ</string>
   <string name="clear_compose">クリア</string>
   <string name="send_compose">送信</string>
@@ -420,7 +400,6 @@
   <string name="send_clipboard">クリップボードを送信</string>
   <string name="tap_to_execute">タップして実行</string>
   <string name="plugin_stats">プラグイン統計</string>
-  <string name="enable_udp_broadcast">UDP デバイス検知を有効化</string>
   <string name="enable_bluetooth">Bluetooth を有効化 (ベータ)</string>
   <string name="receive_notifications_permission_explanation">他のデバイスからの通知を受け取るためには、通知を許可する必要があります。</string>
   <string name="findmyphone_notifications_explanation">アプリがバックグラウンドで動作しているときに携帯電話を鳴動させるには、通知の許可が必要です。</string>

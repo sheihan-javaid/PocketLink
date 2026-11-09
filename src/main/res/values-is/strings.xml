@@ -18,7 +18,6 @@
   <string name="pref_plugin_clipboard_sent">Klippispjald sent</string>
   <string name="pref_plugin_mousepad">Fjartengd ritun</string>
   <string name="pref_plugin_mousepad_desc_nontv">Notaðu símann þinn eða spjaldtölvu sem snertiplatta og lyklaborð</string>
-  <string name="pref_plugin_mousepad_desc_tv">Notaðu símann þinn eða spjaldtölvu sem sjónvarpsfjarstýringu</string>
   <string name="pref_plugin_presenter">Kynningar-fjarstýring</string>
   <string name="pref_plugin_presenter_desc">Notaðu tækið þitt til að skipta á milli skyggna í kynningum</string>
   <string name="pref_plugin_remotekeyboard_desc">Taktu á móti lyklainnslætti frá fjartengdum tækjum</string>
@@ -38,7 +37,6 @@
   <string name="pref_plugin_sharereceiver_desc">Deildu skrám og slóðum á milli tækja</string>
   <string name="device_list_empty">Engin tæki</string>
   <string name="ok">Í lagi</string>
-  <string name="sad_ok">Í lagi :(</string>
   <string name="cancel">Hætta við</string>
   <string name="open_settings">Opna stillingar</string>
   <string name="no_permissions">Þú verður að gefa heimild til að fá aðgang að tilkynningum</string>
@@ -112,7 +110,6 @@
   <string name="cancel_pairing">Hætta við pörun</string>
   <string name="unknown_device">Óþekkt tæki</string>
   <string name="error_not_reachable">Tæki er ekki aðgengilegt</string>
-  <string name="error_already_paired">Tæki er þegar parað</string>
   <string name="error_timed_out">Féll á tíma</string>
   <string name="error_clocks_not_match">Klukkur tækjanna eru ekki samstilltar</string>
   <string name="error_canceled_by_user">Hætt við af notanda</string>
@@ -158,7 +155,6 @@
   <string name="tap_to_open">Pikkaðu til að opna</string>
   <string name="received_file_text">Pikkaðu til að opna \'%1s\'</string>
   <string name="cannot_create_file">Get ekki búið til skrána %s</string>
-  <string name="tap_to_answer">Pikkaðu til að svara</string>
   <string name="left_click">Senda vinstri músarsmell</string>
   <string name="right_click">Senda hægri músarsmell</string>
   <string name="middle_click">Senda miðjumúsarsmell</string>
@@ -201,7 +197,6 @@
   <string name="custom_devices_settings_summary">%d tækjum bætt við handvirkt</string>
   <string name="custom_device_list">Bæta við tækjum eftir auðkennum</string>
   <string name="custom_device_deleted">Sérsniðnu tæki eytt</string>
-  <string name="custom_device_fab_hint">Bæta við tæki</string>
   <string name="undo">Afturkalla</string>
   <string name="share_notification_preference">Háværar tilkynningar</string>
   <string name="share_notification_preference_summary">Titra og spila hljóð þegar tekið er á móti skrá</string>
@@ -247,8 +242,6 @@
   <string name="no_file_browser">Það eru engir skráavafrar uppsettir.</string>
   <string name="pref_plugin_telepathy">Senda SMS</string>
   <string name="pref_plugin_telepathy_desc">Sendu textaskilaboð úr tölvunni þinni</string>
-  <string name="pref_plugin_telepathy_mms">Senda MMS</string>
-  <string name="pref_plugin_telepathy_mms_desc">Til að geta sent MMS með KDE Connect þarftu að skilgreina það sem sjálfgefið SMS-forrit.</string>
   <string name="findmyphone_title">Finna símann minn</string>
   <string name="findmyphone_title_tablet">Finna spjaldtölvuna mína</string>
   <string name="findmyphone_title_tv">Finna sjónvarpið mitt</string>
@@ -258,7 +251,6 @@
   <string name="close">Loka</string>
   <string name="plugins_need_permission">Sumar viðbætur þurfa viðbótarheimildir til að virka (ýttu til að sjá frekari upplýsingar):</string>
   <string name="permission_explanation">Þessi viðbót þarf sérstakar heimildir til að virka</string>
-  <string name="all_permissions_granted">Allar heimildir veittar 🎉</string>
   <string name="optional_permission_explanation">Þú þarft að veita viðbótarheimildir til að virkja alla eiginleika</string>
   <string name="plugins_need_optional_permission">Sumar viðbætur eru með óvirka eiginleika vegna skorts á heimildum (ýttu til að sjá frekari upplýsingar):</string>
   <string name="share_optional_permission_explanation">Til að taka við skrám þarftu að veita aðgang að geymslurými</string>
@@ -267,8 +259,6 @@
   <string name="telephony_optional_permission_explanation">Til að sjá nafn tengiliðar í stað símanúmers þarftu að leyfa aðgang að tengiliðaskrá símans</string>
   <string name="select_ringtone">Veldu hringitón</string>
   <string name="telephony_pref_blocked_title">Útilokuð símanúmer</string>
-  <string name="mpris_coverart_description">Umslagsmyndefni núverandi gagnamiðils</string>
-  <string name="settings_icon_description">Stillingatáknmynd</string>
   <string name="presenter_fullscreen">Skjáfylli</string>
   <string name="presenter_exit">Fara úr kynningu</string>
   <string name="add_command">Bæta við skipun</string>
@@ -302,7 +292,6 @@
   <string name="all">Allt</string>
   <string name="devices">Tæki</string>
   <string name="settings_rename">Heiti tækis</string>
-  <string name="settings_dark_mode">Dökkt þema</string>
   <string name="settings_export_logs">Flytja út atvikaskrár KDE Connect</string>
   <string name="settings_more_settings_title">Fleiri stillingar</string>
   <string name="setting_persistent_notification">Birta viðvarandi tilkynningu</string>
@@ -323,7 +312,6 @@
   <string name="empty_trusted_networks_list_text">Þú hefur ekki ennþá bætt við neinum treystum netkerfum</string>
   <string name="allow_all_networks_text">Leyfa allt</string>
   <string name="location_permission_needed_title">Krafist er heimildar</string>
-  <string name="clipboard_android_x_incompat">Android 10 fjarlægði aðgang allra forrita að klippispjaldinu. Þessi viðbót verður gerð óvirk.</string>
   <string name="mpris_open_url">Halda áfram spilun hér</string>
   <string name="cant_open_url">Næ ekki að opna slóð til að halda áfram spilun</string>
   <string name="bigscreen_home">Heim</string>
@@ -334,12 +322,7 @@
   <string name="bigscreen_down">Niður</string>
   <string name="bigscreen_back">Til baka</string>
   <string name="bigscreen_mic">Hljóðnemi</string>
-  <string name="pref_plugin_bigscreen_desc">Notaðu tækið þitt sem fjarstýringu fyrir Plasma Bigscreen</string>
   <string name="bigscreen_speech_extra_prompt">Tal</string>
-  <string name="message_reply_label">SVARA</string>
-  <string name="mark_as_read_label">MERKJA SEM LESIÐ</string>
-  <string name="user_display_name">Þú</string>
-  <string name="set_default_sms_app_title">Senda MMS</string>
   <string name="set_group_message_as_mms_title">Senda hóp-MMS</string>
   <string name="set_long_text_as_mms_title">Senda langan texta sem MMS</string>
   <string name="convert_to_mms_after_title">Umbreyta í MMS</string>
@@ -368,17 +351,11 @@
   <string name="website">Vefsvæði</string>
   <string name="about">Um hugbúnaðinn</string>
   <string name="authors">Höfundar</string>
-  <string name="thanks_to">Þakkir fá</string>
   <string name="easter_egg">Páskaegg</string>
-  <string name="email_contributor">Senda þátttakanda tölvupóst\n%s</string>
-  <string name="visit_contributors_homepage">Fara á heimasíðu þátttakandans\n%s</string>
   <string name="version">Útgáfa %s</string>
   <string name="about_kde">Um KDE</string>
   <string name="kde_be_free">KDE - Vertu frjáls!</string>
-  <string name="kde">KDE</string>
   <string name="konqi">Konqi</string>
-  <string name="rise_up">Ris upp</string>
-  <string name="rise_down">Ris niður</string>
   <string name="click_here_to_type">Ýttu hér til að skrifa</string>
   <string name="clear_compose">Hreinsa</string>
   <string name="send_compose">Senda</string>
@@ -400,7 +377,6 @@
   <string name="send_clipboard">Senda klippispjald</string>
   <string name="tap_to_execute">Pikkaðu til að keyra</string>
   <string name="plugin_stats">Tölfræði forritsviðbótar</string>
-  <string name="enable_udp_broadcast">Virkja UDP-uppgötvun tækis</string>
   <string name="enable_bluetooth">Virkja bluetooth (beta)</string>
   <string name="receive_notifications_permission_explanation">Leyfa þarf tilkynningar til að geta tekið við þeim frá öðrum tækjum</string>
   <string name="mpris_keepwatching">Halda áfram spilun</string>
@@ -411,4 +387,8 @@
   <string name="ping_in_progress">Sendi ping-beiðni…</string>
   <string name="device_host_invalid">Ógilt vélarheiti. Notaðu gilt vélarheiti, IPv4 eða IPv6</string>
   <string name="device_host_duplicate">Hýsivélin er nú þegar á listanum</string>
+  <string name="pairing_verification_code_title">Staðfestingarkóði</string>
+  <string name="pairing_compare_verification_code">Berðu saman þennan kóða á báðum tækjum áður en þú samþykkir.</string>
+  <string name="pairing_waiting_for_device">Bíð eftir að %1$s samþykki beiðnina.</string>
+  <string name="pairing_trusted_device">Parað við %1$s. Nú er treyst þessu tæki.</string>
 </resources>

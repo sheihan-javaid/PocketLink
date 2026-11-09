@@ -35,7 +35,6 @@
   <string name="pref_plugin_sharereceiver_desc">Kunhavigi dosierojn kaj URL-ojn inter aparatoj</string>
   <string name="device_list_empty">Neniuj aparatoj</string>
   <string name="ok">Bone</string>
-  <string name="sad_ok">AGNOSK :(</string>
   <string name="cancel">Nuligi</string>
   <string name="open_settings">Malfermi agordojn</string>
   <string name="no_permissions">Vi devas doni permeson aliri sciigojn</string>
@@ -108,7 +107,6 @@
   <string name="cancel_pairing">Nuligi parigon</string>
   <string name="unknown_device">Nekonata aparato</string>
   <string name="error_not_reachable">Aparato ne atingebla</string>
-  <string name="error_already_paired">Aparato jam parigita</string>
   <string name="error_timed_out">Tempo elĉerpita</string>
   <string name="error_clocks_not_match">Aparataj horloĝoj estas malsinkronaj</string>
   <string name="error_canceled_by_user">Nuligite de uzanto</string>
@@ -154,7 +152,6 @@
   <string name="tap_to_open">Frapetu por malfermi</string>
   <string name="received_file_text">Frapeti por malfermi \'%1s\'</string>
   <string name="cannot_create_file">Ne eblas krei dosieron %s</string>
-  <string name="tap_to_answer">Frapeti por respondi</string>
   <string name="left_click">Sendi Maldekstran Klakon</string>
   <string name="right_click">Sendi Dekstran Klakon</string>
   <string name="middle_click">Sendi Mezan Klakon</string>
@@ -196,7 +193,6 @@
   <string name="custom_devices_settings_summary">%d aparatoj aldoniĝis permane</string>
   <string name="custom_device_list">Aldoni aparatojn per IP</string>
   <string name="custom_device_deleted">Propra aparato forigita</string>
-  <string name="custom_device_fab_hint">Aldoni aparaton</string>
   <string name="undo">Malfari</string>
   <string name="share_notification_preference">Bruaj sciigoj</string>
   <string name="share_notification_preference_summary">Vibri kaj ludi sonon kiam vi ricevas dosieron</string>
@@ -244,8 +240,6 @@
   <string name="no_file_browser">Ne estas instalitaj dosieraj retumiloj.</string>
   <string name="pref_plugin_telepathy">Sendi SMS</string>
   <string name="pref_plugin_telepathy_desc">Sendi tekstmesaĝojn de via labortablo</string>
-  <string name="pref_plugin_telepathy_mms">Sendi MMS</string>
-  <string name="pref_plugin_telepathy_mms_desc">Por povi sendi MMS de KDE Connect, vi devas agordi ĝin kiel la defaŭltan SMS-aplikaĵon.</string>
   <string name="findmyphone_title">Trovi mian telefonon</string>
   <string name="findmyphone_title_tablet">Trovi mian tableton</string>
   <string name="findmyphone_title_tv">Trovi mian televidilon</string>
@@ -255,7 +249,6 @@
   <string name="close">Fermi</string>
   <string name="plugins_need_permission">Iuj Kromaĵoj bezonas permesojn por funkcii (frapu por pliaj informoj):</string>
   <string name="permission_explanation">Ĉi tiu kromaĵo bezonas permesojn por funkcii</string>
-  <string name="all_permissions_granted">Ĉiuj permesoj donitaj 🎉</string>
   <string name="optional_permission_explanation">Vi devas doni kromajn permesojn por ebligi ĉiujn funkciojn</string>
   <string name="plugins_need_optional_permission">Iuj kromprogramoj havas funkciojn malŝaltitaj pro manko de permeso (frapu por pliaj informoj):</string>
   <string name="share_optional_permission_explanation">Por ricevi dosierojn vi devas permesi konservan aliron</string>
@@ -267,11 +260,8 @@
   <string name="contacts_per_device_confirmation">Viaj telefonaj kontaktoj estos kopiitaj al ĉi tiu aparato, do ili povas esti uzataj de la KDE Connect SMS-aplikaĵo kaj aliaj aplikaĵoj.</string>
   <string name="select_ringtone">Elekti sonoron</string>
   <string name="telephony_pref_blocked_title">Blokitaj nombroj</string>
-  <string name="mpris_coverart_description">Kovrilo de aktuala aŭdvidaĵo</string>
-  <string name="settings_icon_description">Piktogramo de agordoj</string>
   <string name="presenter_fullscreen">Plenekrane</string>
   <string name="presenter_exit">Eliri prezenton</string>
-  <string name="presenter_lock_tip">Vi povas ŝlosi vian aparaton kaj uzi la laŭtec-klavojn por iri al la antaŭa/sekva lumbildo</string>
   <string name="add_command">Aldoni komandon</string>
   <string name="addcommand_explanation">Ne estas komandoj registritaj</string>
   <string name="addcommand_explanation2">Vi povas aldoni novajn komandojn en la KDE Connect System Settings</string>
@@ -305,7 +295,6 @@
   <string name="all">Ĉiuj</string>
   <string name="devices">Aparatoj</string>
   <string name="settings_rename">Aparatnomo</string>
-  <string name="settings_dark_mode">Malhela etoso</string>
   <string name="settings_more_settings_title">Pli da agordoj</string>
   <string name="settings_more_settings_text">Per-aparataj agordoj troveblas sub \'Kromaĵo-agordoj\' de ene de aparato.</string>
   <string name="setting_persistent_notification">Montri konstantan sciigon</string>
@@ -328,7 +317,6 @@
   <string name="location_permission_needed_title">Permeso bezonata</string>
   <string name="bluetooth_permission_needed_desc">KDE Connect bezonas permeson por konekti al proksimaj aparatoj por fari aparatojn parigitaj per Bluetooth disponebla en KDE Connect.</string>
   <string name="location_permission_needed_desc">KDE Connect bezonas la fonlokan permeson por scii la WiFi-reton al kiu vi estas konektita eĉ kiam la programo estas en la fono. Ĉi tio estas ĉar la nomo de la WiFi-retoj ĉirkaŭ vi povus esti uzata por trovi vian lokon, eĉ kiam tion ne faras KDE Connect.</string>
-  <string name="clipboard_android_x_incompat">Android 10 forigis aliron al tondujo al ĉiuj aplikaĵoj. Ĉi tiu kromaĵo estos malŝaltita.</string>
   <string name="mpris_open_url">Daŭre ludi ĉi tie</string>
   <string name="cant_open_url">Ne povas malfermi URL por daŭrigi ludadon</string>
   <string name="bigscreen_home">Hejmo</string>
@@ -338,13 +326,8 @@
   <string name="bigscreen_right">Dekstra</string>
   <string name="bigscreen_down">Malsupren</string>
   <string name="bigscreen_mic">Mikrofono</string>
-  <string name="pref_plugin_bigscreen_desc">Uzu vian aparaton kiel fora por Plasma Bigscreen</string>
   <string name="bigscreen_optional_permission_explanation">Por dividi mikrofonan enigon de via telefono, vi devas doni aliron al la sonenigo de la telefono</string>
   <string name="bigscreen_speech_extra_prompt">Parolado</string>
-  <string name="message_reply_label">RESPONDO</string>
-  <string name="mark_as_read_label">MARKI KIEL LEGITA</string>
-  <string name="user_display_name">Vi</string>
-  <string name="set_default_sms_app_title">Sendi MMS</string>
   <string name="set_group_message_as_mms_title">Sendi grupajn MMS</string>
   <string name="set_long_text_as_mms_title">Sendi longan tekston kiel MMS</string>
   <string name="convert_to_mms_after_title">Konverti al MMS</string>
@@ -373,17 +356,11 @@
   <string name="website">Retejo</string>
   <string name="about">Pri</string>
   <string name="authors">Aŭtoroj</string>
-  <string name="thanks_to">Dankon al</string>
   <string name="easter_egg">Paska Ovo</string>
-  <string name="email_contributor">Retpoŝti kontribuanton\n%s</string>
-  <string name="visit_contributors_homepage">Viziti hejmpaĝon de kontribuanto\n%s</string>
   <string name="version">Versio %s</string>
   <string name="about_kde">Pri KDE</string>
   <string name="kde_be_free">KDE - Estu Libera!</string>
-  <string name="kde">KDE</string>
   <string name="konqi">Konĉja</string>
-  <string name="rise_up">Leviĝi</string>
-  <string name="rise_down">Leviĝi Malsupren</string>
   <string name="click_here_to_type">Frapetu ĉi tie por tajpi</string>
   <string name="clear_compose">Viŝi</string>
   <string name="send_compose">Sendi</string>
@@ -410,7 +387,6 @@
   <string name="send_clipboard">Sendi tondujon</string>
   <string name="tap_to_execute">Frapi por plenumi</string>
   <string name="plugin_stats">Statistiko de kromprogramoj</string>
-  <string name="enable_udp_broadcast">Ebligi UDP-aparatan malkovron</string>
   <string name="enable_bluetooth">Ŝalti bluetooth (beta)</string>
   <string name="receive_notifications_permission_explanation">Sciigoj devas esti permesitaj ricevi ilin de aliaj aparatoj</string>
   <string name="findmyphone_notifications_explanation">La sciiga permeso estas necesa por ke la telefono povu sonori kiam la app estas en la fono</string>
@@ -423,4 +399,8 @@
   <string name="ping_in_progress">Eĥosondante…</string>
   <string name="device_host_invalid">Gastiganto estas nevalida. Uzu validan gastigantnomon, IPv4, aŭ IPv6</string>
   <string name="device_host_duplicate">Gastiganto jam ekzistas en la listo</string>
+  <string name="pairing_verification_code_title">Kontrolkodo</string>
+  <string name="pairing_compare_verification_code">Komparu ĉi tiun kodon ĉe ambaŭ aparatoj antaŭ ol akcepti.</string>
+  <string name="pairing_waiting_for_device">Atendante, ke %1$s akceptu la peton.</string>
+  <string name="pairing_trusted_device">Parigita kun %1$s. Ĉi tiu aparato nun estas fidata.</string>
 </resources>
