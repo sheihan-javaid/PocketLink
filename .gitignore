@@ -31,4 +31,5 @@ brain/
 .claude/
 
 # Internal audit reports, APK captures & scratch documentation
-docs/
+docs/audit/raw/
+docs/**/screenshots/
