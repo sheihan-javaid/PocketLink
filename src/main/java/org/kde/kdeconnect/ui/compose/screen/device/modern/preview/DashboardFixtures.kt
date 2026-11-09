@@ -46,6 +46,7 @@ object DashboardFixtures {
         override fun onMediaPrevious() {}
         override fun onMediaSeek(positionMs: Long) {}
         override fun onVolumeChange(newVolume: Int) {}
+        override fun onVolumeToggleMute() {}
     }
 
     val fullFeaturedState = DashboardUiState(

@@ -72,25 +72,30 @@ class DeviceViewModel : ViewModel() {
     }
 
     fun bindDevice(device: Device) {
-        if (currentDevice?.deviceId == device.deviceId) {
-            updateMediaState()
-            updateVolumeState()
-            return
+        if (currentDevice != null && currentDevice?.deviceId != device.deviceId) {
+            unbindDevice()
         }
-
-        unbindDevice()
         currentDevice = device
 
         val mpris = device.getPlugin<MprisPlugin>()
-        if (mpris != null && device.isPluginEnabled("MprisPlugin")) {
+        if (mpris != null && device.isPluginEnabled("MprisPlugin") && device.isReachable) {
             mpris.setPlayerListUpdatedHandler(MPRIS_HANDLER_ID) { updateMediaState() }
             mpris.setPlayerStatusUpdatedHandler(MPRIS_HANDLER_ID) { updateMediaState() }
+        } else {
+            mpris?.removePlayerListUpdatedHandler(MPRIS_HANDLER_ID)
+            mpris?.removePlayerStatusUpdatedHandler(MPRIS_HANDLER_ID)
+            _mediaPlaybackState.value = null
         }
 
         val sysVolume = device.getPlugin<SystemVolumePlugin>()
-        if (sysVolume != null && device.isPluginEnabled("SystemVolumePlugin")) {
+        if (sysVolume != null && device.isPluginEnabled("SystemVolumePlugin") && device.isReachable) {
+            sysVolume.removeSinkListener(sinkListener)
             sysVolume.addSinkListener(sinkListener)
             sysVolume.requestSinkList()
+        } else {
+            sysVolume?.removeSinkListener(sinkListener)
+            sysVolume?.sinks?.forEach { it.removeListener(sinkUpdateListener) }
+            _volumeControlState.value = null
         }
 
         updateMediaState()
@@ -159,9 +164,9 @@ class DeviceViewModel : ViewModel() {
         }
 
         val sinks = sysVolume.sinks
+        sinks.forEach { it.addListener(sinkUpdateListener) }
         val defaultSink = sinks.firstOrNull { it.isDefault } ?: sinks.firstOrNull()
         if (defaultSink != null) {
-            defaultSink.addListener(sinkUpdateListener)
             _volumeControlState.value = VolumeControlUiState(
                 sinkName = defaultSink.description.ifEmpty { defaultSink.name },
                 volume = defaultSink.volume,

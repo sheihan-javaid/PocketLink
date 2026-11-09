@@ -52,6 +52,7 @@ import org.kde.kdeconnect_tp.R
 fun ContextualVolumeCard(
     volumeState: VolumeControlUiState,
     onVolumeChange: (Int) -> Unit,
+    onVolumeToggleMute: () -> Unit = {},
     modifier: Modifier = Modifier
 ) {
     val isDark = isDarkThemeMode()
@@ -101,14 +102,7 @@ fun ContextualVolumeCard(
                 ) {
                     IconButton(
                         onClick = {
-                            if (sliderPosition > 0f) {
-                                previousVolume = sliderPosition
-                                sliderPosition = 0f
-                                onVolumeChange(0)
-                            } else {
-                                sliderPosition = if (previousVolume > 0f) previousVolume else 50f
-                                onVolumeChange(sliderPosition.toInt())
-                            }
+                            onVolumeToggleMute()
                         },
                         modifier = Modifier.size(48.dp)
                     ) {

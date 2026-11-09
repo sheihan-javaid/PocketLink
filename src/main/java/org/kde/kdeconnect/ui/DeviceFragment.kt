@@ -240,6 +240,8 @@ class DeviceFragment : BaseFragment<ActivityDeviceBinding>() {
         if (!hasBinding) return // in case onDestroyView has already been called
         val device = device ?: return
 
+        viewModel.bindDevice(device)
+
         //Once in-app, there is no point in keep displaying the notification if any
         device.hidePairingNotification()
 
@@ -421,6 +423,10 @@ class DeviceFragment : BaseFragment<ActivityDeviceBinding>() {
                                         override fun onVolumeChange(newVolume: Int) {
                                             viewModel.onVolumeChange(newVolume)
                                         }
+
+                                        override fun onVolumeToggleMute() {
+                                            viewModel.onVolumeToggleMute()
+                                        }
                                     }
                                 }
 
@@ -516,7 +522,8 @@ class DeviceFragment : BaseFragment<ActivityDeviceBinding>() {
 
             override fun unpaired(device: Device) {
                 mActivity?.runOnUiThread {
-                    viewModel.setPairingErrorMessage(message =null)
+                    viewModel.unbindDevice()
+                    viewModel.setPairingErrorMessage(message = null)
                     viewModel.setPairingSucceeded(false)
                     refreshUI()
                 }

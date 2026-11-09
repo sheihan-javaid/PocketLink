@@ -164,5 +164,6 @@ interface DashboardActions {
     fun onMediaPrevious()
     fun onMediaSeek(positionMs: Long) {}
     fun onVolumeChange(newVolume: Int)
+    fun onVolumeToggleMute() {}
 }
 

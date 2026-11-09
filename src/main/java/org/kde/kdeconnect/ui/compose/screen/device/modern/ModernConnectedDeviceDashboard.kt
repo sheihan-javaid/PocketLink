@@ -196,7 +196,10 @@ fun ModernConnectedDeviceDashboard(
                                 state.attention?.let { attentionState ->
                                     AttentionBanner(
                                         attention = attentionState,
-                                        onClick = actions::onAttentionBannerClick
+                                        onClick = {
+                                            actions.onAttentionBannerClick()
+                                            isManagingPlugins = true
+                                        }
                                     )
                                 }
                             }
@@ -235,7 +238,8 @@ fun ModernConnectedDeviceDashboard(
                                 state.volume?.let { volState ->
                                     ContextualVolumeCard(
                                         volumeState = volState,
-                                        onVolumeChange = actions::onVolumeChange
+                                        onVolumeChange = actions::onVolumeChange,
+                                        onVolumeToggleMute = actions::onVolumeToggleMute
                                     )
                                 }
                             }
