@@ -47,6 +47,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import org.kde.kdeconnect.ui.compose.KdeSpacing
+import org.kde.kdeconnect.ui.compose.screen.device.modern.LocalDashboardTokens
 import org.kde.kdeconnect.ui.compose.screen.device.modern.MediaPlaybackUiState
 import org.kde.kdeconnect_tp.R
 
@@ -59,207 +60,216 @@ fun ContextualMediaCard(
     onSeek: (Long) -> Unit = {},
     modifier: Modifier = Modifier
 ) {
-    val isDark = isDarkThemeMode()
-    val isReducedMotion = isReducedMotionMode()
-
-    val neonIndigo = Color(0xFF7C6CFF)
-    val neonCyan = Color(0xFF3DDBFF)
-
     AuroraGlassCard(
         modifier = modifier
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(KdeSpacing.cardPadding),
-            verticalArrangement = Arrangement.spacedBy(KdeSpacing.medium)
+        ContextualMediaContent(
+            media = media,
+            onPlayPause = onPlayPause,
+            onNext = onNext,
+            onPrevious = onPrevious,
+            onSeek = onSeek,
+            modifier = Modifier.padding(KdeSpacing.cardPadding)
+        )
+    }
+}
+
+@Composable
+fun ContextualMediaContent(
+    media: MediaPlaybackUiState,
+    onPlayPause: () -> Unit,
+    onNext: () -> Unit,
+    onPrevious: () -> Unit,
+    onSeek: (Long) -> Unit = {},
+    modifier: Modifier = Modifier
+) {
+    val isReducedMotion = isReducedMotionMode()
+    val tokens = LocalDashboardTokens.current
+    val primaryColor = MaterialTheme.colorScheme.primary
+    val secondaryColor = MaterialTheme.colorScheme.secondary
+    val tertiaryColor = MaterialTheme.colorScheme.tertiary
+
+    Column(
+        modifier = modifier.fillMaxWidth(),
+        verticalArrangement = Arrangement.spacedBy(KdeSpacing.medium)
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.fillMaxWidth()
         ) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.fillMaxWidth()
+            // Album Art Fallback with container gradient & music note
+            Box(
+                modifier = Modifier
+                    .size(48.dp)
+                    .clip(RoundedCornerShape(12.dp))
+                    .background(tokens.mediaContainer),
+                contentAlignment = Alignment.Center
             ) {
-                // Album Art Fallback with Aurora gradient & music note
-                Box(
-                    modifier = Modifier
-                        .size(48.dp)
-                        .clip(RoundedCornerShape(12.dp))
-                        .background(
-                            Brush.linearGradient(
-                                if (isDark) {
-                                    listOf(Color(0xFF2E1A66), Color(0xFF133B5C))
-                                } else {
-                                    listOf(Color(0xFFEEF2FF), Color(0xFFE0E7FF))
-                                }
-                            )
-                        ),
-                    contentAlignment = Alignment.Center
+                Image(
+                    painter = painterResource(R.drawable.ic_modern_album_art),
+                    contentDescription = null,
+                    colorFilter = ColorFilter.tint(tokens.onMediaContainer),
+                    modifier = Modifier.size(28.dp)
+                )
+            }
+
+            Spacer(modifier = Modifier.width(KdeSpacing.medium))
+
+            Column(modifier = Modifier.weight(1f)) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    Image(
-                        painter = painterResource(R.drawable.ic_modern_album_art),
-                        contentDescription = null,
-                        colorFilter = ColorFilter.tint(if (isDark) neonCyan else Color(0xFF6254C7)),
-                        modifier = Modifier.size(28.dp)
+                    Text(
+                        text = media.title.ifEmpty { stringResource(R.string.now_playing) },
+                        style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold),
+                        color = tokens.textPrimary,
+                        maxLines = 2,
+                        softWrap = true,
+                        overflow = TextOverflow.Ellipsis,
+                        modifier = Modifier.weight(1f, fill = false)
                     )
+                    // Animated 4-bar equalizer while playing
+                    if (media.isPlaying) {
+                        EqualizerBars(
+                            isReducedMotion = isReducedMotion,
+                            barColor = tertiaryColor
+                        )
+                    }
                 }
 
-                Spacer(modifier = Modifier.width(KdeSpacing.medium))
+                Text(
+                    text = if (media.artist.isNotEmpty()) "${media.artist} · ${media.playerName}" else media.playerName,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = tokens.textSecondary,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
 
-                Column(modifier = Modifier.weight(1f)) {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                // Real MPRIS playback progress (rendered only when valid duration and position are available)
+                val hasValidProgress = media.durationMs > 0L && media.positionMs >= 0L
+                if (hasValidProgress) {
+                    val progressFraction = (media.positionMs.toFloat() / media.durationMs.toFloat()).coerceIn(0f, 1f)
+                    val playheadCoreColor = primaryColor
+                    val playheadGlowColor = primaryColor.copy(alpha = 0.35f)
+
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 6.dp)
+                            .height(8.dp)
+                            .then(
+                                if (media.canSeek) {
+                                    Modifier.clickable(role = Role.Button) {
+                                        onSeek(media.positionMs)
+                                    }
+                                } else Modifier
+                            ),
+                        contentAlignment = Alignment.CenterStart
                     ) {
-                        Text(
-                            text = media.title.ifEmpty { stringResource(R.string.now_playing) },
-                            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold),
-                            maxLines = 2,
-                            softWrap = true,
-                            overflow = TextOverflow.Ellipsis,
-                            modifier = Modifier.weight(1f, fill = false)
-                        )
-                        // Animated 4-bar equalizer while playing
-                        if (media.isPlaying) {
-                            EqualizerBars(
-                                isReducedMotion = isReducedMotion,
-                                barColor = if (isDark) neonCyan else Color(0xFF0F766E)
-                            )
-                        }
-                    }
-
-                    Text(
-                        text = if (media.artist.isNotEmpty()) "${media.artist} · ${media.playerName}" else media.playerName,
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
-                    )
-
-                    // Real MPRIS playback progress (rendered only when valid duration and position are available)
-                    val hasValidProgress = media.durationMs > 0L && media.positionMs >= 0L
-                    if (hasValidProgress) {
-                        val progressFraction = (media.positionMs.toFloat() / media.durationMs.toFloat()).coerceIn(0f, 1f)
-                        val playheadCoreColor = if (isDark) Color(0xFF3DDBFF) else Color(0xFF6254C7)
-                        val playheadGlowColor = if (isDark) Color(0x663DDBFF) else Color(0x406254C7)
-
+                        // Background track
                         Box(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(top = 6.dp)
-                                .height(8.dp)
-                                .then(
-                                    if (media.canSeek) {
-                                        Modifier.clickable(role = Role.Button) {
-                                            // Tap to seek midpoint or handled via seeker
-                                            onSeek(media.positionMs)
-                                        }
-                                    } else Modifier
-                                ),
-                            contentAlignment = Alignment.CenterStart
-                        ) {
-                            // Background track
-                            Box(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .height(2.5.dp)
-                                    .clip(RoundedCornerShape(2.dp))
-                                    .background(if (isDark) Color(0x33FFFFFF) else Color(0xFFE2E8F0))
-                            )
-                            // Active progress bar
-                            Box(
-                                modifier = Modifier
-                                    .fillMaxWidth(progressFraction)
-                                    .height(2.5.dp)
-                                    .clip(RoundedCornerShape(2.dp))
-                                    .background(
-                                        Brush.horizontalGradient(
-                                            listOf(neonIndigo, neonCyan)
-                                        )
+                                .height(2.5.dp)
+                                .clip(RoundedCornerShape(2.dp))
+                                .background(MaterialTheme.colorScheme.surfaceVariant)
+                        )
+                        // Active progress bar
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth(progressFraction)
+                                .height(2.5.dp)
+                                .clip(RoundedCornerShape(2.dp))
+                                .background(
+                                    Brush.horizontalGradient(
+                                        listOf(primaryColor, secondaryColor)
                                     )
-                            )
-                            // Glowing playhead with high contrast core
+                                )
+                        )
+                        // Glowing playhead with high contrast core
+                        Box(
+                            modifier = Modifier.fillMaxWidth(progressFraction),
+                            contentAlignment = Alignment.CenterEnd
+                        ) {
                             Box(
-                                modifier = Modifier.fillMaxWidth(progressFraction),
-                                contentAlignment = Alignment.CenterEnd
+                                modifier = Modifier
+                                    .size(8.dp)
+                                    .clip(CircleShape)
+                                    .background(playheadGlowColor),
+                                contentAlignment = Alignment.Center
                             ) {
                                 Box(
                                     modifier = Modifier
-                                        .size(8.dp)
+                                        .size(5.dp)
                                         .clip(CircleShape)
-                                        .background(playheadGlowColor),
-                                    contentAlignment = Alignment.Center
-                                ) {
-                                    Box(
-                                        modifier = Modifier
-                                            .size(5.dp)
-                                            .clip(CircleShape)
-                                            .background(playheadCoreColor)
-                                    )
-                                }
+                                        .background(playheadCoreColor)
+                                )
                             }
                         }
                     }
                 }
+            }
 
-                Spacer(modifier = Modifier.width(KdeSpacing.small))
+            Spacer(modifier = Modifier.width(KdeSpacing.small))
 
-                // Playback Controls
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(KdeSpacing.xSmall)
+            // Playback Controls
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(KdeSpacing.xSmall)
+            ) {
+                IconButton(
+                    onClick = onPrevious,
+                    enabled = media.canSkipPrev,
+                    modifier = Modifier.size(40.dp)
                 ) {
-                    IconButton(
-                        onClick = onPrevious,
-                        enabled = media.canSkipPrev,
-                        modifier = Modifier.size(40.dp)
-                    ) {
-                        Image(
-                            painter = painterResource(R.drawable.ic_previous_white),
-                            contentDescription = stringResource(R.string.mpris_previous),
-                            colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurfaceVariant),
-                            modifier = Modifier.size(20.dp)
-                        )
-                    }
+                    Image(
+                        painter = painterResource(R.drawable.ic_previous_white),
+                        contentDescription = stringResource(R.string.mpris_previous),
+                        colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurfaceVariant),
+                        modifier = Modifier.size(20.dp)
+                    )
+                }
 
-                    // High-contrast Gradient Play Button
-                    Box(
-                        modifier = Modifier
-                            .size(44.dp)
-                            .clip(CircleShape)
-                            .background(
-                                Brush.horizontalGradient(
-                                    listOf(neonIndigo, neonCyan)
-                                )
+                // High-contrast Gradient Play Button
+                Box(
+                    modifier = Modifier
+                        .size(44.dp)
+                        .clip(CircleShape)
+                        .background(
+                            Brush.horizontalGradient(
+                                listOf(primaryColor, secondaryColor)
                             )
-                            .semantics { role = Role.Button }
-                            .clickable(enabled = media.canPlayPause, onClick = onPlayPause),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Image(
-                            painter = painterResource(
-                                if (media.isPlaying) R.drawable.ic_pause_white
-                                else R.drawable.ic_play_white
-                            ),
-                            contentDescription = stringResource(
-                                if (media.isPlaying) R.string.mpris_pause
-                                else R.string.mpris_play
-                            ),
-                            colorFilter = ColorFilter.tint(Color.White),
-                            modifier = Modifier.size(22.dp)
                         )
-                    }
+                        .semantics { role = Role.Button }
+                        .clickable(enabled = media.canPlayPause, onClick = onPlayPause),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Image(
+                        painter = painterResource(
+                            if (media.isPlaying) R.drawable.ic_pause_white
+                            else R.drawable.ic_play_white
+                        ),
+                        contentDescription = stringResource(
+                            if (media.isPlaying) R.string.mpris_pause
+                            else R.string.mpris_play
+                        ),
+                        colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onPrimary),
+                        modifier = Modifier.size(22.dp)
+                    )
+                }
 
-                    IconButton(
-                        onClick = onNext,
-                        enabled = media.canSkipNext,
-                        modifier = Modifier.size(40.dp)
-                    ) {
-                        Image(
-                            painter = painterResource(R.drawable.ic_next_white),
-                            contentDescription = stringResource(R.string.mpris_next),
-                            colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurfaceVariant),
-                            modifier = Modifier.size(20.dp)
-                        )
-                    }
+                IconButton(
+                    onClick = onNext,
+                    enabled = media.canSkipNext,
+                    modifier = Modifier.size(40.dp)
+                ) {
+                    Image(
+                        painter = painterResource(R.drawable.ic_next_white),
+                        contentDescription = stringResource(R.string.mpris_next),
+                        colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurfaceVariant),
+                        modifier = Modifier.size(20.dp)
+                    )
                 }
             }
         }

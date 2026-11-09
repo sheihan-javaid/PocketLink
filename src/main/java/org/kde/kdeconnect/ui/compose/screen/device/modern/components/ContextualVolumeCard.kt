@@ -44,6 +44,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import org.kde.kdeconnect.ui.compose.KdeSpacing
+import org.kde.kdeconnect.ui.compose.screen.device.modern.LocalDashboardTokens
 import org.kde.kdeconnect.ui.compose.screen.device.modern.VolumeControlUiState
 import org.kde.kdeconnect_tp.R
 
@@ -55,25 +56,40 @@ fun ContextualVolumeCard(
     onVolumeToggleMute: () -> Unit = {},
     modifier: Modifier = Modifier
 ) {
-    val isDark = isDarkThemeMode()
+    AuroraGlassCard(modifier = modifier) {
+        ContextualVolumeContent(
+            volumeState = volumeState,
+            onVolumeChange = onVolumeChange,
+            onVolumeToggleMute = onVolumeToggleMute,
+            modifier = Modifier.padding(start = KdeSpacing.cardPadding, end = KdeSpacing.cardPadding, top = 12.dp, bottom = 2.dp)
+        )
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun ContextualVolumeContent(
+    volumeState: VolumeControlUiState,
+    onVolumeChange: (Int) -> Unit,
+    onVolumeToggleMute: () -> Unit = {},
+    modifier: Modifier = Modifier
+) {
     var sliderPosition by remember(volumeState.volume) {
         mutableFloatStateOf(volumeState.volume.toFloat())
-    }
-    var previousVolume by remember {
-        mutableFloatStateOf(if (volumeState.volume > 0) volumeState.volume.toFloat() else 50f)
     }
 
     val haptic = LocalHapticFeedback.current
     var lastHapticStep by remember { mutableFloatStateOf(sliderPosition / 10f) }
+    val tokens = LocalDashboardTokens.current
 
     val isMuted = sliderPosition <= 0f || volumeState.isMuted
     val isLowVolume = sliderPosition in 1f..33f
 
     val speakerIconRes = if (isMuted) R.drawable.ic_modern_volume_mute else R.drawable.ic_modern_volume
     val speakerIconTint = when {
-        isMuted -> if (isDark) Color(0xFFFF6B7A) else Color(0xFFDC2626)
-        isLowVolume -> if (isDark) Color(0xFF3DDBFF) else Color(0xFF0F766E)
-        else -> if (isDark) Color(0xFF7C6CFF) else Color(0xFF6254C7)
+        isMuted -> MaterialTheme.colorScheme.error
+        isLowVolume -> MaterialTheme.colorScheme.secondary
+        else -> MaterialTheme.colorScheme.primary
     }
 
     val speakerContentDesc = when {
@@ -82,99 +98,92 @@ fun ContextualVolumeCard(
         else -> stringResource(R.string.volume_normal_desc, sliderPosition.toInt())
     }
 
-    val neonThumbBorder = if (isDark) Color(0xFF3DDBFF) else Color(0xFF6254C7)
-
-    AuroraGlassCard(modifier = modifier) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(start = KdeSpacing.cardPadding, end = KdeSpacing.cardPadding, top = 12.dp, bottom = 2.dp),
-            verticalArrangement = Arrangement.spacedBy(0.dp)
+    Column(
+        modifier = modifier.fillMaxWidth(),
+        verticalArrangement = Arrangement.spacedBy(0.dp)
+    ) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Row(
-                modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
+                modifier = Modifier.weight(1f)
             ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.weight(1f)
+                IconButton(
+                    onClick = onVolumeToggleMute,
+                    modifier = Modifier.size(48.dp)
                 ) {
-                    IconButton(
-                        onClick = {
-                            onVolumeToggleMute()
-                        },
-                        modifier = Modifier.size(48.dp)
-                    ) {
-                        Image(
-                            painter = painterResource(speakerIconRes),
-                            contentDescription = speakerContentDesc,
-                            colorFilter = ColorFilter.tint(speakerIconTint),
-                            modifier = Modifier.size(24.dp)
-                        )
-                    }
-                    Spacer(modifier = Modifier.width(KdeSpacing.xSmall))
-                    Text(
-                        text = volumeState.sinkName.ifEmpty { stringResource(R.string.pref_plugin_systemvolume) },
-                        style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold)
+                    Image(
+                        painter = painterResource(speakerIconRes),
+                        contentDescription = speakerContentDesc,
+                        colorFilter = ColorFilter.tint(speakerIconTint),
+                        modifier = Modifier.size(24.dp)
                     )
                 }
-
-                Box(
-                    modifier = Modifier
-                        .clip(RoundedCornerShape(8.dp))
-                        .background(if (isDark) Color(0x243DDBFF) else Color(0xFFECE8F6))
-                        .padding(horizontal = 8.dp, vertical = 3.dp)
-                ) {
-                    Text(
-                        text = "${sliderPosition.toInt()}%",
-                        style = MaterialTheme.typography.labelSmall.copy(
-                            fontWeight = FontWeight.Bold,
-                            fontFeatureSettings = "tnum"
-                        ),
-                        color = if (isDark) Color(0xFF3DDBFF) else Color(0xFF6254C7)
-                    )
-                }
+                Spacer(modifier = Modifier.width(KdeSpacing.xSmall))
+                Text(
+                    text = volumeState.sinkName.ifEmpty { stringResource(R.string.pref_plugin_systemvolume) },
+                    style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold),
+                    color = tokens.textPrimary
+                )
             }
 
-            Slider(
-                value = sliderPosition,
-                onValueChange = { newValue ->
-                    sliderPosition = newValue
-                    val currentStep = (newValue / 10f).toInt()
-                    if (currentStep != lastHapticStep.toInt()) {
-                        lastHapticStep = currentStep.toFloat()
-                        haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-                    }
-                },
-                onValueChangeFinished = {
-                    onVolumeChange(sliderPosition.toInt())
-                },
-                valueRange = 0f..volumeState.maxVolume.toFloat(),
-                thumb = {
-                    Box(
-                        modifier = Modifier
-                            .size(20.dp)
-                            .clip(CircleShape)
-                            .background(Color.White)
-                            .border(2.5.dp, neonThumbBorder, CircleShape)
-                    )
-                },
-                track = { sliderState ->
-                    SliderDefaults.Track(
-                        sliderState = sliderState,
-                        modifier = Modifier.height(6.dp),
-                        colors = SliderDefaults.colors(
-                            activeTrackColor = if (isDark) Color(0xFF7C6CFF) else Color(0xFF6254C7),
-                            inactiveTrackColor = if (isDark) Color(0x3322D3EE) else Color(0x266254C7)
-                        ),
-                        drawStopIndicator = null
-                    )
-                },
+            Box(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 4.dp)
-            )
+                    .clip(RoundedCornerShape(8.dp))
+                    .background(tokens.shareContainer)
+                    .padding(horizontal = 8.dp, vertical = 3.dp)
+            ) {
+                Text(
+                    text = "${sliderPosition.toInt()}%",
+                    style = MaterialTheme.typography.labelSmall.copy(
+                        fontWeight = FontWeight.Bold,
+                        fontFeatureSettings = "tnum"
+                    ),
+                    color = tokens.onShareContainer
+                )
+            }
         }
+
+        Slider(
+            value = sliderPosition,
+            onValueChange = { newValue ->
+                sliderPosition = newValue
+                val currentStep = (newValue / 10f).toInt()
+                if (currentStep != lastHapticStep.toInt()) {
+                    lastHapticStep = currentStep.toFloat()
+                    haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                }
+            },
+            onValueChangeFinished = {
+                onVolumeChange(sliderPosition.toInt())
+            },
+            valueRange = 0f..volumeState.maxVolume.toFloat(),
+            thumb = {
+                Box(
+                    modifier = Modifier
+                        .size(20.dp)
+                        .clip(CircleShape)
+                        .background(MaterialTheme.colorScheme.surface)
+                        .border(2.5.dp, MaterialTheme.colorScheme.primary, CircleShape)
+                )
+            },
+            track = { sliderState ->
+                SliderDefaults.Track(
+                    sliderState = sliderState,
+                    modifier = Modifier.height(6.dp),
+                    colors = SliderDefaults.colors(
+                        activeTrackColor = MaterialTheme.colorScheme.primary,
+                        inactiveTrackColor = MaterialTheme.colorScheme.surfaceVariant
+                    ),
+                    drawStopIndicator = null
+                )
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 4.dp)
+        )
     }
 }

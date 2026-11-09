@@ -21,6 +21,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.defaultMinSize
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.FilledTonalButton
@@ -31,7 +33,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -44,32 +45,52 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.kde.kdeconnect.plugins.Plugin
 import org.kde.kdeconnect.ui.compose.KdeSpacing
+import org.kde.kdeconnect.ui.compose.screen.device.modern.LocalDashboardTokens
+import org.kde.kdeconnect.ui.compose.screen.device.modern.MediaPlaybackUiState
 import org.kde.kdeconnect.ui.compose.screen.device.modern.PluginCategory
 import org.kde.kdeconnect.ui.compose.screen.device.modern.PluginCategoryRegistry
 import org.kde.kdeconnect.ui.compose.screen.device.modern.ServiceRowUiModel
 import org.kde.kdeconnect.ui.compose.screen.device.modern.ServiceSectionUiModel
+import org.kde.kdeconnect.ui.compose.screen.device.modern.VolumeControlUiState
 import org.kde.kdeconnect_tp.R
 
+/**
+ * Premium One UI-style grouped service card representing one of the major functional domains.
+ * Renders with 26dp rounded corners, tonal container fill, 40dp circular tinted domain icons,
+ * 68dp inset dividers, and min 48dp touch targets.
+ */
 @Composable
 fun ServiceSection(
     section: ServiceSectionUiModel,
     onPluginButtonClick: (Plugin.PluginUiButton) -> Unit,
     onPermissionClick: ((pluginKey: String, isRequired: Boolean) -> Unit)? = null,
+    mediaState: MediaPlaybackUiState? = null,
+    volumeState: VolumeControlUiState? = null,
+    onMediaPlayPause: () -> Unit = {},
+    onMediaNext: () -> Unit = {},
+    onMediaPrevious: () -> Unit = {},
+    onMediaSeek: (Long) -> Unit = {},
+    onVolumeChange: (Int) -> Unit = {},
+    onVolumeToggleMute: () -> Unit = {},
     modifier: Modifier = Modifier
 ) {
-    if (section.rows.isEmpty()) return
+    val isMediaCategory = section.category == PluginCategory.MediaAudio
+    val hasMediaOrVolume = isMediaCategory && (mediaState != null || volumeState != null)
 
-    val isDark = isDarkThemeMode()
+    // Hide empty card if there are no rows and no media/volume content
+    if (section.rows.isEmpty() && !hasMediaOrVolume) return
+
+    val tokens = LocalDashboardTokens.current
     val totalInCategory = PluginCategoryRegistry.totalCountFor(section.category)
 
     Column(
         modifier = modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(KdeSpacing.small)
+        verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = KdeSpacing.small, vertical = 2.dp),
+                .padding(horizontal = 8.dp, vertical = 2.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
@@ -79,7 +100,7 @@ fun ServiceSection(
                     letterSpacing = 1.2.sp,
                     fontWeight = FontWeight.Bold
                 ),
-                color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.8f),
+                color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.85f),
                 modifier = Modifier.semantics { heading() }
             )
             Text(
@@ -88,24 +109,58 @@ fun ServiceSection(
                     fontWeight = FontWeight.Medium,
                     fontFeatureSettings = "tnum"
                 ),
-                color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f)
+                color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.65f)
             )
         }
 
         AuroraGlassCard {
+            // In Media & Audio card, integrate Contextual Media controls & Volume controls directly
+            if (isMediaCategory && mediaState != null) {
+                ContextualMediaContent(
+                    media = mediaState,
+                    onPlayPause = onMediaPlayPause,
+                    onNext = onMediaNext,
+                    onPrevious = onMediaPrevious,
+                    onSeek = onMediaSeek,
+                    modifier = Modifier.padding(16.dp)
+                )
+                if (volumeState != null || section.rows.isNotEmpty()) {
+                    HorizontalDivider(
+                        modifier = Modifier.padding(start = 68.dp, end = 16.dp),
+                        thickness = 0.5.dp,
+                        color = tokens.divider
+                    )
+                }
+            }
+
+            if (isMediaCategory && volumeState != null) {
+                ContextualVolumeContent(
+                    volumeState = volumeState,
+                    onVolumeChange = onVolumeChange,
+                    onVolumeToggleMute = onVolumeToggleMute,
+                    modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 8.dp, bottom = 4.dp)
+                )
+                if (section.rows.isNotEmpty()) {
+                    HorizontalDivider(
+                        modifier = Modifier.padding(start = 68.dp, end = 16.dp),
+                        thickness = 0.5.dp,
+                        color = tokens.divider
+                    )
+                }
+            }
+
             section.rows.forEachIndexed { index, row ->
                 ServiceRow(
                     row = row,
                     category = section.category,
-                    isDark = isDark,
                     onPluginButtonClick = onPluginButtonClick,
                     onPermissionClick = onPermissionClick
                 )
                 if (index < section.rows.lastIndex) {
                     HorizontalDivider(
-                        modifier = Modifier.padding(start = 58.dp, end = 16.dp),
+                        modifier = Modifier.padding(start = 68.dp, end = 16.dp),
                         thickness = 0.5.dp,
-                        color = if (isDark) Color(0x1FFFFFFF) else Color(0xFFF1F5F9)
+                        color = tokens.divider
                     )
                 }
             }
@@ -117,33 +172,23 @@ fun ServiceSection(
 private fun ServiceRow(
     row: ServiceRowUiModel,
     category: PluginCategory,
-    isDark: Boolean,
     onPluginButtonClick: (Plugin.PluginUiButton) -> Unit,
     onPermissionClick: ((pluginKey: String, isRequired: Boolean) -> Unit)? = null,
     modifier: Modifier = Modifier
 ) {
+    val tokens = LocalDashboardTokens.current
+
     val (iconBg, iconTint) = when (category) {
-        PluginCategory.ShareTransfer -> Pair(
-            if (isDark) Color(0x267C6CFF) else Color(0xFFEEF2FF),
-            if (isDark) Color(0xFFA99AEF) else Color(0xFF4338CA)
-        )
-        PluginCategory.ControlComputer -> Pair(
-            if (isDark) Color(0x263DDBFF) else Color(0xFFF0FDFA),
-            if (isDark) Color(0xFF3DDBFF) else Color(0xFF0F766E)
-        )
-        PluginCategory.MediaAudio -> Pair(
-            if (isDark) Color(0x26C46BFF) else Color(0xFFF5F3FF),
-            if (isDark) Color(0xFFE0A7FF) else Color(0xFF6D28D9)
-        )
-        PluginCategory.DeviceInfo -> Pair(
-            if (isDark) Color(0x264ADE9F) else Color(0xFFF0FDF4),
-            if (isDark) Color(0xFF4ADE9F) else Color(0xFF15803D)
-        )
+        PluginCategory.ShareTransfer -> Pair(tokens.shareContainer, tokens.onShareContainer)
+        PluginCategory.ControlComputer -> Pair(tokens.controlContainer, tokens.onControlContainer)
+        PluginCategory.MediaAudio -> Pair(tokens.mediaContainer, tokens.onMediaContainer)
+        PluginCategory.DeviceInfo -> Pair(tokens.deviceContainer, tokens.onDeviceContainer)
     }
 
     Column(
         modifier = modifier
             .fillMaxWidth()
+            .defaultMinSize(minHeight = 56.dp)
             .then(
                 if (row.buttons.size == 1 && !row.needsPermission) {
                     Modifier.clickable(role = Role.Button) {
@@ -151,7 +196,7 @@ private fun ServiceRow(
                     }
                 } else Modifier
             )
-            .padding(horizontal = 14.dp, vertical = 12.dp),
+            .padding(horizontal = 16.dp, vertical = 12.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         Row(
@@ -163,10 +208,11 @@ private fun ServiceRow(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.weight(1f)
             ) {
+                // Leading 40dp icon in tinted circle
                 Box(
                     modifier = Modifier
-                        .size(36.dp)
-                        .clip(RoundedCornerShape(10.dp))
+                        .size(40.dp)
+                        .clip(CircleShape)
                         .background(iconBg),
                     contentAlignment = Alignment.Center
                 ) {
@@ -175,7 +221,7 @@ private fun ServiceRow(
                             painter = painterResource(row.iconRes),
                             contentDescription = null,
                             colorFilter = ColorFilter.tint(iconTint),
-                            modifier = Modifier.size(20.dp)
+                            modifier = Modifier.size(22.dp)
                         )
                     } else {
                         Text(
@@ -196,6 +242,7 @@ private fun ServiceRow(
                         Text(
                             text = row.title,
                             style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Medium),
+                            color = tokens.textPrimary,
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis
                         )
@@ -203,7 +250,7 @@ private fun ServiceRow(
                             Box(
                                 modifier = Modifier
                                     .clip(RoundedCornerShape(4.dp))
-                                    .background(MaterialTheme.colorScheme.errorContainer)
+                                    .background(tokens.permissionBadgeBg)
                                     .padding(horizontal = 6.dp, vertical = 1.dp)
                                     .then(
                                         if (onPermissionClick != null) {
@@ -215,8 +262,8 @@ private fun ServiceRow(
                             ) {
                                 Text(
                                     text = stringResource(R.string.permission_badge),
-                                    style = MaterialTheme.typography.labelSmall,
-                                    color = MaterialTheme.colorScheme.onErrorContainer,
+                                    style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
+                                    color = tokens.permissionBadgeText,
                                     maxLines = 1,
                                     softWrap = false
                                 )
@@ -228,7 +275,7 @@ private fun ServiceRow(
                         text = row.supportingValue ?: row.subtitle,
                         style = MaterialTheme.typography.bodySmall,
                         color = if (row.supportingValue != null) MaterialTheme.colorScheme.primary
-                        else MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.8f),
+                        else tokens.textSecondary,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
@@ -240,14 +287,14 @@ private fun ServiceRow(
                 Spacer(modifier = Modifier.width(KdeSpacing.small))
                 FilledTonalButton(
                     onClick = { onPluginButtonClick(row.buttons.first()) },
-                    contentPadding = PaddingValues(horizontal = 12.dp, vertical = 6.dp),
+                    contentPadding = PaddingValues(horizontal = 14.dp, vertical = 6.dp),
                     modifier = Modifier
-                        .height(36.dp)
+                        .height(38.dp)
                         .padding(start = KdeSpacing.xSmall)
                 ) {
                     Text(
                         text = row.buttons.first().name,
-                        style = MaterialTheme.typography.labelMedium
+                        style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.SemiBold)
                     )
                 }
             }
@@ -258,19 +305,19 @@ private fun ServiceRow(
             FlowRow(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 50.dp),
+                    .padding(start = 52.dp),
                 horizontalArrangement = Arrangement.spacedBy(KdeSpacing.small),
                 verticalArrangement = Arrangement.spacedBy(KdeSpacing.small)
             ) {
                 if (row.needsPermission && onPermissionClick != null) {
                     FilledTonalButton(
                         onClick = { onPermissionClick(row.pluginKey, row.isRequiredPermission) },
-                        contentPadding = PaddingValues(horizontal = 10.dp, vertical = 4.dp),
+                        contentPadding = PaddingValues(horizontal = 12.dp, vertical = 6.dp),
                         colors = ButtonDefaults.filledTonalButtonColors(
-                            containerColor = if (isDark) Color(0xFF2A1517) else Color(0xFFFEE2E2),
-                            contentColor = if (isDark) Color(0xFFFFB4AB) else Color(0xFF991B1B)
+                            containerColor = tokens.permissionBadgeBg,
+                            contentColor = tokens.permissionBadgeText
                         ),
-                        modifier = Modifier.height(32.dp)
+                        modifier = Modifier.height(34.dp)
                     ) {
                         Text(
                             text = stringResource(
@@ -286,8 +333,8 @@ private fun ServiceRow(
                     row.buttons.forEach { button ->
                         FilledTonalButton(
                             onClick = { onPluginButtonClick(button) },
-                            contentPadding = PaddingValues(horizontal = 10.dp, vertical = 4.dp),
-                            modifier = Modifier.height(32.dp)
+                            contentPadding = PaddingValues(horizontal = 12.dp, vertical = 6.dp),
+                            modifier = Modifier.height(34.dp)
                         ) {
                             Text(
                                 text = button.name,
@@ -299,8 +346,8 @@ private fun ServiceRow(
                     val button = row.buttons.first()
                     FilledTonalButton(
                         onClick = { onPluginButtonClick(button) },
-                        contentPadding = PaddingValues(horizontal = 10.dp, vertical = 4.dp),
-                        modifier = Modifier.height(32.dp)
+                        contentPadding = PaddingValues(horizontal = 12.dp, vertical = 6.dp),
+                        modifier = Modifier.height(34.dp)
                     ) {
                         Text(
                             text = button.name,

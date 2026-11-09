@@ -49,6 +49,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import org.kde.kdeconnect.ui.compose.KdeSpacing
 import org.kde.kdeconnect.ui.compose.screen.device.modern.HeroUiState
+import org.kde.kdeconnect.ui.compose.screen.device.modern.LocalDashboardTokens
 import org.kde.kdeconnect_tp.R
 
 @Composable
@@ -56,7 +57,6 @@ fun HeroDeviceCard(
     hero: HeroUiState,
     modifier: Modifier = Modifier
 ) {
-    val isDark = isDarkThemeMode()
     val isReducedMotion = isReducedMotionMode()
     val fontScale = LocalDensity.current.fontScale
     val shouldReflow = fontScale > 1.15f
@@ -76,11 +76,8 @@ fun HeroDeviceCard(
         remember { mutableFloatStateOf(1f) }
     }
 
-    val neonMint = Color(0xFF4ADE9F)
-
     AuroraGlassCard(
-        modifier = modifier,
-        showDotGrid = true
+        modifier = modifier
     ) {
         Column(
             modifier = Modifier
@@ -94,7 +91,7 @@ fun HeroDeviceCard(
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    DeviceIconBox(hero = hero, isDark = isDark)
+                    DeviceIconBox(hero = hero)
                     Spacer(modifier = Modifier.width(KdeSpacing.medium))
                     Text(
                         text = hero.deviceName,
@@ -108,9 +105,7 @@ fun HeroDeviceCard(
                 // Full-width chips row under the title row (untruncated)
                 DeviceStatusChipsRow(
                     hero = hero,
-                    dotAlpha = dotAlpha,
-                    neonMint = neonMint,
-                    isDark = isDark
+                    dotAlpha = dotAlpha
                 )
 
                 // Centered Battery Gauge
@@ -141,7 +136,7 @@ fun HeroDeviceCard(
                         verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier.weight(1f)
                     ) {
-                        DeviceIconBox(hero = hero, isDark = isDark)
+                        DeviceIconBox(hero = hero)
                         Spacer(modifier = Modifier.width(KdeSpacing.medium))
                         Text(
                             text = hero.deviceName,
@@ -171,9 +166,7 @@ fun HeroDeviceCard(
                 // Full-width chips row under title & icon (Never cramped, plenty of space for full "Wi-Fi (5 GHz)")
                 DeviceStatusChipsRow(
                     hero = hero,
-                    dotAlpha = dotAlpha,
-                    neonMint = neonMint,
-                    isDark = isDark
+                    dotAlpha = dotAlpha
                 )
             }
         }
@@ -183,38 +176,20 @@ fun HeroDeviceCard(
 @Composable
 private fun DeviceIconBox(
     hero: HeroUiState,
-    isDark: Boolean,
     modifier: Modifier = Modifier
 ) {
-    val bgBrush = if (isDark) {
-        Brush.linearGradient(
-            colors = listOf(
-                Color(0x337C6CFF),
-                Color(0x1A3DDBFF)
-            )
-        )
-    } else {
-        Brush.linearGradient(
-            colors = listOf(
-                Color(0xFFEEF2FF),
-                Color(0xFFE0E7FF)
-            )
-        )
-    }
-
-    val iconTint = if (isDark) Color(0xFF3DDBFF) else Color(0xFF6254C7)
-
+    val tokens = LocalDashboardTokens.current
     Box(
         modifier = modifier
             .size(54.dp)
             .clip(RoundedCornerShape(16.dp))
-            .background(bgBrush),
+            .background(tokens.shareContainer),
         contentAlignment = Alignment.Center
     ) {
         Image(
             painter = painterResource(hero.deviceIconRes),
             contentDescription = null,
-            colorFilter = ColorFilter.tint(iconTint),
+            colorFilter = ColorFilter.tint(tokens.onShareContainer),
             modifier = Modifier.size(32.dp)
         )
     }
@@ -224,10 +199,9 @@ private fun DeviceIconBox(
 private fun DeviceStatusChipsRow(
     hero: HeroUiState,
     dotAlpha: Float,
-    neonMint: Color,
-    isDark: Boolean,
     modifier: Modifier = Modifier
 ) {
+    val tokens = LocalDashboardTokens.current
     Row(
         modifier = modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
@@ -237,6 +211,22 @@ private fun DeviceStatusChipsRow(
             if (hero.isConnected) R.string.device_discovery_connected
             else R.string.error_not_reachable
         )
+        val statusBg = if (hero.isConnected) {
+            MaterialTheme.colorScheme.tertiaryContainer
+        } else {
+            MaterialTheme.colorScheme.errorContainer
+        }
+        val statusText = if (hero.isConnected) {
+            MaterialTheme.colorScheme.onTertiaryContainer
+        } else {
+            MaterialTheme.colorScheme.onErrorContainer
+        }
+        val dotColor = if (hero.isConnected) {
+            MaterialTheme.colorScheme.tertiary.copy(alpha = dotAlpha)
+        } else {
+            MaterialTheme.colorScheme.error
+        }
+
         // Pulsing live status pill
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -244,13 +234,7 @@ private fun DeviceStatusChipsRow(
             modifier = Modifier
                 .semantics { contentDescription = statusLabel }
                 .clip(RoundedCornerShape(8.dp))
-                .background(
-                    if (hero.isConnected) {
-                        if (isDark) Color(0x244ADE9F) else Color(0xFFDCFCE7)
-                    } else {
-                        if (isDark) Color(0x26FF6B7A) else Color(0xFFFEE2E2)
-                    }
-                )
+                .background(statusBg)
                 .padding(horizontal = 9.dp, vertical = 4.dp)
         ) {
             // Pulsing dot
@@ -258,19 +242,12 @@ private fun DeviceStatusChipsRow(
                 modifier = Modifier
                     .size(7.dp)
                     .clip(CircleShape)
-                    .background(
-                        if (hero.isConnected) neonMint.copy(alpha = dotAlpha)
-                        else Color(0xFFFF6B7A)
-                    )
+                    .background(dotColor)
             )
             Text(
                 text = statusLabel,
                 style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.SemiBold),
-                color = if (hero.isConnected) {
-                    if (isDark) neonMint else Color(0xFF166534)
-                } else {
-                    if (isDark) Color(0xFFFFB4AB) else Color(0xFF991B1B)
-                },
+                color = statusText,
                 maxLines = 1
             )
         }
@@ -283,9 +260,7 @@ private fun DeviceStatusChipsRow(
                 modifier = Modifier
                     .semantics { contentDescription = netType }
                     .clip(RoundedCornerShape(8.dp))
-                    .background(
-                        if (isDark) Color(0x1FFFFFFF) else Color(0xFFF1F5F9)
-                    )
+                    .background(tokens.quickActionChipBg)
                     .padding(horizontal = 9.dp, vertical = 4.dp)
             ) {
                 Image(

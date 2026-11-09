@@ -71,17 +71,16 @@ fun BatteryRing(
     val totalSweep = 270f
     val currentSweep = totalSweep * animatedProgress
 
-    val trackColor = if (isDark) Color(0x333DDBFF) else Color(0x286254C7)
-
-    val neonIndigo = Color(0xFF7C6CFF)
-    val neonCyan = Color(0xFF3DDBFF)
-    val neonMint = Color(0xFF4ADE9F)
-    val neonCoral = Color(0xFFFF6B7A)
+    val trackColor = MaterialTheme.colorScheme.surfaceVariant
+    val primaryColor = MaterialTheme.colorScheme.primary
+    val secondaryColor = MaterialTheme.colorScheme.secondary
+    val tertiaryColor = MaterialTheme.colorScheme.tertiary
+    val errorColor = MaterialTheme.colorScheme.error
 
     val glowColor = when {
-        battery.isCharging -> neonMint
-        battery.isLow -> neonCoral
-        else -> neonCyan
+        battery.isCharging -> tertiaryColor
+        battery.isLow -> errorColor
+        else -> primaryColor
     }
 
     val accessibilityDesc = when {
@@ -172,17 +171,17 @@ fun BatteryRing(
                 // Foreground gradient sweep
                 val progressBrush = when {
                     battery.isCharging -> Brush.linearGradient(
-                        colors = listOf(neonMint, neonCyan),
+                        colors = listOf(tertiaryColor, secondaryColor),
                         start = Offset(center.x - radius, center.y + radius),
                         end = Offset(center.x + radius, center.y - radius)
                     )
                     battery.isLow -> Brush.linearGradient(
-                        colors = listOf(neonCoral, Color(0xFFFFB547)),
+                        colors = listOf(errorColor, errorColor.copy(alpha = 0.75f)),
                         start = Offset(center.x - radius, center.y + radius),
                         end = Offset(center.x + radius, center.y - radius)
                     )
                     else -> Brush.linearGradient(
-                        colors = listOf(neonIndigo, neonCyan),
+                        colors = listOf(primaryColor, secondaryColor),
                         start = Offset(center.x - radius, center.y + radius),
                         end = Offset(center.x + radius, center.y - radius)
                     )
@@ -232,7 +231,7 @@ fun BatteryRing(
                 Text(
                     text = "⚡",
                     style = MaterialTheme.typography.labelSmall.copy(fontSize = cappedFontSize * 0.75f),
-                    color = neonMint
+                    color = tertiaryColor
                 )
             }
         }

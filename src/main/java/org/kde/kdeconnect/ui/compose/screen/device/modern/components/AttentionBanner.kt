@@ -65,21 +65,21 @@ fun AttentionBanner(
     val isRequired = attention.severity == PermissionSeverity.Required
 
     val containerColor = if (isRequired) {
-        if (isDark) Color(0xFF2A1517) else Color(0xFFFEF2F2)
+        MaterialTheme.colorScheme.errorContainer
     } else {
-        if (isDark) Color(0xFF131D2E) else Color(0xFFEFF6FF)
+        MaterialTheme.colorScheme.secondaryContainer
     }
 
     val contentColor = if (isRequired) {
-        if (isDark) Color(0xFFFFB4AB) else Color(0xFF991B1B)
+        MaterialTheme.colorScheme.onErrorContainer
     } else {
-        if (isDark) Color(0xFF93C5FD) else Color(0xFF1D4ED8)
+        MaterialTheme.colorScheme.onSecondaryContainer
     }
 
     val strokeColor = if (isRequired) {
-        if (isDark) Color(0xFF8C1D18).copy(alpha = 0.5f) else Color(0xFFFCA5A5).copy(alpha = 0.7f)
+        MaterialTheme.colorScheme.error.copy(alpha = 0.4f)
     } else {
-        if (isDark) Color(0xFF2563EB).copy(alpha = 0.4f) else Color(0xFF93C5FD).copy(alpha = 0.7f)
+        MaterialTheme.colorScheme.secondary.copy(alpha = 0.4f)
     }
 
     val infiniteTransition = rememberInfiniteTransition(label = "attentionPulse")

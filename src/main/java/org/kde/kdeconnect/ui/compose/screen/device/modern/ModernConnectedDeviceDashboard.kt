@@ -6,6 +6,11 @@
 
 package org.kde.kdeconnect.ui.compose.screen.device.modern
 
+import android.app.ActivityManager
+import android.content.Context
+import android.os.Build
+import android.os.PowerManager
+import android.provider.Settings
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.expandVertically
@@ -32,6 +37,7 @@ import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -47,13 +53,13 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -70,6 +76,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.CompositingStrategy
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.heading
@@ -85,8 +92,6 @@ import org.kde.kdeconnect.ui.compose.screen.device.DevicePluginUiModel
 import org.kde.kdeconnect.ui.compose.screen.device.PairingSuccessBanner
 import org.kde.kdeconnect.ui.compose.screen.device.modern.components.AttentionBanner
 import org.kde.kdeconnect.ui.compose.screen.device.modern.components.AuroraGlassCard
-import org.kde.kdeconnect.ui.compose.screen.device.modern.components.ContextualMediaCard
-import org.kde.kdeconnect.ui.compose.screen.device.modern.components.ContextualVolumeCard
 import org.kde.kdeconnect.ui.compose.screen.device.modern.components.HeroDeviceCard
 import org.kde.kdeconnect.ui.compose.screen.device.modern.components.ManagePluginsRow
 import org.kde.kdeconnect.ui.compose.screen.device.modern.components.QuickActionsGrid
@@ -108,188 +113,206 @@ fun ModernConnectedDeviceDashboard(
     onDismissPairingSuccess: () -> Unit = {},
     modifier: Modifier = Modifier
 ) {
+    val context = LocalContext.current
     val isDark = isDarkThemeMode()
+    val colorScheme = MaterialTheme.colorScheme
+    val tokens = remember(isDark, colorScheme) {
+        createDashboardTokens(colorScheme, isDark)
+    }
+    val tier = remember(context) {
+        val powerManager = context.getSystemService(Context.POWER_SERVICE) as? PowerManager
+        val activityManager = context.getSystemService(Context.ACTIVITY_SERVICE) as? ActivityManager
+        val isPowerSave = powerManager?.isPowerSaveMode == true
+        val isLowRam = activityManager?.isLowRamDevice == true
+        val animatorScale = try {
+            Settings.Global.getFloat(context.contentResolver, Settings.Global.ANIMATOR_DURATION_SCALE, 1f)
+        } catch (e: Exception) { 1f }
+        resolveEffectsTier(Build.VERSION.SDK_INT, isPowerSave, animatorScale, isLowRam)
+    }
 
-    var isManagingPlugins by remember { mutableStateOf(false) }
+    CompositionLocalProvider(
+        LocalDashboardTokens provides tokens,
+        LocalEffectsTier provides tier
+    ) {
+        var isManagingPlugins by remember { mutableStateOf(false) }
 
-    if (isManagingPlugins) {
-        BackHandler { isManagingPlugins = false }
-        ManagePluginsPage(
-            plugins = pluginModelsForManagePage,
-            onBack = { isManagingPlugins = false },
-            onPluginEnabledChange = onPluginEnabledChange,
-            onButtonClick = onButtonClick,
-            onRequiredPermissionClick = onRequiredPermissionClick,
-            onOptionalPermissionClick = onOptionalPermissionClick,
-            modifier = modifier
-        )
-    } else {
-        val topInset = WindowInsets.statusBars.asPaddingValues().calculateTopPadding()
-        val bottomInset = WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding()
+        if (isManagingPlugins) {
+            BackHandler { isManagingPlugins = false }
+            ManagePluginsPage(
+                plugins = pluginModelsForManagePage,
+                onBack = { isManagingPlugins = false },
+                onPluginEnabledChange = onPluginEnabledChange,
+                onButtonClick = onButtonClick,
+                onRequiredPermissionClick = onRequiredPermissionClick,
+                onOptionalPermissionClick = onOptionalPermissionClick,
+                modifier = modifier
+            )
+        } else {
+            val topInset = WindowInsets.statusBars.asPaddingValues().calculateTopPadding()
+            val bottomInset = WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding()
 
-        Box(
-            modifier = modifier
-                .fillMaxSize()
-                .drawBehind {
-                    if (isDark) {
-                        drawRect(Color(0xFF07080D))
-                        // ONE page-level background using Brush.radialGradient(accent@~22% -> Transparent)
-                        val accentColor = Color(0xFF6254C7)
-                        val radius = size.maxDimension * 0.85f
+            Box(
+                modifier = modifier
+                    .fillMaxSize()
+                    .drawBehind {
+                        drawRect(tokens.pageBackground)
                         drawRect(
                             brush = Brush.radialGradient(
-                                colors = listOf(accentColor.copy(alpha = 0.22f), Color.Transparent),
+                                colors = listOf(tokens.glow, Color.Transparent),
                                 center = Offset(size.width * 0.15f, size.height * 0.1f),
-                                radius = radius
-                            )
-                        )
-                    } else {
-                        drawRect(Color(0xFFF4F3FB))
-                        // ONE page-level background for light theme
-                        val accentColor = Color(0xFF6254C7)
-                        val radius = size.maxDimension * 0.85f
-                        drawRect(
-                            brush = Brush.radialGradient(
-                                colors = listOf(accentColor.copy(alpha = 0.08f), Color.Transparent),
-                                center = Offset(size.width * 0.15f, size.height * 0.1f),
-                                radius = radius
+                                radius = size.maxDimension * 0.85f
                             )
                         )
                     }
-                }
-        ) {
-            PullToRefreshBox(
-                isRefreshing = state.isRefreshing,
-                onRefresh = actions::onRefresh,
-                modifier = Modifier.fillMaxSize()
             ) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .verticalScroll(rememberScrollState())
+                PullToRefreshBox(
+                    isRefreshing = state.isRefreshing,
+                    onRefresh = actions::onRefresh,
+                    modifier = Modifier.fillMaxSize()
                 ) {
-                    Column(
+                    Box(
                         modifier = Modifier
-                            .align(Alignment.TopCenter)
-                            .widthIn(max = 760.dp)
-                            .fillMaxWidth()
-                            .padding(
-                                start = KdeSpacing.contentHorizontal,
-                                end = KdeSpacing.contentHorizontal,
-                                top = KdeSpacing.medium + topInset,
-                                bottom = 48.dp + bottomInset
-                            ),
-                        verticalArrangement = Arrangement.spacedBy(KdeSpacing.medium)
+                            .fillMaxSize()
+                            .verticalScroll(rememberScrollState())
                     ) {
-                        // 1. Hero Device Card
-                        HeroDeviceCard(hero = state.hero)
+                        Column(
+                            modifier = Modifier
+                                .align(Alignment.TopCenter)
+                                .widthIn(max = 760.dp)
+                                .fillMaxWidth()
+                                .padding(
+                                    start = KdeSpacing.contentHorizontal,
+                                    end = KdeSpacing.contentHorizontal,
+                                    top = KdeSpacing.medium + topInset,
+                                    bottom = 48.dp + bottomInset
+                                ),
+                            verticalArrangement = Arrangement.spacedBy(12.dp)
+                        ) {
+                            // Top: Hero Device Card
+                            HeroDeviceCard(hero = state.hero)
 
-                        if (!state.hero.isConnected) {
-                            DeviceErrorPanel(onRefresh = actions::onRefresh)
-                        } else {
-                            // 2. Consolidated Attention Banner with entrance animation
-                            AnimatedVisibility(
-                                visible = state.attention != null,
-                                enter = fadeIn() + expandVertically(),
-                                exit = fadeOut() + shrinkVertically()
-                            ) {
-                                state.attention?.let { attentionState ->
-                                    AttentionBanner(
-                                        attention = attentionState,
-                                        onClick = {
-                                            actions.onAttentionBannerClick()
-                                            isManagingPlugins = true
-                                        }
+                            if (!state.hero.isConnected) {
+                                DeviceErrorPanel(onRefresh = actions::onRefresh)
+                            } else {
+                                // Attention Banner (Consolidated pending permission alert)
+                                AnimatedVisibility(
+                                    visible = state.attention != null,
+                                    enter = fadeIn() + expandVertically(),
+                                    exit = fadeOut() + shrinkVertically()
+                                ) {
+                                    state.attention?.let { attentionState ->
+                                        AttentionBanner(
+                                            attention = attentionState,
+                                            onClick = {
+                                                actions.onAttentionBannerClick()
+                                                isManagingPlugins = true
+                                            }
+                                        )
+                                    }
+                                }
+
+                                // Quick Actions Grid
+                                if (state.quickActions.isNotEmpty()) {
+                                    QuickActionsGrid(
+                                        actions = state.quickActions,
+                                        onActionClick = actions::onQuickActionClick
                                     )
                                 }
-                            }
 
-                            // 3. Quick Actions Grid
-                            if (state.quickActions.isNotEmpty()) {
-                                QuickActionsGrid(
-                                    actions = state.quickActions,
-                                    onActionClick = actions::onQuickActionClick
-                                )
-                            }
+                                // -------------------------------------------------------------
+                                // One UI-Style 5 Grouped Cards Layout
+                                // -------------------------------------------------------------
 
-                            // 4. Contextual Media Card
-                            AnimatedVisibility(
-                                visible = state.media != null,
-                                enter = fadeIn(),
-                                exit = fadeOut()
-                            ) {
-                                state.media?.let { mediaState ->
-                                    ContextualMediaCard(
-                                        media = mediaState,
-                                        onPlayPause = actions::onMediaPlayPause,
-                                        onNext = actions::onMediaNext,
-                                        onPrevious = actions::onMediaPrevious,
-                                        onSeek = actions::onMediaSeek
+                                // Card 1: Share and Transfer
+                                val shareSection = state.sections.firstOrNull { it.category == PluginCategory.ShareTransfer }
+                                if (shareSection != null && shareSection.rows.isNotEmpty()) {
+                                    ServiceSection(
+                                        section = shareSection,
+                                        onPluginButtonClick = actions::onPluginButtonClick,
+                                        onPermissionClick = actions::onPermissionItemClick
                                     )
                                 }
-                            }
 
-                            // 5. Contextual Volume Card
-                            AnimatedVisibility(
-                                visible = state.volume != null,
-                                enter = fadeIn(),
-                                exit = fadeOut()
-                            ) {
-                                state.volume?.let { volState ->
-                                    ContextualVolumeCard(
-                                        volumeState = volState,
-                                        onVolumeChange = actions::onVolumeChange,
-                                        onVolumeToggleMute = actions::onVolumeToggleMute
+                                // Card 2: Control Computer
+                                val controlSection = state.sections.firstOrNull { it.category == PluginCategory.ControlComputer }
+                                if (controlSection != null && controlSection.rows.isNotEmpty()) {
+                                    ServiceSection(
+                                        section = controlSection,
+                                        onPluginButtonClick = actions::onPluginButtonClick,
+                                        onPermissionClick = actions::onPermissionItemClick
                                     )
                                 }
-                            }
 
-                            // 6. Grouped Service Sections
-                            state.sections.forEach { section ->
+                                // Card 3: Media and Audio (integrating contextual media controls & volume slider)
+                                val mediaSection = state.sections.firstOrNull { it.category == PluginCategory.MediaAudio }
+                                    ?: ServiceSectionUiModel(
+                                        category = PluginCategory.MediaAudio,
+                                        title = PluginCategoryRegistry.categoryTitle(PluginCategory.MediaAudio),
+                                        rows = emptyList(),
+                                        titleRes = PluginCategory.MediaAudio.displayNameRes
+                                    )
                                 ServiceSection(
-                                    section = section,
+                                    section = mediaSection,
                                     onPluginButtonClick = actions::onPluginButtonClick,
-                                    onPermissionClick = actions::onPermissionItemClick
+                                    onPermissionClick = actions::onPermissionItemClick,
+                                    mediaState = state.media,
+                                    volumeState = state.volume,
+                                    onMediaPlayPause = actions::onMediaPlayPause,
+                                    onMediaNext = actions::onMediaNext,
+                                    onMediaPrevious = actions::onMediaPrevious,
+                                    onMediaSeek = actions::onMediaSeek,
+                                    onVolumeChange = actions::onVolumeChange,
+                                    onVolumeToggleMute = actions::onVolumeToggleMute
+                                )
+
+                                // Card 4: Device Information
+                                val deviceSection = state.sections.firstOrNull { it.category == PluginCategory.DeviceInfo }
+                                if (deviceSection != null && deviceSection.rows.isNotEmpty()) {
+                                    ServiceSection(
+                                        section = deviceSection,
+                                        onPluginButtonClick = actions::onPluginButtonClick,
+                                        onPermissionClick = actions::onPermissionItemClick
+                                    )
+                                }
+
+                                // Card 5: Manage Plugins (summary row with chevron opening management page)
+                                ManagePluginsRow(
+                                    summary = state.managePluginsSummary,
+                                    onClick = {
+                                        actions.onManagePluginsClick()
+                                        isManagingPlugins = true
+                                    }
                                 )
                             }
-
-                            // 7. Manage Plugins Navigation Row
-                            ManagePluginsRow(
-                                summary = state.managePluginsSummary,
-                                onClick = {
-                                    actions.onManagePluginsClick()
-                                    isManagingPlugins = true
-                                }
-                            )
                         }
                     }
                 }
-            }
 
-            // Top Status-Bar Scrim/Fade so scrolling content never collides with status bar icons
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(topInset + 14.dp)
-                    .align(Alignment.TopCenter)
-                    .background(
-                        Brush.verticalGradient(
-                            0.0f to (if (isDark) Color(0xFF07080D) else Color(0xFFF4F3FB)),
-                            0.7f to (if (isDark) Color(0xDD07080D) else Color(0xDDF4F3FB)),
-                            1.0f to Color.Transparent
-                        )
-                    )
-            )
-
-            // 8. Pairing Success Banner (Animated top overlay when pairing succeeds)
-            if (pairingSucceeded) {
-                PairingSuccessBanner(
-                    deviceName = state.hero.deviceName,
-                    onDismiss = onDismissPairingSuccess,
+                // Top Status-Bar Scrim/Fade so scrolling content never collides with status bar icons
+                Box(
                     modifier = Modifier
+                        .fillMaxWidth()
+                        .height(topInset + 14.dp)
                         .align(Alignment.TopCenter)
-                        .padding(top = topInset + KdeSpacing.medium, start = KdeSpacing.medium, end = KdeSpacing.medium)
+                        .background(
+                            Brush.verticalGradient(
+                                0.0f to tokens.pageBackground,
+                                0.7f to tokens.pageBackground.copy(alpha = 0.85f),
+                                1.0f to Color.Transparent
+                            )
+                        )
                 )
+
+                // Pairing Success Banner (Animated top overlay when pairing succeeds)
+                if (pairingSucceeded) {
+                    PairingSuccessBanner(
+                        deviceName = state.hero.deviceName,
+                        onDismiss = onDismissPairingSuccess,
+                        modifier = Modifier
+                            .align(Alignment.TopCenter)
+                            .padding(top = topInset + KdeSpacing.medium, start = KdeSpacing.medium, end = KdeSpacing.medium)
+                    )
+                }
             }
         }
     }
@@ -334,8 +357,7 @@ fun ManagePluginsPage(
 
     val topInset = WindowInsets.statusBars.asPaddingValues().calculateTopPadding()
     val navBottomInset = WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding()
-    // Fade color matches the root radial glow background at the header bottom (y ≈ 160dp)
-    val fadeColor = if (isDark) Color(0xFF16142B) else Color(0xFFEBE9F8)
+    val tokens = LocalDashboardTokens.current
 
     // Sticky header: draw the page glow behind BOTH header and list (one background layer, no seam),
     // with the header transparent over it and a ~24dp fade matching background color at that y.
@@ -343,27 +365,14 @@ fun ManagePluginsPage(
         modifier = modifier
             .fillMaxSize()
             .drawBehind {
-                val accentColor = Color(0xFF6254C7)
-                val radius = size.maxDimension * 0.85f
-                if (isDark) {
-                    drawRect(Color(0xFF07080D))
-                    drawRect(
-                        brush = Brush.radialGradient(
-                            colors = listOf(accentColor.copy(alpha = 0.22f), Color.Transparent),
-                            center = Offset(size.width * 0.15f, size.height * 0.1f),
-                            radius = radius
-                        )
+                drawRect(tokens.pageBackground)
+                drawRect(
+                    brush = Brush.radialGradient(
+                        colors = listOf(tokens.glow, Color.Transparent),
+                        center = Offset(size.width * 0.15f, size.height * 0.1f),
+                        radius = size.maxDimension * 0.85f
                     )
-                } else {
-                    drawRect(Color(0xFFF4F3FB))
-                    drawRect(
-                        brush = Brush.radialGradient(
-                            colors = listOf(accentColor.copy(alpha = 0.08f), Color.Transparent),
-                            center = Offset(size.width * 0.15f, size.height * 0.1f),
-                            radius = radius
-                        )
-                    )
-                }
+                )
             }
     ) {
         // Sticky header content height: status bar + top app bar (64dp) + search field (68dp)
@@ -420,19 +429,19 @@ fun ManagePluginsPage(
                                 fontWeight = FontWeight.Medium,
                                 fontFeatureSettings = "tnum"
                             ),
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                            color = tokens.textSecondary
                         )
                         if (pendingPermissionsCount > 0) {
                             Box(
                                 modifier = Modifier
                                     .clip(RoundedCornerShape(6.dp))
-                                    .background(if (isDark) Color(0x33FF6B7A) else Color(0xFFFEE2E2))
+                                    .background(tokens.permissionBadgeBg)
                                     .padding(horizontal = 8.dp, vertical = 2.dp)
                             ) {
                                 Text(
                                     text = stringResource(R.string.attention_pending_count, pendingPermissionsCount),
                                     style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
-                                    color = if (isDark) Color(0xFFFF6B7A) else Color(0xFFDC2626)
+                                    color = tokens.permissionBadgeText
                                 )
                             }
                         }
@@ -450,7 +459,7 @@ fun ManagePluginsPage(
                         Text(
                             text = stringResource(R.string.manage_plugins_no_results, searchQuery),
                             style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                            color = tokens.textSecondary
                         )
                     }
                 }
@@ -497,7 +506,6 @@ fun ManagePluginsPage(
                                     CompactManagePluginRow(
                                         plugin = plugin,
                                         category = category,
-                                        isDark = isDark,
                                         onEnabledChange = { onPluginEnabledChange(plugin.pluginKey, it) },
                                         onButtonClick = onButtonClick,
                                         onRequiredPermissionClick = { onRequiredPermissionClick(plugin.pluginKey) },
@@ -505,9 +513,9 @@ fun ManagePluginsPage(
                                     )
                                     if (index < categoryPlugins.lastIndex) {
                                         HorizontalDivider(
-                                            modifier = Modifier.padding(start = 58.dp, end = 16.dp),
+                                            modifier = Modifier.padding(start = 68.dp, end = 16.dp),
                                             thickness = 0.5.dp,
-                                            color = if (isDark) Color(0x1FFFFFFF) else Color(0xFFF1F5F9)
+                                            color = tokens.divider
                                         )
                                     }
                                 }
@@ -569,10 +577,13 @@ fun ManagePluginsPage(
                     singleLine = true,
                     shape = RoundedCornerShape(12.dp),
                     colors = OutlinedTextFieldDefaults.colors(
-                        focusedContainerColor = if (isDark) Color(0xFF0F111A) else Color(0xFFFFFFFF),
-                        unfocusedContainerColor = if (isDark) Color(0xFF0F111A) else Color(0xFFFFFFFF),
-                        focusedBorderColor = if (isDark) Color(0xFF7C6CFF) else Color(0xFF6254C7),
-                        unfocusedBorderColor = if (isDark) Color(0x38FFFFFF) else Color(0xFFE2E8F0)
+                        focusedContainerColor = tokens.cardBackground,
+                        unfocusedContainerColor = tokens.cardBackground,
+                        focusedBorderColor = MaterialTheme.colorScheme.primary,
+                        unfocusedBorderColor = tokens.cardBorderBottom,
+                        focusedTextColor = tokens.textPrimary,
+                        unfocusedTextColor = tokens.textPrimary,
+                        cursorColor = MaterialTheme.colorScheme.primary
                     ),
                     modifier = Modifier.fillMaxWidth()
                 )
@@ -585,7 +596,7 @@ fun ManagePluginsPage(
                     .height(24.dp)
                     .background(
                         brush = Brush.verticalGradient(
-                            colors = listOf(fadeColor, Color.Transparent)
+                            colors = listOf(tokens.pageBackground, Color.Transparent)
                         )
                     )
             )
@@ -632,37 +643,25 @@ private fun getPluginIconRes(pluginKey: String): Int = when (pluginKey) {
 private fun CompactManagePluginRow(
     plugin: DevicePluginUiModel,
     category: PluginCategory,
-    isDark: Boolean,
     onEnabledChange: (Boolean) -> Unit,
     onButtonClick: (Plugin.PluginUiButton) -> Unit,
     onRequiredPermissionClick: () -> Unit,
     onOptionalPermissionClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val tokens = LocalDashboardTokens.current
     val iconRes = getPluginIconRes(plugin.pluginKey)
     val (iconBg, iconTint) = when (category) {
-        PluginCategory.ShareTransfer -> Pair(
-            if (isDark) Color(0x267C6CFF) else Color(0xFFEEF2FF),
-            if (isDark) Color(0xFFA99AEF) else Color(0xFF4338CA)
-        )
-        PluginCategory.ControlComputer -> Pair(
-            if (isDark) Color(0x263DDBFF) else Color(0xFFF0FDFA),
-            if (isDark) Color(0xFF3DDBFF) else Color(0xFF0F766E)
-        )
-        PluginCategory.MediaAudio -> Pair(
-            if (isDark) Color(0x26C46BFF) else Color(0xFFF5F3FF),
-            if (isDark) Color(0xFFE0A7FF) else Color(0xFF6D28D9)
-        )
-        PluginCategory.DeviceInfo -> Pair(
-            if (isDark) Color(0x264ADE9F) else Color(0xFFF0FDF4),
-            if (isDark) Color(0xFF4ADE9F) else Color(0xFF15803D)
-        )
+        PluginCategory.ShareTransfer -> Pair(tokens.shareContainer, tokens.onShareContainer)
+        PluginCategory.ControlComputer -> Pair(tokens.controlContainer, tokens.onControlContainer)
+        PluginCategory.MediaAudio -> Pair(tokens.mediaContainer, tokens.onMediaContainer)
+        PluginCategory.DeviceInfo -> Pair(tokens.deviceContainer, tokens.onDeviceContainer)
     }
 
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = 14.dp, vertical = 10.dp),
+            .padding(horizontal = 16.dp, vertical = 12.dp),
         verticalArrangement = Arrangement.spacedBy(6.dp)
     ) {
         Row(
@@ -674,11 +673,11 @@ private fun CompactManagePluginRow(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.weight(1f)
             ) {
-                // Plugin icon squircle
+                // Leading 40dp icon in tinted circle
                 Box(
                     modifier = Modifier
-                        .size(36.dp)
-                        .clip(RoundedCornerShape(10.dp))
+                        .size(40.dp)
+                        .clip(CircleShape)
                         .background(iconBg),
                     contentAlignment = Alignment.Center
                 ) {
@@ -686,7 +685,7 @@ private fun CompactManagePluginRow(
                         painter = painterResource(iconRes),
                         contentDescription = null,
                         colorFilter = ColorFilter.tint(iconTint),
-                        modifier = Modifier.size(20.dp)
+                        modifier = Modifier.size(22.dp)
                     )
                 }
 
@@ -696,6 +695,7 @@ private fun CompactManagePluginRow(
                     Text(
                         text = plugin.displayName,
                         style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Medium),
+                        color = tokens.textPrimary,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
@@ -703,7 +703,7 @@ private fun CompactManagePluginRow(
                     Text(
                         text = plugin.description,
                         style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        color = tokens.textSecondary,
                         maxLines = 2,
                         overflow = TextOverflow.Ellipsis
                     )
@@ -719,12 +719,12 @@ private fun CompactManagePluginRow(
             )
         }
 
-        // Small tonal trailing action button if available
+        // Tonal action buttons if available
         if (plugin.actionButtons.isNotEmpty() || plugin.needsRequiredPermission || plugin.needsOptionalPermission) {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 50.dp),
+                    .padding(start = 52.dp),
                 horizontalArrangement = Arrangement.spacedBy(KdeSpacing.small),
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -733,8 +733,8 @@ private fun CompactManagePluginRow(
                         onClick = onRequiredPermissionClick,
                         contentPadding = PaddingValues(horizontal = 10.dp, vertical = 2.dp),
                         colors = ButtonDefaults.filledTonalButtonColors(
-                            containerColor = if (isDark) Color(0xFF2A1517) else Color(0xFFFEE2E2),
-                            contentColor = if (isDark) Color(0xFFFFB4AB) else Color(0xFF991B1B)
+                            containerColor = tokens.permissionBadgeBg,
+                            contentColor = tokens.permissionBadgeText
                         ),
                         modifier = Modifier.height(30.dp)
                     ) {
@@ -749,8 +749,8 @@ private fun CompactManagePluginRow(
                         onClick = onOptionalPermissionClick,
                         contentPadding = PaddingValues(horizontal = 10.dp, vertical = 2.dp),
                         colors = ButtonDefaults.filledTonalButtonColors(
-                            containerColor = if (isDark) Color(0xFF131D2E) else Color(0xFFEFF6FF),
-                            contentColor = if (isDark) Color(0xFF93C5FD) else Color(0xFF1D4ED8)
+                            containerColor = tokens.optionalBadgeBg,
+                            contentColor = tokens.optionalBadgeText
                         ),
                         modifier = Modifier.height(30.dp)
                     ) {
@@ -765,8 +765,8 @@ private fun CompactManagePluginRow(
                         onClick = { onButtonClick(button) },
                         contentPadding = PaddingValues(horizontal = 10.dp, vertical = 2.dp),
                         colors = ButtonDefaults.filledTonalButtonColors(
-                            containerColor = if (isDark) Color(0x267C6CFF) else Color(0xFFEEF2FF),
-                            contentColor = if (isDark) Color(0xFF3DDBFF) else Color(0xFF4338CA)
+                            containerColor = tokens.shareContainer,
+                            contentColor = tokens.onShareContainer
                         ),
                         modifier = Modifier.height(30.dp)
                     ) {

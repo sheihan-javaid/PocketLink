@@ -7,13 +7,11 @@
 package org.kde.kdeconnect.ui.compose.screen.device.modern.components
 
 import android.provider.Settings
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
@@ -23,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
@@ -33,6 +32,11 @@ import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import org.kde.kdeconnect.ui.compose.screen.device.modern.DashboardShapes
+import org.kde.kdeconnect.ui.compose.screen.device.modern.EffectsTier
+import org.kde.kdeconnect.ui.compose.screen.device.modern.LocalDashboardTokens
+import org.kde.kdeconnect.ui.compose.screen.device.modern.LocalEffectsTier
+import org.kde.kdeconnect.ui.compose.screen.device.modern.dashboardCardBorder
 
 @Composable
 fun isDarkThemeMode(): Boolean {
@@ -55,39 +59,26 @@ fun isReducedMotionMode(): Boolean {
     }
 }
 
+/**
+ * Premium One UI-style grouped surface container card.
+ * Features tonal surface fill, a 1dp top-edge highlight stroke, soft sheen, and 26dp rounded corners.
+ * Strictly uses Material 3 colorScheme tokens with zero hardcoded colors.
+ */
 @Composable
 fun AuroraGlassCard(
     modifier: Modifier = Modifier,
-    shape: Shape = RoundedCornerShape(18.dp),
-    showDotGrid: Boolean = false,
+    shape: Shape = DashboardShapes.CardShape,
+    isElevated: Boolean = false,
     onClick: (() -> Unit)? = null,
     content: @Composable ColumnScope.() -> Unit
 ) {
-    val isDark = isDarkThemeMode()
+    val tokens = LocalDashboardTokens.current
+    val tier = LocalEffectsTier.current
+    val isDark = tokens.isDark
 
-    val containerColor = if (isDark) {
-        Color(0xFF0F111A)
-    } else {
-        Color(0xFFFFFFFF)
-    }
-
-    val borderBrush = if (isDark) {
-        Brush.verticalGradient(
-            colors = listOf(
-                Color(0x38FFFFFF),
-                Color(0x08FFFFFF)
-            )
-        )
-    } else {
-        Brush.verticalGradient(
-            colors = listOf(
-                Color(0xFFE2E8F0),
-                Color(0xFFF1F5F9)
-            )
-        )
-    }
-
-    val elevation: Dp = if (isDark) 0.dp else 2.dp
+    val containerColor = if (isElevated) tokens.cardElevated else tokens.cardBackground
+    val border = dashboardCardBorder(tokens, tier)
+    val elevation: Dp = if (isDark) 0.dp else if (isElevated) 2.dp else 1.dp
 
     Card(
         modifier = modifier
@@ -101,7 +92,7 @@ fun AuroraGlassCard(
                 } else Modifier
             ),
         shape = shape,
-        border = BorderStroke(1.dp, borderBrush),
+        border = border,
         colors = CardDefaults.cardColors(containerColor = containerColor),
         elevation = CardDefaults.cardElevation(defaultElevation = elevation)
     ) {
@@ -109,23 +100,16 @@ fun AuroraGlassCard(
             modifier = Modifier
                 .fillMaxWidth()
                 .drawBehind {
-                    // Faint dot-grid at ~4% alpha, clipped to card
-                    if (isDark && showDotGrid) {
-                        val dotColor = Color(0x0AFFFFFF)
-                        val stepPx = 18.dp.toPx()
-                        var x = stepPx / 2f
-                        while (x < size.width) {
-                            var y = stepPx / 2f
-                            while (y < size.height) {
-                                drawCircle(
-                                    color = dotColor,
-                                    radius = 1.0f,
-                                    center = Offset(x, y)
-                                )
-                                y += stepPx
-                            }
-                            x += stepPx
-                        }
+                    if (tier != EffectsTier.Minimal) {
+                        // Subtle top gloss sheen (vertical fade over top 40% of the card)
+                        drawRect(
+                            brush = Brush.verticalGradient(
+                                colors = listOf(tokens.cardSheenTop, Color.Transparent),
+                                startY = 0f,
+                                endY = size.height * 0.40f
+                            ),
+                            size = Size(size.width, size.height * 0.40f)
+                        )
                     }
                 }
         ) {
@@ -136,4 +120,3 @@ fun AuroraGlassCard(
         }
     }
 }
-
