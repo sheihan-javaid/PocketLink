@@ -20,7 +20,7 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="5dp"
+        android:paddingTop="?attr/kdeSpacingSmall"
         app:errorEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -37,7 +37,7 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
             android:ellipsize="end"
             android:inputType="text"
             android:text="@string/sftp_storage_preference_click_to_select"
-            android:textColor="@android:color/darker_gray"
+            android:textColor="?attr/colorOnSurfaceVariant"
             android:editable="false"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -46,7 +46,7 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="5dp"
+        android:paddingTop="?attr/kdeSpacingSmall"
         app:errorEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText

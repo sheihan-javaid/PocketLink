@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <!--
 SPDX-FileCopyrightText: 2023 Albert Vaca Cintora <albertvaka@gmail.com>
 
@@ -8,12 +7,14 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mpris_control_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:gravity="center"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="@dimen/kde_spacing_medium">
 
     <TextView
         android:id="@+id/no_players"
@@ -21,7 +22,8 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:text="@string/no_players_connected"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="?attr/colorOnSurfaceVariant" />
 
     <Spinner
         android:id="@+id/player_spinner"
@@ -37,21 +39,22 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
         android:ellipsize="marquee"
         android:gravity="center"
         android:marqueeRepeatLimit="marquee_forever"
-        android:padding="8dip"
+        android:padding="@dimen/kde_spacing_small"
         android:scrollHorizontally="true"
         android:singleLine="true"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
+        android:textColor="?attr/colorOnSurface" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="75dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:orientation="horizontal">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/loop_button"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="@dimen/kde_min_touch_target"
             android:layout_gravity="center"
             android:adjustViewBounds="false"
             android:baselineAlignBottom="true"
@@ -66,7 +69,7 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
         <com.google.android.material.button.MaterialButton
             android:id="@+id/play_button"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="@dimen/kde_min_touch_target"
             android:layout_gravity="center"
             android:adjustViewBounds="false"
             android:baselineAlignBottom="true"
@@ -76,12 +79,13 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
             style="@style/KdeConnectButton.IconButton"
             app:layout_constraintEnd_toStartOf="@id/shuffle_button"
             app:layout_constraintStart_toEndOf="@id/loop_button"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/shuffle_button"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="@dimen/kde_min_touch_target"
             android:layout_gravity="center"
             android:adjustViewBounds="false"
             android:baselineAlignBottom="true"
@@ -90,38 +94,40 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
             app:icon="@drawable/ic_shuffle_off_black"
             style="@style/KdeConnectButton.IconButton"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintWidth_percent="0.20" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60dip"
+        android:layout_height="@dimen/kde_min_touch_target"
         android:layout_gravity="center"
         android:orientation="horizontal">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/prev_button"
-            android:layout_width="match_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="0.25"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:contentDescription="@string/mpris_previous"
             app:icon="@drawable/ic_previous_black"
             style="@style/KdeConnectButton.IconButton.Secondary" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/rew_button"
-            android:layout_width="match_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="0.25"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:contentDescription="@string/mpris_rew"
             app:icon="@drawable/ic_rewind_black"
             style="@style/KdeConnectButton.IconButton.Secondary" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/stop_button"
-            android:layout_width="match_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="0.25"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:contentDescription="@string/mpris_stop"
             app:icon="@drawable/ic_stop"
             style="@style/KdeConnectButton.IconButton.Secondary" />
@@ -129,18 +135,18 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/ff_button"
-            android:layout_width="match_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="0.25"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:contentDescription="@string/mpris_ff"
             app:icon="@drawable/ic_fast_forward_black"
             style="@style/KdeConnectButton.IconButton.Secondary" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/next_button"
-            android:layout_width="match_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="0.25"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:contentDescription="@string/mpris_next"
             app:icon="@drawable/ic_next_black"
             style="@style/KdeConnectButton.IconButton.Secondary" />
@@ -158,10 +164,11 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:padding="8dip"
+            android:padding="@dimen/kde_spacing_small"
             android:singleLine="true"
-            android:text="00:00"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            tools:text="00:00"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="?attr/colorOnSurfaceVariant" />
 
         <SeekBar
             android:id="@+id/positionSeek"
@@ -176,10 +183,11 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:padding="8dip"
+            android:padding="@dimen/kde_spacing_small"
             android:singleLine="true"
-            android:text="00:00"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            tools:text="00:00"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="?attr/colorOnSurfaceVariant" />
     </LinearLayout>
 
     <LinearLayout
@@ -187,7 +195,7 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="8dip"
+        android:layout_marginTop="@dimen/kde_spacing_small"
         android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatImageView

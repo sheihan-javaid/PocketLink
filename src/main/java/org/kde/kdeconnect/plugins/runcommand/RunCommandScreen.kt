@@ -1,31 +1,43 @@
+/*
+ * SPDX-FileCopyrightText: 2023 Albert Vaca Cintora <albertvaka@gmail.com>
+ * SPDX-FileCopyrightText: 2026 KDE Connect contributors
+ *
+ * SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
+ */
+
 package org.kde.kdeconnect.plugins.runcommand
 
 import androidx.activity.OnBackPressedDispatcher
 import androidx.compose.foundation.combinedClickable
-import androidx.compose.foundation.gestures.awaitEachGesture
-import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -44,27 +56,31 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
-import androidx.compose.ui.input.pointer.PointerEventPass
-import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.kde.kdeconnect.Device
+import org.kde.kdeconnect.ui.compose.KdeComponentSize
+import org.kde.kdeconnect.ui.compose.KdeSpacing
 import org.kde.kdeconnect.ui.compose.KdeTheme
 import org.kde.kdeconnect.ui.compose.KdeTopAppBar
 import org.kde.kdeconnect.ui.compose.components.DeviceDisconnectedOverlay
+import org.kde.kdeconnect.ui.compose.components.KdePanelKind
+import org.kde.kdeconnect.ui.compose.components.KdeStandardCard
+import org.kde.kdeconnect.ui.compose.components.KdeStatePanel
+import org.kde.kdeconnect.ui.compose.kdeSemanticColors
 import org.kde.kdeconnect_tp.R
 import kotlin.time.Duration.Companion.seconds
 
@@ -77,11 +93,8 @@ fun RunCommandScreen(
     onCopyUrlToClipboard: (CommandEntry) -> Unit,
     onUpdate: () -> Unit
 ) {
-    val haptics = LocalHapticFeedback.current
-    val context = LocalContext.current
-    var showDialog by remember { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
-    val outputList = remember { plugin.output }
+    var showDialog by remember { mutableStateOf(false) }
 
     DisposableEffect(plugin) {
         val callback = RunCommandPlugin.CommandsChangedCallback {
@@ -97,37 +110,96 @@ fun RunCommandScreen(
     }
 
     val isReachable by device.isReachableFlow.collectAsStateWithLifecycle()
-
     val showOutputCard = commandList.isNotEmpty() &&
         device.canSendPacketType(RunCommandPlugin.PACKET_TYPE_RUNCOMMAND_OUTPUT)
+    val commandRunning by plugin.commandRunning
+
+    RunCommandScreenContent(
+        subTitle = device.name,
+        device = device,
+        isReachable = isReachable,
+        canAddCommand = plugin.canAddCommand(),
+        showOutputCard = showOutputCard,
+        commandList = commandList,
+        outputList = plugin.output,
+        commandRunning = commandRunning,
+        onBackPressed = { onBackPressedDispatcher.onBackPressed() },
+        onRunCommand = { plugin.runCommand(it) },
+        onCopyUrl = onCopyUrlToClipboard,
+        onClearOutput = { plugin.clearOutput() },
+        onStopCommand = { plugin.sendStop() },
+        onAddCommand = {
+            plugin.sendSetupPacket()
+            showDialog = true
+        },
+        showDialog = showDialog,
+        onDismissDialog = {
+            showDialog = false
+            onUpdate()
+        }
+    )
+}
+
+@Composable
+internal fun RunCommandScreenContent(
+    subTitle: String,
+    isReachable: Boolean,
+    canAddCommand: Boolean,
+    showOutputCard: Boolean,
+    commandList: List<CommandEntry>,
+    outputList: List<RunCommandOutput>,
+    commandRunning: Boolean,
+    onBackPressed: () -> Unit,
+    onRunCommand: (String) -> Unit,
+    onCopyUrl: (CommandEntry) -> Unit,
+    onClearOutput: () -> Unit,
+    onStopCommand: () -> Unit,
+    onAddCommand: () -> Unit,
+    modifier: Modifier = Modifier,
+    device: Device? = null,
+    showDialog: Boolean = false,
+    onDismissDialog: () -> Unit = {}
+) {
+    val context = LocalContext.current
 
     KdeTheme(context) {
         Scaffold(
-            modifier = Modifier.safeDrawingPadding(),
+            modifier = modifier.safeDrawingPadding(),
             topBar = {
                 RunCommandAppBar(
-                    subTitle = device.name,
-                    onBackPressedDispatcher = onBackPressedDispatcher,
+                    subTitle = subTitle,
+                    onBackPressed = onBackPressed,
                     showClearOutput = showOutputCard,
-                    onClearOutput = { plugin.clearOutput() },
+                    onClearOutput = onClearOutput
                 )
             },
             floatingActionButton = {
-                if (plugin.canAddCommand() && isReachable) {
-                    FloatingActionButton(onClick = {
-                        plugin.sendSetupPacket()
-                        showDialog = true
-                    }) {
+                if (canAddCommand && isReachable) {
+                    val addCommandDesc = stringResource(R.string.add_command)
+                    FloatingActionButton(
+                        onClick = onAddCommand,
+                        shape = CircleShape,
+                        containerColor = MaterialTheme.colorScheme.primaryContainer,
+                        contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                        elevation = FloatingActionButtonDefaults.elevation(defaultElevation = 4.dp),
+                        modifier = Modifier
+                            .size(56.dp)
+                            .semantics {
+                                contentDescription = addCommandDesc
+                            }
+                    ) {
                         Icon(
-                            painterResource(R.drawable.ic_action_image_edit_24dp),
-                            stringResource(R.string.add_command)
+                            painter = painterResource(R.drawable.ic_action_image_edit_24dp),
+                            contentDescription = addCommandDesc
                         )
                     }
                 }
-            },
-        ) {
+            }
+        ) { paddingValues ->
             if (showDialog) {
                 AlertDialog(
+                    onDismissRequest = onDismissDialog,
+                    shape = MaterialTheme.shapes.extraLarge,
                     title = {
                         Text(
                             stringResource(R.string.add_command),
@@ -135,131 +207,177 @@ fun RunCommandScreen(
                         )
                     },
                     text = {
-                        Text(stringResource(R.string.add_command_description))
-                    },
-                    onDismissRequest = {
-                        showDialog = false
-                        onUpdate()
+                        Text(
+                            stringResource(R.string.add_command_description),
+                            style = MaterialTheme.typography.bodyMedium
+                        )
                     },
                     confirmButton = {
-                        TextButton(onClick = {
-                            showDialog = false
-                            onUpdate()
-                        }) {
+                        TextButton(
+                            onClick = onDismissDialog,
+                            modifier = Modifier.defaultMinSize(minHeight = KdeSpacing.minTouchTarget)
+                        ) {
                             Text(stringResource(R.string.ok))
                         }
-                    },
-                    dismissButton = {},
+                    }
                 )
             }
 
-            if (!commandList.isEmpty()) {
-                LazyColumn(
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues),
+                contentAlignment = Alignment.TopCenter
+            ) {
+                Box(
                     modifier = Modifier
-                        .padding(it)
                         .fillMaxSize()
+                        .widthIn(max = KdeSpacing.compactContentMaxWidth)
                 ) {
-                    if (showOutputCard) {
-                        item {
-                            OutputCard(outputList, plugin)
-                        }
-                    }
-                    items(commandList) { command ->
-                        var menuExpanded by remember { mutableStateOf(false) }
-                        var pressOffset by remember { mutableStateOf(IntOffset.Zero) }
-                        Box {
-                            Row(
-                                modifier = Modifier
-                                    .pointerInput(command.key) {
-                                        awaitEachGesture {
-                                            val down = awaitFirstDown(
-                                                requireUnconsumed = false,
-                                                pass = PointerEventPass.Initial,
-                                            )
-                                            pressOffset = IntOffset(
-                                                down.position.x.toInt(),
-                                                down.position.y.toInt(),
-                                            )
-                                        }
-                                    }
-                                    .combinedClickable(
-                                        indication = ripple(),
-                                        interactionSource = remember { MutableInteractionSource() },
-                                        onClick = { plugin.runCommand(command.key) },
-                                        onLongClick = {
-                                            haptics.performHapticFeedback(HapticFeedbackType.LongPress)
-                                            menuExpanded = true
-                                        }
-                                    )
-                            ) {
-                                Column(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(horizontal = 20.dp, vertical = 10.dp)
-                                ) {
-                                    Text(
-                                        text = command.name,
-                                        maxLines = 1,
-                                        overflow = TextOverflow.Ellipsis,
-                                        style = MaterialTheme.typography.titleLarge,
-                                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                    )
-                                    Text(
-                                        text = command.command,
-                                        maxLines = 1,
-                                        overflow = TextOverflow.Ellipsis,
-                                        style = MaterialTheme.typography.bodyMedium,
-                                        color = Color.Gray,
+                    if (commandList.isNotEmpty()) {
+                        LazyColumn(
+                            modifier = Modifier.fillMaxSize(),
+                            contentPadding = PaddingValues(
+                                top = KdeSpacing.medium,
+                                bottom = KdeSpacing.xLarge
+                            ),
+                            verticalArrangement = Arrangement.spacedBy(KdeSpacing.small)
+                        ) {
+                            if (showOutputCard) {
+                                item {
+                                    OutputCard(
+                                        outputList = outputList,
+                                        commandRunning = commandRunning,
+                                        onStopCommand = onStopCommand
                                     )
                                 }
                             }
-                            Box(modifier = Modifier.offset { pressOffset }) {
-                                DropdownMenu(
-                                    expanded = menuExpanded,
-                                    onDismissRequest = { menuExpanded = false },
-                                ) {
-                                    DropdownMenuItem(
-                                        text = { Text(stringResource(R.string.copy_url_to_clipboard)) },
-                                        onClick = {
-                                            menuExpanded = false
-                                            onCopyUrlToClipboard(command)
-                                        },
-                                    )
-                                }
+                            items(commandList, key = { it.key }) { command ->
+                                CommandCard(
+                                    command = command,
+                                    onRun = { onRunCommand(command.key) },
+                                    onCopyUrl = { onCopyUrl(command) }
+                                )
                             }
                         }
+                    } else {
+                        var explanation = stringResource(R.string.addcommand_explanation)
+                        if (!canAddCommand) {
+                            explanation += "\n" + stringResource(R.string.addcommand_explanation2)
+                        }
+                        KdeStatePanel(
+                            title = stringResource(R.string.pref_plugin_runcommand),
+                            description = explanation,
+                            kind = KdePanelKind.Empty,
+                            icon = Icons.Default.PlayArrow,
+                            actionLabel = if (canAddCommand && isReachable) stringResource(R.string.add_command) else null,
+                            onAction = if (canAddCommand && isReachable) onAddCommand else null,
+                            modifier = Modifier.align(Alignment.Center)
+                        )
                     }
-                }
-            } else {
-                Column(
-                    modifier = Modifier
-                        .padding(it)
-                        .fillMaxSize(),
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                ) {
-                    var text = stringResource(R.string.addcommand_explanation)
-                    if (!plugin.canAddCommand()) {
-                        text += "\n" + stringResource(R.string.addcommand_explanation2)
-                    }
-                    Text(text)
+
+                    device?.let { DeviceDisconnectedOverlay(device = it) }
                 }
             }
+        }
+    }
+}
 
-            DeviceDisconnectedOverlay(device, Modifier.padding(it))
+@Composable
+private fun CommandCard(
+    command: CommandEntry,
+    onRun: () -> Unit,
+    onCopyUrl: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    val haptics = LocalHapticFeedback.current
+    var menuExpanded by remember { mutableStateOf(false) }
+
+    KdeStandardCard(
+        modifier = modifier
+            .padding(horizontal = KdeSpacing.contentHorizontal)
+            .semantics {
+                contentDescription = "${command.name}: ${command.command}"
+            }
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .defaultMinSize(minHeight = KdeComponentSize.deviceCardMinHeight)
+                .combinedClickable(
+                    indication = ripple(),
+                    interactionSource = remember { MutableInteractionSource() },
+                    onClick = onRun,
+                    onLongClick = {
+                        haptics.performHapticFeedback(HapticFeedbackType.LongPress)
+                        menuExpanded = true
+                    }
+                )
+                .padding(KdeSpacing.cardPadding),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Icon(
+                painter = painterResource(R.drawable.ic_action_image_edit_24dp),
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.primary,
+                modifier = Modifier.size(KdeComponentSize.iconLarge)
+            )
+            Spacer(Modifier.width(KdeSpacing.medium))
+            Column(modifier = Modifier.weight(1f)) {
+                Text(
+                    text = command.name,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+                Text(
+                    text = command.command,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
+            Box {
+                IconButton(
+                    onClick = { menuExpanded = true },
+                    modifier = Modifier.size(KdeComponentSize.controlMinHeight)
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.MoreVert,
+                        contentDescription = stringResource(R.string.extra_options),
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+                DropdownMenu(
+                    expanded = menuExpanded,
+                    onDismissRequest = { menuExpanded = false }
+                ) {
+                    DropdownMenuItem(
+                        text = { Text(stringResource(R.string.copy_url_to_clipboard)) },
+                        onClick = {
+                            menuExpanded = false
+                            onCopyUrl()
+                        }
+                    )
+                }
+            }
         }
     }
 }
 
 @Composable
 private fun OutputCard(
-    outputList: SnapshotStateList<RunCommandOutput>,
-    plugin: RunCommandPlugin
+    outputList: List<RunCommandOutput>,
+    commandRunning: Boolean,
+    onStopCommand: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     val state = rememberLazyListState()
     val coroutineScope = rememberCoroutineScope()
-    val commandRunning by plugin.commandRunning
     var showStopButton by remember { mutableStateOf(false) }
+    val semanticColors = kdeSemanticColors()
 
     LaunchedEffect(commandRunning) {
         if (commandRunning) {
@@ -270,46 +388,49 @@ private fun OutputCard(
         }
     }
 
-    Card(
-        modifier = Modifier
+    KdeStandardCard(
+        modifier = modifier
             .fillMaxWidth()
-            .height(300.dp)
-            .padding(horizontal = 20.dp, vertical = 10.dp)
+            .height(280.dp)
+            .padding(horizontal = KdeSpacing.contentHorizontal, vertical = KdeSpacing.xSmall)
     ) {
         if (outputList.isNotEmpty()) {
-            Box {
+            Box(modifier = Modifier.fillMaxSize()) {
                 LazyColumn(
                     modifier = Modifier
-                        .padding(horizontal = 15.dp, vertical = 5.dp)
-                        .fillMaxWidth(),
-                    state = state
+                        .fillMaxSize()
+                        .padding(KdeSpacing.cardPadding),
+                    state = state,
+                    verticalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
                     items(outputList) { text ->
                         Text(
-                            modifier = Modifier
-                                .fillMaxWidth(),
+                            modifier = Modifier.fillMaxWidth(),
                             text = text.string,
-                            style = MaterialTheme.typography.bodyLarge,
-                            fontWeight = if (text.isCommand) FontWeight.ExtraBold else FontWeight.Normal,
+                            style = MaterialTheme.typography.bodyMedium,
+                            fontWeight = if (text.isCommand) FontWeight.Bold else FontWeight.Normal,
                             color = when (text.commandStatus) {
-                                RunCommandStatus.COMMAND_SUCCESSFUL -> Color(0xFF2E7D32)
+                                RunCommandStatus.COMMAND_SUCCESSFUL -> semanticColors.success
                                 RunCommandStatus.COMMAND_FAILED -> MaterialTheme.colorScheme.error
-                                else -> Color.Unspecified
+                                else -> MaterialTheme.colorScheme.onSurface
                             }
                         )
                     }
                 }
                 if (showStopButton) {
                     Column(
-                        modifier = Modifier.padding(5.dp).fillMaxSize(),
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(KdeSpacing.small),
                         horizontalAlignment = Alignment.End,
                         verticalArrangement = Arrangement.Bottom
                     ) {
-                        IconButton(onClick = { plugin.sendStop() }) {
-                            CircularProgressIndicator()
+                        IconButton(onClick = onStopCommand) {
+                            CircularProgressIndicator(modifier = Modifier.size(24.dp))
                             Icon(
-                                painterResource(R.drawable.ic_stop),
-                                stringResource(R.string.runcommand_stop)
+                                painter = painterResource(R.drawable.ic_stop),
+                                contentDescription = stringResource(R.string.runcommand_stop),
+                                tint = MaterialTheme.colorScheme.error
                             )
                         }
                     }
@@ -319,20 +440,23 @@ private fun OutputCard(
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(20.dp),
+                    .padding(KdeSpacing.large),
                 verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally,
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
                     text = stringResource(R.string.runcommand_output_no_output),
                     textAlign = TextAlign.Center,
-                    fontWeight = FontWeight.ExtraBold,
-                    style = MaterialTheme.typography.bodyLarge
+                    fontWeight = FontWeight.Bold,
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.onSurface
                 )
+                Spacer(Modifier.height(KdeSpacing.xSmall))
                 Text(
                     text = stringResource(R.string.runcommand_output_no_output_desc),
                     textAlign = TextAlign.Center,
-                    style = MaterialTheme.typography.bodyLarge
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
         }
@@ -350,20 +474,23 @@ private fun OutputCard(
 @Composable
 fun RunCommandAppBar(
     subTitle: String,
-    onBackPressedDispatcher: OnBackPressedDispatcher,
+    onBackPressed: () -> Unit,
     showClearOutput: Boolean,
     onClearOutput: () -> Unit,
 ) {
     KdeTopAppBar(
         title = stringResource(R.string.pref_plugin_runcommand),
         subTitle = subTitle,
-        navIconOnClick = { onBackPressedDispatcher.onBackPressed() },
-        navIconDescription = stringResource(androidx.appcompat.R.string.abc_action_bar_up_description),
+        navIconOnClick = onBackPressed,
         actions = {
             if (showClearOutput) {
                 var menuExpanded by remember { mutableStateOf(false) }
                 IconButton(onClick = { menuExpanded = true }) {
-                    Icon(Icons.Default.MoreVert, stringResource(R.string.extra_options))
+                    Icon(
+                        imageVector = Icons.Default.MoreVert,
+                        contentDescription = stringResource(R.string.extra_options),
+                        tint = MaterialTheme.colorScheme.onSurface
+                    )
                 }
                 DropdownMenu(
                     expanded = menuExpanded,

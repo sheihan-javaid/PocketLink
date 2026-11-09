@@ -34,61 +34,20 @@ class ReceiveNotificationsPlugin : Plugin() {
 
     override val isEnabledByDefault: Boolean = false
 
+    // One-way notification policy: reverse notification sync (Mac -> Android) is intentionally disabled.
+    override val isCompatible: Boolean
+        get() = false && super.isCompatible
+
     override fun onCreate() {
-        // request all existing notifications
-        val np = NetworkPacket(PACKET_TYPE_NOTIFICATION_REQUEST)
-        np["request"] = true
-        device.sendPacket(np)
+        // Disabled per one-way notification policy: do not request remote notifications
     }
 
     override fun onPacketReceived(np: NetworkPacket): Boolean {
-        if ("ticker" !in np || "appName" !in np || "id" !in np) {
-            Log.e("NotificationsPlugin", "Received notification packet lacks properties")
-            return true
-        }
-
-        val resultPendingIntent = PendingIntent.getActivity(context, 0, Intent(context, MainActivity::class.java), PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
-
-        var largeIcon: Bitmap? = null
-        val payload = np.payload
-        if (payload != null && payload.payloadSize != 0L) {
-            val width = context.resources.getDimensionPixelSize(android.R.dimen.notification_large_icon_width)
-            val height = context.resources.getDimensionPixelSize(android.R.dimen.notification_large_icon_height)
-            val input = payload.inputStream
-            largeIcon = BitmapFactory.decodeStream(input)
-            payload.close()
-
-            if (largeIcon != null) {
-                // Log.i("NotificationsPlugin", "hasPayload: size=${largeIcon.width}/${largeIcon.height} opti=$width/$height")
-                if (largeIcon.width > width || largeIcon.height > height) {
-                    // older API levels don't scale notification icons automatically, therefore:
-                    largeIcon = largeIcon.scale(width, height, false)
-                }
-            }
-        }
-
-        val notificationManager = context.getSystemService<NotificationManager>() ?: return true
-
-        val noti =
-            NotificationCompat.Builder(context, NotificationHelper.Channels.RECEIVENOTIFICATION)
-                .setContentTitle(np.getString("appName"))
-                .setContentText(np.getString("ticker"))
-                .setContentIntent(resultPendingIntent)
-                .setTicker(np.getString("ticker"))
-                .setSmallIcon(R.drawable.ic_notification)
-                .setLargeIcon(largeIcon)
-                .setAutoCancel(true)
-                .setLocalOnly(true) // to avoid bouncing the notification back to other kdeconnect nodes
-                .setDefaults(Notification.DEFAULT_ALL)
-                .setSilent(np.getBoolean("silent", false))
-                .setStyle(NotificationCompat.BigTextStyle().bigText(np.getString("ticker")))
-                .build()
-
-        val id = np.getString("id")
-        val intId = try { id.toInt() } catch (e: NumberFormatException) { 0 }
-        notificationManager.notify("kdeconnectId:${id}", intId, noti)
-
-        return true
+        // Disabled per one-way notification policy (Android -> Mac only).
+        // Reverse notification mirroring (Mac -> Android) is intentionally disabled.
+        // Silently consume and ignore any incoming notification packets without creating Android notifications.
+        np.payload?.close()
+        return false
     }
 
     override val supportedPacketTypes: Array<String> = arrayOf(PACKET_TYPE_NOTIFICATION)

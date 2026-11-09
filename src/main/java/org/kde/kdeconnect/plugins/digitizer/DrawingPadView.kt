@@ -20,7 +20,10 @@ import com.google.android.material.color.MaterialColors
 import kotlin.math.ceil
 import kotlin.math.roundToInt
 
-class DrawingPadView(context: Context, attrs: AttributeSet?) : View(context, attrs) {
+class DrawingPadView @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null
+) : View(context, attrs) {
     private fun mmToPixels(mm: Float): Float =
         TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_MM,
@@ -139,6 +142,9 @@ class DrawingPadView(context: Context, attrs: AttributeSet?) : View(context, att
     }
 
     override fun onDraw(canvas: Canvas) {
+        backgroundPaint.color = MaterialColors.getColor(this, R.attr.colorSurfaceContainer, Color.WHITE)
+        linePaint.color = MaterialColors.getColor(this, R.attr.colorOutlineVariant, Color.LTGRAY)
+
         canvas.drawPaint(backgroundPaint)
 
         for (i in 0..<ceil(width / gridSpacing).toInt()) {

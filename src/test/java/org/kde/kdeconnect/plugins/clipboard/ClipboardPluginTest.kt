@@ -1,13 +1,19 @@
 package org.kde.kdeconnect.plugins.clipboard
 
+import android.app.Activity
 import android.app.Application
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
+import android.widget.Toast
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.mockkObject
+import io.mockk.mockkStatic
 import io.mockk.spyk
+import io.mockk.unmockkStatic
 import io.mockk.verify
 import org.junit.After
 import org.junit.Assert
@@ -39,6 +45,8 @@ class ClipboardPluginTest {
         context = spyk(ApplicationProvider.getApplicationContext()) {
             every { getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE) } returns preferences
             every { getString(R.string.clipboard_preference_key_skip_sensitive) } returns SKIP_SENSITIVE_PREF_KEY
+            every { getString(R.string.send_clipboard) } returns "Send clipboard"
+            every { getString(R.string.pref_plugin_clipboard_sent) } returns "Clipboard sent"
         }
 
         val realListener = ClipboardListener.instance(context)
@@ -176,5 +184,33 @@ class ClipboardPluginTest {
         val sentPacket = checkNotNull(packet)
         Assert.assertEquals("kdeconnect.clipboard", sentPacket.type)
         Assert.assertEquals(content, sentPacket.getString("content"))
+    }
+
+    @Test
+    fun testManualClipboardActionUsesExistingSendCallback() {
+        val content = "clipboard action test"
+        mockkStatic(Toast::class)
+        every { Toast.makeText(any<Context>(), any<Int>(), any<Int>()) } returns mockk(relaxed = true)
+
+        val clipboardManager = mockk<ClipboardManager> {
+            every { hasPrimaryClip() } returns true
+            every { primaryClip } returns ClipData.newPlainText(null, content)
+        }
+        every { context.getSystemService(ClipboardManager::class.java) } returns clipboardManager
+
+        val buttonAction = clipboardPlugin.getUiButtons().firstOrNull()?.onClick
+        val menuAction = clipboardPlugin.getUiMenuEntries().firstOrNull()?.onClick
+        val sendAction = buttonAction ?: menuAction
+        Assert.assertNotNull(sendAction)
+
+        try {
+            sendAction!!.invoke(mockk<Activity>(relaxed = true))
+
+            val sentPacket = checkNotNull(packet)
+            Assert.assertEquals("kdeconnect.clipboard", sentPacket.type)
+            Assert.assertEquals(content, sentPacket.getString("content"))
+        } finally {
+            unmockkStatic(Toast::class)
+        }
     }
 }

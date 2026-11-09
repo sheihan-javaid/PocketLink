@@ -1,109 +1,85 @@
 /*
- * SPDX-FileCopyrightText: 2026 Saul Cintero Chocarro <scintero@gmail.com>
+ * SPDX-FileCopyrightText: 2026 KDE Connect contributors
  *
  * SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
  */
 
 package org.kde.kdeconnect.ui.compose.screen.device
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import org.kde.kdeconnect.extensions.safeDrawingBottomPadding
 import org.kde.kdeconnect.plugins.Plugin
-import org.kde.kdeconnect.plugins.clipboard.ClipboardPlugin
-import org.kde.kdeconnect.plugins.mpris.MprisPlugin
-import org.kde.kdeconnect.plugins.ping.PingPlugin
-import org.kde.kdeconnect.plugins.presenter.PresenterPlugin
-import org.kde.kdeconnect.plugins.runcommand.RunCommandPlugin
-import org.kde.kdeconnect.ui.compose.KdeTheme
-import org.kde.kdeconnect.ui.compose.components.KdeThemePreviews
+import org.kde.kdeconnect.ui.compose.KdeSpacing
+import org.kde.kdeconnect.ui.compose.components.KdeSettingsRow
+import org.kde.kdeconnect.ui.compose.components.KdeStandardCard
+import org.kde.kdeconnect.ui.compose.components.KdeStatePanel
+import org.kde.kdeconnect.ui.compose.components.KdePanelKind
+import org.kde.kdeconnect.ui.compose.components.SectionHeader
 import org.kde.kdeconnect_tp.R
+
+data class DevicePluginUiModel(
+    val pluginKey: String,
+    val displayName: String,
+    val description: String,
+    val isEnabled: Boolean,
+    val actionButtons: List<Plugin.PluginUiButton>,
+    val needsRequiredPermission: Boolean,
+    val needsOptionalPermission: Boolean
+)
 
 @Composable
 fun PluginsScreen(
-    pluginsWithButtons: List<Plugin.PluginUiButton>,
-    pluginsNeedPermissions: List<Plugin>,
-    pluginsNeedOptionalPermissions: List<Plugin>,
+    plugins: List<DevicePluginUiModel>,
+    onPluginEnabledChange: (pluginKey: String, enabled: Boolean) -> Unit,
     onButtonClick: (Plugin.PluginUiButton) -> Unit,
-    actionNeedPermissions: (plugin: Plugin) -> Unit,
-    actionNeedOptionalPermissions: (plugin: Plugin) -> Unit,
+    onRequiredPermissionClick: (pluginKey: String) -> Unit,
+    onOptionalPermissionClick: (pluginKey: String) -> Unit,
+    modifier: Modifier = Modifier
 ) {
-    PluginsScreenContent(
-        pluginsWithButtons = pluginsWithButtons,
-        pluginsNeedPermissions = pluginsNeedPermissions,
-        pluginsNeedOptionalPermissions = pluginsNeedOptionalPermissions,
-        onButtonClick = onButtonClick,
-        actionNeedPermissions = actionNeedPermissions,
-        actionNeedOptionalPermissions = actionNeedOptionalPermissions,
-    )
-}
+    Column(
+        modifier = modifier.fillMaxWidth(),
+        verticalArrangement = Arrangement.spacedBy(KdeSpacing.medium)
+    ) {
+        SectionHeader(stringResource(R.string.device_menu_plugins))
 
-@Composable
-private fun PluginsScreenContent(
-    pluginsWithButtons: List<Plugin.PluginUiButton>,
-    pluginsNeedPermissions: List<Plugin>,
-    pluginsNeedOptionalPermissions: List<Plugin>,
-    onButtonClick: (Plugin.PluginUiButton) -> Unit,
-    actionNeedPermissions: (plugin: Plugin) -> Unit,
-    actionNeedOptionalPermissions: (plugin: Plugin) -> Unit,
-) {
-    val bottomPadding = safeDrawingBottomPadding().calculateBottomPadding()
-
-    Surface(modifier = Modifier.fillMaxSize()) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .verticalScroll(state = rememberScrollState())
-                .padding(top = 16.dp, bottom = bottomPadding)
-        ) {
-            val numColumns = LocalResources.current.getInteger(R.integer.plugins_columns)
-
-            PluginButtons(
-                buttons = pluginsWithButtons,
-                numColumns = numColumns,
-                onButtonClick = onButtonClick
+        if (plugins.isEmpty()) {
+            KdeStatePanel(
+                title = stringResource(R.string.device_menu_plugins),
+                description = stringResource(R.string.device_no_supported_plugins),
+                kind = KdePanelKind.Unsupported
             )
-            Spacer(modifier = Modifier.padding(vertical = 6.dp))
-            if (pluginsNeedPermissions.isNotEmpty()) {
-                PluginsWithoutPermissions(
-                    title = stringResource(id = R.string.plugins_need_permission),
-                    plugins = pluginsNeedPermissions,
-                    action = actionNeedPermissions,
-                )
-                Spacer(modifier = Modifier.padding(vertical = 2.dp))
-            }
-            if (pluginsNeedOptionalPermissions.isNotEmpty()) {
-                PluginsWithoutPermissions(
-                    title = stringResource(id = R.string.plugins_need_optional_permission),
-                    plugins = pluginsNeedOptionalPermissions,
-                    action = actionNeedOptionalPermissions
+        } else {
+            plugins.forEach { plugin ->
+                DevicePluginCard(
+                    plugin = plugin,
+                    onEnabledChange = { onPluginEnabledChange(plugin.pluginKey, it) },
+                    onButtonClick = onButtonClick,
+                    onRequiredPermissionClick = {
+                        onRequiredPermissionClick(plugin.pluginKey)
+                    },
+                    onOptionalPermissionClick = {
+                        onOptionalPermissionClick(plugin.pluginKey)
+                    }
                 )
             }
         }
@@ -111,116 +87,96 @@ private fun PluginsScreenContent(
 }
 
 @Composable
-private fun PluginButtons(
-    buttons: List<Plugin.PluginUiButton>,
-    numColumns: Int,
-    onButtonClick: (Plugin.PluginUiButton) -> Unit
+private fun DevicePluginCard(
+    plugin: DevicePluginUiModel,
+    onEnabledChange: (Boolean) -> Unit,
+    onButtonClick: (Plugin.PluginUiButton) -> Unit,
+    onRequiredPermissionClick: () -> Unit,
+    onOptionalPermissionClick: () -> Unit
 ) {
-    Column(modifier = Modifier.padding(horizontal = 16.dp)) {
-        val buttonIter = buttons.iterator()
-
-        while (buttonIter.hasNext()) {
+    KdeStandardCard {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(KdeSpacing.cardPadding),
+            verticalArrangement = Arrangement.spacedBy(KdeSpacing.small)
+        ) {
             Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 8.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                repeat(times = numColumns) {
-                    if (buttonIter.hasNext()) {
-                        val button = buttonIter.next()
+                Column(
+                    modifier = Modifier.weight(1f),
+                    verticalArrangement = Arrangement.spacedBy(KdeSpacing.xSmall)
+                ) {
+                    Text(plugin.displayName, style = MaterialTheme.typography.titleMedium)
+                    Text(
+                        plugin.description,
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+                Switch(
+                    checked = plugin.isEnabled,
+                    onCheckedChange = onEnabledChange,
+                    modifier = Modifier.semantics {
+                        contentDescription = plugin.displayName
+                    }
+                )
+            }
 
-                        PluginButton(
-                            button = button,
-                            modifier = Modifier.weight(1f),
-                            onClick = { onButtonClick(button) }
-                        )
-                    } else {
-                        Spacer(modifier = Modifier.weight(1f))
+            if (plugin.needsRequiredPermission) {
+                KdeSettingsRow(
+                    title = stringResource(R.string.plugins_need_permission),
+                    summary = stringResource(R.string.permission_explanation),
+                    onClick = onRequiredPermissionClick
+                )
+            }
+
+            if (plugin.needsOptionalPermission) {
+                KdeSettingsRow(
+                    title = stringResource(R.string.plugins_need_optional_permission),
+                    summary = stringResource(R.string.permission_explanation),
+                    onClick = onOptionalPermissionClick
+                )
+            }
+
+            if (plugin.actionButtons.isNotEmpty()) {
+                FlowRow(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(KdeSpacing.small),
+                    verticalArrangement = Arrangement.spacedBy(KdeSpacing.small)
+                ) {
+                    plugin.actionButtons.forEach { button ->
+                        Card(
+                            onClick = { onButtonClick(button) },
+                            modifier = Modifier
+                                .weight(1f)
+                                .defaultMinSize(minHeight = 64.dp)
+                                .semantics { role = Role.Button },
+                            shape = MaterialTheme.shapes.medium
+                        ) {
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(KdeSpacing.medium),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(KdeSpacing.small)
+                            ) {
+                                Icon(
+                                    painter = painterResource(button.iconRes),
+                                    contentDescription = null,
+                                    tint = MaterialTheme.colorScheme.primary
+                                )
+                                Text(
+                                    text = button.name,
+                                    style = MaterialTheme.typography.titleSmall
+                                )
+                            }
+                        }
                     }
                 }
             }
         }
-    }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-private fun PluginButton(
-    button: Plugin.PluginUiButton,
-    modifier: Modifier,
-    onClick: () -> Unit
-) {
-    Card(
-        shape = MaterialTheme.shapes.medium,
-        modifier = modifier.semantics { role = Role.Button },
-        onClick = onClick
-    ) {
-        Column(
-            verticalArrangement = Arrangement.spacedBy(10.dp),
-            modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp)
-        ) {
-            Icon(
-                painter = painterResource(id = button.iconRes),
-                modifier = Modifier.padding(top = 12.dp),
-                contentDescription = null
-            )
-            Text(
-                text = button.name,
-                maxLines = 2,
-                minLines = 2,
-                fontSize = 18.sp,
-                overflow = TextOverflow.Ellipsis
-            )
-        }
-    }
-}
-
-@Composable
-private fun PluginsWithoutPermissions(
-    title: String,
-    plugins: Collection<Plugin>,
-    action: (plugin: Plugin) -> Unit
-) {
-    Text(
-        text = title,
-        modifier = Modifier
-            .padding(horizontal = 16.dp, vertical = 6.dp)
-            .semantics { heading() }
-    )
-    plugins.forEach { plugin ->
-        Text(
-            text = plugin.displayName,
-            modifier = Modifier
-                .fillMaxWidth()
-                .clickable { action(plugin) }
-                .padding(start = 28.dp, end = 16.dp, top = 12.dp, bottom = 12.dp)
-                .semantics { role = Role.Button }
-        )
-    }
-}
-
-@KdeThemePreviews
-@Composable
-private fun PluginsScreenPreview() {
-    KdeTheme(context = LocalContext.current) {
-        val mprisPlugin = MprisPlugin().also { it.setContext(LocalContext.current, null) }
-        val runCommandPlugin = RunCommandPlugin().also { it.setContext(LocalContext.current, null) }
-        val presenterPlugin = PresenterPlugin().also { it.setContext(LocalContext.current, null) }
-        val pingPlugin = PingPlugin().also { it.setContext(LocalContext.current, null) }
-        val clipboardPlugin = ClipboardPlugin().also { it.setContext(LocalContext.current, null) }
-
-        val pluginsWithButtons = listOf(pingPlugin, mprisPlugin, presenterPlugin, runCommandPlugin)
-        val pluginsWithoutPermissions = listOf(clipboardPlugin, presenterPlugin)
-        val pluginsWithoutOptionalPermissions = listOf(mprisPlugin, presenterPlugin)
-
-        PluginsScreenContent(
-            pluginsWithButtons = pluginsWithButtons.flatMap { plugin -> plugin.getUiButtons() },
-            pluginsNeedPermissions = pluginsWithoutPermissions,
-            pluginsNeedOptionalPermissions = pluginsWithoutOptionalPermissions,
-            onButtonClick = { /* Do nothing */ },
-            actionNeedPermissions = { /* Do nothing */ },
-            actionNeedOptionalPermissions = { /* Do nothing */ },
-        )
     }
 }

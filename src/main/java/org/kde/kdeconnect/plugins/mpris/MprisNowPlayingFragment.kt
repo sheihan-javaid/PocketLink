@@ -335,9 +335,13 @@ class MprisNowPlayingFragment : Fragment(), VolumeKeyListener {
         val isPlaying = playerStatus.isPlaying
         if (isPlaying) {
             mprisControlBinding.playButton.setIconResource(R.drawable.ic_pause_black)
+            mprisControlBinding.playButton.contentDescription =
+                activity.getString(R.string.mpris_pause)
             mprisControlBinding.playButton.isEnabled = playerStatus.isPauseAllowed
         } else {
             mprisControlBinding.playButton.setIconResource(R.drawable.ic_play_black)
+            mprisControlBinding.playButton.contentDescription =
+                activity.getString(R.string.mpris_play)
             mprisControlBinding.playButton.isEnabled = playerStatus.isPlayAllowed
         }
 

@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <!--
 SPDX-FileCopyrightText: 2018 Nicolas Fella <nicolas.fella@gmx.de
 
@@ -12,10 +11,12 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
     android:id="@+id/sink_card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="8dp"
+    android:layout_marginBottom="@dimen/kde_spacing_small"
+    app:cardCornerRadius="@dimen/kde_corner_large"
     app:cardElevation="0dp"
-    app:contentPadding="8dp"
-    app:strokeWidth="1dp">
+    app:contentPadding="@dimen/kde_spacing_medium"
+    app:strokeWidth="1dp"
+    app:strokeColor="?attr/colorOutlineVariant">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,8 +31,10 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
             android:layout_gravity="start"
             android:ellipsize="end"
             android:maxLines="1"
-            android:paddingStart="14dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:paddingStart="@dimen/kde_spacing_small"
+            android:paddingEnd="@dimen/kde_spacing_small"
+            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+            android:textColor="?attr/colorOnSurface"
             tools:text="Device name" />
 
         <LinearLayout
@@ -39,13 +42,13 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="8dip"
+            android:layout_marginTop="@dimen/kde_spacing_small"
             android:orientation="horizontal">
 
             <ImageButton
                 android:id="@+id/systemvolume_mute"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="@dimen/kde_min_touch_target"
+                android:layout_height="@dimen/kde_min_touch_target"
                 android:background="@android:color/transparent"
                 android:contentDescription="@string/mute"
                 android:scaleType="fitXY"
@@ -53,9 +56,10 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
 
             <SeekBar
                 android:id="@+id/systemvolume_seek"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_weight="1"
                 android:max="100" />
 
         </LinearLayout>

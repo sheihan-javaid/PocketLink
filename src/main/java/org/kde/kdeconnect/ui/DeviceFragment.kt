@@ -17,10 +17,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityManager
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.activity.OnBackPressedCallback
-import androidx.annotation.StringRes
 import androidx.annotation.UiThread
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
@@ -37,11 +41,14 @@ import org.kde.kdeconnect.helpers.security.SslHelper
 import org.kde.kdeconnect.plugins.Plugin
 import org.kde.kdeconnect.plugins.battery.BatteryPlugin
 import org.kde.kdeconnect.plugins.connectivityreport.ConnectivityReportPlugin
+import org.kde.kdeconnect.plugins.PluginFactory
 import org.kde.kdeconnect.ui.compose.KdeTheme
-import org.kde.kdeconnect.ui.compose.screen.device.DeviceErrorScreen
+import org.kde.kdeconnect.ui.compose.screen.device.ConnectedDeviceDashboard
+import org.kde.kdeconnect.ui.compose.screen.device.DevicePluginUiModel
 import org.kde.kdeconnect.ui.compose.screen.device.DevicePairingScreen
+import org.kde.kdeconnect.ui.compose.screen.device.PairingSuccessBanner
 import org.kde.kdeconnect.ui.compose.screen.device.DeviceViewModel
-import org.kde.kdeconnect.ui.compose.screen.device.PluginsScreen
+import org.kde.kdeconnect.ui.compose.KdeSpacing
 import org.kde.kdeconnect_tp.R
 import org.kde.kdeconnect_tp.databinding.ActivityDeviceBinding
 
@@ -232,54 +239,100 @@ class DeviceFragment : BaseFragment<ActivityDeviceBinding>() {
                 KdeTheme(context) {
                     val isRefreshing by viewModel.isRefreshing.collectAsStateWithLifecycle()
                     val pairingErrorMessage by viewModel.pairingErrorMessage.collectAsStateWithLifecycle()
+                    val pairingSucceeded by viewModel.pairingSucceeded.collectAsStateWithLifecycle()
 
                     when (device.pairStatus) {
                         PairingHandler.PairState.Paired -> {
-                            if (device.isReachable) {
-                                val pluginsWithButtons =
-                                    device.loadedPlugins.values.flatMap { plugin -> plugin.getUiButtons() }
-                                val pluginsNeedPermissions =
-                                    device.pluginsWithoutPermissions.values.filter { plugin ->
-                                        device.isPluginEnabled(plugin.pluginKey)
-                                    }
-                                val pluginsNeedOptionalPermissions =
-                                    device.pluginsWithoutOptionalPermissions.values.filter { plugin ->
-                                        device.isPluginEnabled(plugin.pluginKey)
-                                    }
-                                PluginsScreen(
-                                    pluginsWithButtons = pluginsWithButtons,
-                                    pluginsNeedPermissions = pluginsNeedPermissions,
-                                    pluginsNeedOptionalPermissions = pluginsNeedOptionalPermissions,
-                                    onButtonClick = { button -> button.onClick(mActivity!!) },
-                                    actionNeedPermissions = { plugin ->
-                                        plugin.permissionExplanationDialog.show(
-                                            childFragmentManager,
-                                            null
-                                        )
-                                    },
-                                    actionNeedOptionalPermissions = { plugin ->
-                                        plugin.optionalPermissionExplanationDialog.show(
-                                            childFragmentManager,
-                                            null
+                            Box(modifier = Modifier.fillMaxSize()) {
+                                val pluginModels = if (device.isReachable) {
+                                    PluginFactory.sortPluginList(device.supportedPlugins)
+                                        .filter { it != "ReceiveNotificationsPlugin" }
+                                        .map { pluginKey ->
+                                        val pluginInfo = PluginFactory.getPluginInfo(pluginKey)
+                                        DevicePluginUiModel(
+                                            pluginKey = pluginKey,
+                                            displayName = pluginInfo.displayName,
+                                            description = pluginInfo.description,
+                                            isEnabled = device.isPluginEnabled(pluginKey),
+                                            actionButtons = device.loadedPlugins[pluginKey]
+                                                ?.getUiButtons()
+                                                .orEmpty(),
+                                            needsRequiredPermission =
+                                                device.isPluginEnabled(pluginKey) &&
+                                                    pluginKey in device.pluginsWithoutPermissions,
+                                            needsOptionalPermission =
+                                                device.isPluginEnabled(pluginKey) &&
+                                                    pluginKey in device.pluginsWithoutOptionalPermissions
                                         )
                                     }
-                                )
-                                displayBatteryInfoIfPossible()
-                            } else {
-                                DeviceErrorScreen(
+                                } else {
+                                    emptyList()
+                                }
+                                val batteryStatus = device.getPlugin<BatteryPlugin>()
+                                    ?.remoteBatteryInfo
+                                    ?.let { batteryInfo ->
+                                        val statusRes = when {
+                                            batteryInfo.isCharging ->
+                                                R.string.battery_status_charging_format
+                                            BatteryPlugin.isLowBattery(batteryInfo) ->
+                                                R.string.battery_status_low_format
+                                            else -> R.string.battery_status_format
+                                        }
+                                        getString(statusRes, batteryInfo.currentCharge)
+                                    }
+                                val connectivityStatus =
+                                    device.getPlugin<ConnectivityReportPlugin>()
+                                        ?.remoteConnectivityInfo
+                                        ?.values
+                                        ?.map { it.networkType }
+                                        ?.filter { it.isNotEmpty() }
+                                        ?.distinct()
+                                        ?.joinToString(", ")
+                                        ?.ifEmpty { null }
+
+                                ConnectedDeviceDashboard(
+                                    deviceName = device.name,
+                                    deviceIconRes = device.iconDrawable,
+                                    isConnected = device.isReachable,
+                                    plugins = pluginModels,
+                                    batteryStatus = batteryStatus,
+                                    connectivityStatus = connectivityStatus,
                                     isRefreshing = isRefreshing,
-                                    onRefresh = { refreshDevicesAction() }
+                                    onRefresh = { refreshDevicesAction() },
+                                    onPluginEnabledChange = device::setPluginEnabled,
+                                    onButtonClick = { button -> button.onClick(mActivity!!) },
+                                    onRequiredPermissionClick = { pluginKey ->
+                                        device.pluginsWithoutPermissions[pluginKey]
+                                            ?.permissionExplanationDialog
+                                            ?.show(childFragmentManager, null)
+                                    },
+                                    onOptionalPermissionClick = { pluginKey ->
+                                        device.pluginsWithoutOptionalPermissions[pluginKey]
+                                            ?.optionalPermissionExplanationDialog
+                                            ?.show(childFragmentManager, null)
+                                    }
                                 )
+                                if (pairingSucceeded) {
+                                    PairingSuccessBanner(
+                                        deviceName = device.name,
+                                        onDismiss = { viewModel.setPairingSucceeded(false) },
+                                        modifier = Modifier
+                                            .align(Alignment.TopCenter)
+                                            .padding(KdeSpacing.medium)
+                                    )
+                                }
                             }
                         }
 
                         else -> {
                             DevicePairingScreen(
+                                deviceName = device.name,
                                 pairStatus = device.pairStatus,
                                 verificationKey = device.verificationKey ?: "",
                                 pairMessage = pairingErrorMessage,
                                 onRequestPairing = {
                                     viewModel.setPairingErrorMessage(message =null)
+                                    viewModel.setPairingSucceeded(false)
                                     device.requestPairing()
                                     refreshUI()
                                 },
@@ -295,6 +348,10 @@ class DeviceFragment : BaseFragment<ActivityDeviceBinding>() {
                                         cancelPairing()
                                     }
                                     (mActivity as? MainActivity)?.onDeviceSelected(null)
+                                },
+                                onCancelPairing = {
+                                    device.cancelPairing()
+                                    refreshUI()
                                 }
                             )
                         }
@@ -312,6 +369,7 @@ class DeviceFragment : BaseFragment<ActivityDeviceBinding>() {
             }
 
             override fun pairingSuccessful() {
+                viewModel.setPairingSucceeded(true)
                 val accessibilityManager =
                     requireContext().getSystemService(Context.ACCESSIBILITY_SERVICE) as? AccessibilityManager
                 if (accessibilityManager?.isEnabled == true) {
@@ -337,51 +395,11 @@ class DeviceFragment : BaseFragment<ActivityDeviceBinding>() {
             override fun unpaired(device: Device) {
                 mActivity?.runOnUiThread {
                     viewModel.setPairingErrorMessage(message =null)
+                    viewModel.setPairingSucceeded(false)
                     refreshUI()
                 }
             }
         }
 
 
-    /**
-     * This method tries to display status info (battery and connectivity) for the remote device.
-     */
-    private fun displayBatteryInfoIfPossible() {
-        val batteryPlugin = device?.getPlugin<BatteryPlugin>()
-        val connectivityPlugin = device?.getPlugin<ConnectivityReportPlugin>()
-
-        val batteryInfo = batteryPlugin?.remoteBatteryInfo
-        val batteryStatus = if (batteryInfo != null) {
-            @StringRes
-            val resId = when {
-                batteryInfo.isCharging -> R.string.battery_status_charging_format
-                BatteryPlugin.isLowBattery(batteryInfo) -> R.string.battery_status_low_format
-                else -> R.string.battery_status_format
-            }
-            mActivity?.getString(resId, batteryInfo.currentCharge)
-        } else {
-            null
-        }
-
-        val connectivityInfoMap = connectivityPlugin?.remoteConnectivityInfo
-        val connectivityStatus = if (!connectivityInfoMap.isNullOrEmpty()) {
-            connectivityInfoMap.values
-                .map { it.networkType }
-                .filter { it.isNotEmpty() }
-                .distinct()
-                .joinToString(", ")
-                .ifEmpty { null }
-        } else {
-            null
-        }
-
-        val fullSubtitle = when {
-            batteryStatus != null && connectivityStatus != null -> "$batteryStatus  •  $connectivityStatus"
-            batteryStatus != null -> batteryStatus
-            connectivityStatus != null -> connectivityStatus
-            else -> null
-        }
-
-        mActivity?.supportActionBar?.subtitle = fullSubtitle
-    }
 }

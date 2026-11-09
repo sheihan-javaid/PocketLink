@@ -17,14 +17,19 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 
 @Composable
-fun KdeTheme(context : Context, content: @Composable () -> Unit) {
-    val colorScheme = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-        when (isSystemInDarkTheme()) {
+fun KdeTheme(
+    context: Context,
+    darkTheme: Boolean = isSystemInDarkTheme(),
+    useDynamicColor: Boolean = true,
+    content: @Composable () -> Unit
+) {
+    val colorScheme = if (useDynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+        when (darkTheme) {
             true -> dynamicDarkColorScheme(context)
             false -> dynamicLightColorScheme(context)
         }
     } else {
-        when (isSystemInDarkTheme()) {
+        when (darkTheme) {
             true -> darkColorScheme()
             false -> lightColorScheme()
         }

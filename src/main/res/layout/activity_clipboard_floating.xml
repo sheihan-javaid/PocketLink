@@ -8,12 +8,14 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:importantForAccessibility="no">
 
     <Button
         android:id="@+id/floating_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:alpha="0"
+        android:importantForAccessibility="no"
         android:text="@string/pref_plugin_clipboard" />
 </LinearLayout>

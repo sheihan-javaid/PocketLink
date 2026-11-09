@@ -21,6 +21,12 @@ class FindRemoteDevicePlugin : Plugin() {
 
     override fun onPacketReceived(np: NetworkPacket): Boolean = true
 
+    override fun getUiButtons(): List<PluginUiButton> = listOf(
+        PluginUiButton(context.getString(R.string.ring), R.drawable.ic_notification) {
+            device.sendPacket(NetworkPacket(FindMyPhonePlugin.PACKET_TYPE_FINDMYPHONE_REQUEST))
+        }
+    )
+
     override fun getUiMenuEntries(): List<PluginUiMenuEntry> = listOf(
         PluginUiMenuEntry(context.getString(R.string.ring)) {
             device.sendPacket(NetworkPacket(FindMyPhonePlugin.PACKET_TYPE_FINDMYPHONE_REQUEST))

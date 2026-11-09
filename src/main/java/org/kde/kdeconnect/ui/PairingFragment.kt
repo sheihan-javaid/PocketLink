@@ -148,7 +148,10 @@ class PairingFragment : BaseFragment<DevicesListBinding>() {
                                 localNetworkPermissionLauncher.launch(Manifest.permission.ACCESS_LOCAL_NETWORK)
                             }
                         },
-                        onRefresh = { viewModel.onRefresh() }
+                        onRefresh = { viewModel.onRefresh() },
+                        onCustomDevicesClick = {
+                            startActivity(Intent(mActivity, CustomDevicesActivity::class.java))
+                        }
                     )
                 }
             }

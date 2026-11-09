@@ -141,13 +141,16 @@ object DeviceHelper {
     }
 
     fun getDeviceInfo(context: Context): DeviceInfo {
+        // One-way notification policy: do not advertise incoming kdeconnect.notification capability,
+        // preventing remote peers (macOS / desktops) from attempting to mirror desktop notifications to Android.
+        val advertisedIncomingCapabilities = PluginFactory.incomingCapabilities - "kdeconnect.notification"
         return DeviceInfo(
             getDeviceId(context),
             SslHelper.certificate,
             getDeviceName(context),
             deviceType,
             PROTOCOL_VERSION,
-            PluginFactory.incomingCapabilities,
+            advertisedIncomingCapabilities,
             PluginFactory.outgoingCapabilities
         )
     }

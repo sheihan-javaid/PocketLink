@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.kde.kdeconnect.DeviceStats
 import org.kde.kdeconnect.KdeConnect
+import org.kde.kdeconnect.extensions.setupBottomPadding
 import org.kde.kdeconnect.plugins.PluginFactory
 import org.kde.kdeconnect_tp.R
 
@@ -72,7 +73,7 @@ class PluginSettingsListFragment : PreferenceFragmentCompat() {
             return
         }
 
-        val plugins = PluginFactory.sortPluginList(device.supportedPlugins)
+        val plugins = PluginFactory.sortPluginList(device.supportedPlugins).filter { it != "ReceiveNotificationsPlugin" }
         for (pluginKey in plugins) {
             val pref = PluginPreference(preferenceManager.context, pluginKey, device, cb)
             preferenceScreen.addPreference(pref)
@@ -81,6 +82,7 @@ class PluginSettingsListFragment : PreferenceFragmentCompat() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        listView.setupBottomPadding()
 
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.N) {
             return // PacketStats not working in API < 24

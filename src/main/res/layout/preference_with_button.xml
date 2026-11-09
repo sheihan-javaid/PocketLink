@@ -1,80 +1,75 @@
-<?xml version="1.0" encoding="utf-8"?><!-- Copyright (C) 2006 The Android Open Source Project
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+SPDX-FileCopyrightText: 2026 KDE Connect contributors
 
-     Licensed under the Apache License, Version 2.0 (the "License");
-     you may not use this file except in compliance with the License.
-     You may obtain a copy of the License at
-
-          http://www.apache.org/licenses/LICENSE-2.0
-
-     Unless required by applicable law or agreed to in writing, software
-     distributed under the License is distributed on an "AS IS" BASIS,
-     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-     See the License for the specific language governing permissions and
-     limitations under the License.
+SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 -->
 
-<!-- Layout for a Preference in a PreferenceActivity. The bound
-     Preference will place a specific widget representing that
-     Preference in the "widget_frame" ViewGroup in this file. -->
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?android:attr/selectableItemBackground"
-    >
-    <RelativeLayout
+    android:minHeight="@dimen/kde_min_touch_target"
+    android:paddingStart="@dimen/kde_spacing_medium"
+    android:paddingEnd="@dimen/kde_spacing_medium"
+    android:paddingTop="@dimen/kde_spacing_small"
+    android:paddingBottom="@dimen/kde_spacing_small"
+    android:gravity="center_vertical"
+    android:background="?attr/selectableItemBackground"
+    tools:ignore="Overdraw">
+
+    <LinearLayout
         android:id="@+id/content"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:layout_gravity="center"
-        android:padding="16dp"
-        android:minHeight="?android:attr/listPreferredItemHeight"
-        >
+        android:layout_gravity="center_vertical"
+        android:minHeight="@dimen/kde_min_touch_target"
+        android:gravity="center_vertical"
+        android:paddingEnd="@dimen/kde_spacing_small"
+        tools:ignore="RtlSymmetry"
+        android:orientation="vertical">
+
         <TextView
             android:id="@android:id/title"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ellipsize="marquee"
-            android:fadingEdge="horizontal"
-            android:singleLine="true"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            tools:text="Plugin title"
-            />
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+            android:textColor="?attr/colorOnSurface"
+            tools:text="Plugin Title" />
+
         <TextView
             android:id="@android:id/summary"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@android:id/title"
-            android:layout_below="@android:id/title"
+            android:layout_marginTop="2dp"
             android:maxLines="3"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="?android:attr/textColorSecondary"
-            tools:text="Plugin description"
-            />
-    </RelativeLayout>
-    <!--
-    NB: This divider (below) should only become visible if the
-    preference links to additional settings. In practical terms,
-    that's when calling '::hasSettings' on the associated Plugin
-    returns true.
-    -->
+            android:ellipsize="end"
+            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            tools:text="Plugin Description" />
+    </LinearLayout>
+
     <View
         android:id="@+id/divider"
         android:layout_width="1dp"
-        android:layout_height="32dp"
-        android:layout_gravity="center"
-        android:background="?colorPrimary"
-        />
-    <!-- Preference will place its actual preference widget here. -->
+        android:layout_height="24dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="@dimen/kde_spacing_small"
+        android:layout_marginEnd="@dimen/kde_spacing_small"
+        android:background="?attr/colorOutlineVariant" />
+
     <LinearLayout
         android:id="@android:id/widget_frame"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:minWidth="@dimen/kde_min_touch_target"
+        android:minHeight="@dimen/kde_min_touch_target"
+        android:layout_gravity="center_vertical"
         android:gravity="center"
-        android:padding="16dp"
-        android:orientation="vertical"
-        />
+        android:orientation="vertical" />
+
 </LinearLayout>

@@ -5,6 +5,31 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
 -->
 
 <resources>
+    <attr name="kdeColorSuccess" format="color" />
+    <attr name="kdeColorOnSuccess" format="color" />
+    <attr name="kdeColorSuccessContainer" format="color" />
+    <attr name="kdeColorOnSuccessContainer" format="color" />
+    <attr name="kdeColorWarning" format="color" />
+    <attr name="kdeColorOnWarning" format="color" />
+    <attr name="kdeColorWarningContainer" format="color" />
+    <attr name="kdeColorOnWarningContainer" format="color" />
+    <attr name="kdeColorInformation" format="color" />
+    <attr name="kdeColorOnInformation" format="color" />
+    <attr name="kdeColorInformationContainer" format="color" />
+    <attr name="kdeColorOnInformationContainer" format="color" />
+    <attr name="kdeSpacingXsmall" format="dimension" />
+    <attr name="kdeSpacingSmall" format="dimension" />
+    <attr name="kdeSpacingMediumSmall" format="dimension" />
+    <attr name="kdeSpacingMedium" format="dimension" />
+    <attr name="kdeSpacingLarge" format="dimension" />
+    <attr name="kdeSpacingXlarge" format="dimension" />
+    <attr name="kdeMinTouchTarget" format="dimension" />
+    <attr name="kdeCornerSmall" format="dimension" />
+    <attr name="kdeCornerMedium" format="dimension" />
+    <attr name="kdeCornerLarge" format="dimension" />
+    <attr name="kdeCornerExtraLarge" format="dimension" />
+    <attr name="kdeContentMaxWidth" format="dimension" />
+
     <!-- A high-contrast color for important visual elements (for less important elements, use colorControlNormal instead) -->
     <declare-styleable name="AutoGridLayout">
         <!-- The width of one column. Used to align -->

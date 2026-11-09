@@ -9,6 +9,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.activity.enableEdgeToEdge
 import org.kde.kdeconnect.KdeConnect
 import org.kde.kdeconnect.base.BaseActivity
 import org.kde.kdeconnect.plugins.Plugin
@@ -28,11 +29,15 @@ class PluginSettingsActivity : BaseActivity<ActivityPluginSettingsBinding>(), Pl
 
         // Don't restore a specific plugin settings fragment if the device is no longer connected
         val deviceReachable = KdeConnect.getInstance().getDevice(settingsDeviceId)?.isReachable == true
+        enableEdgeToEdge()
         super.onCreate(if (deviceReachable) savedInstanceState else null)
 
         setSupportActionBar(binding.toolbarLayout.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
+
+        val device = KdeConnect.getInstance().getDevice(settingsDeviceId)
+        device?.name?.let { binding.toolbarLayout.toolbar.subtitle = it }
 
         var fragment = supportFragmentManager.findFragmentById(R.id.fragmentPlaceHolder)
         if (fragment == null) {

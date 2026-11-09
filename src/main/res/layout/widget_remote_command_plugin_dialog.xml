@@ -19,7 +19,7 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
         android:layout_height="wrap_content"
         android:layout_margin="10dip"
         android:text="@string/pairing_title"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textAppearance="?attr/textAppearanceTitleLarge" />
 
     <ListView
         android:id="@+id/run_commands_device_list"
@@ -37,7 +37,8 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
         android:layout_height="wrap_content"
         android:layout_margin="10dip"
         android:text="@string/device_list_empty"
-        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textAppearance="?attr/textAppearanceBodyMedium"
+        android:textColor="?attr/colorOnSurfaceVariant"
         android:visibility="gone" />
 
 </LinearLayout>

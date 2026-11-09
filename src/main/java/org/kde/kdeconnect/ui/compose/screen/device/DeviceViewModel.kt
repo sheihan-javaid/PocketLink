@@ -19,11 +19,18 @@ class DeviceViewModel : ViewModel() {
     private val _pairingErrorMessage = MutableStateFlow<String?>(value = null)
     val pairingErrorMessage: StateFlow<String?> = _pairingErrorMessage.asStateFlow()
 
+    private val _pairingSucceeded = MutableStateFlow(value = false)
+    val pairingSucceeded: StateFlow<Boolean> = _pairingSucceeded.asStateFlow()
+
     fun setRefreshing(refreshing: Boolean) {
         _isRefreshing.value = refreshing
     }
 
     fun setPairingErrorMessage(message: String?) {
         _pairingErrorMessage.value = message
+    }
+
+    fun setPairingSucceeded(succeeded: Boolean) {
+        _pairingSucceeded.value = succeeded
     }
 }
