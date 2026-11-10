@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-  <string name="kde_connect">KDE Connect</string>
+  <string name="kde_connect">PocketLink</string>
   <string name="manifest_label_share">Siųsti į įrenginį</string>
   <string name="foreground_notification_no_devices">Neprisijungta prie jokio įrenginio</string>
   <string name="foreground_notification_devices">Prisijungta prie: %s</string>
@@ -41,7 +41,7 @@
   <string name="send_ping">Tikrinti ryšį</string>
   <string name="open_mpris_controls">Įvairialypės terpės valdymas</string>
   <string name="remotekeyboard_editing_only_title">Apdoroti nuotolinius klavišus tik redaguojant</string>
-  <string name="remotekeyboard_not_connected">Nėra jokio aktyvaus nuotolinės klaviatūros ryšio, užmegzkite jį naudodami kdeconnect</string>
+  <string name="remotekeyboard_not_connected">Nėra jokio aktyvaus nuotolinės klaviatūros ryšio, užmegzkite jį naudodami PocketLink</string>
   <string name="remotekeyboard_connected">Nuotolinės klaviatūros ryšys yra aktyvus</string>
   <string name="remotekeyboard_multiple_connections">Yra daugiau nei vienas nuotolinės klaviatūros ryšys, pasirinkite kurį įrenginį konfigūruoti</string>
   <string name="open_mousepad">Nuotolinis įvedimas</string>
@@ -184,7 +184,7 @@
     <item>2 minutės</item>
   </string-array>
   <string name="mpris_notification_settings_title">Rodyti įvairialypės terpės valdymo pranešimus</string>
-  <string name="mpris_notification_settings_summary">Leisti valdyti medijos leistuves neatveriant KDE Connect</string>
+  <string name="mpris_notification_settings_summary">Leisti valdyti medijos leistuves neatveriant PocketLink</string>
   <string name="protocol_version_newer">Šis įrenginys naudoja naujesnę protokolo versiją</string>
   <string name="plugin_settings_with_name">%s nuostatos</string>
   <string name="invalid_device_name">Netinkamas įrenginio pavadinimas</string>
@@ -225,7 +225,7 @@
     <item>Bottom left</item>
     <item>Bottom right</item>
   </string-array>
-  <string name="pairing_title">KDE Connect įrenginiai</string>
+  <string name="pairing_title">PocketLink įrenginiai</string>
   <string name="pairing_description">Čia turėtų atsirasti kiti to paties tinklo įrenginiai, naudojantys KDE Connect.</string>
   <string name="device_rename_title">Pervadinti įrenginį</string>
   <string name="device_rename_confirm">Pervadinti</string>
@@ -293,7 +293,7 @@
   <string name="block_images">Blokuoti pranešimuose paveiksliukus</string>
   <string name="notification_channel_receivenotification">Pranešimai iš kitų įrenginių</string>
   <string name="no_app_for_opening">Šio failo atvėrimui nerasta jokios tinkamos programėlės</string>
-  <string name="remote_keyboard_service">KDE Connect nuotolinė klaviatūra</string>
+  <string name="remote_keyboard_service">PocketLink nuotolinė klaviatūra</string>
   <string name="presenter_pointer">Rodyklė</string>
   <string name="trusted_networks">Patikimi tinklai</string>
   <string name="trusted_networks_desc">Apriboti automatinį aptikimą iki žinomų tinklų</string>
@@ -301,7 +301,7 @@
   <string name="empty_trusted_networks_list_text">Kol kas nesate pridėję jokių patikimų tinklų</string>
   <string name="allow_all_networks_text">Leisti visus</string>
   <string name="location_permission_needed_title">Reikalingas leidimas</string>
-  <string name="location_permission_needed_desc">KDE Connect reikia foninio vietovės leidimo, kad, netgi tuomet, kai programėlė veikia fone, ji žinotų belaidžio (WiFi) tinklo ryšius, prie kurių esate prisijungę. Taip yra todėl, kad aplink jus esančių belaidžių tinklų pavadinimai gali būti naudojami, siekiant geriau nustatyti jūsų buvimo vietą, nors KDE Connect to ir nedaro.</string>
+  <string name="location_permission_needed_desc">PocketLink reikia foninio vietovės leidimo, kad, netgi tuomet, kai programėlė veikia fone, ji žinotų belaidžio (WiFi) tinklo ryšius, prie kurių esate prisijungę. Taip yra todėl, kad aplink jus esančių belaidžių tinklų pavadinimai gali būti naudojami, siekiant geriau nustatyti jūsų buvimo vietą, nors PocketLink to ir nedaro.</string>
   <string name="mpris_open_url">Tęsti atkūrimą čia</string>
   <string name="cant_open_url">Nepavyksta atverti URL, kad būtų tęsiamas atkūrimas</string>
   <string name="bigscreen_home">Pradžia</string>

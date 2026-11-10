@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-  <string name="kde_connect">KDE Connect</string>
+  <string name="kde_connect">PocketLink</string>
   <string name="manifest_label_share">Aygıta Gönder</string>
   <string name="foreground_notification_no_devices">Hiçbir aygıta bağlı değil</string>
   <string name="foreground_notification_devices">Bağlı: %s</string>
@@ -51,12 +51,12 @@
   <string name="open_input_settings">Klavye ayarlarını aç</string>
   <string name="no_permissions">Bildirimler erişebilmek için izine gereksiniminiz var</string>
   <string name="no_permission_mprisreceiver">Ortam oynatıcılarınızı denelemek için bildirimlere erişim izni vermeniz gerekir</string>
-  <string name="no_permissions_remotekeyboard_ime">Düğme basımlarını almak için KDE Connect Uzak Klavye’yi, bir Android giriş yöntemi olarak etkinleştirmeniz gerekir.</string>
+  <string name="no_permissions_remotekeyboard_ime">Düğme basımlarını almak için PocketLink Uzak Klavye’yi, bir Android giriş yöntemi olarak etkinleştirmeniz gerekir.</string>
   <string name="no_permissions_remotekeyboard_accessibility">Düğme basımlarını almak için erişilebilirlik izinlerini sağlamanız gerekir.</string>
   <string name="send_ping">Ping gönder</string>
   <string name="open_mpris_controls">Çoklu ortam denetimi</string>
   <string name="remotekeyboard_editing_only_title">Yalnızca düzenlerken uzaktan düğmeleri işle</string>
-  <string name="remotekeyboard_not_connected">Etkin bir uzak klavye bağlantısı yok, kdeconnect ile bir bağlantı kurun</string>
+  <string name="remotekeyboard_not_connected">Etkin bir uzak klavye bağlantısı yok, PocketLink ile bir bağlantı kurun</string>
   <string name="remotekeyboard_connected">Uzak klavye bağlantısı etkin</string>
   <string name="remotekeyboard_multiple_connections">Birden çok uzak klavye bağlantısı mevcut, yapılandırmak istediğiniz aygıtı seçin</string>
   <string name="open_mousepad">Uzaktan giriş</string>
@@ -212,7 +212,7 @@
   </string-array>
   <string name="mpris_notifications_explanation">Bildirim izni, bildirim çekmecesinde uzak konum ortamını göstermek için gereklidir</string>
   <string name="mpris_notification_settings_title">Ortam denetim bildirimini göster</string>
-  <string name="mpris_notification_settings_summary">KDE Connect’i açmadan ortam oynatıcılarınızı denetlemenize izin verin</string>
+  <string name="mpris_notification_settings_summary">PocketLink’i açmadan ortam oynatıcılarınızı denetlemenize izin verin</string>
   <string name="share_to">Şuraya Paylaş…</string>
   <string name="unreachable_device_dynamic_shortcut">%s (✕)</string>
   <string name="unreachable_device_url_share_text">Erişilemeyen bir aygıta gönderilen URL’ler, aygıt erişilebilir olduğunda teslim edilir.\n\n</string>
@@ -252,7 +252,7 @@
   <string name="sftp_action_mode_menu_delete">Sil</string>
   <string name="sftp_no_storage_locations_configured">Yapılandırılmış depolama yeri yok</string>
   <string name="sftp_saf_permission_explanation">Dosyalara uzaktan erişmek için depolama konumlarını yapılandırmanız gerekir</string>
-  <string name="sftp_manage_storage_permission_explanation">Bu aygıttaki dosyalara uzak erişime izin vermek için KDE Connect’e depolamayı yönetmesi için izin vermeniz gerekiyor.</string>
+  <string name="sftp_manage_storage_permission_explanation">Bu aygıttaki dosyalara uzak erişime izin vermek için PocketLink’e depolamayı yönetmesi için izin vermeniz gerekiyor.</string>
   <string name="sftp_missing_permission_error">Eksik izinler: Dosya sistemi erişimi</string>
   <string name="sftp_could_not_determine_ip">Yerel IP adresi algılanamadı</string>
   <string name="no_players_connected">Bulunan oynatıcı yok</string>
@@ -270,7 +270,7 @@
   </string-array>
   <string name="block_notification_contents">Bildirim içeriğini engelle</string>
   <string name="block_notification_images">Bildirim görsellerini engelle</string>
-  <string name="pairing_title">KDE Connect Aygıtları</string>
+  <string name="pairing_title">PocketLink Aygıtları</string>
   <string name="pairing_description">KDE Connect’te çalışan, aynı ağdaki diğer aygıtlar burada gözükmelidir.</string>
   <string name="device_rename_title">Aygıtı yeniden adlandır</string>
   <string name="device_rename_confirm">Yeniden adlandır</string>
@@ -343,7 +343,7 @@
   <string name="all">Tümü</string>
   <string name="devices">Aygıtlar</string>
   <string name="settings_rename">Aygıt adı</string>
-  <string name="settings_export_logs">KDE Connect Günlüklerini Dışa Aktar</string>
+  <string name="settings_export_logs">PocketLink Günlüklerini Dışa Aktar</string>
   <string name="settings_export_logs_text">Sorun tanılama konusunda yandımcı olabilecek yürütme bilgisini içeren bir dosya üretin.</string>
   <string name="settings_more_settings_title">Daha fazla ayar</string>
   <string name="settings_more_settings_text">Aygıt başına ayarlar, bir aygıt içinden “Eklenti Ayarları” altında bulunabilir.</string>
@@ -358,7 +358,7 @@
   <string name="notification_channel_receivenotification">Diğer aygıtlardan gelen bildirimler</string>
   <string name="findmyphone_preference_title_flashlight">Flaşı yak</string>
   <string name="no_app_for_opening">Bu dosyayı açmak için uygun bir uygulama bulunamadı</string>
-  <string name="remote_keyboard_service">KDE Connect Uzaktan Klavye</string>
+  <string name="remote_keyboard_service">PocketLink Uzaktan Klavye</string>
   <string name="presenter_pointer">İşaretçi</string>
   <string name="trusted_networks">Güvenilir ağlar</string>
   <string name="trusted_networks_desc">Otomatik keşfi bilinen ağlarla kısıtla</string>
@@ -366,8 +366,8 @@
   <string name="empty_trusted_networks_list_text">Henüz herhangi bir güvenilen ağ eklemediniz</string>
   <string name="allow_all_networks_text">Hepsine izin ver</string>
   <string name="location_permission_needed_title">İzin gerekli</string>
-  <string name="bluetooth_permission_needed_desc">KDE Connect, Bluetooth kullanarak eşleştirilmiş aygıtların KDE Connect’te görülebilir olmasını sağlamak için yakındaki aygıtlara bağlanma iznine gereksinim duyar.</string>
-  <string name="location_permission_needed_desc">KDE Connect, uygulama arka planda olsa bile bağlı olduğunuz Wi-Fi ağını bilmek için arka plan konumu iznine gereksinim duyar. Bunun nedeni, çevrenizdeki Wi-Fi ağlarının adının, KDE Connect’in yaptığı bu olmasa bile konumunuzu bulmak için kullanılabilmesidir.</string>
+  <string name="bluetooth_permission_needed_desc">PocketLink, Bluetooth kullanarak eşleştirilmiş aygıtların PocketLink’te görülebilir olmasını sağlamak için yakındaki aygıtlara bağlanma iznine gereksinim duyar.</string>
+  <string name="location_permission_needed_desc">PocketLink, uygulama arka planda olsa bile bağlı olduğunuz Wi-Fi ağını bilmek için arka plan konumu iznine gereksinim duyar. Bunun nedeni, çevrenizdeki Wi-Fi ağlarının adının, PocketLink’in yaptığı bu olmasa bile konumunuzu bulmak için kullanılabilmesidir.</string>
   <string name="mpris_open_url">Oynamayı burada sürdürün</string>
   <string name="cant_open_url">Oynamayı sürdürmek için URL açılamıyor</string>
   <string name="bigscreen_home">Başlangıç</string>

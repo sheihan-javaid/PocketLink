@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-  <string name="kde_connect">KDE Connect</string>
+  <string name="kde_connect">PocketLink</string>
   <string name="foreground_notification_no_devices">Δεν είναι συνδεδεμένο σε συσκευή</string>
   <string name="foreground_notification_devices">Συνδεδεμένό σε: %s</string>
   <string name="foreground_notification_send_clipboard">Αποστολή προχείρου</string>
@@ -40,7 +40,7 @@
   <string name="send_ping">Αποστολή ping</string>
   <string name="open_mpris_controls">Έλεγχος πολυμέσων</string>
   <string name="remotekeyboard_editing_only_title">Χειρισμός απομακρυσμένων πλήκτρων μόνο στην επεξεργασία</string>
-  <string name="remotekeyboard_not_connected">Δεν υπάρχει ενεργή σύνδεση με απομακρυσμένο πληκτρολόγιο, άνοιξε μία στο kdeconnect</string>
+  <string name="remotekeyboard_not_connected">Δεν υπάρχει ενεργή σύνδεση με απομακρυσμένο πληκτρολόγιο, άνοιξε μία στο PocketLink</string>
   <string name="remotekeyboard_connected">Η σύνδεση με απομακρυσμένο πληκτρολόγιο είναι ενεργή</string>
   <string name="remotekeyboard_multiple_connections">Υπάρχουν περισσότερες της μίας συνδέσεις με απομακρυσμένο πληκτρολόγιο, επιλέξτε ποια συσκευή θα διαμορφώσετε</string>
   <string name="open_mousepad">Απομακρυσμένη είσοδος στοιχείων</string>
@@ -159,7 +159,7 @@
     <item>2 λεπτά</item>
   </string-array>
   <string name="mpris_notification_settings_title">Εμφάνιση ειδοποίησης κονσόλας πολυμέσων</string>
-  <string name="mpris_notification_settings_summary">Να επιτρέπεται ο έλεγχος των αναπαραφωγέων πολυμέσων χωρίς άνοιγμα του KDE Connect</string>
+  <string name="mpris_notification_settings_summary">Να επιτρέπεται ο έλεγχος των αναπαραφωγέων πολυμέσων χωρίς άνοιγμα του PocketLink</string>
   <string name="protocol_version_newer">Η συσκευή αυτή χρησιμοποιεί νεότερη έκδοση πρωτοκόλλου</string>
   <string name="plugin_settings_with_name">%s ρυθμίσεις</string>
   <string name="invalid_device_name">Μη έγκυρο όνομα συσκευής</string>
@@ -199,7 +199,7 @@
     <item>Bottom left</item>
     <item>Bottom right</item>
   </string-array>
-  <string name="pairing_title">Συσκευές KDE Connect</string>
+  <string name="pairing_title">Συσκευές PocketLink</string>
   <string name="pairing_description">Άλλες συσκευές με KDE Connect στο ίδιο δίκτυο θα εμφανίζονται εδώ.</string>
   <string name="device_rename_title">Μετονομασία συσκευής</string>
   <string name="device_rename_confirm">Μετονομασία</string>
@@ -266,7 +266,7 @@
   <string name="block_images">Φραγή εικόνων σε ειδοποιήσεις</string>
   <string name="notification_channel_receivenotification">Ειδοποιήσεις από άλλες συσκευές</string>
   <string name="no_app_for_opening">Δεν βρέθηκε κατάλληλη εφαρμογή για το άνοιγμα αυτού του αρχείου</string>
-  <string name="remote_keyboard_service">Απομακρυσμένο πληκτρολόγιο KDE Connect</string>
+  <string name="remote_keyboard_service">Απομακρυσμένο πληκτρολόγιο PocketLink</string>
   <string name="presenter_pointer">Δείκτης</string>
   <string name="trusted_networks">Έμπιστα δίκτυα</string>
   <string name="trusted_networks_desc">Να περιοριστεί η αυτόματη ανακάλυψη σε γνωστά δίκτυα</string>

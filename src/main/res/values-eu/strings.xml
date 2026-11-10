@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-  <string name="kde_connect">KDE Connect</string>
+  <string name="kde_connect">PocketLink</string>
   <string name="manifest_label_share">Bidali gailura</string>
   <string name="foreground_notification_no_devices">Ez dago ezein gailuetara konektaturik</string>
   <string name="foreground_notification_devices">Honetara konektatua: %s</string>
@@ -51,12 +51,12 @@
   <string name="open_input_settings">Teklatu-ezarpenak ireki</string>
   <string name="no_permissions">Jakinarazpenak atzitzeko baimena eman behar duzu</string>
   <string name="no_permission_mprisreceiver">Zure euskarri-jotzaileak kontrolatu ahal izateko jakinarazpenetara atzipena eman behar diozu</string>
-  <string name="no_permissions_remotekeyboard_ime">Tekla-sakatzeak jasotzeko, KDE Connecten urruneko teklatua Android sarrera-metodo gisa aktibatu behar duzu</string>
+  <string name="no_permissions_remotekeyboard_ime">Tekla-sakatzeak jasotzeko, PocketLinken urruneko teklatua Android sarrera-metodo gisa aktibatu behar duzu</string>
   <string name="no_permissions_remotekeyboard_accessibility">Tekla-sakatzeak jasotzeko, irisgarritasun-baimenak eman behar dituzu</string>
   <string name="send_ping">Ping bidali</string>
   <string name="open_mpris_controls">Multimedia kontrola</string>
   <string name="remotekeyboard_editing_only_title">Erabili urruneko teklak editatzean besterik ez</string>
-  <string name="remotekeyboard_not_connected">Ez dago urruneko teklatuarekin konexio aktiborik, ezarri bat kdeconnect erabiliz</string>
+  <string name="remotekeyboard_not_connected">Ez dago urruneko teklatuarekin konexio aktiborik, ezarri bat PocketLink erabiliz</string>
   <string name="remotekeyboard_connected">Urruneko teklatuarekin konexioa aktibo dago</string>
   <string name="remotekeyboard_multiple_connections">Urruneko teklatuekin konexio bat baino gehiago dago, hautatu konfiguratu beharreko gailua</string>
   <string name="open_mousepad">Urruneko sarrera</string>
@@ -211,7 +211,7 @@
   </string-array>
   <string name="mpris_notifications_explanation">Urruneko euskarria jakinarazpen tiraderan erakusteko jakinarazpen-baimena behar da</string>
   <string name="mpris_notification_settings_title">Erakutsi euskarri kontrolaren jakinarazpena</string>
-  <string name="mpris_notification_settings_summary">Utzi zure euskarri-jotzaileak kontrolatzen KDE Connect ireki gabe</string>
+  <string name="mpris_notification_settings_summary">Utzi zure euskarri-jotzaileak kontrolatzen PocketLink ireki gabe</string>
   <string name="share_to">Partekatu honekin…</string>
   <string name="unreachable_device_dynamic_shortcut">%s (✕)</string>
   <string name="unreachable_device_url_share_text">Gailu eskuraezinekin partekatutako URLak, hartara bidaliko dira eskuragarri dagoenean.\n\n</string>
@@ -251,7 +251,7 @@
   <string name="sftp_action_mode_menu_delete">Ezabatu</string>
   <string name="sftp_no_storage_locations_configured">Ez da biltegiratze kokalekurik konfiguratu</string>
   <string name="sftp_saf_permission_explanation">Fitxategiak urrunetik atzitzeko biltegiratze kokalekuak konfiguratu behar dituzu</string>
-  <string name="sftp_manage_storage_permission_explanation">gailu honetako fitxategietara urrutiko sarbidea baimentzeko, «KDE Connect»eri biltegiratzea kudeatzeko baimena eman behar diozu.</string>
+  <string name="sftp_manage_storage_permission_explanation">gailu honetako fitxategietara urrutiko sarbidea baimentzeko, «PocketLink»eri biltegiratzea kudeatzeko baimena eman behar diozu.</string>
   <string name="sftp_missing_permission_error">Baimenak falta dira: fitxategi-sistemara sarbidea</string>
   <string name="no_players_connected">Ez da jotzailerik aurkitu</string>
   <string name="send_files">Bidali fitxategiak</string>
@@ -268,7 +268,7 @@
   </string-array>
   <string name="block_notification_contents">Oztopatu jakinarazpenen edukia</string>
   <string name="block_notification_images">Oztopatu jakinarazpenen irudiak</string>
-  <string name="pairing_title">KDE Connect gailuak</string>
+  <string name="pairing_title">PocketLink gailuak</string>
   <string name="pairing_description">KDE Connect darabilten sareko beste gailuak hemen agertu beharko lirateke.</string>
   <string name="device_rename_title">Aldatu izena gailuari</string>
   <string name="device_rename_confirm">Aldatu izena</string>
@@ -335,7 +335,7 @@
   <string name="all">Guztiak</string>
   <string name="devices">Gailuak</string>
   <string name="settings_rename">Gailuaren izena</string>
-  <string name="settings_export_logs">Esportatu KDE Connect-en egunkariak</string>
+  <string name="settings_export_logs">Esportatu PocketLink-en egunkariak</string>
   <string name="settings_export_logs_text">Sortu arazoak konpontzen lagun dezakeen exekuzio informazioa duen fitxategi bat.</string>
   <string name="settings_more_settings_title">Ezarpen gehiago</string>
   <string name="settings_more_settings_text">Gailu-bakoitzeko ezarpenak aurki daitezke \'Pluginen ezarpenak\' barruan.</string>
@@ -350,7 +350,7 @@
   <string name="notification_channel_receivenotification">Beste gailu batzuen jakinarazpenak</string>
   <string name="findmyphone_preference_title_flashlight">Esku-argia keinuka piztu</string>
   <string name="no_app_for_opening">Ez da fitxategi hau irekitzeko aplikazio egokirik aurkitu</string>
-  <string name="remote_keyboard_service">KDE Connect urruneko teklatua</string>
+  <string name="remote_keyboard_service">PocketLink urruneko teklatua</string>
   <string name="presenter_pointer">Erakuslea</string>
   <string name="trusted_networks">Konfiantza duten sareak</string>
   <string name="trusted_networks_desc">Mugatu aurkitze automatikoa sare ezagunetara</string>
@@ -358,8 +358,8 @@
   <string name="empty_trusted_networks_list_text">Oraindik ez duzu gehitu konfiantza duen sarerik</string>
   <string name="allow_all_networks_text">Baimendu guztiak</string>
   <string name="location_permission_needed_title">Baimena beharrezkoa da</string>
-  <string name="bluetooth_permission_needed_desc">KDE Connect-ek hurbileko gailuetara konektatzeko baimena behar du, Bluetooth bidez parekatutako gailuak KDE Connect-en erabilgarri ipintzeko.</string>
-  <string name="location_permission_needed_desc">KDE Connect-ek konektatuta zauden Wi-Fi sarea zein den jakiteko atzeko planoko kokapen baimena behar du, baita aplikazioa atzeko planoan dagoenean ere. Hori horrela da, zure inguruko Wi-Fi sareen izenak zure kokalekua aurkitzeko erabil daitezkeelako, nahiz eta hori ez izan KDE Connect-ek egiten duena.</string>
+  <string name="bluetooth_permission_needed_desc">PocketLink-ek hurbileko gailuetara konektatzeko baimena behar du, Bluetooth bidez parekatutako gailuak PocketLink-en erabilgarri ipintzeko.</string>
+  <string name="location_permission_needed_desc">PocketLink-ek konektatuta zauden Wi-Fi sarea zein den jakiteko atzeko planoko kokapen baimena behar du, baita aplikazioa atzeko planoan dagoenean ere. Hori horrela da, zure inguruko Wi-Fi sareen izenak zure kokalekua aurkitzeko erabil daitezkeelako, nahiz eta hori ez izan PocketLink-ek egiten duena.</string>
   <string name="mpris_open_url">Jarraitu hemen jotzen</string>
   <string name="cant_open_url">Ezin da ireki URLa jotzen jarraitzeko</string>
   <string name="bigscreen_home">Etxea</string>

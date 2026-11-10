@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-  <string name="kde_connect">KDE Connect</string>
+  <string name="kde_connect">PocketLink</string>
   <string name="manifest_label_share">Enviar para o Dispositivo</string>
   <string name="foreground_notification_no_devices">Não está ligado a nenhum dispositivo</string>
   <string name="foreground_notification_devices">Ligado a: %s</string>
@@ -41,7 +41,7 @@
   <string name="send_ping">Enviar um pedido de contacto</string>
   <string name="open_mpris_controls">Comando multimédia</string>
   <string name="remotekeyboard_editing_only_title">Lidar com as teclas remotas apenas na edição</string>
-  <string name="remotekeyboard_not_connected">Não existe nenhuma ligação activa a teclados remotos - crie uma no \'kdeconnect\'</string>
+  <string name="remotekeyboard_not_connected">Não existe nenhuma ligação activa a teclados remotos - crie uma no \'PocketLink\'</string>
   <string name="remotekeyboard_connected">A ligação ao teclado remoto está activa</string>
   <string name="remotekeyboard_multiple_connections">Existe mais que uma ligação a teclados remotos; seleccione o dispositivo a configurar</string>
   <string name="open_mousepad">Introdução remota de dados</string>
@@ -173,7 +173,7 @@
     <item>2 minutos</item>
   </string-array>
   <string name="mpris_notification_settings_title">Mostrar a notificação do controlo multimédia</string>
-  <string name="mpris_notification_settings_summary">Permite controlar os seus leitores multimédia sem abrir o KDE Connect</string>
+  <string name="mpris_notification_settings_summary">Permite controlar os seus leitores multimédia sem abrir o PocketLink</string>
   <string name="protocol_version_newer">Este dispositivo usa uma versão mais recente do protocolo</string>
   <string name="plugin_settings_with_name">Configuração do %s</string>
   <string name="invalid_device_name">Nome do dispositivo inválido</string>
@@ -206,7 +206,7 @@
   <string name="sftp_action_mode_menu_delete">Apagar</string>
   <string name="sftp_no_storage_locations_configured">Não estão configurados locais de armazenamento</string>
   <string name="sftp_saf_permission_explanation">Para aceder a ficheiros remotos, tem de configurar os locais de armazenamento</string>
-  <string name="sftp_manage_storage_permission_explanation">Para permitir o acesso remoto aos ficheiros neste dispositivo, precisa de autorizar o KDE Connect a gerir o armazenamento.</string>
+  <string name="sftp_manage_storage_permission_explanation">Para permitir o acesso remoto aos ficheiros neste dispositivo, precisa de autorizar o PocketLink a gerir o armazenamento.</string>
   <string name="no_players_connected">Não foram encontrados leitores</string>
   <string name="send_files">Enviar os ficheiros</string>
   <string-array name="digitizer_preference_entries_draw_button_side">
@@ -217,7 +217,7 @@
   </string-array>
   <string name="block_notification_contents">Bloquear os conteúdos das notificações</string>
   <string name="block_notification_images">Bloquear as imagens das notificações</string>
-  <string name="pairing_title">Dispositivos do KDE Connect</string>
+  <string name="pairing_title">Dispositivos do PocketLink</string>
   <string name="pairing_description">Os outros dispositivos a executar o KDE Connect na mesma rede que você deverão aparecer aqui.</string>
   <string name="device_rename_title">Mudar o nome do dispositivo</string>
   <string name="device_rename_confirm">Mudar o Nome</string>
@@ -286,7 +286,7 @@
   <string name="block_images">Bloquear as imagens das notificações</string>
   <string name="notification_channel_receivenotification">Notificações dos outros dispositivos</string>
   <string name="no_app_for_opening">Não existe nenhuma aplicação adequada para abrir este ficheiro</string>
-  <string name="remote_keyboard_service">Teclado Remoto do KDE Connect</string>
+  <string name="remote_keyboard_service">Teclado Remoto do PocketLink</string>
   <string name="presenter_pointer">Cursor</string>
   <string name="trusted_networks">Redes fidedignas</string>
   <string name="trusted_networks_desc">Restringir a descoberta automática às redes desconhecidas</string>
@@ -294,7 +294,7 @@
   <string name="empty_trusted_networks_list_text">Ainda não adicionou nenhuma rede fidedigna</string>
   <string name="allow_all_networks_text">Permitir tudo</string>
   <string name="location_permission_needed_title">É necessária a permissão</string>
-  <string name="location_permission_needed_desc">O KDE Connect precisa de permissões de localização em segundo plano para saber a rede WiFi a que se encontra ligado, mesmo quando a aplicação está em segundo plano. Isto acontece porque os nomes das redes WiFi à sua volta podem ser usados para descobrir a sua localização, mesmo quando isto não é o que o KDE Connect faz.</string>
+  <string name="location_permission_needed_desc">O PocketLink precisa de permissões de localização em segundo plano para saber a rede WiFi a que se encontra ligado, mesmo quando a aplicação está em segundo plano. Isto acontece porque os nomes das redes WiFi à sua volta podem ser usados para descobrir a sua localização, mesmo quando isto não é o que o PocketLink faz.</string>
   <string name="mpris_open_url">Continuar a tocar aqui</string>
   <string name="cant_open_url">Não é possível abrir o URL para continuar a tocar</string>
   <string name="bigscreen_home">Início</string>

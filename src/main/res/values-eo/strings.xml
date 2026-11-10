@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-  <string name="kde_connect">KDE Connect</string>
+  <string name="kde_connect">PocketLink</string>
   <string name="manifest_label_share">Sendi al Aparato</string>
   <string name="foreground_notification_no_devices">Ne konektita al iu ajn aparato</string>
   <string name="foreground_notification_devices">Konektita al: %s</string>
@@ -42,7 +42,7 @@
   <string name="send_ping">Sendi ping</string>
   <string name="open_mpris_controls">Mastrumo de Aŭdvidaĵoj</string>
   <string name="remotekeyboard_editing_only_title">Pritrakti forajn klavojn nur dum redaktado</string>
-  <string name="remotekeyboard_not_connected">Ne estas aktiva fora klavara konekto, starigu unu en kdeconnect</string>
+  <string name="remotekeyboard_not_connected">Ne estas aktiva fora klavara konekto, starigu unu en PocketLink</string>
   <string name="remotekeyboard_connected">Fora klavara konekto estas aktiva</string>
   <string name="remotekeyboard_multiple_connections">Estas pli ol unu fora klavara konekto, elektu la aparaton por agordi</string>
   <string name="open_mousepad">Fora enigo</string>
@@ -181,7 +181,7 @@
   </string-array>
   <string name="mpris_notifications_explanation">La sciiga permeso estas necesa por montri malproksimajn datumportilojn en la sciigokesto</string>
   <string name="mpris_notification_settings_title">Montri sciigon pri rego de amaskomunikiloj</string>
-  <string name="mpris_notification_settings_summary">Permesu mastrumi viajn plurmediajn ludilojn sen malfermi KDE Connect</string>
+  <string name="mpris_notification_settings_summary">Permesu mastrumi viajn plurmediajn ludilojn sen malfermi PocketLink</string>
   <string name="share_to">Kunhavigi al…</string>
   <string name="unreachable_device_url_share_text">URL-oj kundividitaj al neatingebla aparato estos liveritaj al ĝi post kiam ĝi fariĝos atingebla.\n\n</string>
   <string name="protocol_version">Protokolversio:</string>
@@ -218,7 +218,7 @@
   <string name="sftp_action_mode_menu_delete">Forigi</string>
   <string name="sftp_no_storage_locations_configured">Neniuj konservejoj agordis</string>
   <string name="sftp_saf_permission_explanation">Por aliri dosierojn malproksime vi devas agordi konservadlokojn</string>
-  <string name="sftp_manage_storage_permission_explanation">Por permesi foran aliron al dosieroj sur ĉi tiu aparato, vi devas permesi al KDE Connect administri la konservejon.</string>
+  <string name="sftp_manage_storage_permission_explanation">Por permesi foran aliron al dosieroj sur ĉi tiu aparato, vi devas permesi al PocketLink administri la konservejon.</string>
   <string name="no_players_connected">Neniuj ludantoj trovitaj</string>
   <string name="send_files">Sendi dosierojn</string>
   <string-array name="digitizer_preference_entries_draw_button_side">
@@ -315,8 +315,8 @@
   <string name="empty_trusted_networks_list_text">Vi ankoraŭ ne aldonis neniun fidindan reton</string>
   <string name="allow_all_networks_text">Permesi ĉion</string>
   <string name="location_permission_needed_title">Permeso bezonata</string>
-  <string name="bluetooth_permission_needed_desc">KDE Connect bezonas permeson por konekti al proksimaj aparatoj por fari aparatojn parigitaj per Bluetooth disponebla en KDE Connect.</string>
-  <string name="location_permission_needed_desc">KDE Connect bezonas la fonlokan permeson por scii la WiFi-reton al kiu vi estas konektita eĉ kiam la programo estas en la fono. Ĉi tio estas ĉar la nomo de la WiFi-retoj ĉirkaŭ vi povus esti uzata por trovi vian lokon, eĉ kiam tion ne faras KDE Connect.</string>
+  <string name="bluetooth_permission_needed_desc">PocketLink bezonas permeson por konekti al proksimaj aparatoj por fari aparatojn parigitaj per Bluetooth disponebla en PocketLink.</string>
+  <string name="location_permission_needed_desc">PocketLink bezonas la fonlokan permeson por scii la WiFi-reton al kiu vi estas konektita eĉ kiam la programo estas en la fono. Ĉi tio estas ĉar la nomo de la WiFi-retoj ĉirkaŭ vi povus esti uzata por trovi vian lokon, eĉ kiam tion ne faras PocketLink.</string>
   <string name="mpris_open_url">Daŭre ludi ĉi tie</string>
   <string name="cant_open_url">Ne povas malfermi URL por daŭrigi ludadon</string>
   <string name="bigscreen_home">Hejmo</string>

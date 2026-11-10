@@ -13,7 +13,7 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
         All translations for all KDE apps are handled by the [localization team](https://l10n.kde.org).
         We really appreciate your translations, but make sure to submit them by working with the proper team!
   -->
-    <string name="kde_connect">KDE Connect</string>
+    <string name="kde_connect">PocketLink</string>
     <string name="manifest_label_share">Send to Device</string>
     <string name="foreground_notification_no_devices">Not connected to any device</string>
     <string name="foreground_notification_devices">Connected to: %s</string>
@@ -65,13 +65,13 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
     <string name="open_input_settings">Open keyboard settings</string>
     <string name="no_permissions">You need to grant permission to access notifications</string>
     <string name="no_permission_mprisreceiver">To be able to control your media players you need to grant access to the notifications</string>
-    <string name="no_permissions_remotekeyboard_ime">To receive keypresses you need to activate the KDE Connect Remote Keyboard as an Android input method</string>
+    <string name="no_permissions_remotekeyboard_ime">To receive keypresses you need to activate the PocketLink Remote Keyboard as an Android input method</string>
     <string name="no_permissions_remotekeyboard_accessibility">To receive keypresses you need to grant Accessibility permissions</string>
     <string name="send_ping">Send ping</string>
     <string name="open_mpris_controls">Multimedia control</string>
     <string name="remotekeyboard_editing_only" translatable="false">remotekeyboard_editing_only</string>
     <string name="remotekeyboard_editing_only_title" translatable="true">Handle remote keys only when editing</string>
-    <string name="remotekeyboard_not_connected" translatable="true">There is no active remote keyboard connection, establish one in kdeconnect</string>
+    <string name="remotekeyboard_not_connected" translatable="true">There is no active remote keyboard connection, establish one in PocketLink</string>
     <string name="remotekeyboard_connected" translatable="true">Remote keyboard connection is active</string>
     <string name="remotekeyboard_multiple_connections" translatable="true">There is more than one remote keyboard connection, select the device to configure</string>
     <string name="open_mousepad">Remote input</string>
@@ -295,7 +295,7 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
     </string-array>
     <string name="mpris_notifications_explanation">The notifications permission is needed to show remote media in the notifications drawer</string>
     <string name="mpris_notification_settings_title">Show media control notification</string>
-    <string name="mpris_notification_settings_summary">Allow controlling your media players without opening KDE Connect</string>
+    <string name="mpris_notification_settings_summary">Allow controlling your media players without opening PocketLink</string>
     <string name="mpris_notification_key" translatable="false">mpris_notification_enabled</string>
     <string name="share_to">Share to…</string>
     <string name="unreachable_device_dynamic_shortcut">%s (✕)</string>
@@ -340,7 +340,7 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
     <string name="sftp_action_mode_menu_delete">Delete</string>
     <string name="sftp_no_storage_locations_configured">No storage locations configured</string>
     <string name="sftp_saf_permission_explanation">To access files remotely you have to configure storage locations</string>
-    <string name="sftp_manage_storage_permission_explanation">To allow remote access to files on this device you need to allow KDE Connect to manage the storage.</string>
+    <string name="sftp_manage_storage_permission_explanation">To allow remote access to files on this device you need to allow PocketLink to manage the storage.</string>
     <string name="sftp_missing_permission_error">Permissions missing: filesystem access</string>
     <string name="sftp_could_not_determine_ip">Could not determine local IP address</string>
     <string name="no_players_connected">No players found</string>
@@ -369,7 +369,7 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
     <string name="block_notification_contents">Block notification contents</string>
     <string name="block_notification_images">Block notification images</string>
 
-    <string name="pairing_title">KDE Connect Devices</string>
+    <string name="pairing_title">PocketLink Devices</string>
     <string name="pairing_description">Other devices running KDE Connect in your same network should appear here.</string>
     <string name="device_rename_title">Rename device</string>
     <string name="device_rename_confirm">Rename</string>
@@ -453,7 +453,7 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
     <string name="devices">Devices</string>
 
     <string name="settings_rename">Device name</string>
-    <string name="settings_export_logs">Export KDE Connect logs</string>
+    <string name="settings_export_logs">Export PocketLink logs</string>
     <string name="settings_export_logs_text">Generate a file with execution information that can help troubleshoot issues.</string>
 
     <string name="settings_more_settings_title">More settings</string>
@@ -474,7 +474,7 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
     <string name="findmyphone_preference_title_flashlight">Flash flashlight</string>
 
     <string name="no_app_for_opening">No suitable app found to open this file</string>
-    <string name="remote_keyboard_service">KDE Connect Remote Keyboard</string>
+    <string name="remote_keyboard_service">PocketLink Remote Keyboard</string>
     <string name="presenter_pointer">Pointer</string>
 
     <string name="trusted_networks">Trusted networks</string>
@@ -487,8 +487,8 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
     <string name="remove">Remove</string>
 
     <string name="location_permission_needed_title">Permission required</string>
-    <string name="bluetooth_permission_needed_desc">KDE Connect needs permission to connect to nearby devices to make devices paired using Bluetooth available in KDE Connect.</string>
-    <string name="location_permission_needed_desc">KDE Connect needs the background location permission to know the WiFi network you are connected to even when the app is in the background. This is because the name of the WiFi networks around you could be used to find your location, even when this is not what KDE Connect does.</string>
+    <string name="bluetooth_permission_needed_desc">PocketLink needs permission to connect to nearby devices to make devices paired using Bluetooth available in PocketLink.</string>
+    <string name="location_permission_needed_desc">PocketLink needs the background location permission to know the WiFi network you are connected to even when the app is in the background. This is because the name of the WiFi networks around you could be used to find your location, even when this is not what PocketLink does.</string>
     <string name="mpris_open_url">Continue playing here</string>
     <string name="cant_open_url">Can\'t open URL to continue playing</string>
 

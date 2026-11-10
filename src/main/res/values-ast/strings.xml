@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-  <string name="kde_connect">KDE Connect</string>
+  <string name="kde_connect">PocketLink</string>
   <string name="foreground_notification_no_devices">Nun se conectó con nengún preséu</string>
   <string name="foreground_notification_devices">Coneutóse con %s</string>
   <string name="pref_plugin_telephony">Avisador telefónicu</string>
@@ -123,7 +123,7 @@
     <item>2 minutos</item>
   </string-array>
   <string name="mpris_notification_settings_title">Amosar l\'avisu del mandu multimedia</string>
-  <string name="mpris_notification_settings_summary">Permite\'l control de reproductores multimedia ensin abrir KDE Connect</string>
+  <string name="mpris_notification_settings_summary">Permite\'l control de reproductores multimedia ensin abrir PocketLink</string>
   <string name="share_to">Compartir con…</string>
   <string name="protocol_version_newer">Esti preséu una versión nueva del protocolu</string>
   <string name="plugin_settings_with_name">%s</string>
@@ -155,7 +155,7 @@
   <string name="sftp_saf_permission_explanation">P\'acceder remotamente a los ficheros tienes de configurar allugamientos d\'almacenamientu</string>
   <string name="no_players_connected">Nun s\'atoparon reproductores</string>
   <string name="send_files">Unviar ficheros</string>
-  <string name="pairing_title">Preseos con KDE Connect</string>
+  <string name="pairing_title">Preseos con PocketLink</string>
   <string name="pairing_description">Equí deberíen apaecer los demás preseos que tean executando KDE Connect na mesma rede.</string>
   <string name="device_rename_title">Renomáu del preséu</string>
   <string name="device_rename_confirm">Renomar</string>
@@ -211,7 +211,7 @@
   <string name="block_images">Bloquiar les imáxenes de los avisos</string>
   <string name="notification_channel_receivenotification">Avisos d\'otros preseos</string>
   <string name="no_app_for_opening">Nun atopó nenguna aplicación afayadiza p\'abrir esti ficheru.</string>
-  <string name="remote_keyboard_service">Tecláu remotu de KDE Connect</string>
+  <string name="remote_keyboard_service">Tecláu remotu de PocketLink</string>
   <string name="presenter_pointer">Punteru</string>
   <string name="trusted_networks">Redes d\'enfotu</string>
   <string name="trusted_networks_desc">Torga la descubrición automática en redes conocíes</string>

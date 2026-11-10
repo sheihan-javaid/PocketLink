@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-  <string name="kde_connect">KDE Connect</string>
+  <string name="kde_connect">PocketLink</string>
   <string name="manifest_label_share">שליחה למכשיר</string>
   <string name="foreground_notification_no_devices">לא מחובר לאף מכשיר</string>
   <string name="foreground_notification_devices">מחובר אל: %s</string>
@@ -51,12 +51,12 @@
   <string name="open_input_settings">פתיחת הגדרות מקלדת</string>
   <string name="no_permissions">צריך להעניק הרשאת לגישה להתראות</string>
   <string name="no_permission_mprisreceiver">כדי לאפשר לשלוט בנגני המדיה שלך צריך להעניק גישה להתראות</string>
-  <string name="no_permissions_remotekeyboard_ime">כדי לקבל לחיצות מקשים צריך להפעיל את המקלדת המרוחקת של KDE Connect כשיטת קלט של Android</string>
+  <string name="no_permissions_remotekeyboard_ime">כדי לקבל לחיצות מקשים צריך להפעיל את המקלדת המרוחקת של PocketLink כשיטת קלט של Android</string>
   <string name="no_permissions_remotekeyboard_accessibility">כדי לקבל לחיצות מקשים צריך להעניק הרשאת נגישות</string>
   <string name="send_ping">שליחת פינג</string>
   <string name="open_mpris_controls">בקרת מדיה</string>
   <string name="remotekeyboard_editing_only_title">השתמש במקשים מרוחקים רק בעת עריכה</string>
-  <string name="remotekeyboard_not_connected">אין מקלדת מרוחקת מופעלת, יש להפעיל אחת ב־kdeconnect</string>
+  <string name="remotekeyboard_not_connected">אין מקלדת מרוחקת מופעלת, יש להפעיל אחת ב־PocketLink</string>
   <string name="remotekeyboard_connected">חיבור המקדלת המרוחקת פעיל</string>
   <string name="remotekeyboard_multiple_connections">ישנן כמה מקלדות מרוחקות מחוברות, נא לבחור את המכשיר להגדרה</string>
   <string name="open_mousepad">שליטה מרחוק</string>
@@ -228,7 +228,7 @@
   </string-array>
   <string name="mpris_notifications_explanation">צריך הרשאת התראות כדי להציג מדיה מרוחק במגירת ההתראות</string>
   <string name="mpris_notification_settings_title">הצגת התראות בקרת מדיה</string>
-  <string name="mpris_notification_settings_summary">לאפשר שליטה בנגני המדיה שלך מבלי לפתוח את KDE Connect</string>
+  <string name="mpris_notification_settings_summary">לאפשר שליטה בנגני המדיה שלך מבלי לפתוח את PocketLink</string>
   <string name="share_to">שיתוף אל…</string>
   <string name="unreachable_device_dynamic_shortcut">%s (✕)</string>
   <string name="unreachable_device_url_share_text">כתובות שותפו להתקן בלתי נגיש והן תועברנה אליו ברגע שישוב להיות נגיש.\n\n</string>
@@ -268,7 +268,7 @@
   <string name="sftp_action_mode_menu_delete">מחיקה</string>
   <string name="sftp_no_storage_locations_configured">לא מוגדר מקום אחסון</string>
   <string name="sftp_saf_permission_explanation">כדי לגשת לקבצים מרחוק צריך להגדיר מקומות אחסון</string>
-  <string name="sftp_manage_storage_permission_explanation">כדי לאפשר גישה מרחוק לקבצים במכשיר הזה צריך לאשר ל־KDE Connect לנהל את האחסון.</string>
+  <string name="sftp_manage_storage_permission_explanation">כדי לאפשר גישה מרחוק לקבצים במכשיר הזה צריך לאשר ל־PocketLink לנהל את האחסון.</string>
   <string name="sftp_missing_permission_error">חסרה הרשאה: גישה למערכת הקבצים</string>
   <string name="no_players_connected">לא נמצאו נגנים</string>
   <string name="send_files">שליחת קובץ</string>
@@ -285,7 +285,7 @@
   </string-array>
   <string name="block_notification_contents">חסימת תוכן התראות</string>
   <string name="block_notification_images">חסימת תמונות בהתראות</string>
-  <string name="pairing_title">מכשירי KDE Connect</string>
+  <string name="pairing_title">מכשירי PocketLink</string>
   <string name="pairing_description">מכשירים אחרים שמריצים KDE Connect ברשת הנוכחית צריכים להופיע פה.</string>
   <string name="device_rename_title">שינוי שם מכשיר</string>
   <string name="device_rename_confirm">שינוי שם</string>
@@ -354,7 +354,7 @@
   <string name="all">הכול</string>
   <string name="devices">מכשירים</string>
   <string name="settings_rename">שם המכשיר</string>
-  <string name="settings_export_logs">ייצוא היומנים של KDE Connect</string>
+  <string name="settings_export_logs">ייצוא היומנים של PocketLink</string>
   <string name="settings_export_logs_text">ליצור קובץ עם פרטי הפעלה שיכול לסייע בפתרון תקלות.</string>
   <string name="settings_more_settings_title">הגדרות נוספות</string>
   <string name="settings_more_settings_text">אפשר למצוא הגדרות נקודתיות למכשיר תחת ‚הגדרות תוסף’ מתוך המכשיר.</string>
@@ -369,7 +369,7 @@
   <string name="notification_channel_receivenotification">התראות ממכשירים אחרים</string>
   <string name="findmyphone_preference_title_flashlight">הבהוב במבזק</string>
   <string name="no_app_for_opening">לא נמצא יישומון מתאים לפתיחת הקובץ הזה</string>
-  <string name="remote_keyboard_service">מקלדת מרוחקת של KDE Connect</string>
+  <string name="remote_keyboard_service">מקלדת מרוחקת של PocketLink</string>
   <string name="presenter_pointer">מצביע</string>
   <string name="trusted_networks">רשתות מהימנות</string>
   <string name="trusted_networks_desc">הגבלת גילוי אוטומטי לרשתות מוכרות</string>
@@ -377,8 +377,8 @@
   <string name="empty_trusted_networks_list_text">עדיין לא הוספת רשתות מהימנות</string>
   <string name="allow_all_networks_text">לאפשר הכול</string>
   <string name="location_permission_needed_title">נדרשת הרשאה</string>
-  <string name="bluetooth_permission_needed_desc">KDE Connect זקוק להרשאה להתחבר להתקנים קרובים כדי שהתקנים שצומדו עם בלוטות׳ יהיו זמינים ב־KDE Connect.</string>
-  <string name="location_permission_needed_desc">KDE Connect צריך הרשאת איתור מקום ברקע כדי לדעת לאיזו רשת אלחוטית התחברת, אפילו אם היישום ברקע. מצב זה נחוץ כיוון ששם הרשתות האלחוטיות מסביבך יכולים לשמש לאיתור המקום שלך, אפילו אם זה לא מה ש־KDE Connect תוכנן לעשות.</string>
+  <string name="bluetooth_permission_needed_desc">PocketLink זקוק להרשאה להתחבר להתקנים קרובים כדי שהתקנים שצומדו עם בלוטות׳ יהיו זמינים ב־PocketLink.</string>
+  <string name="location_permission_needed_desc">PocketLink צריך הרשאת איתור מקום ברקע כדי לדעת לאיזו רשת אלחוטית התחברת, אפילו אם היישום ברקע. מצב זה נחוץ כיוון ששם הרשתות האלחוטיות מסביבך יכולים לשמש לאיתור המקום שלך, אפילו אם זה לא מה ש־PocketLink תוכנן לעשות.</string>
   <string name="mpris_open_url">להמשיך לנגן מכאן</string>
   <string name="cant_open_url">לא ניתן לפתוח כתובת להמשיך לנגן</string>
   <string name="bigscreen_home">בית</string>

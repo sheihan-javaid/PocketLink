@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-  <string name="kde_connect">KDE Connect</string>
+  <string name="kde_connect">PocketLink</string>
   <string name="manifest_label_share">Invia a dispositivo</string>
   <string name="foreground_notification_no_devices">Non connectite a ulle dispositivo</string>
   <string name="foreground_notification_devices">Connectite : %s</string>
@@ -140,7 +140,7 @@
   <string name="all">Omne</string>
   <string name="devices">Dispositivos</string>
   <string name="settings_rename">Nomine de dispositivo</string>
-  <string name="settings_export_logs">Exporta registros (log) de KDE Connect</string>
+  <string name="settings_export_logs">Exporta registros (log) de PocketLink</string>
   <string name="settings_more_settings_title">Altere preferentias</string>
   <string name="extra_options">Optiones extra</string>
   <string name="privacy_options">Optiones de confidentialitate</string>

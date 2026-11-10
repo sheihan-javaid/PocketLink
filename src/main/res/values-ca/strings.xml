@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-  <string name="kde_connect">KDE Connect</string>
+  <string name="kde_connect">PocketLink</string>
   <string name="manifest_label_share">Envia a un dispositiu</string>
   <string name="foreground_notification_no_devices">No està connectat a cap dispositiu</string>
   <string name="foreground_notification_devices">Connectat a: %s</string>
@@ -51,12 +51,12 @@
   <string name="open_input_settings">Obre la configuració del teclat</string>
   <string name="no_permissions">Us caldrà atorgar permís per a accedir a les notificacions</string>
   <string name="no_permission_mprisreceiver">Per a poder controlar els reproductors multimèdia cal atorgar accés a les notificacions</string>
-  <string name="no_permissions_remotekeyboard_ime">Per a rebre les pulsacions de tecles, haureu d\'activar el teclat remot del KDE Connect com un mètode d\'entrada de l\'Android</string>
+  <string name="no_permissions_remotekeyboard_ime">Per a rebre les pulsacions de tecles, haureu d\'activar el teclat remot del PocketLink com un mètode d\'entrada de l\'Android</string>
   <string name="no_permissions_remotekeyboard_accessibility">Per a rebre les pulsacions de tecles cal atorgar el permís d\'Accessibilitat</string>
   <string name="send_ping">Envia un ping</string>
   <string name="open_mpris_controls">Control multimèdia</string>
   <string name="remotekeyboard_editing_only_title">Fes servir les tecles remotes només en editar</string>
-  <string name="remotekeyboard_not_connected">No hi ha cap connexió activa amb el teclat remot, establiu-ne una al kde-connect</string>
+  <string name="remotekeyboard_not_connected">No hi ha cap connexió activa amb el teclat remot, establiu-ne una al PocketLink</string>
   <string name="remotekeyboard_connected">La connexió amb el teclat remot està activa</string>
   <string name="remotekeyboard_multiple_connections">Hi ha més d\'una connexió amb un teclat remot, seleccioneu el dispositiu per a configurar-lo</string>
   <string name="open_mousepad">Entrada remota</string>
@@ -212,7 +212,7 @@
   </string-array>
   <string name="mpris_notifications_explanation">Cal el permís de notificacions per a mostrar els elements multimèdia remots al calaix de notificacions</string>
   <string name="mpris_notification_settings_title">Mostra les notificacions dels reproductors</string>
-  <string name="mpris_notification_settings_summary">Permet controlar els reproductors multimèdia sense obrir el KDE Connect</string>
+  <string name="mpris_notification_settings_summary">Permet controlar els reproductors multimèdia sense obrir el PocketLink</string>
   <string name="share_to">Comparteix amb…</string>
   <string name="unreachable_device_dynamic_shortcut">%s (✕)</string>
   <string name="unreachable_device_url_share_text">Els URL compartits amb un dispositiu no accessible es lliuraran un cop s\'hi pugui accedir.\n\n</string>
@@ -252,7 +252,7 @@
   <string name="sftp_action_mode_menu_delete">Suprimeix</string>
   <string name="sftp_no_storage_locations_configured">No s\'ha configurat cap ubicació d\'emmagatzematge</string>
   <string name="sftp_saf_permission_explanation">Per a accedir remotament als fitxers cal configurar les ubicacions d\'emmagatzematge</string>
-  <string name="sftp_manage_storage_permission_explanation">Per a permetre l\'accés remot als fitxers d\'aquest dispositiu, haureu de permetre que el KDE Connect gestioni l\'emmagatzematge.</string>
+  <string name="sftp_manage_storage_permission_explanation">Per a permetre l\'accés remot als fitxers d\'aquest dispositiu, haureu de permetre que el PocketLink gestioni l\'emmagatzematge.</string>
   <string name="sftp_missing_permission_error">Permisos que manquen: accés al sistema de fitxers</string>
   <string name="sftp_could_not_determine_ip">No s\'ha pogut determinar l\'adreça IP local</string>
   <string name="no_players_connected">No s\'ha trobat cap reproductor</string>
@@ -270,7 +270,7 @@
   </string-array>
   <string name="block_notification_contents">Bloca el contingut de les notificacions</string>
   <string name="block_notification_images">Bloca les imatges de les notificacions</string>
-  <string name="pairing_title">Dispositius del KDE Connect</string>
+  <string name="pairing_title">Dispositius del PocketLink</string>
   <string name="pairing_description">Els altres dispositius que executin el KDE Connect a la mateixa xarxa han d\'aparèixer aquí.</string>
   <string name="device_rename_title">Reanomena el dispositiu</string>
   <string name="device_rename_confirm">Reanomena</string>
@@ -343,7 +343,7 @@
   <string name="all">Tot</string>
   <string name="devices">Dispositius</string>
   <string name="settings_rename">Nom del dispositiu</string>
-  <string name="settings_export_logs">Exporta els registres del KDE Connect</string>
+  <string name="settings_export_logs">Exporta els registres del PocketLink</string>
   <string name="settings_export_logs_text">Genera un fitxer amb informació d\'execució que pot ajudar a resoldre problemes.</string>
   <string name="settings_more_settings_title">Més opcions</string>
   <string name="settings_more_settings_text">La configuració per dispositiu es pot trobar a «Arranjament dels connectors» des d\'un dispositiu.</string>
@@ -358,7 +358,7 @@
   <string name="notification_channel_receivenotification">Notificacions des d\'altres dispositius</string>
   <string name="findmyphone_preference_title_flashlight">Encén la llanterna</string>
   <string name="no_app_for_opening">No s\'ha trobat cap aplicació adequada per a obrir aquest fitxer</string>
-  <string name="remote_keyboard_service">Teclat remot del KDE Connect</string>
+  <string name="remote_keyboard_service">Teclat remot del PocketLink</string>
   <string name="presenter_pointer">Apuntador</string>
   <string name="trusted_networks">Xarxes de confiança</string>
   <string name="trusted_networks_desc">Restringeix el descobriment automàtic a les xarxes conegudes</string>
@@ -366,8 +366,8 @@
   <string name="empty_trusted_networks_list_text">Encara no heu afegit cap xarxa de confiança</string>
   <string name="allow_all_networks_text">Permet totes</string>
   <string name="location_permission_needed_title">Es requereix permís</string>
-  <string name="bluetooth_permission_needed_desc">El KDE Connect necessita permís per a connectar als dispositius propers per a fer que els dispositius aparellats per Bluetooth estiguin disponibles al KDE Connect.</string>
-  <string name="location_permission_needed_desc">El KDE Connect necessita el permís d\'ubicació en segon pla per a conèixer la xarxa Wi-Fi a la qual esteu connectat fins i tot quan l\'aplicació està en segon pla. Això és perquè el nom de les xarxes Wi-Fi que hi ha al voltant es podria utilitzar per a trobar la vostra ubicació, fins i tot quan això no és el que fa el KDE Connect.</string>
+  <string name="bluetooth_permission_needed_desc">El PocketLink necessita permís per a connectar als dispositius propers per a fer que els dispositius aparellats per Bluetooth estiguin disponibles al PocketLink.</string>
+  <string name="location_permission_needed_desc">El PocketLink necessita el permís d\'ubicació en segon pla per a conèixer la xarxa Wi-Fi a la qual esteu connectat fins i tot quan l\'aplicació està en segon pla. Això és perquè el nom de les xarxes Wi-Fi que hi ha al voltant es podria utilitzar per a trobar la vostra ubicació, fins i tot quan això no és el que fa el PocketLink.</string>
   <string name="mpris_open_url">Continua reproduint aquí</string>
   <string name="cant_open_url">No s\'ha pogut obrir l\'URL per a continuar reproduint</string>
   <string name="bigscreen_home">Inici</string>
