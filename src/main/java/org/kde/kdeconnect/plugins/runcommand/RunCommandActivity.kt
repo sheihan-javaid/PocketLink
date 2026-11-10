@@ -21,7 +21,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.kde.kdeconnect.Device
-import org.kde.kdeconnect.KdeConnect
+import org.kde.kdeconnect.PocketLink
 import org.kde.kdeconnect_tp.R
 
 
@@ -35,7 +35,7 @@ class RunCommandActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         Log.d("RunCommandActivity", "Launched")
         val deviceId = intent.getStringExtra(EXTRA_DEVICE_ID)!!
-        val device = KdeConnect.getInstance().getDevice(deviceId)
+        val device = PocketLink.getInstance().getDevice(deviceId)
         plugin = device?.getPlugin<RunCommandPlugin>() ?: run {
             finish()
             return

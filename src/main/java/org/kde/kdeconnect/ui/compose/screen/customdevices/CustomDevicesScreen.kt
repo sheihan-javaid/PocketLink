@@ -56,9 +56,9 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import org.kde.kdeconnect.DeviceHost
-import org.kde.kdeconnect.ui.compose.KdeTheme
-import org.kde.kdeconnect.ui.compose.KdeTopAppBar
-import org.kde.kdeconnect.ui.compose.components.KdeThemePreviews
+import org.kde.kdeconnect.ui.compose.PocketLinkTheme
+import org.kde.kdeconnect.ui.compose.PocketLinkTopAppBar
+import org.kde.kdeconnect.ui.compose.components.PocketLinkThemePreviews
 import org.kde.kdeconnect_tp.R
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -115,7 +115,7 @@ private fun CustomDevicesScreen(
 ) {
     Scaffold(
         topBar = {
-            KdeTopAppBar(
+            PocketLinkTopAppBar(
                 title = stringResource(R.string.custom_devices_settings),
                 navIconDescription = stringResource(
                     androidx.appcompat.R.string.abc_action_bar_up_description
@@ -298,10 +298,10 @@ private fun AddEditDeviceDialog(
     )
 }
 
-@KdeThemePreviews
+@PocketLinkThemePreviews
 @Composable
 private fun CustomDevicesScreenPreview() {
-    KdeTheme(context = LocalContext.current) {
+    PocketLinkTheme(context = LocalContext.current) {
         CustomDevicesScreen(
             uiState = CustomDevicesUiState(
                 devices = listOf(
@@ -326,10 +326,10 @@ private fun CustomDevicesScreenPreview() {
     }
 }
 
-@KdeThemePreviews
+@PocketLinkThemePreviews
 @Composable
 private fun CustomDevicesScreenEmptyPreview() {
-    KdeTheme(context = LocalContext.current) {
+    PocketLinkTheme(context = LocalContext.current) {
         CustomDevicesScreen(
             uiState = CustomDevicesUiState(devices = emptyList()),
             snackbarHostState = remember { SnackbarHostState() },

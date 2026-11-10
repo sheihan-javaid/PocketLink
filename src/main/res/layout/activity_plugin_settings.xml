@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <!--
 SPDX-FileCopyrightText: 2019 Erik Duisters <e.duisters1@gmail.com>
+SPDX-FileCopyrightText: 2026 KDE Connect contributors
 
 SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 -->
@@ -12,6 +12,8 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="?attr/colorSurface"
+    android:fitsSystemWindows="true"
     tools:context="org.kde.kdeconnect.ui.PluginSettingsActivity">
 
     <include layout="@layout/toolbar" android:id="@+id/toolbar_layout" />

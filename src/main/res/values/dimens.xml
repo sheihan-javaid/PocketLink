@@ -8,13 +8,21 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
 
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="view_default_padding">16dp</dimen>
     <dimen name="key_height">48dip</dimen>
-    <dimen name="fab_margin">16dp</dimen>
-    <dimen name="fab_elevation">6dp</dimen>
     <dimen name="nav_header_horizontal_margin">16dp</dimen>
     <dimen name="nav_header_vertical_spacing">8dp</dimen>
-    <dimen name="nav_header_height">112dp</dimen>
+    <dimen name="pocketlink_spacing_xsmall">4dp</dimen>
+    <dimen name="pocketlink_spacing_small">8dp</dimen>
+    <dimen name="pocketlink_spacing_medium_small">12dp</dimen>
+    <dimen name="pocketlink_spacing_medium">16dp</dimen>
+    <dimen name="pocketlink_spacing_large">24dp</dimen>
+    <dimen name="pocketlink_spacing_xlarge">32dp</dimen>
+    <dimen name="pocketlink_min_touch_target">48dp</dimen>
+    <dimen name="pocketlink_corner_small">8dp</dimen>
+    <dimen name="pocketlink_corner_medium">12dp</dimen>
+    <dimen name="pocketlink_corner_large">16dp</dimen>
+    <dimen name="pocketlink_corner_extra_large">24dp</dimen>
+    <dimen name="pocketlink_content_max_width">720dp</dimen>
 </resources>

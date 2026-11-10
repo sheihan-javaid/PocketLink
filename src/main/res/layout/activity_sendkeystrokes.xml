@@ -27,16 +27,17 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="4dp"
-            android:layout_margin="4dp"
+            android:paddingTop="@dimen/pocketlink_spacing_small"
+            android:paddingHorizontal="@dimen/pocketlink_spacing_medium"
+            android:layout_marginVertical="@dimen/pocketlink_spacing_small"
             app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/textToSend"
-                style="@style/Widget.MaterialComponents.TextInputEditText.FilledBox"
+                style="@style/Widget.Material3.TextInputEditText.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:cursorVisible="true"

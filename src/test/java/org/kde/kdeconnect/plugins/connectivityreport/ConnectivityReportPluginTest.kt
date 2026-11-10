@@ -2,12 +2,16 @@ package org.kde.kdeconnect.plugins.connectivityreport
 
 import android.app.Application
 import android.content.Context
+import android.content.pm.PackageManager
+import androidx.core.content.ContextCompat
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import io.mockk.every
 import io.mockk.mockk
+import io.mockk.mockkStatic
 import io.mockk.slot
 import io.mockk.unmockkObject
+import io.mockk.unmockkStatic
 import io.mockk.verify
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.buildJsonObject
@@ -47,11 +51,19 @@ class ConnectivityReportPluginTest {
         plugin = ConnectivityReportPlugin().apply {
             setContext(context, device)
         }
+
+        // The plugin now gates listener registration on checkRequiredPermissions().
+        // Grant the required permission so onCreate() registers the state listener
+        // as this test asserts (the test verifies registration lifecycle, not
+        // permission gating).
+        mockkStatic(ContextCompat::class)
+        every { ContextCompat.checkSelfPermission(any(), any()) } returns PackageManager.PERMISSION_GRANTED
     }
 
     @After
     fun cleanup() {
         packet = null
+        unmockkStatic(ContextCompat::class)
         unmockkObject(ConnectivityListener.Companion)
     }
 

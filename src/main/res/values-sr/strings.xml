@@ -8,8 +8,6 @@
   <string name="pref_plugin_clipboard">Усклађени клипборд</string>
   <string name="pref_plugin_clipboard_desc">Дељење садржаја клипборда</string>
   <string name="pref_plugin_mousepad">Даљински унос</string>
-  <string name="pref_plugin_mousepad_desc">Користите телефон или таблет као додирник и тастатуру</string>
-  <string name="pref_plugin_remotekeyboard">Пријем даљинских тастера</string>
   <string name="pref_plugin_remotekeyboard_desc">Примање тастерских догађаја са удаљених уређаја</string>
   <string name="pref_plugin_mpris">Управљање мултимедијом</string>
   <string name="pref_plugin_mpris_desc">Омогућава даљинско управљање медија плејером</string>
@@ -67,19 +65,15 @@
   <string name="pair_new_device">Упари нов уређај</string>
   <string name="unknown_device">Непознат уређај</string>
   <string name="error_not_reachable">Уређај није доступан</string>
-  <string name="error_already_paired">Уређај је већ упарен</string>
-  <string name="error_could_not_send_package">Не могу да пошаљем пакет</string>
   <string name="error_timed_out">Истекло је време</string>
   <string name="error_canceled_by_user">Корисник отказао</string>
   <string name="error_canceled_by_other_peer">Отказала друга страна</string>
   <string name="encryption_info_title">Подаци о шифровању</string>
-  <string name="encryption_info_msg_no_ssl">Друга страна не користи најновију верзију, стога се користи старији метод шифровања.</string>
   <string name="my_device_fingerprint">СХА‑1 отисак сертификата вашег уређаја је:</string>
   <string name="remote_device_fingerprint">СХА‑1 отисак сертификата удаљеног уређаја је:</string>
   <string name="pair_requested">Упаривање је тражено</string>
   <string name="pairing_request_from">Захтев за упаривање са %1s</string>
   <string name="received_file_text">Тапните да отворите „%1s“</string>
-  <string name="tap_to_answer">Тапните да одговорите</string>
   <string name="right_click">Пошаљи десни клик</string>
   <string name="middle_click">Пошаљи средњи клик</string>
   <string name="show_keyboard">Прикажи тастатуру</string>
@@ -113,12 +107,7 @@
   <string name="share_destination_customize_summary_disabled">Фајлови се смештају у Downloads</string>
   <string name="share_destination_customize_summary_enabled">Фајлови се смештају у фасциклу испод</string>
   <string name="share_destination_folder_preference">Одредишна фасцикла</string>
-  <string name="title_activity_notification_filter">Филтер обавештења</string>
   <string name="filter_apps_info">Обавештења ће се синхронизовати за изабране апликације.</string>
-  <string name="sftp_sdcard_num">СД картица %d</string>
-  <string name="sftp_sdcard">СД картица</string>
-  <string name="sftp_readonly">(само за читање)</string>
-  <string name="sftp_camera">Слике са камере</string>
   <string name="no_players_connected">Нисам нашао плејере</string>
   <string name="send_files">Пошаљи фајлове</string>
   <string name="pairing_title">Уређаји КДЕ‑конекције</string>
@@ -135,10 +124,8 @@
   <string name="findmyphone_description">Активира звоно уређаја како бисте га пронашли</string>
   <string name="open">Отвори</string>
   <string name="close">Затвори</string>
-  <string name="plugins_need_permission">Неки прикључци траже дозволе да би радили (тапните за више информација):</string>
   <string name="permission_explanation">Овај прикључак тражи дозволе да би радио.</string>
   <string name="optional_permission_explanation">Морате дати допунске дозволе за активирање свих функција.</string>
-  <string name="plugins_need_optional_permission">Неки прикључци имају деактивиране могућности због недостатка дозвола (тапните за више информација):</string>
   <string name="share_optional_permission_explanation">За дељење фајлова између телефона и рачунара морате дати приступ складишту телефона.</string>
   <string name="telepathy_permission_explanation">За читање и писање СМС‑ова на рачунару морате дати дозволу за СМС.</string>
   <string name="telephony_optional_permission_explanation">Да бисте видели име контакта уместо броја телефона морате дати приступ за контакте на телефону.</string>
@@ -147,4 +134,43 @@
     <item>Light</item>
     <item>Dark</item>
   </string-array>
+  <string name="pairing_verification_code_title">Код за верификацију</string>
+  <string name="pairing_compare_verification_code">Упоредите овај код на оба уређаја пре прихватања.</string>
+  <string name="pairing_waiting_for_device">Чека се да %1$s прихвати захтев.</string>
+  <string name="pairing_trusted_device">Упарено са %1$s. Овај уређај је сада поуздан.</string>
+
+    <string name="category_share_transfer">Дељење и пренос</string>
+    <string name="category_control_computer">Контрола рачунара</string>
+    <string name="category_media_audio">Медији и звук</string>
+    <string name="category_device_info">Подаци о уређају</string>
+    <string name="category_item_count_format">%1$d од %2$d</string>
+    <string name="category_plugins_count_format">%1$d прикључака</string>
+    <string name="attention_feature_needs_permission">За %1$d функцију је потребна дозвола</string>
+    <string name="attention_features_need_permission">За %1$d функција су потребне дозволе</string>
+    <string name="attention_optional_permissions">Доступне додатне дозволе (%1$d)</string>
+    <string name="attention_tap_to_review">Додирните за преглед и одобравање приступа</string>
+    <string name="attention_pending_count">%1$d на чекању</string>
+    <string name="manage_plugins_title">Управљање прикључцима</string>
+    <string name="manage_plugins_summary">Укључено %1$d од %2$d прикључака</string>
+    <string name="manage_plugins_summary_with_disabled">Укључено %1$d од %2$d прикључака · %3$d искључено</string>
+    <string name="manage_plugins_search_hint">Тражи прикључке…</string>
+    <string name="manage_plugins_search_description">Претрага</string>
+    <string name="manage_plugins_clear_search">Очисти претрагу</string>
+    <string name="manage_plugins_no_results">Ниједан прикључак не одговара „%1$s“</string>
+    <string name="manage_plugins_grant_permission">Додели дозволу</string>
+    <string name="manage_plugins_optional_permission">Опциона дозвола</string>
+    <string name="manage_plugins_back">Назад на контролну таблу</string>
+    <string name="now_playing">Тренутно се пушта</string>
+    <string name="permission_badge">Дозвола</string>
+    <string name="battery_charging">Пуни се</string>
+    <string name="battery_discharging">Пражњење</string>
+    <string name="volume_muted_desc">Утишано. Додирните да укључите звук.</string>
+    <string name="volume_low_desc">Тиха јачина, %1$d процената. Додирните за утишавање.</string>
+    <string name="volume_normal_desc">Јачина звука, %1$d процената. Додирните за утишавање.</string>
+    <string name="quick_action_send_files">Пошаљи фајлове</string>
+    <string name="quick_action_clipboard">Оставе</string>
+    <string name="quick_action_remote_input">Удаљени унос</string>
+    <string name="quick_action_ring_device">Позови</string>
+    <string name="quick_action_run_command">Изврши наредбу</string>
+    <string name="quick_action_presenter">Предавач</string>
 </resources>

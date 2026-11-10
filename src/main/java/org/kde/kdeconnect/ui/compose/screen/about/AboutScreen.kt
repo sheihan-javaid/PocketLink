@@ -53,8 +53,8 @@ import org.kde.kdeconnect.extensions.safeDrawingBottomPadding
 import org.kde.kdeconnect.ui.about.AboutData
 import org.kde.kdeconnect.ui.about.AboutPerson
 import org.kde.kdeconnect.ui.about.applicationAboutData
-import org.kde.kdeconnect.ui.compose.KdeTheme
-import org.kde.kdeconnect.ui.compose.components.KdeThemePreviews
+import org.kde.kdeconnect.ui.compose.PocketLinkTheme
+import org.kde.kdeconnect.ui.compose.components.PocketLinkThemePreviews
 import org.kde.kdeconnect_tp.R
 
 @Composable
@@ -220,7 +220,7 @@ private fun ActionButtons(
         list.add {
             ActionIconTextButton(
                 textRes = R.string.about_kde,
-                iconRes = R.drawable.ic_kde_24dp,
+                iconRes = R.drawable.ic_pocketlink_24dp,
                 onClick = onAboutKdeClicked
             )
         }
@@ -342,11 +342,11 @@ private fun AuthorItemRow(author: AboutPerson) {
     }
 }
 
-@KdeThemePreviews
+@PocketLinkThemePreviews
 @Composable
 private fun AboutScreenPreview() {
     val sampleAboutData = applicationAboutData
-    KdeTheme(context = LocalContext.current) {
+    PocketLinkTheme(context = LocalContext.current) {
         Surface {
             AboutScreen(
                 aboutData = sampleAboutData,

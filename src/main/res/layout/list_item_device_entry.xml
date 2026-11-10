@@ -15,7 +15,7 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
     android:focusable="true"
     android:clickable="true"
     android:background="?android:attr/selectableItemBackground"
-    style="@style/KdeConnectCardStyle.Filled"
+    style="@style/PocketLinkCardStyle.Filled"
     app:contentPadding="@dimen/view_default_padding">
 
     <LinearLayout
@@ -34,7 +34,7 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
                 android:layout_marginStart="12dp"
                 android:src="@drawable/ic_device_laptop_32dp"
                 android:importantForAccessibility="no"
-                app:tint="?attr/colorControlNormal"/>
+                app:tint="?attr/colorPrimary"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -48,7 +48,7 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="8dip"
                     android:text=""
-                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textAppearance="?attr/textAppearanceTitleMedium"
                     tools:text="A very long device name that might wrap into multiple lines"/>
 
                 <TextView
@@ -58,8 +58,8 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
                     android:layout_marginStart="8dip"
                     android:singleLine="true"
                     android:text=""
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="#CC2222"
+                    android:textAppearance="?attr/textAppearanceBodyMedium"
+                    android:textColor="?attr/colorError"
                     android:visibility="gone"
                     tools:text="Other (optional) info"
                     tools:visibility="gone"/>

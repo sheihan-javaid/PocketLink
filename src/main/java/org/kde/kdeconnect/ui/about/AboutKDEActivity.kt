@@ -19,7 +19,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import org.kde.kdeconnect.ui.compose.KdeTheme
+import org.kde.kdeconnect.ui.compose.PocketLinkTheme
 import org.kde.kdeconnect.ui.compose.screen.aboutkde.AboutKDEScreen
 import org.kde.kdeconnect_tp.R
 
@@ -30,7 +30,7 @@ class AboutKDEActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            KdeTheme(this) {
+            PocketLinkTheme(this) {
                 Scaffold(
                     topBar = {
                         AboutKDETopBar(

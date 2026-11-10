@@ -38,7 +38,7 @@ object TrustedDevices {
         val preferences = context.getSharedPreferences("trusted_devices", MODE_PRIVATE)
         preferences.all.keys
             .forEach {
-                Log.d("KdeConnect", "Removing devices: $it")
+                Log.d("PocketLink", "Removing devices: $it")
                 preferences.edit { remove(it) }
             }
         SslHelper.invalidateTrustedSslContext()

@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-  <string name="kde_connect">KDE Connect</string>
+  <string name="kde_connect">PocketLink</string>
   <string name="manifest_label_share">Cihaza göndərin</string>
   <string name="foreground_notification_no_devices">Hər hansı bir cihaz qoşulmayıb</string>
   <string name="foreground_notification_devices">Qoşulub: %s</string>
@@ -34,7 +34,6 @@
   <string name="pref_plugin_sharereceiver_desc">Faylları və URL\'ları cihazlarla paylaşmaq</string>
   <string name="device_list_empty">Cihaz yoxdur</string>
   <string name="ok">OK</string>
-  <string name="sad_ok">OK :(</string>
   <string name="cancel">İmtina</string>
   <string name="open_settings">Ayarları açmaq</string>
   <string name="no_permissions">Bildirişlər almağa icazə verməniz lazımdır</string>
@@ -42,7 +41,7 @@
   <string name="send_ping">Dümsükləmək</string>
   <string name="open_mpris_controls">Multimedia idarə edilməsi</string>
   <string name="remotekeyboard_editing_only_title">Məsafədəki düymələri yalnız redaktə edərkən idarə edin</string>
-  <string name="remotekeyboard_not_connected">Aktiv bir uzaq klaviatura bağlantısı yoxdur, onu kdeconnect-də yaradın</string>
+  <string name="remotekeyboard_not_connected">Aktiv bir uzaq klaviatura bağlantısı yoxdur, onu PocketLink-də yaradın</string>
   <string name="remotekeyboard_connected">Uzaq klaviatura bağlantısını aktiv edin</string>
   <string name="remotekeyboard_multiple_connections">Birdən çox uzaq klaviatura bağlantısı var, tənzimləmək üçün cihazı seçin</string>
   <string name="open_mousepad">Məsafədən giriş</string>
@@ -92,7 +91,6 @@
   <string name="pref_plugin_mousepad_send_keystrokes">Düymə vuruşu kimi göndərmək</string>
   <string name="mouse_receiver_plugin_description">Uzaqdakı siçanın hərəkətini qəbul etmək</string>
   <string name="mouse_receiver_plugin_name">Siçanı qəbul edən</string>
-  <string name="view_status_title">Vəziyyət</string>
   <string name="battery_status_format">Batareya: %d%%</string>
   <string name="battery_status_low_format">Batareya: %d%% Zəif batareya</string>
   <string name="battery_status_charging_format">Batareya: %d%% doldurulur</string>
@@ -105,7 +103,6 @@
   <string name="cancel_pairing">Qoşulmanı ləğv edin</string>
   <string name="unknown_device">Naməlum Cihaz</string>
   <string name="error_not_reachable">Cihaz əlçatmazdır</string>
-  <string name="error_already_paired">Cihaz artıq qoşulub</string>
   <string name="error_timed_out">Vaxt bitdi</string>
   <string name="error_canceled_by_user">İstifadəçi ləğv etdi</string>
   <string name="error_canceled_by_other_peer">Digər istifadəçi ləğv etdi</string>
@@ -148,7 +145,6 @@
   <string name="tap_to_open">Açmaq üçün toxunun</string>
   <string name="received_file_text">\'%1s\' açmaq üçün toxunun</string>
   <string name="cannot_create_file">%s faylı yaradıla bilmir</string>
-  <string name="tap_to_answer">Cavab üçün toxunun</string>
   <string name="right_click">Sağ Klik göndərmək</string>
   <string name="middle_click">Orta Klik göndərmək</string>
   <string name="show_keyboard">Klaviaturanı göstərmək</string>
@@ -177,7 +173,7 @@
   </string-array>
   <string name="mpris_notifications_explanation">Bildirişlər çəkməcəsində məsafədəki medianı göstərmək üçün bildiriş icazələri lazımdır</string>
   <string name="mpris_notification_settings_title">Media idarəetmə bildirişlərini göstərmək</string>
-  <string name="mpris_notification_settings_summary">KDE Connect açmadan media oynadıcınızın idarəsinə icazə vermək</string>
+  <string name="mpris_notification_settings_summary">PocketLink açmadan media oynadıcınızın idarəsinə icazə vermək</string>
   <string name="protocol_version_newer">Bu cihaz yeni protokol versiyası istifadə edir</string>
   <string name="plugin_settings_with_name">%s ayarları</string>
   <string name="invalid_device_name">Səhv cihaz adı</string>
@@ -185,7 +181,6 @@
   <string name="custom_devices_settings">Fərdi cihaz siyahısı</string>
   <string name="custom_device_list">Cihazı İP ilə əlavə etmək</string>
   <string name="custom_device_deleted">Fərdi cihaz silindi</string>
-  <string name="custom_device_fab_hint">Cihaz əlavə etmək</string>
   <string name="undo">Geriyə qaytarmaq</string>
   <string name="share_notification_preference">Səsli bildirişlər</string>
   <string name="share_notification_preference_summary">Fayl qəbul edilərkən vibrasiya və səsli bildiriş</string>
@@ -211,7 +206,7 @@
   <string name="sftp_action_mode_menu_delete">Silmək</string>
   <string name="sftp_no_storage_locations_configured">Saxlama yeri tənzimlənməyib</string>
   <string name="sftp_saf_permission_explanation">Fayllara uzaqdan daxil olmaq üçün saxlama yerlərini konfiqurasiya etməlisiniz</string>
-  <string name="sftp_manage_storage_permission_explanation">Bu cihazdakı fayllara giriş əldə etmək üçün KDE Connect-ə yaddaşı idarə etməyə icazə vermək lazımdır.</string>
+  <string name="sftp_manage_storage_permission_explanation">Bu cihazdakı fayllara giriş əldə etmək üçün PocketLink-ə yaddaşı idarə etməyə icazə vermək lazımdır.</string>
   <string name="no_players_connected">Pleyer tapılmadı</string>
   <string name="send_files">Faylları göndərmək</string>
   <string-array name="digitizer_preference_entries_draw_button_side">
@@ -222,7 +217,7 @@
   </string-array>
   <string name="block_notification_contents">Bildirilərin tərkiblərini kilidləmək</string>
   <string name="block_notification_images">Bildiriş şəlkillərini kilidləmək</string>
-  <string name="pairing_title">KDE Connect Cihazları</string>
+  <string name="pairing_title">PocketLink Cihazları</string>
   <string name="pairing_description">Eyni şəbəkədəki KDE Connect işləyən digər cihazlar burada görünməlidir</string>
   <string name="device_rename_title">Cihazın adını dəyişmək</string>
   <string name="device_rename_confirm">Adını Dəyişmək</string>
@@ -233,8 +228,6 @@
   <string name="no_file_browser">Fayllara baxma vasitəsi quraşdırılmayıb.</string>
   <string name="pref_plugin_telepathy">SMS göndərmək</string>
   <string name="pref_plugin_telepathy_desc">İş Masanızdan mətn ismarıcı göndərin</string>
-  <string name="pref_plugin_telepathy_mms">MMS göndərmək</string>
-  <string name="pref_plugin_telepathy_mms_desc">KDE Connect\'dən MMS göndərmək üçün, onu standart SMS tətbiqi kimi təyin etməniz lazımdır.</string>
   <string name="findmyphone_title">Telefonumu tapmaq</string>
   <string name="findmyphone_title_tablet">Planşetimi tapmaq</string>
   <string name="findmyphone_title_tv">TV-ni tapmaq</string>
@@ -242,11 +235,8 @@
   <string name="findmyphone_found">Onu tapmaq</string>
   <string name="open">Açmaq</string>
   <string name="close">Bağlamaq</string>
-  <string name="plugins_need_permission">Bəzi qoşmaların işləməsi üçün icazələr lazımdır (daha çox məlumat üçün toxunun):</string>
   <string name="permission_explanation">Bu qoşmanın işləməsi üçün icazələr lazımdır</string>
-  <string name="all_permissions_granted">Bütün icazələr verildi 🎉</string>
   <string name="optional_permission_explanation">Bütün funksiyaların işləməsi üçün əlavə icazələr verməlisiniz</string>
-  <string name="plugins_need_optional_permission">Bəzi qoşmalarda icazə çatışmamazlığı səbəbindən bir sıra imkanlar söndürülmüşdür (daha çox məlumat üçün toxunun)</string>
   <string name="share_optional_permission_explanation">Faylları qəbul etmək üçün yaddaşa girişə icazə verilməlidirü</string>
   <string name="share_notifications_explanation">Göndərmə və qəbul etmə gedişatını görə bilmək üçün bildirişlərə icazə verməlisiniz</string>
   <string name="telepathy_permission_explanation">İş Masanızdan telefonunuzdakı SMS\'ləri oxumaq və SMS göndərmək üçün SMS\'ə girişə icazə verməlisiniz</string>
@@ -256,11 +246,8 @@
   <string name="contacts_per_device_confirmation">Telefon əlaqələriniz bu cihaza kopyalanacaq, belə ki, onlar KDE Connect SMS və başqa tətbiqlər tərəfindən istifadə oluna bilər.</string>
   <string name="select_ringtone">Zəng səsini seçmək</string>
   <string name="telephony_pref_blocked_title">Əngəllənmiş nömrələr</string>
-  <string name="mpris_coverart_description">Mövcud medianın üz qabığı</string>
-  <string name="settings_icon_description">Ayarlar nişanı</string>
   <string name="presenter_fullscreen">Tam_Ekran</string>
   <string name="presenter_exit">Təqdimatdan çıxış</string>
-  <string name="presenter_lock_tip">Siz cihazınızı kilidləyə və səs düymələri ilə əvvəlki/sonrakı slayda keçid edə bilərsiniz</string>
   <string name="add_command">Əmr əlavə etmək</string>
   <string name="addcommand_explanation">Əmrlər qeyd edilməyib</string>
   <string name="addcommand_explanation2">Sİz KDE Connect sistem ayarlarında yeni əmrlər əlavə edə bilərsiniz</string>
@@ -294,7 +281,6 @@
   <string name="all">Hamısı</string>
   <string name="devices">Cihazlar</string>
   <string name="settings_rename">Cihazın adı</string>
-  <string name="settings_dark_mode">Qaranlıq Görünüş</string>
   <string name="settings_more_settings_title">Digər ayarlar</string>
   <string name="settings_more_settings_text">Hər cihaz üçün ayarları cihazın \'Qoşma Ayarları\' bölməsində tapa bilərsiniz.</string>
   <string name="setting_persistent_notification">Daimi bildirişi göstərmək</string>
@@ -307,7 +293,7 @@
   <string name="block_images">Bildirişlərin şəkillərini bloklamaq</string>
   <string name="notification_channel_receivenotification">Digar cihazlardan bilsirişlər</string>
   <string name="no_app_for_opening">Bu faylı açmaq üçün uyğun tətbiq tapılmadı</string>
-  <string name="remote_keyboard_service">KDE Connect Uzaq Klaviaturası</string>
+  <string name="remote_keyboard_service">PocketLink Uzaq Klaviaturası</string>
   <string name="presenter_pointer">Kursor</string>
   <string name="trusted_networks">Etibarlı şəbəkələr</string>
   <string name="trusted_networks_desc">Bilinən şəbəkələrin avtomatik aşkar edilməsini məhdudlaşdırmaq</string>
@@ -315,8 +301,7 @@
   <string name="empty_trusted_networks_list_text">Hələlik hər hansı bir etibarlı şəbəkə əlavə edilməyib</string>
   <string name="allow_all_networks_text">Hamısına icazə vermək</string>
   <string name="location_permission_needed_title">İcazə tələb edlir</string>
-  <string name="location_permission_needed_desc">KDE connect üçün, hətta tətbiq arxa fonda işlədikdə belə qoşulduğunuz WiFi şəbəkəsini tanımaq üçün ona arxa planda məkandan istifadə etmə icazəsi tələb olunur. Bu onunla bağlıdır ki, hətta KDE Connect bunu istifadə etməsə də ətrafınızdakı WiFi şəbəkəsi ilə yerinizi təyin etmək üçün istifadə edə biləsiniz.</string>
-  <string name="clipboard_android_x_incompat">Android 10 bütün tətbiqlər üçün mübadilə buferinə girişi aradan qaldırıb. Bu qoşma söndürüləcək.</string>
+  <string name="location_permission_needed_desc">PocketLink üçün, hətta tətbiq arxa fonda işlədikdə belə qoşulduğunuz WiFi şəbəkəsini tanımaq üçün ona arxa planda məkandan istifadə etmə icazəsi tələb olunur. Bu onunla bağlıdır ki, hətta PocketLink bunu istifadə etməsə də ətrafınızdakı WiFi şəbəkəsi ilə yerinizi təyin etmək üçün istifadə edə biləsiniz.</string>
   <string name="mpris_open_url">Burada oxutmağa davam edin</string>
   <string name="cant_open_url">Oxutmanı davam etdirmək üçün URL açıla bilmir</string>
   <string name="bigscreen_home">Ev</string>
@@ -326,13 +311,8 @@
   <string name="bigscreen_right">Sağa</string>
   <string name="bigscreen_down">Aşağı</string>
   <string name="bigscreen_mic">Mik</string>
-  <string name="pref_plugin_bigscreen_desc">Plasma Böyük Ekran\'ını cihazınızla məsafədən idarə edin</string>
   <string name="bigscreen_optional_permission_explanation">Telefonunuzun mikrofon girişini paylaşmaq üçün telefonun səs girişinə icazə verməlisiniz</string>
   <string name="bigscreen_speech_extra_prompt">Danışıq</string>
-  <string name="message_reply_label">CAVAB</string>
-  <string name="mark_as_read_label">OXUNMUŞ KİMİ İŞARƏLƏMƏK</string>
-  <string name="user_display_name">Siz</string>
-  <string name="set_default_sms_app_title">MMS göndərmək</string>
   <string name="set_group_message_as_mms_title">MMS qrupu göndərmək</string>
   <string name="set_long_text_as_mms_title">Uzun mətni MMS kimi göndərmək</string>
   <string name="convert_to_mms_after_title">MMS\'ə çevirmək</string>
@@ -361,17 +341,11 @@
   <string name="website">Veb sayt</string>
   <string name="about">Haqqında</string>
   <string name="authors">Müəlliflər</string>
-  <string name="thanks_to">Minəttdarlıq</string>
   <string name="easter_egg">Pasxa yumurtası</string>
-  <string name="email_contributor">Əməkdaşın e-poçt ünvanı\n%s</string>
-  <string name="visit_contributors_homepage">Əməkdaşın ev səhifəsinə baxın\n%s</string>
   <string name="version">Versiya %s</string>
   <string name="about_kde">KDE haqqında</string>
   <string name="kde_be_free">KDE - Sərbəst olun!</string>
-  <string name="kde">KDE</string>
   <string name="konqi">Konqi</string>
-  <string name="rise_up">Qalxmaq</string>
-  <string name="rise_down">Aşağı enmək</string>
   <string name="click_here_to_type">Yazmaq üçün toxunun</string>
   <string name="clear_compose">Təmizləmək</string>
   <string name="send_compose">Göndərin</string>
@@ -394,7 +368,45 @@
   <string name="send_clipboard">Mübadilə yaddaşını göndərin</string>
   <string name="tap_to_execute">İcra etmək üçün vurun</string>
   <string name="plugin_stats">Plaqin statistikası</string>
-  <string name="enable_udp_broadcast">UDP cihaz aşkarlamasını aktiv edin</string>
   <string name="receive_notifications_permission_explanation">Başqa cihazdan bildirişlər almaq üçün onlara icazə vermək lazımdır</string>
   <string name="findmyphone_notifications_explanation">Tətbiq arxa planda işləyən zaman telefonun zəng çala bilməsi üçün bildirişlərə icazə vermək lazımdır</string>
+  <string name="pairing_verification_code_title">Təsdiq kodu</string>
+  <string name="pairing_compare_verification_code">Qəbul etməzdən əvvəl bu kodu hər iki cihazda müqayisə edin.</string>
+  <string name="pairing_waiting_for_device">%1$s sorğunu qəbul edənədək gözlənilir.</string>
+  <string name="pairing_trusted_device">%1$s ilə qoşalaşdırıldı. Bu cihaza artıq etibar edilir.</string>
+
+    <string name="category_share_transfer">Paylaşım və Köçürmə</string>
+    <string name="category_control_computer">Kompüteri İdarə Et</string>
+    <string name="category_media_audio">Media və Səs</string>
+    <string name="category_device_info">Cihaz Məlumatı</string>
+    <string name="category_item_count_format">%1$d / %2$d</string>
+    <string name="category_plugins_count_format">%1$d qoşma</string>
+    <string name="attention_feature_needs_permission">%1$d funksiya üçün icazə tələb olunur</string>
+    <string name="attention_features_need_permission">%1$d funksiya üçün icazələr tələb olunur</string>
+    <string name="attention_optional_permissions">Əlavə icazələr mövcuddur (%1$d)</string>
+    <string name="attention_tap_to_review">Baxmaq və icazə vermək üçün toxunun</string>
+    <string name="attention_pending_count">%1$d gözləyir</string>
+    <string name="manage_plugins_title">Qoşmaları İdarə Et</string>
+    <string name="manage_plugins_summary">%1$d / %2$d qoşma aktivdir</string>
+    <string name="manage_plugins_summary_with_disabled">%1$d / %2$d aktivdir · %3$d sönülüdür</string>
+    <string name="manage_plugins_search_hint">Qoşmaları axtarın…</string>
+    <string name="manage_plugins_search_description">Axtar</string>
+    <string name="manage_plugins_clear_search">Axtarışı təmizlə</string>
+    <string name="manage_plugins_no_results">«%1$s» ilə uyğun gələn qoşma yoxdur</string>
+    <string name="manage_plugins_grant_permission">İcazə ver</string>
+    <string name="manage_plugins_optional_permission">Könüllü icazə</string>
+    <string name="manage_plugins_back">Panelə qayıt</string>
+    <string name="now_playing">İndi oxunur</string>
+    <string name="permission_badge">İcazə</string>
+    <string name="battery_charging">Doldurulur</string>
+    <string name="battery_discharging">Boşalır</string>
+    <string name="volume_muted_desc">Səssiz. Səsi açmaq üçün toxunun.</string>
+    <string name="volume_low_desc">Aşağı səs səviyyəsi, %1$d faiz. Səssiz etmək üçün toxunun.</string>
+    <string name="volume_normal_desc">Səs səviyyəsi, %1$d faiz. Səssiz etmək üçün toxunun.</string>
+    <string name="quick_action_send_files">Faylları göndər</string>
+    <string name="quick_action_clipboard">Mübadilə buferi</string>
+    <string name="quick_action_remote_input">Uzaqdan daxiletmə</string>
+    <string name="quick_action_ring_device">Zəng etdir</string>
+    <string name="quick_action_run_command">Əmri icra et</string>
+    <string name="quick_action_presenter">Təqdimatçı</string>
 </resources>

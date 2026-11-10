@@ -1,141 +1,99 @@
 /*
  * SPDX-FileCopyrightText: 2019 Juan David Vega <jdvr.93@hotmail.com>
+ * SPDX-FileCopyrightText: 2026 KDE Connect contributors
  *
  * SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
  */
+
 package org.kde.kdeconnect.ui
 
 import android.Manifest
 import android.os.Bundle
-import android.view.View
-import android.widget.AdapterView.OnItemClickListener
-import android.widget.ArrayAdapter
-import android.widget.CheckBox
-import android.widget.ListView
+import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AlertDialog
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import org.kde.kdeconnect.base.BaseActivity
-import org.kde.kdeconnect.extensions.viewBinding
+import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import org.kde.kdeconnect.helpers.TrustedNetworkHelper
-import org.kde.kdeconnect_tp.R
-import org.kde.kdeconnect_tp.databinding.TrustedNetworkListBinding
+import org.kde.kdeconnect.ui.compose.PocketLinkTheme
+import org.kde.kdeconnect.ui.compose.screen.trustednetworks.TrustedNetworksScreen
 
-class TrustedNetworksActivity : BaseActivity<TrustedNetworkListBinding>() {
-    override val binding: TrustedNetworkListBinding by viewBinding(TrustedNetworkListBinding::inflate)
-    private val trustedNetworks: MutableList<String> = mutableListOf()
+class TrustedNetworksActivity : AppCompatActivity() {
 
-    private val trustedNetworksView: ListView
-        get() = binding.list
-    private val allowAllCheckBox: CheckBox
-        get() = binding.trustAllNetworksCheckBox
     private val trustedNetworkHelper: TrustedNetworkHelper by lazy {
-        TrustedNetworkHelper(applicationContext) // Lazy to avoid creating it before onCreate, because it needs the context
+        TrustedNetworkHelper(applicationContext)
     }
 
-    private var locationPermissionDialog: AlertDialog? = null
+    private val trustedNetworks = mutableStateListOf<String>()
+    private var allNetworksAllowed by mutableStateOf(true)
+    private var currentSsid by mutableStateOf<String?>(null)
+    private var hasLocationPermission by mutableStateOf(false)
 
-    private val locationPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
+    private val locationPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { granted ->
+        hasLocationPermission = granted
         if (granted) {
-            allowAllCheckBox.isChecked = false
+            allNetworksAllowed = false
+            trustedNetworkHelper.allNetworksAllowed = false
+            currentSsid = trustedNetworkHelper.getCurrentSSID()
         }
-    }
-
-    override fun onDestroy() {
-        locationPermissionDialog?.dismiss()
-        locationPermissionDialog = null
-        super.onDestroy()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
 
-        setSupportActionBar(binding.toolbarLayout.toolbar)
-        supportActionBar!!.apply {
-            setDisplayHomeAsUpEnabled(true)
-            setDisplayShowHomeEnabled(true)
-        }
-
+        hasLocationPermission = trustedNetworkHelper.hasPermissions
+        allNetworksAllowed = trustedNetworkHelper.allNetworksAllowed
+        trustedNetworks.clear()
         trustedNetworks.addAll(trustedNetworkHelper.trustedNetworks)
+        currentSsid = trustedNetworkHelper.getCurrentSSID()
 
-        allowAllCheckBox.setOnCheckedChangeListener { _, isChecked ->
-            if (trustedNetworkHelper.hasPermissions) {
-                trustedNetworkHelper.allNetworksAllowed = isChecked
-                updateTrustedNetworkListView()
-                addNetworkButton()
-            } else {
-                allowAllCheckBox.isChecked = true // Disable unchecking it
-                locationPermissionDialog = MaterialAlertDialogBuilder(this)
-                    .setTitle(R.string.location_permission_needed_title)
-                    .setMessage(R.string.location_permission_needed_desc)
-                    .setPositiveButton(R.string.ok) { _, _ -> locationPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION) }
-                    .setNegativeButton(R.string.cancel, null)
-                    .show()
-            }
-        }
-        allowAllCheckBox.isChecked = trustedNetworkHelper.allNetworksAllowed
-
-        updateTrustedNetworkListView()
-    }
-
-    private fun updateEmptyListMessage() {
-        val isVisible = trustedNetworks.isEmpty() && !trustedNetworkHelper.allNetworksAllowed
-        binding.trustedNetworkListEmpty.visibility = if (isVisible) View.VISIBLE else View.GONE
-    }
-
-    private fun updateTrustedNetworkListView() {
-        val allAllowed = trustedNetworkHelper.allNetworksAllowed
-        updateEmptyListMessage()
-        trustedNetworksView.visibility = if (allAllowed) View.GONE else View.VISIBLE
-        if (allAllowed) {
-            return
-        }
-        trustedNetworksView.adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, trustedNetworks)
-        trustedNetworksView.onItemClickListener =
-            OnItemClickListener { _, _, position, _ ->
-                val targetItem = trustedNetworks[position]
-                AlertDialog.Builder(this@TrustedNetworksActivity)
-                    .setMessage("Delete $targetItem ?")
-                    .setPositiveButton("Yes") { _, _ ->
-                        trustedNetworks.removeAt(position)
-                        trustedNetworkHelper.trustedNetworks = trustedNetworks
-                        (trustedNetworksView.adapter as ArrayAdapter<*>).notifyDataSetChanged()
-                        addNetworkButton()
-                        updateEmptyListMessage()
+        setContent {
+            PocketLinkTheme(this) {
+                TrustedNetworksScreen(
+                    allNetworksAllowed = allNetworksAllowed,
+                    trustedNetworks = trustedNetworks,
+                    currentSsid = currentSsid,
+                    hasLocationPermission = hasLocationPermission,
+                    onNavigateUp = { onBackPressedDispatcher.onBackPressed() },
+                    onAllNetworksAllowedChange = { allowed ->
+                        if (trustedNetworkHelper.hasPermissions) {
+                            allNetworksAllowed = allowed
+                            trustedNetworkHelper.allNetworksAllowed = allowed
+                            currentSsid = trustedNetworkHelper.getCurrentSSID()
+                        }
+                    },
+                    onAddCurrentNetwork = {
+                        val ssid = currentSsid
+                        if (ssid != null && ssid !in trustedNetworks) {
+                            trustedNetworks.add(ssid)
+                            trustedNetworkHelper.trustedNetworks = trustedNetworks.toList()
+                        }
+                    },
+                    onDeleteNetwork = { network ->
+                        trustedNetworks.remove(network)
+                        trustedNetworkHelper.trustedNetworks = trustedNetworks.toList()
+                        currentSsid = trustedNetworkHelper.getCurrentSSID()
+                    },
+                    onRequestLocationPermission = {
+                        locationPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
                     }
-                    .setNegativeButton("No", null)
-                    .show()
+                )
             }
-        addNetworkButton()
-    }
-
-    private fun addNetworkButton() {
-        val addButton = binding.button1
-        if (trustedNetworkHelper.allNetworksAllowed) {
-            addButton.visibility = View.GONE
-            return
-        }
-        val currentSSID = trustedNetworkHelper.getCurrentSSID()
-        if (currentSSID != null && currentSSID !in trustedNetworks) {
-            addButton.text = getString(R.string.add_trusted_network, currentSSID)
-            addButton.setOnClickListener { v ->
-                if (trustedNetworks.contains(currentSSID)) {
-                    return@setOnClickListener
-                }
-                trustedNetworks.add(currentSSID)
-                trustedNetworkHelper.trustedNetworks = trustedNetworks
-                (trustedNetworksView.adapter as ArrayAdapter<*>).notifyDataSetChanged()
-                v.visibility = View.GONE
-                updateEmptyListMessage()
-            }
-            addButton.visibility = View.VISIBLE
-        } else {
-            addButton.visibility = View.GONE
         }
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        this.onBackPressedDispatcher.onBackPressed()
-        return true
+    override fun onResume() {
+        super.onResume()
+        hasLocationPermission = trustedNetworkHelper.hasPermissions
+        if (!trustedNetworkHelper.hasPermissions) {
+            allNetworksAllowed = true
+        }
+        currentSsid = trustedNetworkHelper.getCurrentSSID()
     }
 }

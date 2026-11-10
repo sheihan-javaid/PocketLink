@@ -154,6 +154,10 @@ class NetworkPacket private constructor(
         }
     }
 
+    fun remove(key: String): JsonElement? {
+        return mBody.remove(key)
+    }
+
     private fun JsonArray.toStringList(): List<String> {
         return mapNotNull { element ->
             when (element) {

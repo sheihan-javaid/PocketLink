@@ -5,6 +5,31 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
 -->
 
 <resources>
+    <attr name="pocketlinkColorSuccess" format="color" />
+    <attr name="pocketlinkColorOnSuccess" format="color" />
+    <attr name="pocketlinkColorSuccessContainer" format="color" />
+    <attr name="pocketlinkColorOnSuccessContainer" format="color" />
+    <attr name="pocketlinkColorWarning" format="color" />
+    <attr name="pocketlinkColorOnWarning" format="color" />
+    <attr name="pocketlinkColorWarningContainer" format="color" />
+    <attr name="pocketlinkColorOnWarningContainer" format="color" />
+    <attr name="pocketlinkColorInformation" format="color" />
+    <attr name="pocketlinkColorOnInformation" format="color" />
+    <attr name="pocketlinkColorInformationContainer" format="color" />
+    <attr name="pocketlinkColorOnInformationContainer" format="color" />
+    <attr name="pocketlinkSpacingXsmall" format="dimension" />
+    <attr name="pocketlinkSpacingSmall" format="dimension" />
+    <attr name="pocketlinkSpacingMediumSmall" format="dimension" />
+    <attr name="pocketlinkSpacingMedium" format="dimension" />
+    <attr name="pocketlinkSpacingLarge" format="dimension" />
+    <attr name="pocketlinkSpacingXlarge" format="dimension" />
+    <attr name="pocketlinkMinTouchTarget" format="dimension" />
+    <attr name="pocketlinkCornerSmall" format="dimension" />
+    <attr name="pocketlinkCornerMedium" format="dimension" />
+    <attr name="pocketlinkCornerLarge" format="dimension" />
+    <attr name="pocketlinkCornerExtraLarge" format="dimension" />
+    <attr name="pocketlinkContentMaxWidth" format="dimension" />
+
     <!-- A high-contrast color for important visual elements (for less important elements, use colorControlNormal instead) -->
     <declare-styleable name="AutoGridLayout">
         <!-- The width of one column. Used to align -->

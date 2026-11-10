@@ -10,7 +10,7 @@ import android.Manifest
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
-import org.kde.kdeconnect.KdeConnect
+import org.kde.kdeconnect.PocketLink
 import org.kde.kdeconnect.plugins.share.ShareSettingsFragment
 import org.kde.kdeconnect_tp.R
 
@@ -25,7 +25,7 @@ class PermissionsAlertDialogFragment : AlertDialogFragment() {
     private val requestPermissionsLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { results ->
         val reloadPlugins = arguments?.getBoolean(KEY_RELOAD_PLUGINS_ON_RESULT, false) ?: false
         if (reloadPlugins && results.containsValue(true)) {
-            KdeConnect.getInstance().reloadAllDevicePlugins()
+            PocketLink.getInstance().reloadAllDevicePlugins()
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && results[Manifest.permission.WRITE_EXTERNAL_STORAGE] == true) {
             // To get a writeable path manually on Android 10 and later for Share and Receive Plugin.

@@ -14,7 +14,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import org.kde.kdeconnect.KdeConnect
+import org.kde.kdeconnect.PocketLink
 import org.kde.kdeconnect.helpers.ThreadHelper
 import org.kde.kdeconnect_tp.R
 
@@ -45,7 +45,7 @@ class SendFileActivity : AppCompatActivity() {
             } else {
                 ThreadHelper.runOnNewThread {
                     try {
-                        KdeConnect.getInstance().getDevicePlugin<SharePlugin>(deviceId)
+                        PocketLink.getInstance().getDevicePlugin<SharePlugin>(deviceId)
                             ?.sendFiles(uris)
                     } finally {
                         // The read permissions ACTION_GET_CONTENT grants for these URIs are tied to

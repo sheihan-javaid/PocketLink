@@ -17,10 +17,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityManager
+import androidx.compose.foundation.layout.padding
 import androidx.activity.OnBackPressedCallback
-import androidx.annotation.StringRes
 import androidx.annotation.UiThread
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
@@ -29,19 +31,24 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.kde.kdeconnect.BackgroundService
 import org.kde.kdeconnect.Device
 import org.kde.kdeconnect.Device.PluginsChangedListener
-import org.kde.kdeconnect.KdeConnect
+import org.kde.kdeconnect.PocketLink
 import org.kde.kdeconnect.PairingHandler
 import org.kde.kdeconnect.base.BaseFragment
 import org.kde.kdeconnect.extensions.setupBottomPadding
+import org.kde.kdeconnect.helpers.DeviceHelper
 import org.kde.kdeconnect.helpers.security.SslHelper
 import org.kde.kdeconnect.plugins.Plugin
 import org.kde.kdeconnect.plugins.battery.BatteryPlugin
-import org.kde.kdeconnect.plugins.connectivityreport.ConnectivityReportPlugin
-import org.kde.kdeconnect.ui.compose.KdeTheme
-import org.kde.kdeconnect.ui.compose.screen.device.DeviceErrorScreen
+import org.kde.kdeconnect.plugins.PluginFactory
+import org.kde.kdeconnect.ui.compose.PocketLinkTheme
+import org.kde.kdeconnect.ui.compose.screen.device.DevicePluginUiModel
 import org.kde.kdeconnect.ui.compose.screen.device.DevicePairingScreen
 import org.kde.kdeconnect.ui.compose.screen.device.DeviceViewModel
-import org.kde.kdeconnect.ui.compose.screen.device.PluginsScreen
+import org.kde.kdeconnect.ui.compose.screen.device.modern.ModernConnectedDeviceDashboard
+import org.kde.kdeconnect.ui.compose.screen.device.modern.DashboardUiStateMapper
+import org.kde.kdeconnect.ui.compose.screen.device.modern.DashboardActions
+import org.kde.kdeconnect.ui.compose.screen.device.modern.QuickActionAvailability
+import org.kde.kdeconnect.ui.compose.screen.device.modern.QuickActionUiModel
 import org.kde.kdeconnect_tp.R
 import org.kde.kdeconnect_tp.databinding.ActivityDeviceBinding
 
@@ -72,7 +79,7 @@ class DeviceFragment : BaseFragment<ActivityDeviceBinding>() {
             ?: throw RuntimeException("You must instantiate a new DeviceFragment using DeviceFragment.newInstance()")
     }
 
-    private val device by lazy { KdeConnect.getInstance().getDevice(deviceId) }
+    private val device by lazy { PocketLink.getInstance().getDevice(deviceId) }
 
     private val viewModel by viewModels<DeviceViewModel>()
 
@@ -176,6 +183,7 @@ class DeviceFragment : BaseFragment<ActivityDeviceBinding>() {
             addPairingCallback(pairingCallback)
             removePluginsChangedListener(pluginsChangedListener)
             addPluginsChangedListener(pluginsChangedListener)
+            viewModel.bindDevice(this)
         } ?: run { // device is null
             Log.e(TAG, "Trying to display a device fragment but the device is not present")
             (mActivity as? MainActivity)?.onDeviceSelected(null)
@@ -200,9 +208,16 @@ class DeviceFragment : BaseFragment<ActivityDeviceBinding>() {
     }
 
     private val pluginsChangedListener =
-        PluginsChangedListener { mActivity?.runOnUiThread { refreshUI() } }
+        PluginsChangedListener {
+            mActivity?.runOnUiThread {
+                viewModel.updateConnectivityState()
+                refreshUI()
+            }
+        }
 
     override fun onDestroyView() {
+        (mActivity as? MainActivity)?.findViewById<View>(R.id.toolbar_layout)?.visibility = View.VISIBLE
+        viewModel.unbindDevice()
         device?.apply {
             removePluginsChangedListener(pluginsChangedListener)
             removePairingCallback(pairingCallback)
@@ -212,6 +227,7 @@ class DeviceFragment : BaseFragment<ActivityDeviceBinding>() {
 
     override fun onResume() {
         super.onResume()
+        device?.let { viewModel.bindDevice(it) }
         with(requireView()) {
             isFocusableInTouchMode = true
             requestFocus()
@@ -223,63 +239,170 @@ class DeviceFragment : BaseFragment<ActivityDeviceBinding>() {
         if (!hasBinding) return // in case onDestroyView has already been called
         val device = device ?: return
 
+        viewModel.bindDevice(device)
+
         //Once in-app, there is no point in keep displaying the notification if any
         device.hidePairingNotification()
 
         binding.deviceView.apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
-                KdeTheme(context) {
+                PocketLinkTheme(context) {
                     val isRefreshing by viewModel.isRefreshing.collectAsStateWithLifecycle()
                     val pairingErrorMessage by viewModel.pairingErrorMessage.collectAsStateWithLifecycle()
+                    val pairingSucceeded by viewModel.pairingSucceeded.collectAsStateWithLifecycle()
+                    val liveMedia by viewModel.mediaPlaybackState.collectAsStateWithLifecycle()
+                    val liveVolume by viewModel.volumeControlState.collectAsStateWithLifecycle()
+                    val liveConnectivity by viewModel.connectivityStatus.collectAsStateWithLifecycle()
 
                     when (device.pairStatus) {
                         PairingHandler.PairState.Paired -> {
-                            if (device.isReachable) {
-                                val pluginsWithButtons =
-                                    device.loadedPlugins.values.flatMap { plugin -> plugin.getUiButtons() }
-                                val pluginsNeedPermissions =
-                                    device.pluginsWithoutPermissions.values.filter { plugin ->
-                                        device.isPluginEnabled(plugin.pluginKey)
+                            val allManageablePlugins = PluginFactory.sortPluginList(PluginFactory.availablePlugins)
+                                .filter { it != "ReceiveNotificationsPlugin" }
+                                .map { pluginKey ->
+                                    val pluginInfo = PluginFactory.getPluginInfo(pluginKey)
+                                    DevicePluginUiModel(
+                                        pluginKey = pluginKey,
+                                        displayName = pluginInfo.displayName,
+                                        description = pluginInfo.description,
+                                        isEnabled = device.isPluginEnabled(pluginKey),
+                                        actionButtons = device.loadedPlugins[pluginKey]
+                                            ?.getUiButtons()
+                                            .orEmpty(),
+                                        needsRequiredPermission =
+                                            device.isPluginEnabled(pluginKey) &&
+                                                pluginKey in device.pluginsWithoutPermissions,
+                                        needsOptionalPermission =
+                                            device.isPluginEnabled(pluginKey) &&
+                                                pluginKey in device.pluginsWithoutOptionalPermissions
+                                    )
+                                }
+
+                        val modernDashboardState = DashboardUiStateMapper.map(
+                            deviceName = device.name,
+                            deviceIconRes = device.iconDrawable,
+                            isConnected = device.isReachable,
+                            plugins = allManageablePlugins,
+                            batteryPercent = device.getPlugin<BatteryPlugin>()?.remoteBatteryInfo?.currentCharge,
+                            isBatteryCharging = device.getPlugin<BatteryPlugin>()?.remoteBatteryInfo?.isCharging ?: false,
+                            isBatteryLow = device.getPlugin<BatteryPlugin>()?.remoteBatteryInfo?.let { BatteryPlugin.isLowBattery(it) } ?: false,
+                            connectivitySummary = liveConnectivity,
+                            mediaState = liveMedia,
+                            volumeState = liveVolume,
+                            isRefreshing = isRefreshing,
+                            localDeviceName = DeviceHelper.getDeviceName(requireContext())
+                        )
+
+                            val modernActions = remember(device) {
+                                object : DashboardActions {
+                                    override fun onRefresh() {
+                                        refreshDevicesAction()
                                     }
-                                val pluginsNeedOptionalPermissions =
-                                    device.pluginsWithoutOptionalPermissions.values.filter { plugin ->
-                                        device.isPluginEnabled(plugin.pluginKey)
+
+                                    override fun onQuickActionClick(action: QuickActionUiModel) {
+                                        when (action.availability) {
+                                            is QuickActionAvailability.NeedsPermission -> {
+                                                val pluginKey = when (action.id) {
+                                                    "send_files" -> "SharePlugin"
+                                                    "clipboard" -> "ClipboardPlugin"
+                                                    "remote_input" -> "MousePadPlugin"
+                                                    "ring_device" -> "FindRemoteDevicePlugin"
+                                                    "run_command" -> "RunCommandPlugin"
+                                                    "presenter" -> "PresenterPlugin"
+                                                    else -> null
+                                                }
+                                                if (pluginKey != null) {
+                                                    device.pluginsWithoutPermissions[pluginKey]?.permissionExplanationDialog?.show(childFragmentManager, null)
+                                                        ?: device.pluginsWithoutOptionalPermissions[pluginKey]?.optionalPermissionExplanationDialog?.show(childFragmentManager, null)
+                                                }
+                                            }
+                                            is QuickActionAvailability.Ready -> {
+                                                action.actionButton?.onClick(mActivity!!)
+                                            }
+                                            is QuickActionAvailability.Disabled -> {}
+                                        }
                                     }
-                                PluginsScreen(
-                                    pluginsWithButtons = pluginsWithButtons,
-                                    pluginsNeedPermissions = pluginsNeedPermissions,
-                                    pluginsNeedOptionalPermissions = pluginsNeedOptionalPermissions,
-                                    onButtonClick = { button -> button.onClick(mActivity!!) },
-                                    actionNeedPermissions = { plugin ->
-                                        plugin.permissionExplanationDialog.show(
-                                            childFragmentManager,
-                                            null
-                                        )
-                                    },
-                                    actionNeedOptionalPermissions = { plugin ->
-                                        plugin.optionalPermissionExplanationDialog.show(
-                                            childFragmentManager,
-                                            null
-                                        )
+
+                                    override fun onPluginButtonClick(button: Plugin.PluginUiButton) {
+                                        button.onClick(mActivity!!)
                                     }
-                                )
-                                displayBatteryInfoIfPossible()
-                            } else {
-                                DeviceErrorScreen(
-                                    isRefreshing = isRefreshing,
-                                    onRefresh = { refreshDevicesAction() }
-                                )
+
+                                    override fun onPermissionItemClick(pluginKey: String, isRequired: Boolean) {
+                                        if (isRequired) {
+                                            device.pluginsWithoutPermissions[pluginKey]
+                                                ?.permissionExplanationDialog
+                                                ?.show(childFragmentManager, null)
+                                        } else {
+                                            device.pluginsWithoutOptionalPermissions[pluginKey]
+                                                ?.optionalPermissionExplanationDialog
+                                                ?.show(childFragmentManager, null)
+                                        }
+                                    }
+
+                                    override fun onAttentionBannerClick() {}
+
+                                    override fun onManagePluginsClick() {}
+
+                                    override fun onMediaPlayPause() {
+                                        viewModel.onMediaPlayPause()
+                                    }
+
+                                    override fun onMediaNext() {
+                                        viewModel.onMediaNext()
+                                    }
+
+                                    override fun onMediaPrevious() {
+                                        viewModel.onMediaPrevious()
+                                    }
+
+                                    override fun onMediaSeek(positionMs: Long) {
+                                        viewModel.onMediaSeek(positionMs)
+                                    }
+
+                                    override fun onVolumeChange(newVolume: Int) {
+                                        viewModel.onVolumeChange(newVolume)
+                                    }
+
+                                    override fun onVolumeToggleMute() {
+                                        viewModel.onVolumeToggleMute()
+                                    }
+                                }
                             }
-                        }
+
+                            ModernConnectedDeviceDashboard(
+                                state = modernDashboardState,
+                                actions = modernActions,
+                                pluginModelsForManagePage = allManageablePlugins,
+                                onPluginEnabledChange = device::setPluginEnabled,
+                                onButtonClick = { button -> button.onClick(mActivity!!) },
+                                onRequiredPermissionClick = { pluginKey ->
+                                    device.pluginsWithoutPermissions[pluginKey]
+                                        ?.permissionExplanationDialog
+                                        ?.show(childFragmentManager, null)
+                                },
+                                onOptionalPermissionClick = { pluginKey ->
+                                    device.pluginsWithoutOptionalPermissions[pluginKey]
+                                        ?.optionalPermissionExplanationDialog
+                                        ?.show(childFragmentManager, null)
+                                },
+                                pairingSucceeded = pairingSucceeded,
+                                onDismissPairingSuccess = { viewModel.setPairingSucceeded(false) },
+                                onManagingPluginsChange = { isManaging ->
+                                    (mActivity as? MainActivity)?.findViewById<View>(R.id.toolbar_layout)?.visibility =
+                                        if (isManaging) View.GONE else View.VISIBLE
+                                }
+                            )
+                    }
 
                         else -> {
                             DevicePairingScreen(
+                                deviceName = device.name,
                                 pairStatus = device.pairStatus,
                                 verificationKey = device.verificationKey ?: "",
                                 pairMessage = pairingErrorMessage,
                                 onRequestPairing = {
                                     viewModel.setPairingErrorMessage(message =null)
+                                    viewModel.setPairingSucceeded(false)
                                     device.requestPairing()
                                     refreshUI()
                                 },
@@ -295,6 +418,10 @@ class DeviceFragment : BaseFragment<ActivityDeviceBinding>() {
                                         cancelPairing()
                                     }
                                     (mActivity as? MainActivity)?.onDeviceSelected(null)
+                                },
+                                onCancelPairing = {
+                                    device.cancelPairing()
+                                    refreshUI()
                                 }
                             )
                         }
@@ -312,6 +439,7 @@ class DeviceFragment : BaseFragment<ActivityDeviceBinding>() {
             }
 
             override fun pairingSuccessful() {
+                viewModel.setPairingSucceeded(true)
                 val accessibilityManager =
                     requireContext().getSystemService(Context.ACCESSIBILITY_SERVICE) as? AccessibilityManager
                 if (accessibilityManager?.isEnabled == true) {
@@ -336,52 +464,13 @@ class DeviceFragment : BaseFragment<ActivityDeviceBinding>() {
 
             override fun unpaired(device: Device) {
                 mActivity?.runOnUiThread {
-                    viewModel.setPairingErrorMessage(message =null)
+                    viewModel.unbindDevice()
+                    viewModel.setPairingErrorMessage(message = null)
+                    viewModel.setPairingSucceeded(false)
                     refreshUI()
                 }
             }
         }
 
 
-    /**
-     * This method tries to display status info (battery and connectivity) for the remote device.
-     */
-    private fun displayBatteryInfoIfPossible() {
-        val batteryPlugin = device?.getPlugin<BatteryPlugin>()
-        val connectivityPlugin = device?.getPlugin<ConnectivityReportPlugin>()
-
-        val batteryInfo = batteryPlugin?.remoteBatteryInfo
-        val batteryStatus = if (batteryInfo != null) {
-            @StringRes
-            val resId = when {
-                batteryInfo.isCharging -> R.string.battery_status_charging_format
-                BatteryPlugin.isLowBattery(batteryInfo) -> R.string.battery_status_low_format
-                else -> R.string.battery_status_format
-            }
-            mActivity?.getString(resId, batteryInfo.currentCharge)
-        } else {
-            null
-        }
-
-        val connectivityInfoMap = connectivityPlugin?.remoteConnectivityInfo
-        val connectivityStatus = if (!connectivityInfoMap.isNullOrEmpty()) {
-            connectivityInfoMap.values
-                .map { it.networkType }
-                .filter { it.isNotEmpty() }
-                .distinct()
-                .joinToString(", ")
-                .ifEmpty { null }
-        } else {
-            null
-        }
-
-        val fullSubtitle = when {
-            batteryStatus != null && connectivityStatus != null -> "$batteryStatus  •  $connectivityStatus"
-            batteryStatus != null -> batteryStatus
-            connectivityStatus != null -> connectivityStatus
-            else -> null
-        }
-
-        mActivity?.supportActionBar?.subtitle = fullSubtitle
-    }
 }

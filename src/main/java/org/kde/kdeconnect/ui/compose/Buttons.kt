@@ -8,13 +8,14 @@ package org.kde.kdeconnect.ui.compose
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Build
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -25,9 +26,10 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextOverflow.Companion.Ellipsis
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import org.kde.kdeconnect.ui.compose.PocketLinkSpacing
 
 @Composable
-fun KdeTextButton(
+fun PocketLinkTextButton(
     onClick: () -> Unit,
     modifier: Modifier,
     text: String,
@@ -37,7 +39,7 @@ fun KdeTextButton(
 ) {
     TextButton(
         onClick = onClick,
-        modifier = modifier,
+        modifier = modifier.defaultMinSize(minHeight = PocketLinkSpacing.minTouchTarget),
         enabled = enabled,
         contentPadding = contentPadding,
         content = {
@@ -51,7 +53,7 @@ fun KdeTextButton(
 }
 
 @Composable
-fun KdeButton(
+fun PocketLinkButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     colors: ButtonColors = ButtonDefaults.buttonColors(),
@@ -59,32 +61,47 @@ fun KdeButton(
     contentDescription: String? = null,
     icon: ImageVector? = null,
 ) {
-    //TODO uncomment when button is widely used
-//    val interactionSource = remember { MutableInteractionSource() }
-//    val pressedState = interactionSource.collectIsPressedAsState()
-//    val cornerSize by animateDpAsState(
-//        targetValue = if (pressedState.value) 24.dp else 48.dp,
-//        label = "Corner size change on press"
-//    )
 
     Button(
         onClick = onClick,
-        modifier = modifier,
-//        shape = RoundedCornerShape(cornerSize),
-        shape = RoundedCornerShape(24.dp),
+        modifier = modifier.defaultMinSize(minHeight = PocketLinkSpacing.minTouchTarget),
+        shape = MaterialTheme.shapes.large,
         colors = colors,
-//        interactionSource = interactionSource,
         content = {
-            icon?.let { Icon(imageVector = it, contentDescription = contentDescription ?: text) }
+            icon?.let {
+                Icon(
+                    imageVector = it,
+                    contentDescription = if (text == null) contentDescription else null
+                )
+            }
             text?.let { Text(it, maxLines = 1, overflow = Ellipsis) }
         }
     )
 }
 
+@Composable
+fun PocketLinkSecondaryButton(
+    onClick: () -> Unit,
+    text: String,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    icon: ImageVector? = null,
+) {
+    androidx.compose.material3.FilledTonalButton(
+        onClick = onClick,
+        modifier = modifier.defaultMinSize(minHeight = PocketLinkSpacing.minTouchTarget),
+        enabled = enabled,
+        shape = MaterialTheme.shapes.medium
+    ) {
+        icon?.let { Icon(imageVector = it, contentDescription = null) }
+        Text(text = text, maxLines = 1, overflow = Ellipsis)
+    }
+}
+
 @Preview
 @Composable
 fun IconButtonPreview() {
-    KdeButton(
+    PocketLinkButton(
         {},
         Modifier.width(120.dp),
         ButtonDefaults.buttonColors(Color.Gray, Color.DarkGray),

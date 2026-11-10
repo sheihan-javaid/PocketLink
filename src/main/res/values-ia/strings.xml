@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-  <string name="kde_connect">KDE Connect</string>
+  <string name="kde_connect">PocketLink</string>
   <string name="manifest_label_share">Invia a dispositivo</string>
   <string name="foreground_notification_no_devices">Non connectite a ulle dispositivo</string>
   <string name="foreground_notification_devices">Connectite : %s</string>
@@ -29,7 +29,6 @@
   <string name="pref_plugin_inputdevicesreceiver">"Comparti  dispositivos de entrata"</string>
   <string name="pref_plugin_inputdevicesreceiver_desc">Comparti mus e claviero con le dispositivo remote</string>
   <string name="ok">OK</string>
-  <string name="sad_ok">OK :(</string>
   <string name="cancel">Cancella</string>
   <string name="open_settings">Aperi Preferentias</string>
   <string name="send_ping">Invia Ping</string>
@@ -58,7 +57,6 @@
     <item>Strongest</item>
   </string-array>
   <string name="sendkeystrokes_sent_text">"Inviate %1$s   a  dispositivo %2$s"</string>
-  <string name="view_status_title">Stato</string>
   <string name="category_connected_devices">Dispositivos connectite</string>
   <string name="category_not_paired_devices">Dispositivos disponibile</string>
   <string name="device_menu_plugins">"Preferentias de plugin "</string>
@@ -104,7 +102,6 @@
   <string name="share_to">Comparti a…</string>
   <string name="unreachable_device_dynamic_shortcut">%s (✕)</string>
   <string name="protocol_version">Version de protocollo :</string>
-  <string name="custom_device_fab_hint">Adde un dispositivo</string>
   <string name="undo">Annulla</string>
   <string name="share">Comparti</string>
   <string name="show_notification_if_screen_off">Invia notificationes si le schermo es extinguite</string>
@@ -126,10 +123,8 @@
   <string name="device_rename_confirm">Renomina</string>
   <string name="refresh">Refresca</string>
   <string name="pref_plugin_telepathy">Invia SMS</string>
-  <string name="pref_plugin_telepathy_mms">Invia MMS</string>
   <string name="open">Aperi</string>
   <string name="close">Claude</string>
-  <string name="settings_icon_description">Icone de Preferentias</string>
   <string name="presenter_fullscreen">Schermo plen</string>
   <string name="notification_channel_media_control">Controlo de multimedia</string>
   <string name="notification_channel_filetransfer">Transferimento de file in arrivata</string>
@@ -144,8 +139,7 @@
   <string name="all">Omne</string>
   <string name="devices">Dispositivos</string>
   <string name="settings_rename">Nomine de dispositivo</string>
-  <string name="settings_dark_mode">Thema obscur</string>
-  <string name="settings_export_logs">Exporta registros (log) de KDE Connect</string>
+  <string name="settings_export_logs">Exporta registros (log) de PocketLink</string>
   <string name="settings_more_settings_title">Altere preferentias</string>
   <string name="extra_options">Optiones extra</string>
   <string name="privacy_options">Optiones de confidentialitate</string>
@@ -165,10 +159,6 @@
   <string name="bigscreen_back">Retro</string>
   <string name="bigscreen_mic">Mic</string>
   <string name="bigscreen_speech_extra_prompt">Voce</string>
-  <string name="message_reply_label">RESPONSA</string>
-  <string name="mark_as_read_label">MARCA COMO LEGITE</string>
-  <string name="user_display_name">Tu</string>
-  <string name="set_default_sms_app_title">Invia MMS</string>
   <string name="set_group_message_as_mms_title">Invia MMS de gruppo</string>
   <string name="convert_to_mms_after_title">"Converte  a MMS"</string>
   <string-array name="convert_to_mms_after_entries">
@@ -196,14 +186,11 @@
   <string name="website">Sito Web</string>
   <string name="about">A proposito</string>
   <string name="authors">Autores</string>
-  <string name="thanks_to">Gratias a</string>
   <string name="easter_egg">Ovo de Pascha</string>
   <string name="version">Version %s</string>
   <string name="about_kde">A proposito de KDE</string>
   <string name="kde_be_free">KDE- Vos Sia Libere!</string>
-  <string name="kde">KDE</string>
   <string name="konqi">Konqi</string>
-  <string name="rise_down">Leva a basso</string>
   <string name="click_here_to_type">Tocca hic pro typar</string>
   <string name="clear_compose">Clara</string>
   <string name="send_compose">Invia</string>
@@ -224,4 +211,43 @@
   <string name="mpris_keepwatching_settings_title">Continua a executar</string>
   <string name="notification_channel_keepwatching">Continua a executar</string>
   <string name="enable_fullscreen">Habilita Schermo plen</string>
+  <string name="pairing_verification_code_title">Codice de verification</string>
+  <string name="pairing_compare_verification_code">Compara iste codice sur ambe apparatos ante acceptar.</string>
+  <string name="pairing_waiting_for_device">Attendente que %1$s accepta le requesta.</string>
+  <string name="pairing_trusted_device">Associate con %1$s. Iste apparato es nunc digne de confidentia.</string>
+
+    <string name="category_share_transfer">Compartir e Transferer</string>
+    <string name="category_control_computer">Controlar Computator</string>
+    <string name="category_media_audio">Media e Audio</string>
+    <string name="category_device_info">Information del Dispositivo</string>
+    <string name="category_item_count_format">%1$d de %2$d</string>
+    <string name="category_plugins_count_format">%1$d plug-ins</string>
+    <string name="attention_feature_needs_permission">%1$d functionalitate require permission</string>
+    <string name="attention_features_need_permission">%1$d functionalitates require permissiones</string>
+    <string name="attention_optional_permissions">Permissiones additional disponibile (%1$d)</string>
+    <string name="attention_tap_to_review">Tocca pro revider e conceder accesso</string>
+    <string name="attention_pending_count">%1$d pendente</string>
+    <string name="manage_plugins_title">Gerer Plug-ins</string>
+    <string name="manage_plugins_summary">%1$d de %2$d plug-ins activate</string>
+    <string name="manage_plugins_summary_with_disabled">%1$d de %2$d activate · %3$d deactivate</string>
+    <string name="manage_plugins_search_hint">Cercar plug-ins…</string>
+    <string name="manage_plugins_search_description">Cercar</string>
+    <string name="manage_plugins_clear_search">Rader cerca</string>
+    <string name="manage_plugins_no_results">Nulle plug-in corresponde a "%1$s"</string>
+    <string name="manage_plugins_grant_permission">Conceder Permission</string>
+    <string name="manage_plugins_optional_permission">Permission Optional</string>
+    <string name="manage_plugins_back">Retornar al pannello</string>
+    <string name="now_playing">Nunc Reproducente</string>
+    <string name="permission_badge">Permission</string>
+    <string name="battery_charging">Cargante</string>
+    <string name="battery_discharging">Descargante</string>
+    <string name="volume_muted_desc">Silentate. Tocca pro activar sono.</string>
+    <string name="volume_low_desc">Volumine basse, %1$d pro cento. Tocca pro silentar.</string>
+    <string name="volume_normal_desc">Volumine, %1$d pro cento. Tocca pro silentar.</string>
+    <string name="quick_action_send_files">Inviar Dossieres</string>
+    <string name="quick_action_clipboard">Area de Transferentia</string>
+    <string name="quick_action_remote_input">Entrata Remote</string>
+    <string name="quick_action_ring_device">Sonar</string>
+    <string name="quick_action_run_command">Executar Commando</string>
+    <string name="quick_action_presenter">Presentator</string>
 </resources>

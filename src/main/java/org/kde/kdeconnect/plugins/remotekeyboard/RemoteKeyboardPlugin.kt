@@ -21,7 +21,7 @@ import android.view.accessibility.AccessibilityNodeInfo
 import android.view.accessibility.AccessibilityNodeInfo.FOCUS_INPUT
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.DialogFragment
-import org.kde.kdeconnect.KdeConnectAccessibilityService
+import org.kde.kdeconnect.PocketLinkAccessibilityService
 import org.kde.kdeconnect.NetworkPacket
 import org.kde.kdeconnect.plugins.Plugin
 import org.kde.kdeconnect.plugins.PluginFactory.LoadablePlugin
@@ -70,7 +70,7 @@ class RemoteKeyboardPlugin : Plugin() {
         return enabledServices.any { enabledService ->
             val serviceInfo = enabledService.resolveInfo.serviceInfo
             serviceInfo.packageName == context.packageName &&
-                serviceInfo.name == KdeConnectAccessibilityService::class.java.name
+                serviceInfo.name == PocketLinkAccessibilityService::class.java.name
         }
     }
 
@@ -142,12 +142,12 @@ class RemoteKeyboardPlugin : Plugin() {
             return false
         }
 
-        val focus = KdeConnectAccessibilityService.instance?.findFocus(FOCUS_INPUT)
+        val focus = PocketLinkAccessibilityService.instance?.findFocus(FOCUS_INPUT)
         if (focus == null) {
             val specialKey = SpecialKeys.fromInt(sKey)
             if (specialKey == SpecialKeys.TAB) {
-                KdeConnectAccessibilityService.instance?.findNodeByAction(
-                    KdeConnectAccessibilityService.instance?.rootInActiveWindow,
+                PocketLinkAccessibilityService.instance?.findNodeByAction(
+                    PocketLinkAccessibilityService.instance?.rootInActiveWindow,
                     AccessibilityNodeInfo.AccessibilityAction.ACTION_FOCUS
                 )?.performAction(AccessibilityNodeInfo.ACTION_FOCUS)
                 return true
@@ -240,7 +240,7 @@ class RemoteKeyboardPlugin : Plugin() {
                     if (focus.isEditable && Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                         focus.performAction(AccessibilityNodeInfo.AccessibilityAction.ACTION_IME_ENTER.id)
                     } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                        KdeConnectAccessibilityService.instance?.performGlobalAction(AccessibilityService.GLOBAL_ACTION_DPAD_CENTER)
+                        PocketLinkAccessibilityService.instance?.performGlobalAction(AccessibilityService.GLOBAL_ACTION_DPAD_CENTER)
                     }
                 }
                 else -> {}
@@ -263,32 +263,32 @@ class RemoteKeyboardPlugin : Plugin() {
             SpecialKeys.MOVE_HOME -> moveCursor(focus, forward = false, Movement.LINE)
 
             SpecialKeys.DPAD_LEFT -> if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                KdeConnectAccessibilityService.instance?.performGlobalAction(AccessibilityService.GLOBAL_ACTION_DPAD_LEFT)
+                PocketLinkAccessibilityService.instance?.performGlobalAction(AccessibilityService.GLOBAL_ACTION_DPAD_LEFT)
             } else {
                 moveCursor(focus, false)
             }
 
             SpecialKeys.DPAD_RIGHT -> if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                KdeConnectAccessibilityService.instance?.performGlobalAction(AccessibilityService.GLOBAL_ACTION_DPAD_RIGHT)
+                PocketLinkAccessibilityService.instance?.performGlobalAction(AccessibilityService.GLOBAL_ACTION_DPAD_RIGHT)
             } else {
                 moveCursor(focus, true)
             }
 
             SpecialKeys.DPAD_UP -> if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                KdeConnectAccessibilityService.instance?.performGlobalAction(AccessibilityService.GLOBAL_ACTION_DPAD_UP)
+                PocketLinkAccessibilityService.instance?.performGlobalAction(AccessibilityService.GLOBAL_ACTION_DPAD_UP)
             } else {
                 moveCursor(focus, forward = false, Movement.LINE)
             }
 
             SpecialKeys.DPAD_DOWN -> if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                KdeConnectAccessibilityService.instance?.performGlobalAction(AccessibilityService.GLOBAL_ACTION_DPAD_DOWN)
+                PocketLinkAccessibilityService.instance?.performGlobalAction(AccessibilityService.GLOBAL_ACTION_DPAD_DOWN)
             } else {
                 moveCursor(focus, forward = true, Movement.LINE)
             }
 
             SpecialKeys.ENTER -> {
                 if (focus.isEditable && Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    KdeConnectAccessibilityService.instance?.performGlobalAction(AccessibilityService.GLOBAL_ACTION_DPAD_CENTER)
+                    PocketLinkAccessibilityService.instance?.performGlobalAction(AccessibilityService.GLOBAL_ACTION_DPAD_CENTER)
                 } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                     focus.performAction(AccessibilityNodeInfo.AccessibilityAction.ACTION_IME_ENTER.id)
                 }
@@ -296,7 +296,7 @@ class RemoteKeyboardPlugin : Plugin() {
 
             SpecialKeys.ESCAPE -> {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    KdeConnectAccessibilityService.instance?.performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK)
+                    PocketLinkAccessibilityService.instance?.performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK)
                 } else {
                     focus.performAction(AccessibilityNodeInfo.ACTION_CLEAR_FOCUS)
                 }
@@ -318,7 +318,7 @@ class RemoteKeyboardPlugin : Plugin() {
 
     private fun keyInput(focus: AccessibilityNodeInfo, key: String): Boolean {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && focus.isEditable) {
-            val inputConnection = KdeConnectAccessibilityService.instance
+            val inputConnection = PocketLinkAccessibilityService.instance
                 ?.inputMethod?.currentInputConnection
             if (inputConnection != null) {
                 // Use the editor's input pipeline instead of replacing the entire field.
@@ -360,7 +360,7 @@ class RemoteKeyboardPlugin : Plugin() {
 
     private fun delete(focus: AccessibilityNodeInfo, forward: Boolean, words: Boolean = false) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && focus.isEditable) {
-            val inputConnection = KdeConnectAccessibilityService.instance
+            val inputConnection = PocketLinkAccessibilityService.instance
                 ?.inputMethod?.currentInputConnection
             if (inputConnection != null) {
                 // Let the editor handle selections, word boundaries and multi-character glyphs.

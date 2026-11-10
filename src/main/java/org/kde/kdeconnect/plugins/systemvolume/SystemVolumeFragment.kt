@@ -12,7 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
-import org.kde.kdeconnect.KdeConnect
+import org.kde.kdeconnect.PocketLink
 import org.kde.kdeconnect.base.BaseFragment
 import org.kde.kdeconnect.extensions.setupBottomPadding
 import org.kde.kdeconnect.helpers.calculateNewVolume
@@ -72,7 +72,7 @@ class SystemVolumeFragment : BaseFragment<SystemVolumeFragmentBinding>(),
     }
 
     private fun connectToPlugin(deviceId: String) {
-        val plugin = KdeConnect.getInstance().getDevicePlugin<SystemVolumePlugin>(deviceId) ?: return
+        val plugin = PocketLink.getInstance().getDevicePlugin<SystemVolumePlugin>(deviceId) ?: return
         this.plugin = plugin
         plugin.addSinkListener(this@SystemVolumeFragment)
         sinksChanged()

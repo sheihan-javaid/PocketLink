@@ -24,7 +24,7 @@ import io.reactivex.Flowable
 import io.reactivex.processors.ReplayProcessor
 import kotlinx.serialization.SerializationException
 import org.kde.kdeconnect.Device
-import org.kde.kdeconnect.KdeConnect
+import org.kde.kdeconnect.PocketLink
 import org.kde.kdeconnect.helpers.JsonHelper.json
 import org.kde.kdeconnect.ui.MainActivity
 import org.kde.kdeconnect_tp.R
@@ -83,7 +83,7 @@ class RunCommandControlsProviderService : ControlsProviderService() {
             val commandEntry = getCommandByControlId(controlId)
             if (commandEntry != null) {
                 val deviceId = controlId.split(":")[0]
-                val plugin = KdeConnect.getInstance().getDevicePlugin<RunCommandPlugin>(deviceId)
+                val plugin = PocketLink.getInstance().getDevicePlugin<RunCommandPlugin>(deviceId)
                 // The plugin is kept while the device is unreachable, but we can't run commands then
                 if (plugin != null && commandEntry.device.isReachable) {
                     plugin.runCommand(commandEntry.key)
@@ -118,7 +118,7 @@ class RunCommandControlsProviderService : ControlsProviderService() {
     private fun getAllCommandsList(): List<CommandEntryWithDevice> {
         val commandList = mutableListOf<CommandEntryWithDevice>()
 
-        for (device in KdeConnect.getInstance().devices.values) {
+        for (device in PocketLink.getInstance().devices.values) {
             if (!device.isReachable) {
                 commandList.addAll(getSavedCommandsList(device))
                 continue
@@ -140,7 +140,7 @@ class RunCommandControlsProviderService : ControlsProviderService() {
     private fun getCommandByControlId(controlId: String): CommandEntryWithDevice? {
         val controlIdParts = controlId.split(":")
 
-        val device = KdeConnect.getInstance().getDevice(controlIdParts[0])
+        val device = PocketLink.getInstance().getDevice(controlIdParts[0])
 
         if (device == null || !device.isPaired) return null
 

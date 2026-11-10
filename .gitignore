@@ -4,3 +4,32 @@ build/
 local.properties
 *.iml
 .idea/
+
+# Keystores & signing
+*.keystore
+*.jks
+signing.properties
+
+# Build outputs & packages
+*.apk
+*.aab
+
+# Logs & Environment
+*.log
+.env*
+captures/
+extracted_icons/
+
+# Kotlin compiler & daemons
+.kotlin/
+
+# IDE & agent scratch directories
+.gemini/
+.antigravity/
+brain/
+.cursor/
+.claude/
+
+# Internal audit reports, APK captures & scratch documentation
+docs/audit/raw/
+docs/**/screenshots/

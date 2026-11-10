@@ -27,7 +27,7 @@ import androidx.core.content.getSystemService
 import androidx.media.VolumeProviderCompat
 import androidx.preference.PreferenceManager
 import org.kde.kdeconnect.Device
-import org.kde.kdeconnect.KdeConnect
+import org.kde.kdeconnect.PocketLink
 import org.kde.kdeconnect.helpers.NotificationHelper
 import org.kde.kdeconnect.plugins.mpris.MprisPlugin.MprisPlayer
 import org.kde.kdeconnect.plugins.notifications.NotificationReceiver
@@ -156,7 +156,7 @@ class MprisMediaSession : OnSharedPreferenceChangeListener, NotificationReceiver
         val currentPlayer = currentShowingPlayer
         val currentDevice = currentPlayer?.device ?: lastShowingDeviceId
             ?.takeIf(mprisDevices::contains)
-            ?.let(KdeConnect.getInstance()::getDevice)
+            ?.let(PocketLink.getInstance()::getDevice)
 
         // First try the previously displayed player (if still playing) or the previous displayed device (otherwise)
         if (currentDevice != null) {
@@ -168,7 +168,7 @@ class MprisMediaSession : OnSharedPreferenceChangeListener, NotificationReceiver
         }
 
         // Try a different player from another device
-        for (otherDevice in KdeConnect.getInstance().devices.values) {
+        for (otherDevice in PocketLink.getInstance().devices.values) {
             val player = getPlayerFromDevice(otherDevice, null)
             if (player != null) {
                 return player

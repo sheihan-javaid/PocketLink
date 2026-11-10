@@ -5,11 +5,13 @@
  */
 package org.kde.kdeconnect.plugins.systemvolume
 
+import android.content.Intent
 import android.util.Log
 import kotlinx.serialization.SerializationException
 import org.kde.kdeconnect.NetworkPacket
 import org.kde.kdeconnect.plugins.Plugin
 import org.kde.kdeconnect.plugins.PluginFactory.LoadablePlugin
+import org.kde.kdeconnect.plugins.mpris.MprisActivity
 import org.kde.kdeconnect_tp.R
 
 @LoadablePlugin
@@ -27,6 +29,14 @@ class SystemVolumePlugin : Plugin() {
 
     override val description: String
         get() = context.resources.getString(R.string.pref_plugin_systemvolume_desc)
+
+    override fun getUiButtons(): List<PluginUiButton> = listOf(
+        PluginUiButton(displayName, R.drawable.ic_volume) { parentActivity ->
+            val intent = Intent(parentActivity, MprisActivity::class.java)
+            intent.putExtra(MprisActivity.EXTRA_DEVICE_ID, device.deviceId)
+            parentActivity.startActivity(intent)
+        }
+    )
 
     override val keepAliveWhenUnreachable: Boolean = true
 

@@ -1,4 +1,4 @@
-/*
+ /*
  * SPDX-FileCopyrightText: 2023 Dmitry Yudin <dgyudin@gmail.com>
  *
  * SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
@@ -22,6 +22,7 @@ import android.view.WindowManager
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -29,7 +30,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
@@ -50,6 +51,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.input.pointer.pointerInteropFilter
@@ -63,11 +65,13 @@ import androidx.compose.ui.unit.dp
 import androidx.media.VolumeProviderCompat
 import androidx.preference.PreferenceManager
 import org.kde.kdeconnect.Device
-import org.kde.kdeconnect.KdeConnect
+import org.kde.kdeconnect.PocketLink
 import org.kde.kdeconnect.ui.compose.components.DeviceDisconnectedOverlay
-import org.kde.kdeconnect.ui.compose.KdeButton
-import org.kde.kdeconnect.ui.compose.KdeTheme
-import org.kde.kdeconnect.ui.compose.KdeTopAppBar
+import org.kde.kdeconnect.ui.compose.components.PocketLinkStandardCard
+import org.kde.kdeconnect.ui.compose.PocketLinkButton
+import org.kde.kdeconnect.ui.compose.PocketLinkSpacing
+import org.kde.kdeconnect.ui.compose.PocketLinkTheme
+import org.kde.kdeconnect.ui.compose.PocketLinkTopAppBar
 import org.kde.kdeconnect_tp.R
 
 private const val VOLUME_UP = 1
@@ -104,7 +108,7 @@ class PresenterActivity : AppCompatActivity(), SensorEventListener, OnSharedPref
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
         val deviceId = intent.getStringExtra(EXTRA_DEVICE_ID)!!
-        val device = KdeConnect.getInstance().getDevice(deviceId)
+        val device = PocketLink.getInstance().getDevice(deviceId)
         plugin = device?.getPlugin<PresenterPlugin>() ?: run {
             finish()
             return
@@ -187,199 +191,314 @@ class PresenterActivity : AppCompatActivity(), SensorEventListener, OnSharedPref
     @Preview
     @Composable
     private fun PresenterScreenPreview() {
-        PresenterScreen("TestDevice")
-    }
-
-    @Composable
-    private fun PresenterScreen(deviceName: String, device: Device? = null) {
-
-        val sensorManager = LocalContext.current.getSystemService(SENSOR_SERVICE) as? SensorManager
-        val haptics = LocalHapticFeedback.current
-
-        KdeTheme(this) {
-            Scaffold(
-                modifier = Modifier.safeDrawingPadding(),
-                topBar = { PresenterAppBar(deviceName) }
-            ) {
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(it)
-                        .padding(16.dp),
-                    verticalArrangement = Arrangement.spacedBy(20.dp),
-                ) {
-                    if (volumeKeys) Text(
-                        text = stringResource(if (offScreenControlsSupported) R.string.presenter_volume_keys_tip else R.string.presenter_volume_keys_foreground_tip),
-                        modifier = Modifier
-                            .padding(bottom = 8.dp)
-                            .padding(horizontal = 16.dp),
-                        style = MaterialTheme.typography.bodyLarge,
-                    )
-                    if (zoomControlsVisible) ZoomControls(onClose = { zoomControlsVisible = false })
-                    Row(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .weight(3f),
-                        horizontalArrangement = Arrangement.spacedBy(20.dp),
-                    ) {
-                        KdeButton(
-                            onClick = {
-                                plugin.sendPrevious()
-                                haptics.performHapticFeedback(HapticFeedbackType.Confirm)
-                            },
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .weight(1f),
-                            contentDescription = getString(R.string.mpris_previous),
-                            icon = Icons.AutoMirrored.Filled.ArrowBack,
-                        )
-                        KdeButton(
-                            onClick = {
-                                plugin.sendNext()
-                                haptics.performHapticFeedback(HapticFeedbackType.Confirm)
-                            },
-                            contentDescription = getString(R.string.mpris_next),
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .weight(1f),
-                            icon = Icons.AutoMirrored.Filled.ArrowForward,
-                        )
-                    }
-                    if (sensorManager != null) KdeButton(
-                        onClick = {},
-                        colors = ButtonDefaults.filledTonalButtonColors(),
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .weight(1f)
-                            .pointerInteropFilter { event ->
-                                when (event.action) {
-                                    MotionEvent.ACTION_DOWN -> {
-                                        haptics.performHapticFeedback(HapticFeedbackType.LongPress)
-                                        sensorManager.registerListener(
-                                            this@PresenterActivity,
-                                            sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE),
-                                            SensorManager.SENSOR_DELAY_GAME
-                                        )
-                                    }
-
-                                    MotionEvent.ACTION_UP -> {
-                                        haptics.performHapticFeedback(HapticFeedbackType.GestureEnd)
-                                        sensorManager.unregisterListener(this@PresenterActivity)
-                                        plugin.stopPointer()
-                                        false
-                                    }
-                                    else -> false
-                                }
-                            },
-                        text = stringResource(R.string.presenter_pointer),
-                    )
-                }
-
-                device?.let { device -> DeviceDisconnectedOverlay(device, Modifier.padding(it)) }
-            }
-        }
-    }
-
-    @Composable
-    private fun PresenterAppBar(subTitle: String) {
-
-        var menuExpanded by remember { mutableStateOf(false) }
-
-        KdeTopAppBar(
-            title = stringResource(R.string.pref_plugin_presenter),
-            subTitle = subTitle,
-            navIconOnClick = { onBackPressedDispatcher.onBackPressed() },
-            navIconDescription = getString(androidx.appcompat.R.string.abc_action_bar_up_description),
-            actions = {
-                IconButton(onClick = { menuExpanded = true }) {
-                    Icon(Icons.Default.MoreVert, stringResource(R.string.extra_options))
-                }
-                DropdownMenu(expanded = menuExpanded, onDismissRequest = { menuExpanded = false }) {
-                    DropdownMenuItem(
-                        onClick = {
-                            menuExpanded = false
-                            plugin.sendFullscreen()
-                        },
-                        text = { Text(stringResource(R.string.presenter_fullscreen)) },
-                    )
-                    DropdownMenuItem(
-                        onClick = {
-                            menuExpanded = false
-                            plugin.sendEsc()
-                        },
-                        text = { Text(stringResource(R.string.presenter_exit)) },
-                    )
-                    DropdownMenuItem(
-                        onClick = {
-                            menuExpanded = false
-                            zoomControlsVisible = true
-                        },
-                        text = { Text(stringResource(R.string.presenter_change_zoom)) },
-                    )
-                }
-            }
+        PresenterScreenContent(
+            deviceName = "TestDevice",
+            onBackPressed = {},
+            onPrevious = {},
+            onNext = {},
+            onFullscreen = {},
+            onExit = {},
+            onZoomIn = {},
+            onZoomOut = {},
+            volumeKeys = true,
+            offScreenControlsSupported = true,
+            hasSensorManager = true,
+            onPointerStart = {},
+            onPointerStop = {}
         )
     }
 
     @Composable
-    private fun ZoomControls(onClose: () -> Unit) {
-        val haptics = LocalHapticFeedback.current
-        val zoomOutDescription = stringResource(R.string.presenter_zoom_out)
-        val zoomInDescription = stringResource(R.string.presenter_zoom_in)
+    private fun PresenterScreen(deviceName: String, device: Device? = null) {
+        val sensorManager = LocalContext.current.getSystemService(SENSOR_SERVICE) as? SensorManager
 
-        Column {
-            Row(
+        PresenterScreenContent(
+            deviceName = deviceName,
+            device = device,
+            onBackPressed = { onBackPressedDispatcher.onBackPressed() },
+            onPrevious = { plugin.sendPrevious() },
+            onNext = { plugin.sendNext() },
+            onFullscreen = { plugin.sendFullscreen() },
+            onExit = { plugin.sendEsc() },
+            onZoomIn = { plugin.sendZoomIn() },
+            onZoomOut = { plugin.sendZoomOut() },
+            volumeKeys = volumeKeys,
+            offScreenControlsSupported = offScreenControlsSupported,
+            hasSensorManager = sensorManager != null,
+            onPointerStart = {
+                sensorManager?.let { sm ->
+                    sm.registerListener(
+                        this@PresenterActivity,
+                        sm.getDefaultSensor(Sensor.TYPE_GYROSCOPE),
+                        SensorManager.SENSOR_DELAY_GAME
+                    )
+                }
+            },
+            onPointerStop = {
+                sensorManager?.unregisterListener(this@PresenterActivity)
+                plugin.stopPointer()
+            }
+        )
+    }
+
+    companion object {
+        const val EXTRA_DEVICE_ID = "deviceId"
+    }
+}
+
+@OptIn(ExperimentalComposeUiApi::class)
+@Composable
+internal fun PresenterScreenContent(
+    deviceName: String,
+    onBackPressed: () -> Unit,
+    onPrevious: () -> Unit,
+    onNext: () -> Unit,
+    onFullscreen: () -> Unit,
+    onExit: () -> Unit,
+    onZoomIn: () -> Unit,
+    onZoomOut: () -> Unit,
+    volumeKeys: Boolean,
+    offScreenControlsSupported: Boolean,
+    hasSensorManager: Boolean,
+    onPointerStart: () -> Unit,
+    onPointerStop: () -> Unit,
+    modifier: Modifier = Modifier,
+    device: Device? = null
+) {
+    val haptics = LocalHapticFeedback.current
+    val context = LocalContext.current
+    var zoomControlsVisible by remember { mutableStateOf(false) }
+
+    PocketLinkTheme(context) {
+        Scaffold(
+            modifier = modifier.fillMaxSize().safeDrawingPadding(),
+            topBar = {
+                PresenterAppBar(
+                    subTitle = deviceName,
+                    onBackPressed = onBackPressed,
+                    onFullscreen = onFullscreen,
+                    onExit = onExit,
+                    onShowZoom = { zoomControlsVisible = true }
+                )
+            }
+        ) { paddingValues ->
+            Box(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 16.dp),
-                verticalAlignment = Alignment.CenterVertically,
+                    .fillMaxSize()
+                    .padding(paddingValues),
+                contentAlignment = Alignment.TopCenter
+            ) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .widthIn(max = PocketLinkSpacing.compactContentMaxWidth)
+                        .padding(PocketLinkSpacing.medium),
+                    verticalArrangement = Arrangement.spacedBy(PocketLinkSpacing.medium)
+                ) {
+                    if (volumeKeys) {
+                        Text(
+                            text = stringResource(
+                                if (offScreenControlsSupported) R.string.presenter_volume_keys_tip
+                                else R.string.presenter_volume_keys_foreground_tip
+                            ),
+                            modifier = Modifier
+                                .padding(horizontal = PocketLinkSpacing.small),
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
+
+                    if (zoomControlsVisible) {
+                        ZoomControls(
+                            onClose = { zoomControlsVisible = false },
+                            onZoomIn = onZoomIn,
+                            onZoomOut = onZoomOut
+                        )
+                    }
+
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .weight(3f),
+                        horizontalArrangement = Arrangement.spacedBy(PocketLinkSpacing.medium)
+                    ) {
+                        PocketLinkButton(
+                            onClick = {
+                                onPrevious()
+                                haptics.performHapticFeedback(HapticFeedbackType.Confirm)
+                            },
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .weight(1f),
+                            contentDescription = stringResource(R.string.mpris_previous),
+                            icon = Icons.AutoMirrored.Filled.ArrowBack
+                        )
+                        PocketLinkButton(
+                            onClick = {
+                                onNext()
+                                haptics.performHapticFeedback(HapticFeedbackType.Confirm)
+                            },
+                            contentDescription = stringResource(R.string.mpris_next),
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .weight(1f),
+                            icon = Icons.AutoMirrored.Filled.ArrowForward
+                        )
+                    }
+
+                    if (hasSensorManager) {
+                        PocketLinkButton(
+                            onClick = {},
+                            colors = ButtonDefaults.filledTonalButtonColors(),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .weight(1f)
+                                .pointerInteropFilter { event ->
+                                    when (event.action) {
+                                        MotionEvent.ACTION_DOWN -> {
+                                            haptics.performHapticFeedback(HapticFeedbackType.LongPress)
+                                            onPointerStart()
+                                            true
+                                        }
+                                        MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                                            haptics.performHapticFeedback(HapticFeedbackType.GestureEnd)
+                                            onPointerStop()
+                                            true
+                                        }
+                                        else -> false
+                                    }
+                                },
+                            text = stringResource(R.string.presenter_pointer)
+                        )
+                    }
+                }
+
+                device?.let { DeviceDisconnectedOverlay(device = it) }
+            }
+        }
+    }
+}
+
+@Composable
+private fun PresenterAppBar(
+    subTitle: String,
+    onBackPressed: () -> Unit,
+    onFullscreen: () -> Unit,
+    onExit: () -> Unit,
+    onShowZoom: () -> Unit
+) {
+    var menuExpanded by remember { mutableStateOf(false) }
+
+    PocketLinkTopAppBar(
+        title = stringResource(R.string.pref_plugin_presenter),
+        subTitle = subTitle,
+        navIconOnClick = onBackPressed,
+        actions = {
+            IconButton(onClick = { menuExpanded = true }) {
+                Icon(
+                    imageVector = Icons.Default.MoreVert,
+                    contentDescription = stringResource(R.string.extra_options),
+                    tint = MaterialTheme.colorScheme.onSurface
+                )
+            }
+            DropdownMenu(expanded = menuExpanded, onDismissRequest = { menuExpanded = false }) {
+                DropdownMenuItem(
+                    onClick = {
+                        menuExpanded = false
+                        onFullscreen()
+                    },
+                    text = { Text(stringResource(R.string.presenter_fullscreen)) }
+                )
+                DropdownMenuItem(
+                    onClick = {
+                        menuExpanded = false
+                        onExit()
+                    },
+                    text = { Text(stringResource(R.string.presenter_exit)) }
+                )
+                DropdownMenuItem(
+                    onClick = {
+                        menuExpanded = false
+                        onShowZoom()
+                    },
+                    text = { Text(stringResource(R.string.presenter_change_zoom)) }
+                )
+            }
+        }
+    )
+}
+
+@Composable
+private fun ZoomControls(
+    onClose: () -> Unit,
+    onZoomIn: () -> Unit,
+    onZoomOut: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    val haptics = LocalHapticFeedback.current
+    val zoomOutDescription = stringResource(R.string.presenter_zoom_out)
+    val zoomInDescription = stringResource(R.string.presenter_zoom_in)
+
+    PocketLinkStandardCard(
+        modifier = modifier.fillMaxWidth()
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(PocketLinkSpacing.medium),
+            verticalArrangement = Arrangement.spacedBy(PocketLinkSpacing.small)
+        ) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
                     text = stringResource(R.string.presenter_zoom),
                     modifier = Modifier.weight(1f),
                     style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.onSurface
                 )
                 IconButton(onClick = onClose) {
-                    Icon(Icons.Default.Close, stringResource(R.string.close))
+                    Icon(
+                        imageVector = Icons.Default.Close,
+                        contentDescription = stringResource(R.string.close),
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
                 }
             }
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(20.dp),
+                horizontalArrangement = Arrangement.spacedBy(PocketLinkSpacing.medium)
             ) {
                 Button(
                     onClick = {
-                        plugin.sendZoomOut()
+                        onZoomOut()
                         haptics.performHapticFeedback(HapticFeedbackType.Confirm)
                     },
                     modifier = Modifier
                         .weight(1f)
-                        .height(72.dp)
+                        .height(56.dp)
                         .semantics { contentDescription = zoomOutDescription },
-                    shape = RoundedCornerShape(24.dp),
-                    colors = ButtonDefaults.filledTonalButtonColors(),
+                    shape = MaterialTheme.shapes.large,
+                    colors = ButtonDefaults.filledTonalButtonColors()
                 ) {
-                    Text("−", style = MaterialTheme.typography.displaySmall)
+                    Text("−", style = MaterialTheme.typography.headlineMedium)
                 }
                 Button(
                     onClick = {
-                        plugin.sendZoomIn()
+                        onZoomIn()
                         haptics.performHapticFeedback(HapticFeedbackType.Confirm)
                     },
                     modifier = Modifier
                         .weight(1f)
-                        .height(72.dp)
+                        .height(56.dp)
                         .semantics { contentDescription = zoomInDescription },
-                    shape = RoundedCornerShape(24.dp),
-                    colors = ButtonDefaults.filledTonalButtonColors(),
+                    shape = MaterialTheme.shapes.large,
+                    colors = ButtonDefaults.filledTonalButtonColors()
                 ) {
-                    Text("+", style = MaterialTheme.typography.displaySmall)
+                    Text("+", style = MaterialTheme.typography.headlineMedium)
                 }
             }
         }
-    }
-
-    companion object {
-        const val EXTRA_DEVICE_ID = "deviceId"
     }
 }

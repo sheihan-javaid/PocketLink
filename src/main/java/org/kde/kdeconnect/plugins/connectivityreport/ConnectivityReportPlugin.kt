@@ -6,6 +6,12 @@
 package org.kde.kdeconnect.plugins.connectivityreport
 
 import android.Manifest
+import android.content.Context
+import android.content.pm.PackageManager
+import android.net.wifi.SupplicantState
+import android.net.wifi.WifiManager
+import androidx.core.content.ContextCompat
+import androidx.core.content.getSystemService
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.put
 import kotlinx.serialization.json.putJsonObject
@@ -61,7 +67,29 @@ class ConnectivityReportPlugin : Plugin() {
                 }
             }
             connectivityInfo["signalStrengths"] = signalStrengths
+            val ssid = getCurrentWifiSsid()
+            if (ssid.isNotBlank()) {
+                connectivityInfo["ssid"] = ssid
+            }
             device.sendPacket(connectivityInfo)
+        }
+    }
+
+    /**
+     * Returns the current WiFi SSID, or blank string if unavailable.
+     */
+    private fun getCurrentWifiSsid(): String {
+        if (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+            && ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return ""
+        }
+        val wifiManager = context.getSystemService<WifiManager>() ?: return ""
+        val wifiInfo = wifiManager.connectionInfo
+        if (wifiInfo.supplicantState != SupplicantState.COMPLETED) return ""
+        val ssid = wifiInfo.ssid
+        return when {
+            ssid.equals("<unknown ssid>", ignoreCase = true) || ssid.isBlank() -> ""
+            else -> ssid
         }
     }
 
@@ -73,12 +101,16 @@ class ConnectivityReportPlugin : Plugin() {
         private set
 
     override fun onCreate() {
-        ConnectivityListener.getInstance(context).listenStateChanges(listener)
+        if (checkRequiredPermissions()) {
+            ConnectivityListener.getInstance(context).listenStateChanges(listener)
+        }
     }
 
     override fun onDestroy() {
         ConnectivityListener.getInstance(context).cancelActiveListener(listener)
     }
+
+    override fun loadPluginWhenRequiredPermissionsMissing(): Boolean = true
 
     override fun onPacketReceived(np: NetworkPacket): Boolean {
         if (PACKET_TYPE_CONNECTIVITY_REPORT != np.type) {

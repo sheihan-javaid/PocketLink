@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-  <string name="kde_connect">KDE Connect</string>
+  <string name="kde_connect">PocketLink</string>
   <string name="manifest_label_share">მოწყობილობაზე გაგზავნა</string>
   <string name="foreground_notification_no_devices">არც ერთ მოწყობილობასთან მიერთებული არ ბრძანდებით</string>
   <string name="foreground_notification_devices">მიერთებულია %s-თან</string>
@@ -30,7 +30,6 @@
   <string name="pref_plugin_sharereceiver">გაზიარება და მიღება</string>
   <string name="device_list_empty">მოწყობილობების გარეშე</string>
   <string name="ok">OK</string>
-  <string name="sad_ok">დიახ :(</string>
   <string name="cancel">გაუქმება</string>
   <string name="open_settings">პარამეტრების გახსნა</string>
   <string name="send_ping">პინგის გაგზავნა</string>
@@ -71,7 +70,6 @@
   <string name="sendkeystrokes_pref_category_title">სად გაიგზავნება ღილაკის დაჭერა</string>
   <string name="sendkeystrokes_pref_enabled">ღილაკის დაჭერის გაგზავნის ჩართვა</string>
   <string name="mouse_receiver_plugin_name">თაგუნას მიმღები</string>
-  <string name="view_status_title">მდგომარეობა</string>
   <string name="battery_status_format">ელემენტი: %d%%</string>
   <string name="battery_status_low_format">ელემენტი: %d%% ელემენტი დასატენია</string>
   <string name="battery_status_charging_format">ელემენტი: %d%% იტენება</string>
@@ -84,7 +82,6 @@
   <string name="cancel_pairing">დაწყვილების გაუქმება</string>
   <string name="unknown_device">უცნობი მოწყობილობა</string>
   <string name="error_not_reachable">მოწყობილობა მიუწვდოელია</string>
-  <string name="error_already_paired">მოწყობილობა უკვე დაწყვილებულია</string>
   <string name="error_timed_out">ვადა გავიდა</string>
   <string name="error_clocks_not_match">მოწყობილობის საათების სინქრონიზაცია დარღვეულია</string>
   <string name="error_canceled_by_user">გაუქმებულია მომხმარებლის მიერ</string>
@@ -99,7 +96,6 @@
   <string name="tap_to_open">გასახსნელად დაატყაპუნეთ</string>
   <string name="received_file_text">\'%1s\'-ის გასახსნელად დაატყაპუნეთ</string>
   <string name="cannot_create_file">ფაილის (%s) შექმნის შეცდომა</string>
-  <string name="tap_to_answer">საპასუხოდ დაატყაპუნეთ</string>
   <string name="left_click">მარჯვენა წკაპის გაგზავნა</string>
   <string name="right_click">მარჯვენა წკაპის გაგზავნა</string>
   <string name="middle_click">შუა წკაპის გაგზავნა</string>
@@ -135,7 +131,6 @@
   <string name="custom_devices_settings">მოწყობილობები სიის ხელით მითითება</string>
   <string name="custom_device_list">მოწყობილობების IP-ით დამატება</string>
   <string name="custom_device_deleted">ხელით მითითებული მოწყობილობა წაშლილია</string>
-  <string name="custom_device_fab_hint">მოწყობილობის დამატება</string>
   <string name="undo">დაბრუნება</string>
   <string name="share_notification_preference">ხმაურიანი შეტყობინებები</string>
   <string name="share_destination_customize">სამიზნე საქაღალდის მორგება</string>
@@ -166,7 +161,7 @@
   </string-array>
   <string name="block_notification_contents">გაფრთხილების შემცველობის დაბლოკვა</string>
   <string name="block_notification_images">გაფრთხილებების გამოსახულებების დაბლოკვა</string>
-  <string name="pairing_title">KDE Connect -ის მოწყობილობები</string>
+  <string name="pairing_title">PocketLink -ის მოწყობილობები</string>
   <string name="device_rename_title">მოწყობილობის სახელის გადარქმევა</string>
   <string name="device_rename_confirm">გადარქმევა</string>
   <string name="refresh">განახლება</string>
@@ -174,7 +169,6 @@
   <string name="no_file_browser">ფაილის მმართველები დაყენებული არაა.</string>
   <string name="pref_plugin_telepathy">SMS-ის გაგზავნა</string>
   <string name="pref_plugin_telepathy_desc">გააგზავნეთ ტექსტური შეტყობინებები თქვენი კომპიუტერიდან</string>
-  <string name="pref_plugin_telepathy_mms">MMS-ის გაგზავნა</string>
   <string name="findmyphone_title">იპოვე ჩემი ტელეფონი</string>
   <string name="findmyphone_title_tablet">იპოვე ჩემი ტაბლეტი</string>
   <string name="findmyphone_title_tv">იპოვე ჩემი ტელევიზორი</string>
@@ -182,12 +176,9 @@
   <string name="findmyphone_found">ვიპოვე</string>
   <string name="open">გახსნა</string>
   <string name="close">დახურვა</string>
-  <string name="plugins_need_permission">ზოგიერთ დამატებას სამუშაოდ წვდომები ესაჭიროება (დაატყაპუნეთ მეტი ინფორმაციისთვის):</string>
   <string name="permission_explanation">დამატებას სამუშაოდ წვდომები ესაჭიროება</string>
   <string name="select_ringtone">"ზარის  არჩევა"</string>
   <string name="telephony_pref_blocked_title">დაბლოკილი ნომრები</string>
-  <string name="mpris_coverart_description">მიმდინარე მედიის ყდა</string>
-  <string name="settings_icon_description">პარამეტრების ხატულა</string>
   <string name="presenter_fullscreen">მთელ ეკრანზე</string>
   <string name="presenter_exit">პრეზენტაციიდან გასვლა</string>
   <string name="add_command">ბრძანების დამატება</string>
@@ -215,8 +206,7 @@
   <string name="all">ყველა</string>
   <string name="devices">მოწყობილობები</string>
   <string name="settings_rename">მოწყობილობის სახელი</string>
-  <string name="settings_dark_mode">ბნელი თემა</string>
-  <string name="settings_export_logs">KDE Connect-ის ჟურნალის გატანა</string>
+  <string name="settings_export_logs">PocketLink-ის ჟურნალის გატანა</string>
   <string name="settings_more_settings_title">მეტი პარამეტრი</string>
   <string name="extra_options">დამატებითი პარამეტრები</string>
   <string name="privacy_options">კონფიდენციალობის პარამეტრები</string>
@@ -237,10 +227,6 @@
   <string name="bigscreen_down">ქვემოთ</string>
   <string name="bigscreen_mic">მიკროფონის</string>
   <string name="bigscreen_speech_extra_prompt">საუბარი</string>
-  <string name="message_reply_label">პასუხი</string>
-  <string name="mark_as_read_label">წაკითხულად მონიშვნა</string>
-  <string name="user_display_name">თქვენ</string>
-  <string name="set_default_sms_app_title">MMS-ის გაგზავნა</string>
   <string name="set_group_message_as_mms_title">ჯგუფური MMS-ის გაგზავნა</string>
   <string name="set_long_text_as_mms_title">გრძელი ტექსტის MMS-ის სახით გაგზავნა</string>
   <string name="convert_to_mms_after_title">MMS-ად გარდაქმნა</string>
@@ -269,16 +255,11 @@
   <string name="website">ვებსაიტი</string>
   <string name="about">შესახებ</string>
   <string name="authors">ავტორები</string>
-  <string name="thanks_to">&amp;მადლობა</string>
   <string name="easter_egg">სააღდგომო კვერცხი</string>
-  <string name="email_contributor">ელფოსტით შემომწირავი \n%s</string>
   <string name="version">ვერისა %s</string>
   <string name="about_kde">KDE-ს შესახებ</string>
   <string name="kde_be_free">KDE - იყავი თავისუფალი!</string>
-  <string name="kde">KDE</string>
   <string name="konqi">Konqi</string>
-  <string name="rise_up">აწევა</string>
-  <string name="rise_down">დაწევა</string>
   <string name="click_here_to_type">ასაკრეფად აქ დაატყაპუნეთ</string>
   <string name="clear_compose">გაწმენდა</string>
   <string name="send_compose">გაგზავნა</string>
@@ -293,4 +274,43 @@
   <string name="tap_to_execute">ქმედების შესასრულებლად დაატყაპუნეთ</string>
   <string name="plugin_stats">მოდულის სტატისტიკა</string>
   <string name="ping_failed">მოწყობილობა არ იპინგება</string>
+  <string name="pairing_verification_code_title">დადასტურების კოდი</string>
+  <string name="pairing_compare_verification_code">მიღებამდე შეადარეთ ეს კოდი ორივე მოწყობილობაზე.</string>
+  <string name="pairing_waiting_for_device">ელოდება, რომ %1$s დაეთანხმოს მოთხოვნას.</string>
+  <string name="pairing_trusted_device">დაწყვილებულია %1$s-თან. ამ მოწყობილობას ახლა ენდობით.</string>
+
+    <string name="category_share_transfer">გაზიარება და გადაცემა</string>
+    <string name="category_control_computer">კომპიუტერის მართვა</string>
+    <string name="category_media_audio">მედია და აუდიო</string>
+    <string name="category_device_info">მოწყობილობის ინფორმაცია</string>
+    <string name="category_item_count_format">%1$d / %2$d-დან</string>
+    <string name="category_plugins_count_format">%1$d დამატება</string>
+    <string name="attention_feature_needs_permission">%1$d ფუნქციას სჭირდება ნებართვა</string>
+    <string name="attention_features_need_permission">%1$d ფუნქციას სჭირდება ნებართვები</string>
+    <string name="attention_optional_permissions">ხელმისაწვდომია დამატებითი ნებართვები (%1$d)</string>
+    <string name="attention_tap_to_review">შეეხეთ სანახავად და წვდომის მისაცემად</string>
+    <string name="attention_pending_count">%1$d მოლოდინშია</string>
+    <string name="manage_plugins_title">დამატებების მართვა</string>
+    <string name="manage_plugins_summary">ჩართულია %1$d / %2$d დამატება</string>
+    <string name="manage_plugins_summary_with_disabled">ჩართულია %1$d / %2$d · გამორთულია %3$d</string>
+    <string name="manage_plugins_search_hint">დამატებების ძებნა…</string>
+    <string name="manage_plugins_search_description">ძებნა</string>
+    <string name="manage_plugins_clear_search">ძებნის გასუფთავება</string>
+    <string name="manage_plugins_no_results">დამატებები არ შეესაბამება „%1$s“-ს</string>
+    <string name="manage_plugins_grant_permission">ნებართვის მიცემა</string>
+    <string name="manage_plugins_optional_permission">არასავალდებულო ნებართვა</string>
+    <string name="manage_plugins_back">დაფაზე დაბრუნება</string>
+    <string name="now_playing">ახლა უკრავს</string>
+    <string name="permission_badge">ნებართვა</string>
+    <string name="battery_charging">იტენება</string>
+    <string name="battery_discharging">იცლება</string>
+    <string name="volume_muted_desc">დადუმებულია. შეეხეთ ხმის ჩასართავად.</string>
+    <string name="volume_low_desc">დაბალი ხმა, %1$d პროცენტი. შეეხეთ დასადუმებლად.</string>
+    <string name="volume_normal_desc">ხმის დონე, %1$d პროცენტი. შეეხეთ დასადუმებლად.</string>
+    <string name="quick_action_send_files">ფაილების გაგზავნა</string>
+    <string name="quick_action_clipboard">გაცვლის ბუფერი</string>
+    <string name="quick_action_remote_input">დისტანციური შეყვანა</string>
+    <string name="quick_action_ring_device">დარეკვა</string>
+    <string name="quick_action_run_command">ბრძანების შესრულება</string>
+    <string name="quick_action_presenter">პრეზენტატორი</string>
 </resources>

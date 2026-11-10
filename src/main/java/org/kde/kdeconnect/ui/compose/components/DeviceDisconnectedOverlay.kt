@@ -32,7 +32,7 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.google.android.material.appbar.AppBarLayout
 import org.kde.kdeconnect.Device
-import org.kde.kdeconnect.ui.compose.KdeTheme
+import org.kde.kdeconnect.ui.compose.PocketLinkTheme
 import org.kde.kdeconnect_tp.R
 
 /**
@@ -82,7 +82,7 @@ fun DeviceDisconnectedOverlay(device: Device, modifier: Modifier = Modifier) {
 fun CoordinatorLayout.addDeviceDisconnectedOverlay(device: Device) {
     val overlay = ComposeView(context).apply {
         setContent {
-            KdeTheme(context) {
+            PocketLinkTheme(context) {
                 DeviceDisconnectedOverlay(device)
             }
         }

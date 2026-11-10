@@ -6,54 +6,102 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
 
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- NoActionBar because we use a Toolbar widget as ActionBar -->
-    <style name="KdeConnectThemeBase" parent="Theme.Material3.DynamicColors.DayNight.NoActionBar">
-        <!-- The main color attributes -->
-        <!-- Drawable definitions and overrides -->
+    <style name="PocketLinkThemeBase" parent="Theme.Material3.DynamicColors.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/pocketlink_color_primary</item>
+        <item name="colorOnPrimary">@color/pocketlink_color_on_primary</item>
+        <item name="colorPrimaryContainer">@color/pocketlink_color_primary_container</item>
+        <item name="colorOnPrimaryContainer">@color/pocketlink_color_on_primary_container</item>
+        <item name="colorSecondary">@color/pocketlink_color_secondary</item>
+        <item name="colorOnSecondary">@color/pocketlink_color_on_secondary</item>
+        <item name="colorSecondaryContainer">@color/pocketlink_color_secondary_container</item>
+        <item name="colorOnSecondaryContainer">@color/pocketlink_color_on_secondary_container</item>
+        <item name="colorTertiary">@color/pocketlink_color_tertiary</item>
+        <item name="colorOnTertiary">@color/pocketlink_color_on_tertiary</item>
+        <item name="colorTertiaryContainer">@color/pocketlink_color_tertiary_container</item>
+        <item name="colorOnTertiaryContainer">@color/pocketlink_color_on_tertiary_container</item>
+        <item name="colorError">@color/pocketlink_color_error</item>
+        <item name="colorOnError">@color/pocketlink_color_on_error</item>
+        <item name="colorErrorContainer">@color/pocketlink_color_error_container</item>
+        <item name="colorOnErrorContainer">@color/pocketlink_color_on_error_container</item>
+        <item name="colorSurface">@color/pocketlink_color_surface</item>
+        <item name="colorOnSurface">@color/pocketlink_color_on_surface</item>
+        <item name="colorSurfaceVariant">@color/pocketlink_color_surface_variant</item>
+        <item name="colorOnSurfaceVariant">@color/pocketlink_color_on_surface_variant</item>
+        <item name="colorOutline">@color/pocketlink_color_outline</item>
+        <item name="colorOutlineVariant">@color/pocketlink_color_outline_variant</item>
+        <item name="colorOnBackground">@color/pocketlink_color_on_background</item>
+        <item name="pocketlinkColorSuccess">@color/pocketlink_color_success</item>
+        <item name="pocketlinkColorOnSuccess">@color/pocketlink_color_on_success</item>
+        <item name="pocketlinkColorSuccessContainer">@color/pocketlink_color_success_container</item>
+        <item name="pocketlinkColorOnSuccessContainer">@color/pocketlink_color_on_success_container</item>
+        <item name="pocketlinkColorWarning">@color/pocketlink_color_warning</item>
+        <item name="pocketlinkColorOnWarning">@color/pocketlink_color_on_warning</item>
+        <item name="pocketlinkColorWarningContainer">@color/pocketlink_color_warning_container</item>
+        <item name="pocketlinkColorOnWarningContainer">@color/pocketlink_color_on_warning_container</item>
+        <item name="pocketlinkColorInformation">@color/pocketlink_color_information</item>
+        <item name="pocketlinkColorOnInformation">@color/pocketlink_color_on_information</item>
+        <item name="pocketlinkColorInformationContainer">@color/pocketlink_color_information_container</item>
+        <item name="pocketlinkColorOnInformationContainer">@color/pocketlink_color_on_information_container</item>
+        <item name="pocketlinkSpacingXsmall">@dimen/pocketlink_spacing_xsmall</item>
+        <item name="pocketlinkSpacingSmall">@dimen/pocketlink_spacing_small</item>
+        <item name="pocketlinkSpacingMediumSmall">@dimen/pocketlink_spacing_medium_small</item>
+        <item name="pocketlinkSpacingMedium">@dimen/pocketlink_spacing_medium</item>
+        <item name="pocketlinkSpacingLarge">@dimen/pocketlink_spacing_large</item>
+        <item name="pocketlinkSpacingXlarge">@dimen/pocketlink_spacing_xlarge</item>
+        <item name="pocketlinkMinTouchTarget">@dimen/pocketlink_min_touch_target</item>
+        <item name="pocketlinkCornerSmall">@dimen/pocketlink_corner_small</item>
+        <item name="pocketlinkCornerMedium">@dimen/pocketlink_corner_medium</item>
+        <item name="pocketlinkCornerLarge">@dimen/pocketlink_corner_large</item>
+        <item name="pocketlinkCornerExtraLarge">@dimen/pocketlink_corner_extra_large</item>
+        <item name="pocketlinkContentMaxWidth">@dimen/pocketlink_content_max_width</item>
+        <item name="android:colorBackground">@color/pocketlink_color_background</item>
+        <item name="colorControlActivated">@color/pocketlink_color_primary</item>
 
-        <item name="materialCardViewStyle">@style/KdeConnectCardStyle</item>
+        <item name="materialCardViewStyle">@style/PocketLinkCardStyle</item>
 
         <!-- https://github.com/material-components/material-components-android/issues/2732 -->
-        <item name="alertDialogTheme">@style/KdeConnectDialogStyle</item>
+        <item name="alertDialogTheme">@style/PocketLinkDialogStyle</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
     </style>
 
-    <style name="KdeConnectTheme" parent="KdeConnectThemeBase" />
+    <style name="PocketLinkTheme" parent="PocketLinkThemeBase" />
 
-    <style name="KdeConnectThemeBase.NoActionBar" parent="KdeConnectTheme">
+    <style name="PocketLinkThemeBase.NoActionBar" parent="PocketLinkTheme">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="KdeConnectTheme.NoActionBar" parent="KdeConnectThemeBase.NoActionBar">
+    <style name="PocketLinkTheme.NoActionBar" parent="PocketLinkThemeBase.NoActionBar">
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar">?attr/isLightTheme</item>
     </style>
-
-    <style name="KdeConnectTheme.Toolbar" parent="Widget.AppCompat.Toolbar">
-    </style>
-
-    <style name="KdeConnectDialogStyle" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+    <style name="PocketLinkDialogStyle" parent="ThemeOverlay.Material3.MaterialAlertDialog">
         <item name="android:layout" tools:ignore="PrivateResource">@layout/m3_alert_dialog</item>
         <item name="dialogCornerRadius" tools:ignore="PrivateResource">@dimen/m3_alert_dialog_corner_size</item>
     </style>
 
-    <style name="KdeConnectCardStyle" parent="@style/Widget.Material3.CardView.Elevated"/>
-
-    <style name="KdeConnectCardStyle.Filled" parent="@style/Widget.Material3.CardView.Filled"/>
-
-    <style name="MainNavigationView">
+    <style name="PreferenceThemeOverlay" parent="BasePreferenceThemeOverlay">
+        <item name="preferenceCategoryTitleTextColor">?attr/colorPrimary</item>
+        <item name="switchPreferenceStyle">@style/Preference.SwitchPreferenceMaterial</item>
     </style>
 
-    <style name="KdeConnectButton.IconButton" parent="Widget.Material3.Button.IconButton.Filled">
+    <style name="Preference.SwitchPreferenceMaterial" parent="Preference.SwitchPreference.Material">
+        <item name="android:widgetLayout">@layout/preference_widget_material_switch</item>
+    </style>
+
+    <style name="PocketLinkCardStyle" parent="@style/Widget.Material3.CardView.Elevated"/>
+
+    <style name="PocketLinkCardStyle.Filled" parent="@style/Widget.Material3.CardView.Filled"/>
+    <style name="PocketLinkButton.IconButton" parent="Widget.Material3.Button.IconButton.Filled">
         <item name="iconGravity">textStart</item>
-        <item name="cornerRadius">24dp</item>
+        <item name="cornerRadius">@dimen/pocketlink_corner_large</item>
+        <item name="android:minHeight">@dimen/pocketlink_min_touch_target</item>
     </style>
 
-    <style name="KdeConnectButton.IconButton.Secondary" parent="Widget.Material3.Button.IconButton.Filled.Tonal">
+    <style name="PocketLinkButton.IconButton.Secondary" parent="Widget.Material3.Button.IconButton.Filled.Tonal">
         <item name="iconGravity">textStart</item>
-        <item name="cornerRadius">12dp</item>
-    </style>
-
-    <style name="ActionModeStyle" parent="Widget.AppCompat.ActionMode">
+        <item name="cornerRadius">@dimen/pocketlink_corner_medium</item>
+        <item name="android:minHeight">@dimen/pocketlink_min_touch_target</item>
     </style>
     <style name="Theme.Transparent" parent="@style/Theme.AppCompat.NoActionBar">
         <item name="android:windowIsTranslucent">true</item>
@@ -62,20 +110,5 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowIsFloating">true</item>
         <item name="android:backgroundDimEnabled">false</item>
-    </style>
-
-    <style name="AboutButton">
-        <item name="android:layout_width">84dp</item>
-        <item name="android:layout_height">84dp</item>
-        <item name="android:layout_margin">4dp</item>
-        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
-    </style>
-    <style name="AboutButton.TextView">
-        <item name="android:layout_width">84dp</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_gravity">center</item>
-        <item name="android:drawablePadding">4dp</item>
-        <item name="android:gravity">center</item>
-        <item name="android:textSize">12sp</item>
     </style>
 </resources>

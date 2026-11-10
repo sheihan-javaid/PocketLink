@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-  <string name="kde_connect">KDE Connect</string>
+  <string name="kde_connect">PocketLink</string>
   <string name="manifest_label_share">שליחה למכשיר</string>
   <string name="foreground_notification_no_devices">לא מחובר לאף מכשיר</string>
   <string name="foreground_notification_devices">מחובר אל: %s</string>
@@ -22,7 +22,6 @@
   <string name="clipboard_preference_summary_skip_sensitive">לא לסנכרן אוטומטית סיסמאות או תוכן אחר שסומן כרגיש</string>
   <string name="pref_plugin_mousepad">שליטה מרחוק</string>
   <string name="pref_plugin_mousepad_desc_nontv">להשתמש בטלפון או במחשב הלוח כמשטח מגע ומקלדת</string>
-  <string name="pref_plugin_mousepad_desc_tv">להשתמש בטלפון או במחשב הלוח כשלט לטלוויזיה</string>
   <string name="pref_plugin_presenter">מצב מצגת</string>
   <string name="pref_plugin_presenter_desc">שימוש במכשיר שלך כדי לעבור בין שקפים במצגת</string>
   <string name="pref_plugin_remotekeyboard_ime">מקלט מקלדת (דרך מקלדת Android)</string>
@@ -46,19 +45,18 @@
   <string name="pref_plugin_inputdevicesreceiver_desc">שיתוף עכבר ומקלדת עם מכשירים מרוחקים</string>
   <string name="device_list_empty">אין התקנים</string>
   <string name="ok">אישור</string>
-  <string name="sad_ok">בסדר :(</string>
   <string name="cancel">ביטול</string>
   <string name="open_settings">פתיחת הגדרות</string>
   <string name="open_accessibility_settings">פתיחת הגדרות נגישות</string>
   <string name="open_input_settings">פתיחת הגדרות מקלדת</string>
   <string name="no_permissions">צריך להעניק הרשאת לגישה להתראות</string>
   <string name="no_permission_mprisreceiver">כדי לאפשר לשלוט בנגני המדיה שלך צריך להעניק גישה להתראות</string>
-  <string name="no_permissions_remotekeyboard_ime">כדי לקבל לחיצות מקשים צריך להפעיל את המקלדת המרוחקת של KDE Connect כשיטת קלט של Android</string>
+  <string name="no_permissions_remotekeyboard_ime">כדי לקבל לחיצות מקשים צריך להפעיל את המקלדת המרוחקת של PocketLink כשיטת קלט של Android</string>
   <string name="no_permissions_remotekeyboard_accessibility">כדי לקבל לחיצות מקשים צריך להעניק הרשאת נגישות</string>
   <string name="send_ping">שליחת פינג</string>
   <string name="open_mpris_controls">בקרת מדיה</string>
   <string name="remotekeyboard_editing_only_title">השתמש במקשים מרוחקים רק בעת עריכה</string>
-  <string name="remotekeyboard_not_connected">אין מקלדת מרוחקת מופעלת, יש להפעיל אחת ב־kdeconnect</string>
+  <string name="remotekeyboard_not_connected">אין מקלדת מרוחקת מופעלת, יש להפעיל אחת ב־PocketLink</string>
   <string name="remotekeyboard_connected">חיבור המקדלת המרוחקת פעיל</string>
   <string name="remotekeyboard_multiple_connections">ישנן כמה מקלדות מרוחקות מחוברות, נא לבחור את המכשיר להגדרה</string>
   <string name="open_mousepad">שליטה מרחוק</string>
@@ -118,7 +116,6 @@
   <string name="mouse_receiver_plugin_name">מקלט עכבר</string>
   <string name="mouse_receiver_no_permissions">כדי לקבל קלט מגע מרחוק יש להעניק הרשאות נגישות</string>
   <string name="mouse_keyboard_receiver_service_description">קבלת קלט תנועות עכבר ומקלדת מרוחק</string>
-  <string name="view_status_title">מצב</string>
   <string name="battery_status_format">סוללה: %d%%</string>
   <string name="battery_status_low_format">סוללה: %d%% סוללה חלשה</string>
   <string name="battery_status_charging_format">סוללה: %d%% נטענת</string>
@@ -132,7 +129,6 @@
   <string name="unknown_device">מכשיר לא ידוע</string>
   <string name="unknown_sender">מוען לא ידוע</string>
   <string name="error_not_reachable">המכשיר לא זמין</string>
-  <string name="error_already_paired">המכשיר כבר מצומד</string>
   <string name="error_timed_out">נגמר הזמן</string>
   <string name="error_clocks_not_match">שעוני המכשירים לא תואמים</string>
   <string name="error_canceled_by_user">בוטל על ידי המשתמש</string>
@@ -142,6 +138,10 @@
   <string name="remote_device_fingerprint">טביעת אצבע ב־SHA256 של אישור המכשיר המרוחק היא:</string>
   <string name="pair_requested">התקבלה בקשת צימוד</string>
   <string name="pair_succeeded">הצימוד הצליח</string>
+  <string name="pairing_verification_code_title">קוד אימות</string>
+  <string name="pairing_compare_verification_code">השוו את הקוד הזה בשני המכשירים לפני קבלת הבקשה.</string>
+  <string name="pairing_waiting_for_device">ממתין ש־%1$s יאשר את הבקשה.</string>
+  <string name="pairing_trusted_device">המכשיר שויך אל %1$s. המכשיר הזה מהימן כעת.</string>
   <string name="pairing_request_from">בקשת צימוד מאת ‚%1s’</string>
   <plurals name="incoming_file_title">
     <item quantity="one">התקבל קובץ %1$d מהמכשיר %2$s</item>
@@ -194,7 +194,6 @@
   <string name="tap_to_open">להקיש לפתיחה</string>
   <string name="received_file_text">נקישה לפתיחת ‚%1s’</string>
   <string name="cannot_create_file">לא ניתן ליצור את הקובץ %s</string>
-  <string name="tap_to_answer">נקישה למענה</string>
   <string name="left_click">שליחת לחיצה ימנית</string>
   <string name="right_click">שליחת לחיצה ימנית</string>
   <string name="middle_click">שליחת לחיצה אמצעית (גלגלת)</string>
@@ -228,7 +227,7 @@
   </string-array>
   <string name="mpris_notifications_explanation">צריך הרשאת התראות כדי להציג מדיה מרוחק במגירת ההתראות</string>
   <string name="mpris_notification_settings_title">הצגת התראות בקרת מדיה</string>
-  <string name="mpris_notification_settings_summary">לאפשר שליטה בנגני המדיה שלך מבלי לפתוח את KDE Connect</string>
+  <string name="mpris_notification_settings_summary">לאפשר שליטה בנגני המדיה שלך מבלי לפתוח את PocketLink</string>
   <string name="share_to">שיתוף אל…</string>
   <string name="unreachable_device_dynamic_shortcut">%s (✕)</string>
   <string name="unreachable_device_url_share_text">כתובות שותפו להתקן בלתי נגיש והן תועברנה אליו ברגע שישוב להיות נגיש.\n\n</string>
@@ -243,7 +242,6 @@
   <string name="custom_device_list">הוספת מכשירים לפי IP</string>
   <string name="custom_device_deleted">מכשיר מותאם אישית נמחק</string>
   <string name="custom_device_list_help">אם המכשיר שלך לא מזוהה אוטומטית אפשר להוסיף את כתובת ה־IP או את שם המארח שלו בלחיצה על הכפתור שלהלן</string>
-  <string name="custom_device_fab_hint">הוספת מכשיר</string>
   <string name="undo">החזרה</string>
   <string name="share_notification_preference">התראות רועשות</string>
   <string name="share_notification_preference_summary">להפעיל רטט וצלצול בעת קבלת קובץ</string>
@@ -269,7 +267,7 @@
   <string name="sftp_action_mode_menu_delete">מחיקה</string>
   <string name="sftp_no_storage_locations_configured">לא מוגדר מקום אחסון</string>
   <string name="sftp_saf_permission_explanation">כדי לגשת לקבצים מרחוק צריך להגדיר מקומות אחסון</string>
-  <string name="sftp_manage_storage_permission_explanation">כדי לאפשר גישה מרחוק לקבצים במכשיר הזה צריך לאשר ל־KDE Connect לנהל את האחסון.</string>
+  <string name="sftp_manage_storage_permission_explanation">כדי לאפשר גישה מרחוק לקבצים במכשיר הזה צריך לאשר ל־PocketLink לנהל את האחסון.</string>
   <string name="sftp_missing_permission_error">חסרה הרשאה: גישה למערכת הקבצים</string>
   <string name="no_players_connected">לא נמצאו נגנים</string>
   <string name="send_files">שליחת קובץ</string>
@@ -278,8 +276,6 @@
   <string name="digitizer_preference_title_hide_draw_button">הסתרת כפתור הציור</string>
   <string name="digitizer_preference_summary_hide_draw_button">הסתרת כפתור הציור לחלוטין, מה שמאפשר לצייר עם האצבע. יש להפעיל את זה רק אם המכשיר שלך תומך בקלט עט מגע.</string>
   <string name="digitizer_preference_title_draw_button_side">הצג של כפתור „ציור עם האצבע”</string>
-  <string name="digitizer_preference_title_enable_exit_fullscreen_gesture">הפעלת מחוות יציאה ממסך מלא</string>
-  <string name="digitizer_preference_summary_enable_exit_fullscreen_gesture">אם האפשרות פעילה, נקישה והחזקה על לוח הציור עם האצבע שלך תצא ממצב מסך מלא.</string>
   <string-array name="digitizer_preference_entries_draw_button_side">
     <item>שמאל למעלה</item>
     <item>ימין למעלה</item>
@@ -288,7 +284,7 @@
   </string-array>
   <string name="block_notification_contents">חסימת תוכן התראות</string>
   <string name="block_notification_images">חסימת תמונות בהתראות</string>
-  <string name="pairing_title">מכשירי KDE Connect</string>
+  <string name="pairing_title">מכשירי PocketLink</string>
   <string name="pairing_description">מכשירים אחרים שמריצים KDE Connect ברשת הנוכחית צריכים להופיע פה.</string>
   <string name="device_rename_title">שינוי שם מכשיר</string>
   <string name="device_rename_confirm">שינוי שם</string>
@@ -299,8 +295,6 @@
   <string name="no_file_browser">לא מותקנים מנהלי קבצים.</string>
   <string name="pref_plugin_telepathy">שליחת מסרון</string>
   <string name="pref_plugin_telepathy_desc">שליחת הודעות מהמחשב שלך</string>
-  <string name="pref_plugin_telepathy_mms">שליחת MMS</string>
-  <string name="pref_plugin_telepathy_mms_desc">כדי לאפשר שליחת MMS מ־KDE Connect צריך להגדיר אותו כיישומון המסרונים כברירת המחדל.</string>
   <string name="findmyphone_title">איתור הטלפון שלי</string>
   <string name="findmyphone_title_tablet">איתור מחשב הלוח שלי</string>
   <string name="findmyphone_title_tv">איתור הטלוויזיה שלי</string>
@@ -308,11 +302,8 @@
   <string name="findmyphone_found">מצאתי</string>
   <string name="open">פתיחה</string>
   <string name="close">סגירה</string>
-  <string name="plugins_need_permission">חלק מהתוספים צריכים הרשאות כדי לעבור (לגעת למידע נוסף):</string>
   <string name="permission_explanation">תוסף זה צריך הרשאות כדי לעבוד</string>
-  <string name="all_permissions_granted">כל ההרשאות הוענקו 🎉</string>
   <string name="optional_permission_explanation">יש להעניק הרשאות נוספות כדי להפעיל את כל היכולות</string>
-  <string name="plugins_need_optional_permission">חלק מיכולות התוספים מושבתות עקב העדר הרשאה (לגעת למידע נוסף):</string>
   <string name="share_optional_permission_explanation">כדי לקבל קבצים צריך לאפשר גישה לאחסון</string>
   <string name="share_notifications_explanation">כדי לצפות בהתקדמות שליחת וקבלת קבצים צריך לאשר הרשאות</string>
   <string name="telepathy_permission_explanation">כדי לקרוא ולכתוב מסרונים משולחן העבודה שלך צריך לתת הרשאות למסרונים</string>
@@ -323,11 +314,8 @@
   <string name="select_ringtone">בחירת צלצול</string>
   <string name="telephony_pref_blocked_title">מספרים חסומים</string>
   <string name="telephony_pref_blocked_dialog_desc">לא להציג שיחות מהמספרים האלה. נא לציין מספר טלפון אחד בכל שורה</string>
-  <string name="mpris_coverart_description">עטיפת האלבום של המדיה הנוכחית</string>
-  <string name="settings_icon_description">סמל הגדרות</string>
   <string name="presenter_fullscreen">מסך מלא</string>
   <string name="presenter_exit">יציאה ממצגת</string>
-  <string name="presenter_lock_tip">אפשר לנעול את המכשיר שלך ולהשתמש במקשי עוצמת השמע כדי לעבור לשקופית הקודמת/הבאה</string>
   <string name="add_command">הוספת פקודה</string>
   <string name="addcommand_explanation">לא נרשמו פקודות</string>
   <string name="addcommand_explanation2">אפשר להוסיף פקודות חדשות בהגדרות המערכת של KDE Connect</string>
@@ -363,8 +351,7 @@
   <string name="all">הכול</string>
   <string name="devices">מכשירים</string>
   <string name="settings_rename">שם המכשיר</string>
-  <string name="settings_dark_mode">ערכת עיצוב כהה</string>
-  <string name="settings_export_logs">ייצוא היומנים של KDE Connect</string>
+  <string name="settings_export_logs">ייצוא היומנים של PocketLink</string>
   <string name="settings_export_logs_text">ליצור קובץ עם פרטי הפעלה שיכול לסייע בפתרון תקלות.</string>
   <string name="settings_more_settings_title">הגדרות נוספות</string>
   <string name="settings_more_settings_text">אפשר למצוא הגדרות נקודתיות למכשיר תחת ‚הגדרות תוסף’ מתוך המכשיר.</string>
@@ -379,7 +366,7 @@
   <string name="notification_channel_receivenotification">התראות ממכשירים אחרים</string>
   <string name="findmyphone_preference_title_flashlight">הבהוב במבזק</string>
   <string name="no_app_for_opening">לא נמצא יישומון מתאים לפתיחת הקובץ הזה</string>
-  <string name="remote_keyboard_service">מקלדת מרוחקת של KDE Connect</string>
+  <string name="remote_keyboard_service">מקלדת מרוחקת של PocketLink</string>
   <string name="presenter_pointer">מצביע</string>
   <string name="trusted_networks">רשתות מהימנות</string>
   <string name="trusted_networks_desc">הגבלת גילוי אוטומטי לרשתות מוכרות</string>
@@ -387,9 +374,8 @@
   <string name="empty_trusted_networks_list_text">עדיין לא הוספת רשתות מהימנות</string>
   <string name="allow_all_networks_text">לאפשר הכול</string>
   <string name="location_permission_needed_title">נדרשת הרשאה</string>
-  <string name="bluetooth_permission_needed_desc">KDE Connect זקוק להרשאה להתחבר להתקנים קרובים כדי שהתקנים שצומדו עם בלוטות׳ יהיו זמינים ב־KDE Connect.</string>
-  <string name="location_permission_needed_desc">KDE Connect צריך הרשאת איתור מקום ברקע כדי לדעת לאיזו רשת אלחוטית התחברת, אפילו אם היישום ברקע. מצב זה נחוץ כיוון ששם הרשתות האלחוטיות מסביבך יכולים לשמש לאיתור המקום שלך, אפילו אם זה לא מה ש־KDE Connect תוכנן לעשות.</string>
-  <string name="clipboard_android_x_incompat">ב־Android 10 הוסרה הגישה ללוח הגזירים לכל היישומונים. התוסף הזה יושבת.</string>
+  <string name="bluetooth_permission_needed_desc">PocketLink זקוק להרשאה להתחבר להתקנים קרובים כדי שהתקנים שצומדו עם בלוטות׳ יהיו זמינים ב־PocketLink.</string>
+  <string name="location_permission_needed_desc">PocketLink צריך הרשאת איתור מקום ברקע כדי לדעת לאיזו רשת אלחוטית התחברת, אפילו אם היישום ברקע. מצב זה נחוץ כיוון ששם הרשתות האלחוטיות מסביבך יכולים לשמש לאיתור המקום שלך, אפילו אם זה לא מה ש־PocketLink תוכנן לעשות.</string>
   <string name="mpris_open_url">להמשיך לנגן מכאן</string>
   <string name="cant_open_url">לא ניתן לפתוח כתובת להמשיך לנגן</string>
   <string name="bigscreen_home">בית</string>
@@ -402,13 +388,8 @@
   <string name="bigscreen_back">חזרה</string>
   <string name="bigscreen_mic">מיקרופון</string>
   <string name="pref_plugin_bigscreen">שלט לטלוויזיה</string>
-  <string name="pref_plugin_bigscreen_desc">אפשר להשתמש במכשיר שלך כשלט ל־Bigscreen פלזמה</string>
   <string name="bigscreen_optional_permission_explanation">כדי לשתף קלט מיקרופון מהטלפון שלך צריך לתת הרשאת גישה לקלט השמע של הטלפון</string>
   <string name="bigscreen_speech_extra_prompt">דיבור</string>
-  <string name="message_reply_label">תגובה</string>
-  <string name="mark_as_read_label">סימון כנקרא</string>
-  <string name="user_display_name">אני</string>
-  <string name="set_default_sms_app_title">שליחת MMS</string>
   <string name="set_group_message_as_mms_title">שליחת MMS קבוצתי</string>
   <string name="set_long_text_as_mms_title">שליחת הודעות ארוכות כ־MMS</string>
   <string name="convert_to_mms_after_title">המרה ל־MMS</string>
@@ -437,17 +418,11 @@
   <string name="website">אתר</string>
   <string name="about">על אודות</string>
   <string name="authors">יוצרים</string>
-  <string name="thanks_to">תודות</string>
   <string name="easter_egg">ביצת פסחא</string>
-  <string name="email_contributor">שליחת דוא״ל למתנדב\n%s</string>
-  <string name="visit_contributors_homepage">ביקור באתר המתנדב\n%s</string>
   <string name="version">גרסה %s</string>
   <string name="about_kde">על KDE</string>
   <string name="kde_be_free">KDE - להרגיש את החופש!</string>
-  <string name="kde">KDE</string>
   <string name="konqi">Konqi</string>
-  <string name="rise_up">הבלחה למעלה</string>
-  <string name="rise_down">הבלחה למטה</string>
   <string name="click_here_to_type">יש לגעת כדי להקליד</string>
   <string name="clear_compose">פינוי</string>
   <string name="send_compose">שליחה</string>
@@ -474,7 +449,6 @@
   <string name="send_clipboard">שליחת לוח גזירים</string>
   <string name="tap_to_execute">נגיעה תפעיל</string>
   <string name="plugin_stats">סטטיסטיקת תוספים</string>
-  <string name="enable_udp_broadcast">הפעלת גילוי מכשירים ב־UDP</string>
   <string name="enable_bluetooth">הפעלת בלוטות׳ (בטא)</string>
   <string name="receive_notifications_permission_explanation">יש לאשר התראות כדי לקבל אותן במכשירים אחרים</string>
   <string name="findmyphone_notifications_explanation">הרשאת ההתראות נחוצה כדי שהטלפון יצלצל גם אם היישומון ברקע</string>
@@ -502,4 +476,39 @@
   <string name="runcommand_clear_output">איפוס הפלט</string>
   <string name="pref_mpris_volume_control_title">מקשי עוצמת שמע חומרתיים</string>
   <string name="pref_mpris_volume_control_summary">אפשר לשלוט בעוצמת השמע של המכשיר המחובר באמצעות כפתורי החומרה של הטלפון הזה.</string>
+
+    <string name="category_share_transfer">שיתוף והעברה</string>
+    <string name="category_control_computer">שליטה במחשב</string>
+    <string name="category_media_audio">מדיה ושמע</string>
+    <string name="category_device_info">פרטי המכשיר</string>
+    <string name="category_item_count_format">%1$d מתוך %2$d</string>
+    <string name="category_plugins_count_format">%1$d תוספים</string>
+    <string name="attention_feature_needs_permission">תכונה אחת (%1$d) דורשת הרשאה</string>
+    <string name="attention_features_need_permission">%1$d תכונות דורשות הרשאות</string>
+    <string name="attention_optional_permissions">הרשאות נוספות זמינות (%1$d)</string>
+    <string name="attention_tap_to_review">הקש לבדיקה ולהענקת גישה</string>
+    <string name="attention_pending_count">%1$d ממתינים</string>
+    <string name="manage_plugins_title">ניהול תוספים</string>
+    <string name="manage_plugins_summary">%1$d מתוך %2$d תוספים מופעלים</string>
+    <string name="manage_plugins_summary_with_disabled">%1$d מתוך %2$d מופעלים · %3$d מושבתים</string>
+    <string name="manage_plugins_search_hint">חיפוש תוספים…</string>
+    <string name="manage_plugins_search_description">חיפוש</string>
+    <string name="manage_plugins_clear_search">נקה חיפוש</string>
+    <string name="manage_plugins_no_results">אין תוספים התואמים ל-"%1$s"</string>
+    <string name="manage_plugins_grant_permission">הענק הרשאה</string>
+    <string name="manage_plugins_optional_permission">הרשאה אופציונלית</string>
+    <string name="manage_plugins_back">חזרה ללוח הבקרה</string>
+    <string name="now_playing">מתנגן כעת</string>
+    <string name="permission_badge">הרשאה</string>
+    <string name="battery_charging">בטעינה</string>
+    <string name="battery_discharging">בפריקה</string>
+    <string name="volume_muted_desc">מושתק. הקש לביטול השתקה.</string>
+    <string name="volume_low_desc">עוצמת שמע נמוכה, %1$d אחוז. הקש להשתקה.</string>
+    <string name="volume_normal_desc">עוצמת שמע, %1$d אחוז. הקש להשתקה.</string>
+    <string name="quick_action_send_files">שלח קבצים</string>
+    <string name="quick_action_clipboard">לוח גזירים</string>
+    <string name="quick_action_remote_input">קלט מרחוק</string>
+    <string name="quick_action_ring_device">צלצל</string>
+    <string name="quick_action_run_command">הפעל פקודה</string>
+    <string name="quick_action_presenter">מציג</string>
 </resources>

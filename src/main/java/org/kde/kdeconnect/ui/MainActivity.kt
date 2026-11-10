@@ -37,7 +37,7 @@ import androidx.preference.PreferenceManager
 import com.google.android.material.navigation.NavigationView
 import org.kde.kdeconnect.BackgroundService
 import org.kde.kdeconnect.Device
-import org.kde.kdeconnect.KdeConnect
+import org.kde.kdeconnect.PocketLink
 import org.kde.kdeconnect.extensions.setOnApplyWindowInsetsListenerCompat
 import org.kde.kdeconnect.helpers.DeviceHelper
 import org.kde.kdeconnect.ui.about.AboutFragment
@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
             BackgroundService.ForceRefreshConnections(this)
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && results[Manifest.permission.POST_NOTIFICATIONS] == true) {
-            KdeConnect.getInstance().reloadAllDevicePlugins()
+            PocketLink.getInstance().reloadAllDevicePlugins()
         }
         if (results.containsValue(true)) {
             // If PairingFragment is active, update its permissions header
@@ -252,7 +252,7 @@ class MainActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
     private fun onPairResultFromNotification(deviceId: String?, pairStatus: String): String? {
         assert(deviceId != null)
         if (pairStatus != PAIRING_PENDING) {
-            val device = KdeConnect.getInstance().getDevice(deviceId)
+            val device = PocketLink.getInstance().getDevice(deviceId)
             if (device == null) {
                 Log.w(TAG, "Reject pairing - device no longer exists: $deviceId")
                 return null
@@ -289,7 +289,7 @@ class MainActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
         mMapMenuToDeviceId.clear()
         val devicesMenu = menu.addSubMenu(R.string.devices)
         var id = MENU_ENTRY_DEVICE_FIRST_ID
-        val devices: Collection<Device> = KdeConnect.getInstance().devices.values
+        val devices: Collection<Device> = PocketLink.getInstance().devices.values
         for (device in devices) {
             if (device.isReachable && device.isPaired) {
                 val item = devicesMenu.add(Menu.FIRST, id++, 1, device.name)
@@ -318,7 +318,7 @@ class MainActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
     override fun onStart() {
         super.onStart()
         BackgroundService.ForceRefreshConnections(applicationContext)
-        KdeConnect.getInstance().addDeviceListChangedCallback("MainActivity") { runOnUiThread { updateDeviceList() } }
+        PocketLink.getInstance().addDeviceListChangedCallback("MainActivity") { runOnUiThread { updateDeviceList() } }
         updateDeviceList()
         onBackPressedDispatcher.addCallback(mainFragmentCallback)
         onBackPressedDispatcher.addCallback(closeDrawerCallback)
@@ -326,7 +326,7 @@ class MainActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
     }
 
     override fun onStop() {
-        KdeConnect.getInstance().removeDeviceListChangedCallback("MainActivity")
+        PocketLink.getInstance().removeDeviceListChangedCallback("MainActivity")
         mainFragmentCallback.remove()
         closeDrawerCallback.remove()
         super.onStop()

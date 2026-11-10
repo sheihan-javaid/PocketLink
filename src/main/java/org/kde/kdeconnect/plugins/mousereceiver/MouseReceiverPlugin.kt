@@ -10,7 +10,7 @@ import android.os.Build
 import android.provider.Settings
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.DialogFragment
-import org.kde.kdeconnect.KdeConnectAccessibilityService
+import org.kde.kdeconnect.PocketLinkAccessibilityService
 import org.kde.kdeconnect.NetworkPacket
 import org.kde.kdeconnect.plugins.Plugin
 import org.kde.kdeconnect.plugins.PluginFactory.LoadablePlugin
@@ -24,7 +24,7 @@ import kotlin.math.floor
 @RequiresApi(api = Build.VERSION_CODES.N)
 class MouseReceiverPlugin : Plugin() {
     override fun checkRequiredPermissions(): Boolean {
-        return KdeConnectAccessibilityService.instance != null
+        return PocketLinkAccessibilityService.instance != null
     }
 
     override val permissionExplanationDialog: DialogFragment
@@ -60,52 +60,52 @@ class MouseReceiverPlugin : Plugin() {
 
         when {
             isSingleClick -> {
-                KdeConnectAccessibilityService.instance?.click()
+                PocketLinkAccessibilityService.instance?.click()
             }
             isDoubleClick -> { // left & right
-                KdeConnectAccessibilityService.instance?.performGlobalAction(AccessibilityService.GLOBAL_ACTION_RECENTS)
+                PocketLinkAccessibilityService.instance?.performGlobalAction(AccessibilityService.GLOBAL_ACTION_RECENTS)
             }
             isMiddleClick -> {
-                KdeConnectAccessibilityService.instance?.performGlobalAction(AccessibilityService.GLOBAL_ACTION_HOME)
+                PocketLinkAccessibilityService.instance?.performGlobalAction(AccessibilityService.GLOBAL_ACTION_HOME)
             }
             isRightClick -> if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.BAKLAVA) {
-                KdeConnectAccessibilityService.instance?.performGlobalAction(AccessibilityService.GLOBAL_ACTION_MENU)
+                PocketLinkAccessibilityService.instance?.performGlobalAction(AccessibilityService.GLOBAL_ACTION_MENU)
             } else {
-                KdeConnectAccessibilityService.instance?.performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK)
+                PocketLinkAccessibilityService.instance?.performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK)
             }
             isForwardClick -> {
-                KdeConnectAccessibilityService.instance?.performGlobalAction(AccessibilityService.GLOBAL_ACTION_RECENTS)
+                PocketLinkAccessibilityService.instance?.performGlobalAction(AccessibilityService.GLOBAL_ACTION_RECENTS)
             }
             isBackClick -> {
-                KdeConnectAccessibilityService.instance?.performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK)
+                PocketLinkAccessibilityService.instance?.performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK)
             }
             isSingleHold -> {
                 // For drag'n drop
                 // Log.i("MouseReceiverPlugin", "singleHold")
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    KdeConnectAccessibilityService.instance?.longClickSwipe()
+                    PocketLinkAccessibilityService.instance?.longClickSwipe()
                 } else {
-                    KdeConnectAccessibilityService.instance?.longClick()
+                    PocketLinkAccessibilityService.instance?.longClick()
                 }
             }
             isSingleRelease -> {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    return KdeConnectAccessibilityService.instance?.stopSwipe() ?: false
+                    return PocketLinkAccessibilityService.instance?.stopSwipe() ?: false
                 }
             }
             isScroll -> {
                 // Log.i("MouseReceiverPlugin", "scroll dx: $dx dy: $dy")
-                KdeConnectAccessibilityService.instance?.scroll(dx, dy) // dx is always 0
+                PocketLinkAccessibilityService.instance?.scroll(dx, dy) // dx is always 0
             }
             dx != 0 || dy != 0 -> {
-                KdeConnectAccessibilityService.instance?.move(dx, dy)
+                PocketLinkAccessibilityService.instance?.move(dx, dy)
             }
             x != 0 || y != 0 -> {
-                KdeConnectAccessibilityService.instance?.setPos(x, y)
+                PocketLinkAccessibilityService.instance?.setPos(x, y)
             }
             !np.has("dx") && !np.has("dy") && !np.has("x") && !np.has("y") -> {
                 // No coordinates => hide pointer (we are on a different screen)
-                KdeConnectAccessibilityService.instance?.hide(0)
+                PocketLinkAccessibilityService.instance?.hide(0)
             }
         }
         return true

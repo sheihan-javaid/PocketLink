@@ -40,13 +40,11 @@
   <string name="device_menu_unpair">Razdvoji</string>
   <string name="unknown_device">Nepoznat uređaj</string>
   <string name="error_not_reachable">Uređaj nije dostupan</string>
-  <string name="error_already_paired">Uređaj već uparen</string>
   <string name="error_timed_out">Isteklo</string>
   <string name="error_canceled_by_user">Prekinuo korisnik</string>
   <string name="error_canceled_by_other_peer">Prekinuo drugi korisnik</string>
   <string name="pair_requested">Uparivanje zatraženo</string>
   <string name="received_file_text">Kucni za otvaranje \'%1s\'</string>
-  <string name="tap_to_answer">Kucni za odgovor</string>
   <string name="right_click">Pošalji Desni Klik</string>
   <string name="middle_click">Pošalji Srednji Klik</string>
   <string name="show_keyboard">Pokaži Tastaturu</string>
@@ -101,4 +99,43 @@
     <item/>
     <item>Dark</item>
   </string-array>
+  <string name="pairing_verification_code_title">Verifikacijski kod</string>
+  <string name="pairing_compare_verification_code">Uporedite ovaj kod na oba uređaja prije prihvatanja.</string>
+  <string name="pairing_waiting_for_device">Čeka se da %1$s prihvati zahtjev.</string>
+  <string name="pairing_trusted_device">Upareno s %1$s. Ovaj uređaj je sada pouzdan.</string>
+
+    <string name="category_share_transfer">Dijeljenje i prijenos</string>
+    <string name="category_control_computer">Upravljanje računarom</string>
+    <string name="category_media_audio">Mediji i zvuk</string>
+    <string name="category_device_info">Informacije o uređaju</string>
+    <string name="category_item_count_format">%1$d od %2$d</string>
+    <string name="category_plugins_count_format">%1$d priključaka</string>
+    <string name="attention_feature_needs_permission">%1$d funkcija zahtijeva dozvolu</string>
+    <string name="attention_features_need_permission">%1$d funkcija zahtijeva dozvole</string>
+    <string name="attention_optional_permissions">Dostupne dodatne dozvole (%1$d)</string>
+    <string name="attention_tap_to_review">Dodirnite za pregled i odobravanje pristupa</string>
+    <string name="attention_pending_count">%1$d na čekanju</string>
+    <string name="manage_plugins_title">Upravljanje priključcima</string>
+    <string name="manage_plugins_summary">Omogućeno %1$d od %2$d priključaka</string>
+    <string name="manage_plugins_summary_with_disabled">Omogućeno %1$d od %2$d priključaka · %3$d onemogućeno</string>
+    <string name="manage_plugins_search_hint">Pretraži priključke…</string>
+    <string name="manage_plugins_search_description">Pretraga</string>
+    <string name="manage_plugins_clear_search">Očisti pretragu</string>
+    <string name="manage_plugins_no_results">Nijedan priključak ne odgovara „%1$s“</string>
+    <string name="manage_plugins_grant_permission">Dodijeli dozvolu</string>
+    <string name="manage_plugins_optional_permission">Opcionalna dozvola</string>
+    <string name="manage_plugins_back">Nazad na kontrolnu tablu</string>
+    <string name="now_playing">Trenutno se reproducira</string>
+    <string name="permission_badge">Dozvola</string>
+    <string name="battery_charging">Puni se</string>
+    <string name="battery_discharging">Prazni se</string>
+    <string name="volume_muted_desc">Utišano. Dodirnite za uključivanje zvuka.</string>
+    <string name="volume_low_desc">Niska jačina, %1$d posto. Dodirnite za utišavanje.</string>
+    <string name="volume_normal_desc">Jačina, %1$d posto. Dodirnite za utišavanje.</string>
+    <string name="quick_action_send_files">Pošalji datoteke</string>
+    <string name="quick_action_clipboard">Međuspremnik</string>
+    <string name="quick_action_remote_input">Udaljeni unos</string>
+    <string name="quick_action_ring_device">Pozvoni</string>
+    <string name="quick_action_run_command">Izvrši naredbu</string>
+    <string name="quick_action_presenter">Prezenter</string>
 </resources>

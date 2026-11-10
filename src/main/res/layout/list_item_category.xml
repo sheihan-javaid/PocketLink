@@ -18,9 +18,10 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:drawablePadding="4dp"
-        android:paddingLeft="16dip"
-        android:paddingRight="16dip"
-        android:textSize="16sp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:textAppearance="?attr/textAppearanceTitleSmall"
+        android:textColor="?attr/colorPrimary"
         tools:text="Header" />
 
     <TextView
@@ -28,9 +29,10 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_margin="10dip"
+        android:layout_margin="10dp"
         android:text="@string/device_list_empty"
-        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textAppearance="?attr/textAppearanceBodyMedium"
+        android:textColor="?attr/colorOnSurfaceVariant"
         android:visibility="gone" />
 
 </LinearLayout>

@@ -120,7 +120,7 @@ class Device : PacketReceiver {
         this.context = context
         this.deviceInfo = DeviceInfo.loadFromSettings(context, deviceId)
         this.pairingHandler = PairingHandler(this, createDefaultPairingCallback(), PairingHandler.PairState.Paired)
-        this.supportedPlugins = PluginFactory.availablePlugins // Assume all are supported until we receive capabilities
+        this.supportedPlugins = PluginFactory.availablePlugins - "ReceiveNotificationsPlugin" // Assume all are supported until we receive capabilities
         Log.i("Device", "Loading trusted device: ${deviceInfo.name}")
     }
 
@@ -133,7 +133,7 @@ class Device : PacketReceiver {
         this.context = context
         this.deviceInfo = link.deviceInfo
         this.pairingHandler = PairingHandler(this, createDefaultPairingCallback(), PairingHandler.PairState.NotPaired)
-        this.supportedPlugins = PluginFactory.availablePlugins // Assume all are supported until we receive capabilities
+        this.supportedPlugins = PluginFactory.availablePlugins - "ReceiveNotificationsPlugin" // Assume all are supported until we receive capabilities
         Log.i("Device", "Creating untrusted device: ${deviceInfo.name}")
         addLink(link)
     }
@@ -431,7 +431,7 @@ class Device : PacketReceiver {
             supportedPlugins = PluginFactory.pluginsForCapabilities(
                 newIncomingCapabilities,
                 newOutgoingCapabilities
-            )
+            ) - "ReceiveNotificationsPlugin"
         }
 
         return hasChanges
@@ -657,11 +657,13 @@ class Device : PacketReceiver {
     }
 
     fun setPluginEnabled(pluginKey: String, value: Boolean) {
+        if (pluginKey == "ReceiveNotificationsPlugin") return
         TrustedDevices.getDeviceSettings(context, deviceId).edit { putBoolean(pluginKey, value) }
         reloadPluginsFromSettings()
     }
 
     fun isPluginEnabled(pluginKey: String): Boolean {
+        if (pluginKey == "ReceiveNotificationsPlugin") return false
         val enabledByDefault = PluginFactory.getPluginInfo(pluginKey).isEnabledByDefault
         return TrustedDevices.getDeviceSettings(context, deviceId).getBoolean(pluginKey, enabledByDefault)
     }

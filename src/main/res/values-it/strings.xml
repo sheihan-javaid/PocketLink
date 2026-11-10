@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-  <string name="kde_connect">KDE Connect</string>
+  <string name="kde_connect">PocketLink</string>
   <string name="manifest_label_share">Invia al dispositivo</string>
   <string name="foreground_notification_no_devices">Non connesso ad alcun dispositivo</string>
   <string name="foreground_notification_devices">Connesso a: %s</string>
@@ -22,7 +22,6 @@
   <string name="clipboard_preference_summary_skip_sensitive">Non sincronizzare automaticamente le password o altri contenuti contrassegnati come sensibili</string>
   <string name="pref_plugin_mousepad">Impulso remoto</string>
   <string name="pref_plugin_mousepad_desc_nontv">Usa il tuo telefono o tablet come touchpad e tastiera</string>
-  <string name="pref_plugin_mousepad_desc_tv">Usa il tuo telefono o tablet come telecomando della TV</string>
   <string name="pref_plugin_presenter">Presentazione remota</string>
   <string name="pref_plugin_presenter_desc">Utilizza il tuo dispositivo per cambiare le diapositive in una presentazione</string>
   <string name="pref_plugin_remotekeyboard_ime">Ricevitore della tastiera (tramite tastiera Android)</string>
@@ -46,19 +45,18 @@
   <string name="pref_plugin_inputdevicesreceiver_desc">Condividi mouse e tastiera con il dispositivo remoto</string>
   <string name="device_list_empty">Nessun dispositivo</string>
   <string name="ok">OK</string>
-  <string name="sad_ok">OK :(</string>
   <string name="cancel">Annulla</string>
   <string name="open_settings">Apri impostazioni</string>
   <string name="open_accessibility_settings">Apri le impostazioni di accessibilità</string>
   <string name="open_input_settings">Apri le impostazioni della tastiera</string>
   <string name="no_permissions">Devi concedere i permessi per l\'accesso alle notifiche</string>
   <string name="no_permission_mprisreceiver">Per poter controllare i tuoi lettori multimediali devi accordare l\'accesso alle notifiche</string>
-  <string name="no_permissions_remotekeyboard_ime">Per ricevere la pressione dei tasti è necessario attivare la tastiera remota di KDE Connect come metodo di input di Android</string>
+  <string name="no_permissions_remotekeyboard_ime">Per ricevere la pressione dei tasti è necessario attivare la tastiera remota di PocketLink come metodo di input di Android</string>
   <string name="no_permissions_remotekeyboard_accessibility">Per ricevere la pressione dei tasti è necessario concedere le autorizzazioni di accessibilità</string>
   <string name="send_ping">Invia ping</string>
   <string name="open_mpris_controls">Controllo multimediale</string>
   <string name="remotekeyboard_editing_only_title">Gestisci i tasti remoti solo durante la modifica</string>
-  <string name="remotekeyboard_not_connected">Non c\'è una connessione attiva della tastiera remota, stabiliscine una da kdeconnect</string>
+  <string name="remotekeyboard_not_connected">Non c\'è una connessione attiva della tastiera remota, stabiliscine una da PocketLink</string>
   <string name="remotekeyboard_connected">La connessione della tastiera remota è attiva</string>
   <string name="remotekeyboard_multiple_connections">Ci sono più connessioni di tastiere remote, seleziona il dispositivo da configurare</string>
   <string name="open_mousepad">Impulso remoto</string>
@@ -118,7 +116,6 @@
   <string name="mouse_receiver_plugin_name">Ricevitore del mouse</string>
   <string name="mouse_receiver_no_permissions">Per ricevere input tattili da remoto è necessario concedere le autorizzazioni di accessibilità</string>
   <string name="mouse_keyboard_receiver_service_description">Ricevi i movimenti del mouse e inserimento da tastiera in remoto</string>
-  <string name="view_status_title">Stato</string>
   <string name="battery_status_format">Batteria: %d%%</string>
   <string name="battery_status_low_format">Batteria: %d%% livello basso</string>
   <string name="battery_status_charging_format">Batteria: %d%% in carica</string>
@@ -132,7 +129,6 @@
   <string name="unknown_device">Dispositivo sconosciuto</string>
   <string name="unknown_sender">Mittente sconosciuto</string>
   <string name="error_not_reachable">Dispositivo fuori portata</string>
-  <string name="error_already_paired">Dispositivo già associato</string>
   <string name="error_timed_out">Richiesta scaduta</string>
   <string name="error_clocks_not_match">Gli orologi dei dispositivi non sono sincronizzati</string>
   <string name="error_canceled_by_user">Annullata dall\'utente</string>
@@ -142,6 +138,10 @@
   <string name="remote_device_fingerprint">L\'impronta digitale SHA256 del certificato del dispositivo remoto è:</string>
   <string name="pair_requested">Richiesta di associazione</string>
   <string name="pair_succeeded">Associazione riuscita</string>
+  <string name="pairing_verification_code_title">Codice di verifica</string>
+  <string name="pairing_compare_verification_code">Confronta questo codice su entrambi i dispositivi prima di accettare.</string>
+  <string name="pairing_waiting_for_device">In attesa che %1$s accetti la richiesta.</string>
+  <string name="pairing_trusted_device">Associato con %1$s. Questo dispositivo è ora attendibile.</string>
   <string name="pairing_request_from">Richiesta di associazione da «%1s»</string>
   <plurals name="incoming_file_title">
     <item quantity="one">Ricezione di %1$d file da %2$s</item>
@@ -178,7 +178,6 @@
   <string name="tap_to_open">Tocca per aprire</string>
   <string name="received_file_text">Tocca per aprire «%1s»</string>
   <string name="cannot_create_file">Impossibile creare il file %s</string>
-  <string name="tap_to_answer">Tocca per rispondere</string>
   <string name="left_click">Invia clic tasto sinistro</string>
   <string name="right_click">Invia clic tasto destro</string>
   <string name="middle_click">Invia clic tasto centrale</string>
@@ -212,7 +211,7 @@
   </string-array>
   <string name="mpris_notifications_explanation">L\'autorizzazione alle notifiche è necessaria per mostrare i media remoti nel riquadro delle notifiche</string>
   <string name="mpris_notification_settings_title">Mostra la notifica del controllo multimediale</string>
-  <string name="mpris_notification_settings_summary">Consenti di controllare i lettori multimediali senza aprire KDE Connect</string>
+  <string name="mpris_notification_settings_summary">Consenti di controllare i lettori multimediali senza aprire PocketLink</string>
   <string name="share_to">Condividi con…</string>
   <string name="unreachable_device_dynamic_shortcut">%s (✕)</string>
   <string name="unreachable_device_url_share_text">Gli URL condivisi su un dispositivo irraggiungibile saranno recapitati una volta che sarà tornato raggiungibile.\n\n</string>
@@ -227,7 +226,6 @@
   <string name="custom_device_list">Aggiungi dispositivi per IP</string>
   <string name="custom_device_deleted">Dispositivo personalizzato eliminato</string>
   <string name="custom_device_list_help">Se il tuo dispositivo non è rilevato automaticamente, puoi aggiungere il suo indirizzo IP o il nome host facendo clic sul pulsante seguente</string>
-  <string name="custom_device_fab_hint">Aggiungi un dispositivo</string>
   <string name="undo">Annulla</string>
   <string name="share_notification_preference">Notifiche rumorose</string>
   <string name="share_notification_preference_summary">Vibra e riproduci un suono alla ricezione di un file</string>
@@ -253,7 +251,7 @@
   <string name="sftp_action_mode_menu_delete">Elimina</string>
   <string name="sftp_no_storage_locations_configured">Nessuna posizione di archiviazione configurata</string>
   <string name="sftp_saf_permission_explanation">Per accedere da remoto ai file, devi configurare posizioni di archiviazione</string>
-  <string name="sftp_manage_storage_permission_explanation">Per consentire l\'accesso remoto ai file su questo dispositivo devi consentire a KDE Connect di gestire l\'archiviazione.</string>
+  <string name="sftp_manage_storage_permission_explanation">Per consentire l\'accesso remoto ai file su questo dispositivo devi consentire a PocketLink di gestire l\'archiviazione.</string>
   <string name="sftp_missing_permission_error">Permessi mancanti: accesso al file system</string>
   <string name="sftp_could_not_determine_ip">Impossibile determinare l\'indirizzo IP locale</string>
   <string name="no_players_connected">Nessun lettore trovato</string>
@@ -263,8 +261,6 @@
   <string name="digitizer_preference_title_hide_draw_button">Nascondi il pulsante di disegno</string>
   <string name="digitizer_preference_summary_hide_draw_button">Nasconde completamente il pulsante di disegno, rendendo impossibile disegnare con le dita. Abilita questa opzione solo se il tuo dispositivo supporta l\'input tramite stilo.</string>
   <string name="digitizer_preference_title_draw_button_side">Lato del pulsante «Disegna con il dito»</string>
-  <string name="digitizer_preference_title_enable_exit_fullscreen_gesture">Abilita il gesto di uscita a schermo intero</string>
-  <string name="digitizer_preference_summary_enable_exit_fullscreen_gesture">Se abilitata, toccando e tenendo premuto il dito sul tavolo da disegno, la modalità a schermo intero sarà disattivata.</string>
   <string-array name="digitizer_preference_entries_draw_button_side">
     <item>In alto a sinistra</item>
     <item>In alto a destra</item>
@@ -273,7 +269,7 @@
   </string-array>
   <string name="block_notification_contents">Blocca i contenuti delle notifiche</string>
   <string name="block_notification_images">Blocca le immagini nelle notifiche</string>
-  <string name="pairing_title">Dispositivi KDE Connect</string>
+  <string name="pairing_title">Dispositivi PocketLink</string>
   <string name="pairing_description">Altri dispositivi che eseguono KDE Connect nella tua stessa rete dovrebbero apparire qui.</string>
   <string name="device_rename_title">Rinomina dispositivo</string>
   <string name="device_rename_confirm">Rinomina</string>
@@ -284,8 +280,6 @@
   <string name="no_file_browser">Non ci sono navigatori di file installati.</string>
   <string name="pref_plugin_telepathy">Invia SMS</string>
   <string name="pref_plugin_telepathy_desc">Invia messaggi di testo dal tuo desktop</string>
-  <string name="pref_plugin_telepathy_mms">Invia MMS</string>
-  <string name="pref_plugin_telepathy_mms_desc">Per poter inviare MMS da KDE Connect, devi impostarlo come applicazione di SMS predefinita.</string>
   <string name="findmyphone_title">Trova il mio telefono</string>
   <string name="findmyphone_title_tablet">Trova il mio tablet</string>
   <string name="findmyphone_title_tv">Trova il mio televisore</string>
@@ -293,11 +287,8 @@
   <string name="findmyphone_found">Trovato</string>
   <string name="open">Apri</string>
   <string name="close">Chiudi</string>
-  <string name="plugins_need_permission">Alcune estensioni hanno bisogno di permessi per funzionare (tocca per maggiori informazioni):</string>
   <string name="permission_explanation">Questa estensione ha bisogno di permessi per funzionare</string>
-  <string name="all_permissions_granted">Tutti i permessi accordati 🎉</string>
   <string name="optional_permission_explanation">Devi concedere permessi aggiuntivi per abilitare tutte le funzioni</string>
-  <string name="plugins_need_optional_permission">Alcune estensioni hanno funzioni disabilitate per una mancanza di permessi (tocca per maggiori informazioni):</string>
   <string name="share_optional_permission_explanation">Per ricevere i file devi consentire l\'accesso allo spazio di archiviazione</string>
   <string name="share_notifications_explanation">Per vedere lo stato di avanzamento durante l\'invio e la ricezione di file è necessario consentire le notifiche</string>
   <string name="telepathy_permission_explanation">Per leggere e scrivere SMS dal tuo desktop, devi concedere l\'autorizzazione per SMS</string>
@@ -308,11 +299,8 @@
   <string name="select_ringtone">Seleziona una suoneria</string>
   <string name="telephony_pref_blocked_title">Numeri bloccati</string>
   <string name="telephony_pref_blocked_dialog_desc">Non mostrare le chiamate provenienti da questi numeri. Indica un numero per riga</string>
-  <string name="mpris_coverart_description">Copertina del media attuale</string>
-  <string name="settings_icon_description">Icona impostazioni</string>
   <string name="presenter_fullscreen">Schermo intero</string>
   <string name="presenter_exit">Esci dalla presentazione</string>
-  <string name="presenter_lock_tip">Puoi bloccare il tuo dispositivo e utilizzare i tasti del volume per scorrere le diapositive</string>
   <string name="add_command">Aggiungi un comando</string>
   <string name="addcommand_explanation">Non ci sono comandi registrati</string>
   <string name="addcommand_explanation2">Puoi aggiungere nuovi comandi nelle impostazioni di sistema di KDE Connect</string>
@@ -348,8 +336,7 @@
   <string name="all">Tutto</string>
   <string name="devices">Dispositivi</string>
   <string name="settings_rename">Nome dispositivo</string>
-  <string name="settings_dark_mode">Tema scuro</string>
-  <string name="settings_export_logs">Esporta i registri di KDE Connect</string>
+  <string name="settings_export_logs">Esporta i registri di PocketLink</string>
   <string name="settings_export_logs_text">Genera un file con informazioni di esecuzione che possono aiutare a risolvere i problemi.</string>
   <string name="settings_more_settings_title">Altre impostazioni</string>
   <string name="settings_more_settings_text">Le impostazioni per dispositivo sono disponibili sotto «Impostazioni estensioni» dall\'interno del dispositivo.</string>
@@ -364,7 +351,7 @@
   <string name="notification_channel_receivenotification">Notifiche da altri dispositivi</string>
   <string name="findmyphone_preference_title_flashlight">Fai lampeggiare la torcia</string>
   <string name="no_app_for_opening">Nessuna applicazione appropriata trovata per aprire questo file</string>
-  <string name="remote_keyboard_service">Tastiera remota di KDE Connect</string>
+  <string name="remote_keyboard_service">Tastiera remota di PocketLink</string>
   <string name="presenter_pointer">Puntatore</string>
   <string name="trusted_networks">Reti affidabili</string>
   <string name="trusted_networks_desc">Limita il rilevamento automatico alle reti conosciute</string>
@@ -372,9 +359,8 @@
   <string name="empty_trusted_networks_list_text">Non hai aggiunto ancora alcuna rete affidabile</string>
   <string name="allow_all_networks_text">Consenti tutte</string>
   <string name="location_permission_needed_title">Permesso richiesto</string>
-  <string name="bluetooth_permission_needed_desc">KDE Connect necessita dell\'autorizzazione per connettersi ai dispositivi nelle vicinanze per rendere disponibili in KDE Connect i dispositivi associati tramite Bluetooth.</string>
-  <string name="location_permission_needed_desc">KDE Connect necessita dell\'autorizzazione alla posizione in background per conoscere la rete Wi-Fi a cui sei connesso anche quando l\'applicazione è in esecuzione sullo sfondo. Questo perché il nome delle reti Wi-Fi nelle tue vicinanze potrebbe essere utilizzata per trovare la tua posizione, anche se questo non è un utilizzo previsto da KDE Connect.</string>
-  <string name="clipboard_android_x_incompat">Android 10 ha rimosso l\'accesso agli appunti a tutte le applicazioni. Questa estensione sarà disabilitata.</string>
+  <string name="bluetooth_permission_needed_desc">PocketLink necessita dell\'autorizzazione per connettersi ai dispositivi nelle vicinanze per rendere disponibili in PocketLink i dispositivi associati tramite Bluetooth.</string>
+  <string name="location_permission_needed_desc">PocketLink necessita dell\'autorizzazione alla posizione in background per conoscere la rete Wi-Fi a cui sei connesso anche quando l\'applicazione è in esecuzione sullo sfondo. Questo perché il nome delle reti Wi-Fi nelle tue vicinanze potrebbe essere utilizzata per trovare la tua posizione, anche se questo non è un utilizzo previsto da PocketLink.</string>
   <string name="mpris_open_url">Continua qui la riproduzione</string>
   <string name="cant_open_url">Impossibile aprire l\'URL per continuare la riproduzione</string>
   <string name="bigscreen_home">Inizio</string>
@@ -387,13 +373,8 @@
   <string name="bigscreen_back">Indietro</string>
   <string name="bigscreen_mic">Mic</string>
   <string name="pref_plugin_bigscreen">Telecomando TV</string>
-  <string name="pref_plugin_bigscreen_desc">Utilizza il tuo dispositivo come telecomando per Plasma Bigscreen</string>
   <string name="bigscreen_optional_permission_explanation">Per condividere l\'ingresso del microfono dal telefono è necessario consentire l\'accesso all\'ingresso audio del telefono</string>
   <string name="bigscreen_speech_extra_prompt">Parlato</string>
-  <string name="message_reply_label">RISPONDI</string>
-  <string name="mark_as_read_label">MARCA COME LETTO</string>
-  <string name="user_display_name">Tu</string>
-  <string name="set_default_sms_app_title">Invia MMS</string>
   <string name="set_group_message_as_mms_title">Invia MMS di gruppo</string>
   <string name="set_long_text_as_mms_title">Invia testo lungo come MMS</string>
   <string name="convert_to_mms_after_title">Converti in MMS</string>
@@ -422,17 +403,11 @@
   <string name="website">Sito web</string>
   <string name="about">Informazioni</string>
   <string name="authors">Autori</string>
-  <string name="thanks_to">Ringraziamenti</string>
   <string name="easter_egg">Uovo di Pasqua</string>
-  <string name="email_contributor">Indirizzo email del collaboratore\n%s</string>
-  <string name="visit_contributors_homepage">Visita la pagina web del collaboratore\n%s</string>
   <string name="version">Versione %s</string>
   <string name="about_kde">Informazioni su KDE</string>
   <string name="kde_be_free">KDE - Vivi libero!</string>
-  <string name="kde">KDE</string>
   <string name="konqi">Konqi</string>
-  <string name="rise_up">Alza</string>
-  <string name="rise_down">Abbassa</string>
   <string name="click_here_to_type">Tocca qui per scrivere</string>
   <string name="clear_compose">Pulisci</string>
   <string name="send_compose">Invia</string>
@@ -459,7 +434,6 @@
   <string name="send_clipboard">Invia gli appunti</string>
   <string name="tap_to_execute">Tocca per eseguire</string>
   <string name="plugin_stats">Statistiche delle estensioni</string>
-  <string name="enable_udp_broadcast">Abilita rilevamento UDP dei dispositivi</string>
   <string name="enable_bluetooth">Abilita bluetooth (beta)</string>
   <string name="receive_notifications_permission_explanation">Le notifiche devono essere consentite per riceverle da altri dispositivi</string>
   <string name="findmyphone_notifications_explanation">L\'autorizzazione alle notifiche è necessaria affinché il telefono possa squillare quando l\'applicazione è sullo sfondo</string>
@@ -487,4 +461,39 @@
   <string name="runcommand_clear_output">Pulisci il risultato</string>
   <string name="pref_mpris_volume_control_title">Tasti hardware del volume</string>
   <string name="pref_mpris_volume_control_summary">Controlla il volume multimediale del dispositivo connesso utilizzando i pulsanti hardware di questo telefono</string>
+
+    <string name="category_share_transfer">Condivisione e trasferimento</string>
+    <string name="category_control_computer">Controllo del computer</string>
+    <string name="category_media_audio">Media e audio</string>
+    <string name="category_device_info">Informazioni sul dispositivo</string>
+    <string name="category_item_count_format">%1$d di %2$d</string>
+    <string name="category_plugins_count_format">%1$d estensioni</string>
+    <string name="attention_feature_needs_permission">%1$d funzionalità richiede permessi</string>
+    <string name="attention_features_need_permission">%1$d funzionalità richiedono permessi</string>
+    <string name="attention_optional_permissions">Ulteriori permessi disponibili (%1$d)</string>
+    <string name="attention_tap_to_review">Tocca per esaminare e concedere l\'accesso</string>
+    <string name="attention_pending_count">%1$d in sospeso</string>
+    <string name="manage_plugins_title">Gestisci estensioni</string>
+    <string name="manage_plugins_summary">%1$d di %2$d estensioni abilitate</string>
+    <string name="manage_plugins_summary_with_disabled">%1$d di %2$d estensioni abilitate · %3$d disabilitate</string>
+    <string name="manage_plugins_search_hint">Cerca estensioni…</string>
+    <string name="manage_plugins_search_description">Cerca</string>
+    <string name="manage_plugins_clear_search">Cancella ricerca</string>
+    <string name="manage_plugins_no_results">Nessuna estensione corrisponde a "%1$s"</string>
+    <string name="manage_plugins_grant_permission">Concedi permesso</string>
+    <string name="manage_plugins_optional_permission">Permesso facoltativo</string>
+    <string name="manage_plugins_back">Torna al pannello</string>
+    <string name="now_playing">In riproduzione</string>
+    <string name="permission_badge">Permesso</string>
+    <string name="battery_charging">In carica</string>
+    <string name="battery_discharging">In scarica</string>
+    <string name="volume_muted_desc">Silenziato. Tocca per riattivare l\'audio.</string>
+    <string name="volume_low_desc">Volume basso, %1$d percento. Tocca per silenziare.</string>
+    <string name="volume_normal_desc">Volume, %1$d percento. Tocca per silenziare.</string>
+    <string name="quick_action_send_files">Invia file</string>
+    <string name="quick_action_clipboard">Appunti</string>
+    <string name="quick_action_remote_input">Input remoto</string>
+    <string name="quick_action_ring_device">Fai squillare</string>
+    <string name="quick_action_run_command">Esegui comando</string>
+    <string name="quick_action_presenter">Presentatore</string>
 </resources>

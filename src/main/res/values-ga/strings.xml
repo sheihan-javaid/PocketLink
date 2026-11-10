@@ -51,4 +51,43 @@
     <item>Light</item>
     <item>Dark</item>
   </string-array>
+  <string name="pairing_verification_code_title">Cód fíoraithe</string>
+  <string name="pairing_compare_verification_code">Cuir an cód seo i gcomparáid ar an dá ghléas sula nglacfaidh tú leis.</string>
+  <string name="pairing_waiting_for_device">Ag fanacht le %1$s glacadh leis an iarratas.</string>
+  <string name="pairing_trusted_device">Péireáilte le %1$s. Tá muinín as an ngléas seo anois.</string>
+
+    <string name="category_share_transfer">Comhroinnt &amp; Aistriú</string>
+    <string name="category_control_computer">Rialaigh an Ríomhaire</string>
+    <string name="category_media_audio">Meáin &amp; Fuaim</string>
+    <string name="category_device_info">Eolas faoin nGléas</string>
+    <string name="category_item_count_format">%1$d as %2$d</string>
+    <string name="category_plugins_count_format">%1$d breiseán</string>
+    <string name="attention_feature_needs_permission">Teastaíonn cead ó ghné amháin (%1$d)</string>
+    <string name="attention_features_need_permission">Teastaíonn ceadanna ó %1$d gné</string>
+    <string name="attention_optional_permissions">Ceadanna breise ar fáil (%1$d)</string>
+    <string name="attention_tap_to_review">Tapáil chun athbhreithniú a dhéanamh agus rochtain a dheonú</string>
+    <string name="attention_pending_count">%1$d ar feitheamh</string>
+    <string name="manage_plugins_title">Bainistigh Breiseáin</string>
+    <string name="manage_plugins_summary">%1$d as %2$d breiseán cumasaithe</string>
+    <string name="manage_plugins_summary_with_disabled">%1$d as %2$d cumasaithe · %3$d díchumasaithe</string>
+    <string name="manage_plugins_search_hint">Cuardaigh breiseáin…</string>
+    <string name="manage_plugins_search_description">Cuardaigh</string>
+    <string name="manage_plugins_clear_search">Glan an cuardach</string>
+    <string name="manage_plugins_no_results">Ní mheaitseálann aon bhreiseán le "%1$s"</string>
+    <string name="manage_plugins_grant_permission">Deonaigh Cead</string>
+    <string name="manage_plugins_optional_permission">Cead Roghnach</string>
+    <string name="manage_plugins_back">Ar ais go dtí an painéal</string>
+    <string name="now_playing">Á Sheinm Anois</string>
+    <string name="permission_badge">Cead</string>
+    <string name="battery_charging">Ag luchtú</string>
+    <string name="battery_discharging">Ag díluchtú</string>
+    <string name="volume_muted_desc">Balbhaithe. Tapáil chun díbhalbhú.</string>
+    <string name="volume_low_desc">Airde íseal, %1$d faoin gcéad. Tapáil le balbhú.</string>
+    <string name="volume_normal_desc">Airde, %1$d faoin gcéad. Tapáil le balbhú.</string>
+    <string name="quick_action_send_files">Seol Comhaid</string>
+    <string name="quick_action_clipboard">Gearrthaisce</string>
+    <string name="quick_action_remote_input">Ionchur Cianda</string>
+    <string name="quick_action_ring_device">Cuir Fíochán</string>
+    <string name="quick_action_run_command">Rith Ordú</string>
+    <string name="quick_action_presenter">Láithreoir</string>
 </resources>

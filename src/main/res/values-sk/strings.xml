@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-  <string name="kde_connect">KDE Connect</string>
+  <string name="kde_connect">PocketLink</string>
   <string name="manifest_label_share">Odoslať do zariadenia</string>
   <string name="foreground_notification_no_devices">Nepripojené k žiadnemu zariadeniu</string>
   <string name="foreground_notification_devices">Pripojené k: %s</string>
@@ -22,7 +22,6 @@
   <string name="clipboard_preference_summary_skip_sensitive">Automaticky nesynchronizovať heslá ani iný obsah označený ako citlivý</string>
   <string name="pref_plugin_mousepad">Vzdialený vstup</string>
   <string name="pref_plugin_mousepad_desc_nontv">Použije váš telefón alebo tablet ako touchpad a klávesnicu</string>
-  <string name="pref_plugin_mousepad_desc_tv">Použije váš telefón alebo tablet ako touchpad a klávesnicu</string>
   <string name="pref_plugin_presenter">Diaľkové ovládanie obrazovky Bigscreen</string>
   <string name="pref_plugin_presenter_desc">Použije vaše zariadenie na zmenu snímok prezentácie</string>
   <string name="pref_plugin_remotekeyboard_ime">Prijímač klávesnice (cez klávesnicu Androidu)</string>
@@ -46,19 +45,18 @@
   <string name="pref_plugin_inputdevicesreceiver_desc">Vyvolanie preddefinovaných príkazov na vzdialenom zariadení</string>
   <string name="device_list_empty">Žiadne zariadenia</string>
   <string name="ok">OK</string>
-  <string name="sad_ok">OK :(</string>
   <string name="cancel">Zrušiť</string>
   <string name="open_settings">Otvoriť nastavenia</string>
   <string name="open_accessibility_settings">Otvoriť nastavenia prístupnosti</string>
   <string name="open_input_settings">Otvoriť nastavenia klávesnice</string>
   <string name="no_permissions">Musíte udeliť oprávnenia na prístup k upozorneniam</string>
   <string name="no_permission_mprisreceiver">Aby ste mohli ovládať multimediálne prehrávače, musíte udeliť prístup k upozorneniam</string>
-  <string name="no_permissions_remotekeyboard_ime">Na prijímanie stlačení klávesov musíte aktivovať vzdialenú klávesnicu KDE Connect ako metódu vstupu Androidu</string>
+  <string name="no_permissions_remotekeyboard_ime">Na prijímanie stlačení klávesov musíte aktivovať vzdialenú klávesnicu PocketLink ako metódu vstupu Androidu</string>
   <string name="no_permissions_remotekeyboard_accessibility">Na prijímanie stlačení klávesov musíte udeliť oprávnenia Prístupnosti</string>
   <string name="send_ping">Odoslať ping</string>
   <string name="open_mpris_controls">Multimediálny ovládač</string>
   <string name="remotekeyboard_editing_only_title">Spracovať vzdialené klávesy iba počas upravovania</string>
-  <string name="remotekeyboard_not_connected">Nie je žiadne aktívne pripojenie k vzdialenej klávesnici. Vytvorte nejaké v aplikácii kdeconnect</string>
+  <string name="remotekeyboard_not_connected">Nie je žiadne aktívne pripojenie k vzdialenej klávesnici. Vytvorte nejaké v aplikácii PocketLink</string>
   <string name="remotekeyboard_connected">Pripojenie k vzdialenej klávesnici je aktívne</string>
   <string name="remotekeyboard_multiple_connections">Je dostupných viac pripojení k vzdialeným klávesniciam, vyberte zariadenie na nastavenie</string>
   <string name="open_mousepad">Vzdialený vstup</string>
@@ -118,7 +116,6 @@
   <string name="mouse_receiver_plugin_name">Prijímač myši</string>
   <string name="mouse_receiver_no_permissions">Na prijímanie dotykových vstupov na diaľku musíte udeliť oprávnenia Prístupnosti</string>
   <string name="mouse_keyboard_receiver_service_description">Prijímanie pohybu vzdialenej myši a vstupu z klávesnice</string>
-  <string name="view_status_title">Stav</string>
   <string name="battery_status_format">Batéria: %d%%</string>
   <string name="battery_status_low_format">Batéria: %d%% Nízka úroveň batérie</string>
   <string name="battery_status_charging_format">Batéria: %d%% nabíja sa</string>
@@ -132,7 +129,6 @@
   <string name="unknown_device">Neznáme zariadenie</string>
   <string name="unknown_sender">Neznámy odosielateľ</string>
   <string name="error_not_reachable">Zariadenie nie je dosiahnuteľné</string>
-  <string name="error_already_paired">Zariadenie je už spárované</string>
   <string name="error_timed_out">Čas vypršal</string>
   <string name="error_clocks_not_match">Hodiny zariadení nie sú synchronizované</string>
   <string name="error_canceled_by_user">Zrušené používateľom</string>
@@ -142,6 +138,10 @@
   <string name="remote_device_fingerprint">Odtlačok SHA256 certifikátu vzdialeného zariadenia je:</string>
   <string name="pair_requested">Spárovanie vyžiadané</string>
   <string name="pair_succeeded">Spárovanie vyžiadané</string>
+  <string name="pairing_verification_code_title">Overovací kód</string>
+  <string name="pairing_compare_verification_code">Pred prijatím porovnajte tento kód na oboch zariadeniach.</string>
+  <string name="pairing_waiting_for_device">Čaká sa, kým %1$s prijme požiadavku.</string>
+  <string name="pairing_trusted_device">Spárované so zariadením %1$s. Toto zariadenie je teraz dôveryhodné.</string>
   <string name="pairing_request_from">Požiadavka na spárovanie zo zariadenia %1s</string>
   <plurals name="incoming_file_title">
     <item quantity="one">Prijíma sa %1$d súbor z %2$s</item>
@@ -194,7 +194,6 @@
   <string name="tap_to_open">Ťuknutím otvoríte</string>
   <string name="received_file_text">Ťuknutím otvoríte súbor \"%1s\"</string>
   <string name="cannot_create_file">Nedá sa vytvoriť súbor %s</string>
-  <string name="tap_to_answer">Ťuknutím odpoviete</string>
   <string name="left_click">Odoslať kliknutie pravým tlačidlom</string>
   <string name="right_click">Odoslať kliknutie pravým tlačidlom</string>
   <string name="middle_click">Odoslať kliknutie stredným tlačidlom</string>
@@ -228,7 +227,7 @@
   </string-array>
   <string name="mpris_notifications_explanation">Oprávnenie na oznámenia je potrebné na zobrazenie vzdialených médií v zásuvke oznámení</string>
   <string name="mpris_notification_settings_title">Zobraziť upozornenie ovládania médií</string>
-  <string name="mpris_notification_settings_summary">Umožní ovládanie vašich multimediálnych prehrávačov bez otvorenia aplikácie KDE Connect</string>
+  <string name="mpris_notification_settings_summary">Umožní ovládanie vašich multimediálnych prehrávačov bez otvorenia aplikácie PocketLink</string>
   <string name="share_to">Zdieľať do…</string>
   <string name="unreachable_device_dynamic_shortcut">%s (✕)</string>
   <string name="unreachable_device_url_share_text">URL adresy zdieľané s nedostupným zariadením mu budú doručené, akonáhle sa stane dostupným.\n\n</string>
@@ -243,7 +242,6 @@
   <string name="custom_device_list">Pridať zariadenia podľa adries IP</string>
   <string name="custom_device_deleted">Vlastné zariadenie odstránené</string>
   <string name="custom_device_list_help">Ak vaše zariadenie nie je automaticky zistené, môžete pridať jeho adresu IP alebo názov hostiteľa kliknutím na plávajúce tlačidlo</string>
-  <string name="custom_device_fab_hint">Pridať zariadenie</string>
   <string name="undo">Vrátiť späť</string>
   <string name="share_notification_preference">Hlučné upozornenia</string>
   <string name="share_notification_preference_summary">Vibrovať a prehrať zvuk pri prijatí súboru</string>
@@ -269,7 +267,7 @@
   <string name="sftp_action_mode_menu_delete">Odstrániť</string>
   <string name="sftp_no_storage_locations_configured">Nie sú nastavené žiadne umiestnenia úložísk</string>
   <string name="sftp_saf_permission_explanation">Na vzdialený prístup k súborom musíte nastaviť umiestnenia úložísk</string>
-  <string name="sftp_manage_storage_permission_explanation">Na povolenie vzdialeného prístupu k súborom na tomto zariadení musíte povoliť KDE Connect spravovať úložisko.</string>
+  <string name="sftp_manage_storage_permission_explanation">Na povolenie vzdialeného prístupu k súborom na tomto zariadení musíte povoliť PocketLink spravovať úložisko.</string>
   <string name="sftp_missing_permission_error">Chýbajúce oprávnenia: prístup k súborovému systému</string>
   <string name="sftp_could_not_determine_ip">Nepodarilo sa zistiť lokálnu IP adresu</string>
   <string name="no_players_connected">Nenašli sa žiadne prehrávače</string>
@@ -279,8 +277,6 @@
   <string name="digitizer_preference_title_hide_draw_button">Skryť tlačidlo kreslenia</string>
   <string name="digitizer_preference_summary_hide_draw_button">Úplne skryje tlačidlo kreslenia, čím znemožní kreslenie prstom. Povoľte toto iba ak vaše zariadenie podporuje vstup perom.</string>
   <string name="digitizer_preference_title_draw_button_side">Strana tlačidla „Kresliť prstom“</string>
-  <string name="digitizer_preference_title_enable_exit_fullscreen_gesture">Povoliť gesto na ukončenie celej obrazovky</string>
-  <string name="digitizer_preference_summary_enable_exit_fullscreen_gesture">Ak je povolené, ťuknutie a podržanie prsta na kresliace ploché vypne režim celej obrazovky.</string>
   <string-array name="digitizer_preference_entries_draw_button_side">
     <item>Vľavo hore</item>
     <item>Vpravo hore</item>
@@ -289,7 +285,7 @@
   </string-array>
   <string name="block_notification_contents">Blokovať obrázky v upozorneniach</string>
   <string name="block_notification_images">Blokovať obrázky v upozorneniach</string>
-  <string name="pairing_title">Zariadenia aplikácie KDE Connect</string>
+  <string name="pairing_title">Zariadenia aplikácie PocketLink</string>
   <string name="pairing_description">Tu by sa mali objaviť iné zariadenie so spustenou aplikáciou KDE Connect v rovnakej sieti.</string>
   <string name="device_rename_title">Premenovanie zariadenia</string>
   <string name="device_rename_confirm">Premenovať</string>
@@ -300,8 +296,6 @@
   <string name="no_file_browser">Nie sú nainštalované žiadne prehliadače.</string>
   <string name="pref_plugin_telepathy">Odoslať SMS</string>
   <string name="pref_plugin_telepathy_desc">Odosielanie textových správ z vášho počítača</string>
-  <string name="pref_plugin_telepathy_mms">Odoslať MMS</string>
-  <string name="pref_plugin_telepathy_mms_desc">Aby ste mohli odosielať MMS z KDE Connect, musíte ho nastaviť ako predvolenú aplikáciu SMS.</string>
   <string name="findmyphone_title">Nájsť môj telefón</string>
   <string name="findmyphone_title_tablet">Nájsť môj tablet</string>
   <string name="findmyphone_title_tv">Nájsť môj televízor</string>
@@ -309,11 +303,8 @@
   <string name="findmyphone_found">Nájdené</string>
   <string name="open">Otvoriť</string>
   <string name="close">Zavrieť</string>
-  <string name="plugins_need_permission">Niektoré zásuvné moduly vyžadujú oprávnenia, aby mohli fungovať (ťuknutím získate viac informácií):</string>
   <string name="permission_explanation">Tento zásuvný modul vyžaduje oprávnenie, aby mohol fungovať</string>
-  <string name="all_permissions_granted">Všetky oprávnenia udelené 🎉</string>
   <string name="optional_permission_explanation">Musíte udeliť oprávnenia navyše, aby boli povolené všetky funkcie</string>
-  <string name="plugins_need_optional_permission">Niektoré zásuvné moduly majú zakázané funkcie, pretože im chýbajú oprávnenia (ťuknutím získate viac informácií):</string>
   <string name="share_optional_permission_explanation">Ak chcete prijímať zdieľané súbory, musíte zvoliť cieľový adresár</string>
   <string name="share_notifications_explanation">Na zobrazenie priebehu pri odosielaní a prijímaní súborov musíte povoliť oznámenia</string>
   <string name="telepathy_permission_explanation">Na čítanie a písanie SMS z vášho počítača, musíte udeliť oprávnenie k správam SMS</string>
@@ -324,11 +315,8 @@
   <string name="select_ringtone">Vybrať zvonenie</string>
   <string name="telephony_pref_blocked_title">Blokované čísla</string>
   <string name="telephony_pref_blocked_dialog_desc">Z týchto čísel sa nebudú zobrazovať hovory. Prosím, zadajte jedno číslo na riadok</string>
-  <string name="mpris_coverart_description">Obrázok obalu aktuálneho média</string>
-  <string name="settings_icon_description">Ikona nastavení</string>
   <string name="presenter_fullscreen">Na celú obrazovku</string>
   <string name="presenter_exit">Ukončiť prezentáciu</string>
-  <string name="presenter_lock_tip">Môžete uzamknúť vaše zariadenie a použiť klávesy hlasitosti na prechod na predchádzajúci a nasledujúci snímok</string>
   <string name="add_command">Pridať príkaz</string>
   <string name="addcommand_explanation">Nie sú registrované žiadne príkazy</string>
   <string name="addcommand_explanation2">Môžete pridať nové príkazy v systémových nastaveniach aplikácie KDE Connect</string>
@@ -364,8 +352,7 @@
   <string name="all">Všetko</string>
   <string name="devices">Zariadenia</string>
   <string name="settings_rename">Názov zariadenia</string>
-  <string name="settings_dark_mode">Tmavý motív</string>
-  <string name="settings_export_logs">Nastavenia KDE Connect</string>
+  <string name="settings_export_logs">Nastavenia PocketLink</string>
   <string name="settings_export_logs_text">Vygenerovať súbor s informáciami o vykonaní, ktorý môže pomôcť pri riešení problémov.</string>
   <string name="settings_more_settings_title">Viac nastavení</string>
   <string name="settings_more_settings_text">Nastavenia zariadenia môžete nájsť v ponuke \"Nastavenia zás. modulov\" pri každom zariadení.</string>
@@ -380,7 +367,7 @@
   <string name="notification_channel_receivenotification">Upozornenia z iných zariadení</string>
   <string name="findmyphone_preference_title_flashlight">Blikať baterkou</string>
   <string name="no_app_for_opening">Nenašla sa vhodná aplikácia na otvorenie tohto súboru</string>
-  <string name="remote_keyboard_service">KDE Connect Vzdialená Klávesnica</string>
+  <string name="remote_keyboard_service">PocketLink Vzdialená Klávesnica</string>
   <string name="presenter_pointer">Ukazovateľ</string>
   <string name="trusted_networks">Dôveryhodné siete</string>
   <string name="trusted_networks_desc">Obmedzí automatické objavovanie iba na známe siete</string>
@@ -388,9 +375,8 @@
   <string name="empty_trusted_networks_list_text">Zatiaľ ste nepridali žiadnu dôveryhodnú sieť</string>
   <string name="allow_all_networks_text">Povoliť všetky</string>
   <string name="location_permission_needed_title">Potrebné oprávnenia</string>
-  <string name="bluetooth_permission_needed_desc">KDE Connect potrebuje oprávnenie na pripojenie k blízkym zariadeniam, aby boli zariadenia spárované cez Bluetooth dostupné v KDE Connect.</string>
-  <string name="location_permission_needed_desc">KDE Connect potrebuje oprávnenie na polohu na pozadí, aby poznal WiFi sieť, ku ktorej ste pripojení, aj keď je aplikácia na pozadí. Je to preto, že názvy WiFi sietí vo vašom okolí by sa mohli použiť na zistenie vašej polohy, aj keď to nie je to, čo KDE Connect robí.</string>
-  <string name="clipboard_android_x_incompat">V systéme Android 10 je odstránený prístup k schránke pre všetky aplikácie. Tento zásuvný modul bude zakázaný.</string>
+  <string name="bluetooth_permission_needed_desc">PocketLink potrebuje oprávnenie na pripojenie k blízkym zariadeniam, aby boli zariadenia spárované cez Bluetooth dostupné v PocketLink.</string>
+  <string name="location_permission_needed_desc">PocketLink potrebuje oprávnenie na polohu na pozadí, aby poznal WiFi sieť, ku ktorej ste pripojení, aj keď je aplikácia na pozadí. Je to preto, že názvy WiFi sietí vo vašom okolí by sa mohli použiť na zistenie vašej polohy, aj keď to nie je to, čo PocketLink robí.</string>
   <string name="mpris_open_url">Pokračovať v prehrávaní tu</string>
   <string name="cant_open_url">Nedá sa otvoriť URL pre pokračovanie v prehrávaní</string>
   <string name="bigscreen_home">Domov</string>
@@ -403,13 +389,8 @@
   <string name="bigscreen_back">Späť</string>
   <string name="bigscreen_mic">Mikrofón</string>
   <string name="pref_plugin_bigscreen">TV diaľkový ovládač</string>
-  <string name="pref_plugin_bigscreen_desc">Použije vaše zariadenie ako diaľkové ovládanie obrazovky Plasma Bigscreen</string>
   <string name="bigscreen_optional_permission_explanation">Na zdieľanie mikrofónového vstupu z vášho telefónu musíte dať prístup k zvukovému vstupu telefónu</string>
   <string name="bigscreen_speech_extra_prompt">Reč</string>
-  <string name="message_reply_label">Odpovedať</string>
-  <string name="mark_as_read_label">Označiť ako prečítané</string>
-  <string name="user_display_name">Vy</string>
-  <string name="set_default_sms_app_title">Odoslať MMS</string>
   <string name="set_group_message_as_mms_title">Odoslať skupinovú MMS</string>
   <string name="set_long_text_as_mms_title">Poslať dlhý text ako MMS</string>
   <string name="convert_to_mms_after_title">Konvertovať na MMS</string>
@@ -438,17 +419,11 @@
   <string name="website">Webová stránka</string>
   <string name="about">O aplikácii</string>
   <string name="authors">Tvorcovia</string>
-  <string name="thanks_to">Poďakovanie</string>
   <string name="easter_egg">Veľkonočné vajíčko</string>
-  <string name="email_contributor">Odoslať email prispievateľovi\n%s</string>
-  <string name="visit_contributors_homepage">Navštíviť domovskú stránku prispievateľa\n%s</string>
   <string name="version">Verzia %s</string>
   <string name="about_kde">O prostredí KDE</string>
   <string name="kde_be_free">KDE - Buďte voľní!</string>
-  <string name="kde">KDE</string>
   <string name="konqi">Konqi</string>
-  <string name="rise_up">Povstať</string>
-  <string name="rise_down">Dole</string>
   <string name="click_here_to_type">Ťuknutím otvoríte</string>
   <string name="clear_compose">Vyčistiť</string>
   <string name="send_compose">Poslať</string>
@@ -475,7 +450,6 @@
   <string name="send_clipboard">Odoslať schránku</string>
   <string name="tap_to_execute">Ťuknutím otvoríte</string>
   <string name="plugin_stats">Nastavenia zás. modulu</string>
-  <string name="enable_udp_broadcast">Povoliť vyhľadávanie zariadení cez UDP</string>
   <string name="enable_bluetooth">Povoliť Bluetooth (beta)</string>
   <string name="receive_notifications_permission_explanation">Upozornenia z iných zariadení</string>
   <string name="findmyphone_notifications_explanation">Oprávnenie na oznámenia je potrebné, aby telefón mohol zvoniť, keď je aplikácia na pozadí</string>
@@ -503,4 +477,39 @@
   <string name="runcommand_clear_output">Vyčistiť výstup</string>
   <string name="pref_mpris_volume_control_title">Hardvérové klávesy hlasitosti</string>
   <string name="pref_mpris_volume_control_summary">Ovládať hlasitosť médií pripojeného zariadenia hardvérovými tlačidlami tohto telefónu</string>
+
+    <string name="category_share_transfer">Zdieľanie a prenos</string>
+    <string name="category_control_computer">Ovládanie počítača</string>
+    <string name="category_media_audio">Médiá a zvuk</string>
+    <string name="category_device_info">Informácie o zariadení</string>
+    <string name="category_item_count_format">%1$d z %2$d</string>
+    <string name="category_plugins_count_format">%1$d modulov</string>
+    <string name="attention_feature_needs_permission">%1$d funkcia vyžaduje oprávnenie</string>
+    <string name="attention_features_need_permission">%1$d funkcií vyžaduje oprávnenie</string>
+    <string name="attention_optional_permissions">Dostupné voliteľné oprávnenia (%1$d)</string>
+    <string name="attention_tap_to_review">Ťuknutím skontrolujte a udeľte prístup</string>
+    <string name="attention_pending_count">%1$d čaká</string>
+    <string name="manage_plugins_title">Spravovať moduly</string>
+    <string name="manage_plugins_summary">Povolených %1$d z %2$d modulov</string>
+    <string name="manage_plugins_summary_with_disabled">Povolených %1$d z %2$d modulov · %3$d zakázaných</string>
+    <string name="manage_plugins_search_hint">Hľadať moduly…</string>
+    <string name="manage_plugins_search_description">Hľadať</string>
+    <string name="manage_plugins_clear_search">Vymazať hľadanie</string>
+    <string name="manage_plugins_no_results">Žiadne moduly nezodpovedajú „%1$s“</string>
+    <string name="manage_plugins_grant_permission">Udeliť oprávnenie</string>
+    <string name="manage_plugins_optional_permission">Voliteľné oprávnenie</string>
+    <string name="manage_plugins_back">Späť na prehľad</string>
+    <string name="now_playing">Práve hrá</string>
+    <string name="permission_badge">Oprávnenie</string>
+    <string name="battery_charging">Nabíja sa</string>
+    <string name="battery_discharging">Vybíja sa</string>
+    <string name="volume_muted_desc">Stlmené. Ťuknutím zapnete zvuk.</string>
+    <string name="volume_low_desc">Nízka hlasitosť, %1$d percent. Ťuknutím stlmíte.</string>
+    <string name="volume_normal_desc">Hlasitosť, %1$d percent. Ťuknutím stlmíte.</string>
+    <string name="quick_action_send_files">Odoslať súbory</string>
+    <string name="quick_action_clipboard">Schránka</string>
+    <string name="quick_action_remote_input">Vzdialený vstup</string>
+    <string name="quick_action_ring_device">Prezvoniť</string>
+    <string name="quick_action_run_command">Spustiť príkaz</string>
+    <string name="quick_action_presenter">Prezentér</string>
 </resources>

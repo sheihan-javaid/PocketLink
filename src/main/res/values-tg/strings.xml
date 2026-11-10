@@ -54,4 +54,43 @@
     <item>Light</item>
     <item>Dark</item>
   </string-array>
+  <string name="pairing_verification_code_title">Рамзи тасдиқ</string>
+  <string name="pairing_compare_verification_code">Пеш аз қабул ин рамзро дар ҳар ду дастгоҳ муқоиса кунед.</string>
+  <string name="pairing_waiting_for_device">Интизори қабули дархост аз ҷониби %1$s.</string>
+  <string name="pairing_trusted_device">Бо %1$s пайваст шуд. Акнун ба ин дастгоҳ эътимод доранд.</string>
+
+    <string name="category_share_transfer">Мубодила ва интиқол</string>
+    <string name="category_control_computer">Идораи компютер</string>
+    <string name="category_media_audio">Медиа ва садо</string>
+    <string name="category_device_info">Маълумоти дастгоҳ</string>
+    <string name="category_item_count_format">%1$d аз %2$d</string>
+    <string name="category_plugins_count_format">%1$d васлкунак</string>
+    <string name="attention_feature_needs_permission">%1$d хусусият иҷозат мехоҳад</string>
+    <string name="attention_features_need_permission">%1$d хусусият иҷозатҳо мехоҳанд</string>
+    <string name="attention_optional_permissions">Иҷозатҳои иловагӣ дастрасанд (%1$d)</string>
+    <string name="attention_tap_to_review">Барои дидан ва додани иҷозат ламс кунед</string>
+    <string name="attention_pending_count">%1$d дар интизорӣ</string>
+    <string name="manage_plugins_title">Идораи васлкунакҳо</string>
+    <string name="manage_plugins_summary">%1$d аз %2$d васлкунак фаъол аст</string>
+    <string name="manage_plugins_summary_with_disabled">%1$d аз %2$d фаъол · %3$d ғайрифаъол</string>
+    <string name="manage_plugins_search_hint">Ҷустуҷӯи васлкунакҳо…</string>
+    <string name="manage_plugins_search_description">Ҷустуҷӯ</string>
+    <string name="manage_plugins_clear_search">Тоза кардани ҷустуҷӯ</string>
+    <string name="manage_plugins_no_results">Ҳеҷ васлкунак ба «%1$s» мувофиқат намекунад</string>
+    <string name="manage_plugins_grant_permission">Додани иҷозат</string>
+    <string name="manage_plugins_optional_permission">Иҷозати ихтиёрӣ</string>
+    <string name="manage_plugins_back">Бозгашт ба панел</string>
+    <string name="now_playing">Ҳоло садо медиҳад</string>
+    <string name="permission_badge">Иҷозат</string>
+    <string name="battery_charging">Дар ҳоли пуркунӣ</string>
+    <string name="battery_discharging">Дар ҳоли холӣ шудан</string>
+    <string name="volume_muted_desc">Бесадо. Барои фаъол кардани садо ламс кунед.</string>
+    <string name="volume_low_desc">Садои паст, %1$d фоиз. Барои бесадо кардан ламс кунед.</string>
+    <string name="volume_normal_desc">Баландии садо, %1$d фоиз. Барои бесадо кардан ламс кунед.</string>
+    <string name="quick_action_send_files">Фиристодани файлҳо</string>
+    <string name="quick_action_clipboard">Буфери мубодила</string>
+    <string name="quick_action_remote_input">Вуруди дурдаст</string>
+    <string name="quick_action_ring_device">Занг задан</string>
+    <string name="quick_action_run_command">Иҷрои фармон</string>
+    <string name="quick_action_presenter">Баранда</string>
 </resources>

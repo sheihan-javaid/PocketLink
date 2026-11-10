@@ -9,15 +9,14 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="@integer/mpris_now_playing_orientation"
-    android:paddingHorizontal="@dimen/activity_horizontal_margin"
-    android:paddingVertical="@dimen/activity_vertical_margin">
+    android:paddingHorizontal="@dimen/pocketlink_spacing_medium"
+    android:paddingVertical="@dimen/pocketlink_spacing_medium">
 
     <ImageView
         android:id="@+id/album_art"
         android:layout_width="@dimen/mpris_now_playing_album_width"
         android:layout_height="@dimen/mpris_now_playing_album_height"
-        android:layout_margin="25dp"
+        android:layout_margin="@dimen/pocketlink_spacing_medium"
         android:layout_weight="@integer/mpris_now_playing_album_weight"
         android:importantForAccessibility="no"
         android:scaleType="fitCenter" />

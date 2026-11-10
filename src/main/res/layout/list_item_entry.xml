@@ -28,7 +28,7 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
         android:singleLine="true"
         android:text=""
         tools:text="Item entry"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?attr/textAppearanceTitleMedium" />
 
     <TextView
         android:id="@+id/list_item_entry_summary"
@@ -36,8 +36,8 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
         android:layout_height="wrap_content"
         android:singleLine="true"
         android:text=""
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="@android:color/darker_gray"
+        android:textAppearance="?attr/textAppearanceBodyMedium"
+        android:textColor="?attr/colorOnSurfaceVariant"
         android:visibility="gone" />
 
 </LinearLayout>

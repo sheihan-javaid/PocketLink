@@ -13,7 +13,7 @@ import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputConnection
-import org.kde.kdeconnect.KdeConnect
+import org.kde.kdeconnect.PocketLink
 import org.kde.kdeconnect.NetworkPacket
 
 class KeyListenerView(
@@ -40,12 +40,12 @@ class KeyListenerView(
     override fun onCheckIsTextEditor(): Boolean = true
 
     fun sendChars(chars: CharSequence) {
-        KdeConnect.getInstance().getDevicePlugin<MousePadPlugin>(deviceId)
+        PocketLink.getInstance().getDevicePlugin<MousePadPlugin>(deviceId)
             ?.sendText(chars.toString())
     }
 
     private fun sendKeyPressPacket(np: NetworkPacket) {
-        KdeConnect.getInstance().getDevicePlugin<MousePadPlugin>(deviceId)
+        PocketLink.getInstance().getDevicePlugin<MousePadPlugin>(deviceId)
             ?.sendPacket(np)
     }
 
@@ -68,11 +68,6 @@ class KeyListenerView(
         // NOTE: Most keyboards, and specifically the Android default keyboard when
         // entering non-ascii characters, will not trigger KeyEvent events as documented
         // here: http://developer.android.com/reference/android/view/KeyEvent.html
-
-        // Log.e("KeyDown", "------------")
-        // Log.e("KeyDown", "keyChar:" + (int) event.getDisplayLabel())
-        // Log.e("KeyDown", "utfChar:" + (char)event.getUnicodeChar())
-        // Log.e("KeyDown", "intUtfChar:" + event.getUnicodeChar())
 
         val np = NetworkPacket(MousePadPlugin.PACKET_TYPE_MOUSEPAD_REQUEST)
 

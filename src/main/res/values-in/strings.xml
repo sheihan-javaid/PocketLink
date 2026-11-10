@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-  <string name="kde_connect">KDE Connect</string>
+  <string name="kde_connect">PocketLink</string>
   <string name="manifest_label_share">Kirim ke Peranti</string>
   <string name="foreground_notification_no_devices">Belum terhubung ke peranti apa pun</string>
   <string name="foreground_notification_devices">Terhubung ke: %s</string>
@@ -34,7 +34,6 @@
   <string name="pref_plugin_sharereceiver_desc">Berbagi file dan URL antara peranti</string>
   <string name="device_list_empty">Tidak ada peranti</string>
   <string name="ok">Oke</string>
-  <string name="sad_ok">Oke :(</string>
   <string name="cancel">Batal</string>
   <string name="open_settings">Buka pengaturan</string>
   <string name="no_permissions">Anda perlu memberikan izin untuk mengakses notifikasi</string>
@@ -42,7 +41,7 @@
   <string name="send_ping">Kirim ping</string>
   <string name="open_mpris_controls">Kendali multimedia</string>
   <string name="remotekeyboard_editing_only_title">Menangani tombol jarak jauh hanya ketika mengedit</string>
-  <string name="remotekeyboard_not_connected">Tidak ada koneksi keyboard jarak jauh yang aktif, buat satu dalam kdeconnect</string>
+  <string name="remotekeyboard_not_connected">Tidak ada koneksi keyboard jarak jauh yang aktif, buat satu dalam PocketLink</string>
   <string name="remotekeyboard_connected">Koneksi keyboard jarak jauh telah aktif</string>
   <string name="remotekeyboard_multiple_connections">Ada lebih dari satu koneksi keyboard jarak jauh, pilih peranti untuk diatur</string>
   <string name="open_mousepad">Masukan jarak jauh</string>
@@ -91,7 +90,6 @@
   <string name="pref_plugin_mousepad_send_keystrokes">Kirim sebagai penekanan tombol</string>
   <string name="mouse_receiver_plugin_description">Terima penggerakan mouse jarak jauh</string>
   <string name="mouse_receiver_plugin_name">Penerima mouse</string>
-  <string name="view_status_title">Status</string>
   <string name="battery_status_format">Baterai: %d%%</string>
   <string name="battery_status_low_format">Baterai: %d%% Baterai Lemah</string>
   <string name="battery_status_charging_format">Baterai %d%% mengisi</string>
@@ -103,7 +101,6 @@
   <string name="pair_new_device">Sandingkan peranti baru</string>
   <string name="unknown_device">Perangkat tidak diketahui</string>
   <string name="error_not_reachable">Peranti tidak dapat dicapai</string>
-  <string name="error_already_paired">Peranti sudah disandingkan</string>
   <string name="error_timed_out">Waktu habis</string>
   <string name="error_canceled_by_user">Dibatalkan oleh pengguna</string>
   <string name="error_canceled_by_other_peer">Dibatalkan oleh kawan lain</string>
@@ -138,7 +135,6 @@
   <string name="tap_to_open">Ketuk untuk membuka</string>
   <string name="received_file_text">Ketuk untuk membuka \'%1s\'</string>
   <string name="cannot_create_file">Tidak dapat membuat file %s</string>
-  <string name="tap_to_answer">Ketuk untuk menjawab</string>
   <string name="right_click">Kirim Klik Kanan</string>
   <string name="middle_click">Kirim Klik Tengah</string>
   <string name="show_keyboard">Tampilkan Papan Tik</string>
@@ -167,7 +163,7 @@
   </string-array>
   <string name="mpris_notifications_explanation">Izin notifkasi diperlukan untuk menampilkan media jarak jauh dalam bilah notifikasi</string>
   <string name="mpris_notification_settings_title">Tampilkan notifikasi kendali media</string>
-  <string name="mpris_notification_settings_summary">Memungkinkan pengendalian pemutar media Anda tanpa membuka KDE Connect</string>
+  <string name="mpris_notification_settings_summary">Memungkinkan pengendalian pemutar media Anda tanpa membuka PocketLink</string>
   <string name="share_to">Bagikan ke…</string>
   <string name="protocol_version_newer">Perangkat ini menggunakan sebuah versi protokol baru</string>
   <string name="plugin_settings_with_name">Pengaturan %s</string>
@@ -176,7 +172,6 @@
   <string name="custom_devices_settings">Kustom daftar peranti</string>
   <string name="custom_device_list">Tambahkan peranti dengan IP</string>
   <string name="custom_device_deleted">Perangkat kustom yang dihapus</string>
-  <string name="custom_device_fab_hint">Tambahkan sebuah peranti</string>
   <string name="undo">Urungkan</string>
   <string name="share_notification_preference">Notifikasi bising</string>
   <string name="share_notification_preference_summary">Getar dan putarkan suara ketika menerima sebuah file</string>
@@ -210,7 +205,7 @@
     <item>Bottom left</item>
     <item>Bottom right</item>
   </string-array>
-  <string name="pairing_title">Peranti KDE Connect</string>
+  <string name="pairing_title">Peranti PocketLink</string>
   <string name="pairing_description">Perangkat lain yang menjalankan KDE Connect dalam jaringan Anda yang sama seharusnya muncul di sini.</string>
   <string name="device_rename_title">Ubah nama peranti</string>
   <string name="device_rename_confirm">Ubah Nama</string>
@@ -221,8 +216,6 @@
   <string name="no_file_browser">Tidak adanya penelusur file yang terinstal.</string>
   <string name="pref_plugin_telepathy">Kirim SMS</string>
   <string name="pref_plugin_telepathy_desc">Kirim teks perpesanan dari desktop Anda</string>
-  <string name="pref_plugin_telepathy_mms">Kirim MMS</string>
-  <string name="pref_plugin_telepathy_mms_desc">Supaya dapat mengirim MMS dari KDE Connect, Anda perlu mengaturnya sebagai aplikasi SMS default.</string>
   <string name="findmyphone_title">Temukan ponsel saya</string>
   <string name="findmyphone_title_tablet">Temukan tablet saya</string>
   <string name="findmyphone_title_tv">Temukan TV saya</string>
@@ -230,21 +223,16 @@
   <string name="findmyphone_found">Ketemu</string>
   <string name="open">Buka</string>
   <string name="close">Tutup</string>
-  <string name="plugins_need_permission">Beberapa plugin perlu perizinan untuk kerja (ketuk untuk info selebihnya):</string>
   <string name="permission_explanation">Plugin ini perlu perizinan untuk kerja</string>
   <string name="optional_permission_explanation">Anda perlu memberikan perizinan tambahan untuk memfungsikan semua fungsi</string>
-  <string name="plugins_need_optional_permission">Beberapa plugin yang memiliki fitur dinonfungsikan karena kurangnya perizinan (ketuk untuk info selebihnya):</string>
   <string name="telepathy_permission_explanation">Untuk membaca dan menulis SMS dari desktop, Anda harus memberikan perizinan untuk SMS</string>
   <string name="telephony_permission_explanation">Untuk melihat panggilan ponsel pada desktop Anda harus memberikan perizinan untuk catatan panggilan ponsel dan keadaan ponsel</string>
   <string name="telephony_optional_permission_explanation">Untuk melihat nama kontak daripada nomor ponsel, Anda harus memberikan akses ke kontak ponsel</string>
   <string name="contacts_permission_explanation">Untuk membagikan buku kontak dengan desktop, Anda harus memberikan perizinan kontak</string>
   <string name="select_ringtone">Pilih sebuah ringtone</string>
   <string name="telephony_pref_blocked_title">Nomor yang diblokir</string>
-  <string name="mpris_coverart_description">Seni sampul media saat ini</string>
-  <string name="settings_icon_description">Ikon pengaturan</string>
   <string name="presenter_fullscreen">Layar penuh</string>
   <string name="presenter_exit">Keluarkan presentasi</string>
-  <string name="presenter_lock_tip">Anda dapat mengunci peranti Anda dan gunakanlah tombol volume untuk menuju ke salindia sebelumnya/selanjutnya</string>
   <string name="add_command">Tambahkan sebuah perintah</string>
   <string name="addcommand_explanation">Tidak ada perintah yang diregister</string>
   <string name="addcommand_explanation2">Anda dapat menambahkan perintah baru dalam System Settings KDE Connect</string>
@@ -270,7 +258,6 @@
   <string name="all">Semua</string>
   <string name="devices">Peranti</string>
   <string name="settings_rename">Nama perangkat</string>
-  <string name="settings_dark_mode">Tema gelap</string>
   <string name="settings_more_settings_title">Pengaturan selebihnya</string>
   <string name="settings_more_settings_text">Tiap pengaturan peranti bisa ditemukan di bawah \'Pengaturan plugin\' dari setiap sebuah peranti.</string>
   <string name="setting_persistent_notification">Tampilkan notifikasi kukuh</string>
@@ -283,7 +270,7 @@
   <string name="block_images">Blokir citra-citra dalam notifikasi</string>
   <string name="notification_channel_receivenotification">Notifikasi dari peranti lainnya</string>
   <string name="no_app_for_opening">Tidak menemukan aplikasi yang dapat membuka berkas ini</string>
-  <string name="remote_keyboard_service">Keyboard Remote KDE Connect</string>
+  <string name="remote_keyboard_service">Keyboard Remote PocketLink</string>
   <string name="presenter_pointer">Penunjuk</string>
   <string name="trusted_networks">Jaringan terpercaya</string>
   <string name="trusted_networks_desc">Membatasi autodiscovery untuk mengetahui jaringan</string>
@@ -291,7 +278,6 @@
   <string name="empty_trusted_networks_list_text">Anda belum memiliki jaringan terpercaya apa pun yang ditambahkan</string>
   <string name="allow_all_networks_text">Perbolehkan semua</string>
   <string name="location_permission_needed_title">Diperlukan perizinan</string>
-  <string name="clipboard_android_x_incompat">Android 10 telah menghapus akses papan klip ke semua aplikasi. Plugin ini akan dinonaktifkan.</string>
   <string name="mpris_open_url">Lanjut putar di sini</string>
   <string name="cant_open_url">Tidak bisa membuka URL untuk melanjutkan pemutaran</string>
   <string name="bigscreen_home">Rumah</string>
@@ -301,13 +287,8 @@
   <string name="bigscreen_right">Kanan</string>
   <string name="bigscreen_down">Turun</string>
   <string name="bigscreen_mic">Mic</string>
-  <string name="pref_plugin_bigscreen_desc">Gunakan peranti Anda sebagai remot untuk Plasma Bigscreen</string>
   <string name="bigscreen_optional_permission_explanation">Untuk membagikan masukan mikrofon dari ponsel Anda perlu memberikan akses terhadap masukan audio ponsel</string>
   <string name="bigscreen_speech_extra_prompt">Lisankan</string>
-  <string name="message_reply_label">BALAS</string>
-  <string name="mark_as_read_label">TANDAI SEBAGAI DIBACA</string>
-  <string name="user_display_name">Anda</string>
-  <string name="set_default_sms_app_title">Kirim MMS</string>
   <string name="set_group_message_as_mms_title">Kirim MMS grup</string>
   <string name="set_long_text_as_mms_title">Kirim pesan teks panjang sebagai MMS</string>
   <string name="convert_to_mms_after_title">Konversikan ke MMS</string>
@@ -336,17 +317,11 @@
   <string name="website">Situs</string>
   <string name="about">Tentang</string>
   <string name="authors">Penulis</string>
-  <string name="thanks_to">Terima Kasih Kepada</string>
   <string name="easter_egg">Easter Egg</string>
-  <string name="email_contributor">Email kontributor\n%s</string>
-  <string name="visit_contributors_homepage">Kunjungi laman kontributor\n%s</string>
   <string name="version">Versi %s</string>
   <string name="about_kde">Tentang KDE</string>
   <string name="kde_be_free">KDE - Bebas!</string>
-  <string name="kde">KDE</string>
   <string name="konqi">Konqi</string>
-  <string name="rise_up">Naik</string>
-  <string name="rise_down">Turun</string>
   <string name="click_here_to_type">Ketuk di sini untuk mengetik</string>
   <string name="clear_compose">Hapus</string>
   <string name="send_compose">Kirim</string>
@@ -368,4 +343,43 @@
   <string name="send_clipboard">Kirim papan klip</string>
   <string name="tap_to_execute">Ketuk untuk menjalankan</string>
   <string name="enable_bluetooth">Aktifkan Bluetooth (beta)</string>
+  <string name="pairing_verification_code_title">Kode verifikasi</string>
+  <string name="pairing_compare_verification_code">Bandingkan kode ini di kedua perangkat sebelum menerima.</string>
+  <string name="pairing_waiting_for_device">Menunggu %1$s menerima permintaan.</string>
+  <string name="pairing_trusted_device">Dipadukan dengan %1$s. Perangkat ini kini tepercaya.</string>
+
+    <string name="category_share_transfer">Bagikan &amp; Transfer</string>
+    <string name="category_control_computer">Kontrol Komputer</string>
+    <string name="category_media_audio">Media &amp; Audio</string>
+    <string name="category_device_info">Informasi Perangkat</string>
+    <string name="category_item_count_format">%1$d dari %2$d</string>
+    <string name="category_plugins_count_format">%1$d plugin</string>
+    <string name="attention_feature_needs_permission">%1$d fitur memerlukan izin</string>
+    <string name="attention_features_need_permission">%1$d fitur memerlukan izin</string>
+    <string name="attention_optional_permissions">Izin tambahan tersedia (%1$d)</string>
+    <string name="attention_tap_to_review">Ketuk untuk meninjau dan memberi akses</string>
+    <string name="attention_pending_count">%1$d tertunda</string>
+    <string name="manage_plugins_title">Kelola Plugin</string>
+    <string name="manage_plugins_summary">%1$d dari %2$d plugin diaktifkan</string>
+    <string name="manage_plugins_summary_with_disabled">%1$d dari %2$d diaktifkan · %3$d dinonaktifkan</string>
+    <string name="manage_plugins_search_hint">Cari plugin…</string>
+    <string name="manage_plugins_search_description">Cari</string>
+    <string name="manage_plugins_clear_search">Hapus pencarian</string>
+    <string name="manage_plugins_no_results">Tidak ada plugin yang cocok dengan "%1$s"</string>
+    <string name="manage_plugins_grant_permission">Beri Izin</string>
+    <string name="manage_plugins_optional_permission">Izin Opsional</string>
+    <string name="manage_plugins_back">Kembali ke dasbor</string>
+    <string name="now_playing">Sedang Diputar</string>
+    <string name="permission_badge">Izin</string>
+    <string name="battery_charging">Mengisi daya</string>
+    <string name="battery_discharging">Mengosongkan daya</string>
+    <string name="volume_muted_desc">Dibisukan. Ketuk untuk mengaktifkan suara.</string>
+    <string name="volume_low_desc">Volume rendah, %1$d persen. Ketuk untuk membisukan.</string>
+    <string name="volume_normal_desc">Volume, %1$d persen. Ketuk untuk membisukan.</string>
+    <string name="quick_action_send_files">Kirim Berkas</string>
+    <string name="quick_action_clipboard">Papan Klip</string>
+    <string name="quick_action_remote_input">Input Jarak Jauh</string>
+    <string name="quick_action_ring_device">Deringkan</string>
+    <string name="quick_action_run_command">Jalankan Perintah</string>
+    <string name="quick_action_presenter">Presenter</string>
 </resources>

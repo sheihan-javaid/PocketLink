@@ -21,7 +21,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import org.kde.kdeconnect_tp.R
 
 @Composable
-fun KdeTextField(modifier: Modifier = Modifier, input: MutableState<String>, label: String) {
+fun PocketLinkTextField(modifier: Modifier = Modifier, input: MutableState<String>, label: String) {
     var value by rememberSaveable { input }
     OutlinedTextField(
         modifier = modifier,
@@ -35,7 +35,7 @@ fun KdeTextField(modifier: Modifier = Modifier, input: MutableState<String>, lab
 @Preview
 @Composable
 fun Preview() {
-    KdeTextField(
+    PocketLinkTextField(
         input = mutableStateOf("John Doe"),
         label = stringResource(R.string.click_here_to_type),
     )

@@ -31,7 +31,7 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
             android:contentDescription="@string/bigscreen_home"
             app:iconSize="32dp"
             app:icon="@drawable/ic_home_black_24dp"
-            style="@style/KdeConnectButton.IconButton" />
+            style="@style/PocketLinkButton.IconButton" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/up_button"
@@ -42,7 +42,7 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
             android:contentDescription="@string/bigscreen_up"
             app:iconSize="42dp"
             app:icon="@drawable/outline_arrow_drop_up_24"
-            style="@style/KdeConnectButton.IconButton" />
+            style="@style/PocketLinkButton.IconButton" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/mic_button"
@@ -53,7 +53,7 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
             android:contentDescription="@string/bigscreen_mic"
             app:iconSize="32dp"
             app:icon="@drawable/ic_mic_black"
-            style="@style/KdeConnectButton.IconButton" />
+            style="@style/PocketLinkButton.IconButton" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/left_button"
@@ -64,7 +64,7 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
             android:contentDescription="@string/bigscreen_left"
             app:iconSize="42dp"
             app:icon="@drawable/outline_arrow_left_24"
-            style="@style/KdeConnectButton.IconButton" />
+            style="@style/PocketLinkButton.IconButton" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/select_button"
@@ -75,7 +75,7 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
             android:contentDescription="@string/bigscreen_select"
             app:iconSize="32dp"
             app:icon="@drawable/ic_keyboard_return_black_24dp"
-            style="@style/KdeConnectButton.IconButton" />
+            style="@style/PocketLinkButton.IconButton" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/right_button"
@@ -86,7 +86,7 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
             android:contentDescription="@string/bigscreen_right"
             app:iconSize="42dp"
             app:icon="@drawable/outline_arrow_right_24"
-            style="@style/KdeConnectButton.IconButton" />
+            style="@style/PocketLinkButton.IconButton" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/down_button"
@@ -97,7 +97,7 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
             android:contentDescription="@string/bigscreen_down"
             app:iconSize="42dp"
             app:icon="@drawable/outline_arrow_drop_down_24"
-            style="@style/KdeConnectButton.IconButton"  />
+            style="@style/PocketLinkButton.IconButton"  />
 
 
         <com.google.android.material.button.MaterialButton
@@ -109,11 +109,11 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
             android:contentDescription="@string/bigscreen_back"
             app:iconSize="32dp"
             app:icon="@drawable/ic_arrow_back_black_24dp"
-            style="@style/KdeConnectButton.IconButton"  />
+            style="@style/PocketLinkButton.IconButton"  />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/close_button"
-            style="@style/KdeConnectButton.IconButton"
+            style="@style/PocketLinkButton.IconButton"
             android:contentDescription="@string/bigscreen_close"
             app:icon="@drawable/ic_close"
             app:iconSize="32dp"

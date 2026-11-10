@@ -9,7 +9,8 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
-import org.kde.kdeconnect.KdeConnect
+import androidx.activity.enableEdgeToEdge
+import org.kde.kdeconnect.PocketLink
 import org.kde.kdeconnect.base.BaseActivity
 import org.kde.kdeconnect.plugins.Plugin
 import org.kde.kdeconnect.ui.PluginPreference.PluginPreferenceCallback
@@ -27,18 +28,22 @@ class PluginSettingsActivity : BaseActivity<ActivityPluginSettingsBinding>(), Pl
             ?: throw RuntimeException("You must start DeviceSettingActivity using an intent that has a $EXTRA_DEVICE_ID extra")
 
         // Don't restore a specific plugin settings fragment if the device is no longer connected
-        val deviceReachable = KdeConnect.getInstance().getDevice(settingsDeviceId)?.isReachable == true
+        val deviceReachable = PocketLink.getInstance().getDevice(settingsDeviceId)?.isReachable == true
+        enableEdgeToEdge()
         super.onCreate(if (deviceReachable) savedInstanceState else null)
 
         setSupportActionBar(binding.toolbarLayout.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
 
+        val device = PocketLink.getInstance().getDevice(settingsDeviceId)
+        device?.name?.let { binding.toolbarLayout.toolbar.subtitle = it }
+
         var fragment = supportFragmentManager.findFragmentById(R.id.fragmentPlaceHolder)
         if (fragment == null) {
             val pluginKey = intent.getStringExtra(EXTRA_PLUGIN_KEY)
             if (pluginKey != null) {
-                fragment = KdeConnect.getInstance().getDevice(settingsDeviceId)
+                fragment = PocketLink.getInstance().getDevice(settingsDeviceId)
                     ?.getPluginIncludingWithoutPermissions(pluginKey)
                     ?.getSettingsFragment(this)
             }

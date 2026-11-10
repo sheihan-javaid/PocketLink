@@ -31,10 +31,10 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.kde.kdeconnect.BackgroundService
 import org.kde.kdeconnect.Device
-import org.kde.kdeconnect.KdeConnect
+import org.kde.kdeconnect.PocketLink
 import org.kde.kdeconnect.base.BaseFragment
 import org.kde.kdeconnect.helpers.TrustedNetworkHelper
-import org.kde.kdeconnect.ui.compose.KdeTheme
+import org.kde.kdeconnect.ui.compose.PocketLinkTheme
 import org.kde.kdeconnect.ui.compose.screen.pairing.PairingScreen
 import org.kde.kdeconnect.ui.compose.screen.pairing.PairingViewModel
 import org.kde.kdeconnect_tp.R
@@ -111,7 +111,7 @@ class PairingFragment : BaseFragment<DevicesListBinding>() {
     private fun createComposeView() {
         binding.composeView.apply {
             setContent {
-                KdeTheme(context) {
+                PocketLinkTheme(context) {
                     val state by viewModel.pairingUiState.collectAsStateWithLifecycle()
 
                     PairingScreen(
@@ -148,7 +148,10 @@ class PairingFragment : BaseFragment<DevicesListBinding>() {
                                 localNetworkPermissionLauncher.launch(Manifest.permission.ACCESS_LOCAL_NETWORK)
                             }
                         },
-                        onRefresh = { viewModel.onRefresh() }
+                        onRefresh = { viewModel.onRefresh() },
+                        onCustomDevicesClick = {
+                            startActivity(Intent(mActivity, CustomDevicesActivity::class.java))
+                        }
                     )
                 }
             }
@@ -160,7 +163,7 @@ class PairingFragment : BaseFragment<DevicesListBinding>() {
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
             if (granted) {
                 updatePermissionsHeader()
-                KdeConnect.getInstance().reloadAllDevicePlugins()
+                PocketLink.getInstance().reloadAllDevicePlugins()
             }
         }
 
@@ -213,7 +216,7 @@ class PairingFragment : BaseFragment<DevicesListBinding>() {
         updatePermissionsHeader()
 
         try {
-            val allDevices = KdeConnect.getInstance().devices.values.filter {
+            val allDevices = PocketLink.getInstance().devices.values.filter {
                 it.isReachable || it.isPaired
             }
 
@@ -247,7 +250,7 @@ class PairingFragment : BaseFragment<DevicesListBinding>() {
 
     override fun onStart() {
         super.onStart()
-        KdeConnect.getInstance().addDeviceListChangedCallback("PairingFragment") {
+        PocketLink.getInstance().addDeviceListChangedCallback("PairingFragment") {
             mActivity?.runOnUiThread { this.updateDeviceList() }
         }
         BackgroundService.ForceRefreshConnections(requireContext()) // force a network re-discover
@@ -255,7 +258,7 @@ class PairingFragment : BaseFragment<DevicesListBinding>() {
     }
 
     override fun onStop() {
-        KdeConnect.getInstance().removeDeviceListChangedCallback("PairingFragment")
+        PocketLink.getInstance().removeDeviceListChangedCallback("PairingFragment")
         super.onStop()
     }
 

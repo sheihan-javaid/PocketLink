@@ -12,7 +12,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import org.kde.kdeconnect.DeviceHost
-import org.kde.kdeconnect.ui.compose.KdeTheme
+import org.kde.kdeconnect.ui.compose.PocketLinkTheme
 import org.kde.kdeconnect.ui.compose.screen.customdevices.CustomDevicesRoute
 
 class CustomDevicesActivity : AppCompatActivity() {
@@ -24,7 +24,7 @@ class CustomDevicesActivity : AppCompatActivity() {
         enableEdgeToEdge()
 
         setContent {
-            KdeTheme(this) {
+            PocketLinkTheme(this) {
                 CustomDevicesRoute(
                     onNavigateUp = { onBackPressedDispatcher.onBackPressed() }
                 )

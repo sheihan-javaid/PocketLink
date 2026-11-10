@@ -1,3 +1,7 @@
+import java.security.MessageDigest
+import java.util.zip.ZipEntry
+import java.util.zip.ZipFile
+import java.util.zip.ZipOutputStream
 import com.android.build.api.instrumentation.AsmClassVisitorFactory
 import com.android.build.api.instrumentation.ClassContext
 import com.android.build.api.instrumentation.ClassData
@@ -43,6 +47,7 @@ android {
         targetSdk = 37
         versionCode = 13702
         versionName = "1.37.2"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
     }
     buildFeatures {
@@ -74,10 +79,13 @@ android {
     }
     signingConfigs {
         getByName("debug") {
-            storeFile = file("debug.keystore")
-            storePassword = "android"
-            keyAlias = "androiddebugkey"
-            keyPassword = "android"
+            val localKeystore = file("debug.keystore")
+            if (localKeystore.exists()) {
+                storeFile = localKeystore
+                storePassword = "android"
+                keyAlias = "androiddebugkey"
+                keyPassword = "android"
+            }
         }
     }
     buildTypes {
@@ -98,6 +106,72 @@ android {
         checkReleaseBuilds = false
     }
 }
+
+tasks.withType<Test>().configureEach {
+    // Objenesis 3.4 (transitive from mockk) contains an obsolete META-INF/INDEX.LIST
+    // that triggers an OpenJDK 17 URLClassPath bug (resolved in JDK 18+ via JDK-8273401).
+    // Under JDK 18+, JAR indexing in URLClassPath is disabled by default.
+    // Under JDK 17, strip INDEX.LIST from objenesis to prevent InvalidJarIndexError.
+    doFirst {
+        val testJvmVersion = javaLauncher.orNull?.metadata?.languageVersion?.asInt()?.let {
+            JavaVersion.toVersion(it)
+        } ?: JavaVersion.current()
+
+        if (testJvmVersion < JavaVersion.VERSION_18) {
+            val cleanJarsDir = layout.buildDirectory.dir("clean-test-jars").get().asFile
+            val sanitized = classpath.files.map { file ->
+                if (file.isFile && file.name.startsWith("objenesis-") && file.name.endsWith(".jar")) {
+                    val hasIndex = try {
+                        ZipFile(file).use { zip -> zip.getEntry("META-INF/INDEX.LIST") != null }
+                    } catch (e: Exception) {
+                        false
+                    }
+                    if (hasIndex) {
+                        val normalizedPath = file.toPath().toAbsolutePath().normalize().toString()
+                        val digest = MessageDigest.getInstance("SHA-256")
+                        digest.update(normalizedPath.toByteArray(Charsets.UTF_8))
+                        file.inputStream().use { stream ->
+                            val buf = ByteArray(8192)
+                            var r: Int
+                            while (stream.read(buf).also { r = it } != -1) {
+                                digest.update(buf, 0, r)
+                            }
+                        }
+                        val cacheKey = digest.digest().joinToString("") { "%02x".format(it) }.take(24)
+                        val dest = File(cleanJarsDir, "$cacheKey-${file.name}")
+                        val isUpToDate = dest.exists() && dest.length() > 0L
+                        if (!isUpToDate) {
+                            dest.parentFile.mkdirs()
+                            val destTmp = File(cleanJarsDir, "$cacheKey-${file.name}.tmp")
+                            ZipFile(file).use { zipIn ->
+                                ZipOutputStream(destTmp.outputStream()).use { zipOut ->
+                                    for (entry in zipIn.entries().asSequence()) {
+                                        if (entry.name != "META-INF/INDEX.LIST") {
+                                            zipOut.putNextEntry(ZipEntry(entry.name))
+                                            zipIn.getInputStream(entry).copyTo(zipOut)
+                                            zipOut.closeEntry()
+                                        }
+                                    }
+                                }
+                            }
+                            if (dest.exists()) {
+                                dest.delete()
+                            }
+                            destTmp.renameTo(dest)
+                        }
+                        dest
+                    } else {
+                        file
+                    }
+                } else {
+                    file
+                }
+            }
+            classpath = files(sanitized)
+        }
+    }
+}
+
 
 /**
  * Fix PosixFilePermission class type check issue.
@@ -266,7 +340,6 @@ dependencies {
     implementation(libs.androidx.compose.material.icons)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
-    implementation(libs.androidx.constraintlayout.compose)
     implementation(libs.androidx.compose.ui.tooling.preview)
     debugImplementation(libs.androidx.compose.ui.tooling)
 
@@ -275,7 +348,6 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.preference.ktx)
     implementation(libs.androidx.recyclerview)
-    implementation(libs.androidx.swiperefreshlayout)
     implementation(libs.androidx.documentfile)
     implementation(libs.androidx.lifecycle.viewmodel.ktx) // For ViewModel
     implementation(libs.androidx.lifecycle.livedata.ktx) // For LiveData
@@ -321,6 +393,11 @@ dependencies {
         exclude(group = "org.robolectric", module = "nativeruntime-dist-compat")
     }
     testImplementation(libs.androidx.junit)
+    debugImplementation(libs.androidx.compose.ui.test.manifest)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.test.runner)
+    androidTestImplementation(libs.androidx.test.espresso)
+    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
 
     // For device controls
     implementation(libs.reactive.streams)
@@ -350,3 +427,4 @@ tasks.named("generateLicenseReport") {
 tasks.named("preBuild") {
     dependsOn("generateLicenseReport")
 }
+

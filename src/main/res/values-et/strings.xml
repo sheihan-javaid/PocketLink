@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-  <string name="kde_connect">KDE Connect</string>
+  <string name="kde_connect">PocketLink</string>
   <string name="foreground_notification_no_devices">Pole ühendatud ühegi seadmega</string>
   <string name="foreground_notification_devices">Ühendatud seadmega: %s</string>
   <string name="foreground_notification_send_clipboard">Saadeti lõikepuhvrisse</string>
@@ -31,7 +31,6 @@
   <string name="pref_plugin_sharereceiver_desc">Failide ja URL-ide jagamine seadmete vahel</string>
   <string name="device_list_empty">Seadmed puuduvad</string>
   <string name="ok">OK</string>
-  <string name="sad_ok">OK :(</string>
   <string name="cancel">Loobu</string>
   <string name="open_settings">Ava seadistused</string>
   <string name="no_permissions">Märguannete nägemiseks tuleb anda vastavad õigused</string>
@@ -39,7 +38,7 @@
   <string name="send_ping">Saada ping</string>
   <string name="open_mpris_controls">Multimeedia juhtimine</string>
   <string name="remotekeyboard_editing_only_title">Kaugklahvide käitlemine ainult redigeerimisel</string>
-  <string name="remotekeyboard_not_connected">Aktiivne kaugklaviatuuri ühendus puudub, pane see paika KDE Connectis</string>
+  <string name="remotekeyboard_not_connected">Aktiivne kaugklaviatuuri ühendus puudub, pane see paika PocketLinkis</string>
   <string name="remotekeyboard_connected">Kaugklaviatuuri ühendus on aktiivne</string>
   <string name="remotekeyboard_multiple_connections">Kaugklaviatuuri ühendusi on üle ühe, palun vali seade, mida seadistada</string>
   <string name="open_mousepad">Kaugsisestus</string>
@@ -71,7 +70,6 @@
   <string name="pair_new_device">Paarita uus seade</string>
   <string name="unknown_device">Tundmatu seade</string>
   <string name="error_not_reachable">Seade pole saadaval</string>
-  <string name="error_already_paired">Seade on juba paaritatud</string>
   <string name="error_timed_out">Ajaületus</string>
   <string name="error_canceled_by_user">Kasutaja katkestas</string>
   <string name="error_canceled_by_other_peer">Teine pool katkestas</string>
@@ -112,7 +110,6 @@
   <string name="tap_to_open">Koputa avamiseks</string>
   <string name="received_file_text">Koputa \"%1s\" avamiseks</string>
   <string name="cannot_create_file">Faili %s loomine nurjus</string>
-  <string name="tap_to_answer">Koputa vastamiseks</string>
   <string name="right_click">Saada paremklõps</string>
   <string name="middle_click">Saada keskklõps</string>
   <string name="show_keyboard">Näita klaviatuuri</string>
@@ -138,7 +135,7 @@
     <item>2 minutit</item>
   </string-array>
   <string name="mpris_notification_settings_title">Meedia juhtimise märguannete näitamine</string>
-  <string name="mpris_notification_settings_summary">Meediamängija juhtimise võimaldamine ilma KDE Connecti avamata</string>
+  <string name="mpris_notification_settings_summary">Meediamängija juhtimise võimaldamine ilma PocketLinki avamata</string>
   <string name="protocol_version_newer">See seade kasutab uuemat protokolli versiooni</string>
   <string name="plugin_settings_with_name">%s seadistused</string>
   <string name="invalid_device_name">Vigane seadme nimi</string>
@@ -146,7 +143,6 @@
   <string name="custom_devices_settings">Kohandatud seadmete loend</string>
   <string name="custom_device_list">Lisa seadmeid IP järgi</string>
   <string name="custom_device_deleted">Kohandatud seade kustutati</string>
-  <string name="custom_device_fab_hint">Lisa seade</string>
   <string name="undo">Võta tagasi</string>
   <string name="share_notification_preference">Mürarikkad märguanded</string>
   <string name="share_notification_preference_summary">Vibreerimine ja heli esitamine faili saamisel</string>
@@ -179,7 +175,7 @@
     <item>Bottom left</item>
     <item>Bottom right</item>
   </string-array>
-  <string name="pairing_title">KDE Connecti seadmed</string>
+  <string name="pairing_title">PocketLinki seadmed</string>
   <string name="pairing_description">Siin näeb teisi seadmeid samas võrgus, kus töötab KDE Connect</string>
   <string name="device_rename_title">Seadme nime muutmine</string>
   <string name="device_rename_confirm">Nime muutmine</string>
@@ -190,8 +186,6 @@
   <string name="no_file_browser">Ühtegi failisirvijat pole paigaldatud</string>
   <string name="pref_plugin_telepathy">SMS-ide saatmine</string>
   <string name="pref_plugin_telepathy_desc">Tekstisõnumite saatmine oma töölaualt</string>
-  <string name="pref_plugin_telepathy_mms">MMS-ide saatmine</string>
-  <string name="pref_plugin_telepathy_mms_desc">KDE Connecti kaudu MMS-ide saatmiseks tuleb see määrata SMS-ide vaikerakenduseks.</string>
   <string name="findmyphone_title">Leia mu telefon</string>
   <string name="findmyphone_title_tablet">Leia mu tahvel</string>
   <string name="findmyphone_title_tv">Leia mu teler</string>
@@ -199,21 +193,16 @@
   <string name="findmyphone_found">Leitud</string>
   <string name="open">Ava</string>
   <string name="close">Sulge</string>
-  <string name="plugins_need_permission">Mõned pluginad vajavad töötamiseks õigusi (koputa rohkema teabe saamiseks);</string>
   <string name="permission_explanation">See plugin vajab töötamiseks õigusi</string>
   <string name="optional_permission_explanation">Kõigi funktsioonide lubamiseks tuleb sul anda lisaõigusi</string>
-  <string name="plugins_need_optional_permission">Mõne plugina osa omadusi on keelatud õiguste puudumise tõttu (koputa rohkema teabe saamiseks):</string>
   <string name="telepathy_permission_explanation">SMS-ide lugemiseks ja kirjutamiseks töölaual tuleb anda õigused SMS-ile</string>
   <string name="telephony_permission_explanation">Kõnede nägemiseks töölaual tuleb anda õigused telefonikõnede logile ja telefoni olekule</string>
   <string name="telephony_optional_permission_explanation">Telefoninumbri asemel kontakti nime nägemiseks tuleb anda õigused telefoni kontaktidele</string>
   <string name="contacts_permission_explanation">Oma kontaktide jagamiseks töölauaga tuleb anda õigused kontaktidele</string>
   <string name="select_ringtone">Vali helin</string>
   <string name="telephony_pref_blocked_title">Blokitud numbrid</string>
-  <string name="mpris_coverart_description">Aktiivse meedia kaanepilt</string>
-  <string name="settings_icon_description">Seadistuste ikoon</string>
   <string name="presenter_fullscreen">Täisekraan</string>
   <string name="presenter_exit">Välju esitlusest</string>
-  <string name="presenter_lock_tip">Seade on võimalik lukku panna ning liikuda eelmisele/järgmisele slaidile helitugevuse klahvidega</string>
   <string name="add_command">Lisa käsk</string>
   <string name="addcommand_explanation">Ühtegi käsku pole registreeritud</string>
   <string name="addcommand_explanation2">Uusi käske saab lisada Süsteemi seadistustes KDE Connecti all</string>
@@ -239,7 +228,6 @@
   <string name="all">Kõik</string>
   <string name="devices">Seadmed</string>
   <string name="settings_rename">Seadme nimi</string>
-  <string name="settings_dark_mode">Tume teema</string>
   <string name="settings_more_settings_title">Rohkem seadistusi</string>
   <string name="settings_more_settings_text">Seadmekaupa seadistusi leiab seadme \"Pluginate seadistuste \" all.</string>
   <string name="setting_persistent_notification">Püsimärguannete näitamine</string>
@@ -252,7 +240,7 @@
   <string name="block_images">Märguannete piltide blokkimine</string>
   <string name="notification_channel_receivenotification">Märguanded teistest seadmetest</string>
   <string name="no_app_for_opening">Selle faili avamiseks ei leitud sobivat rakendust</string>
-  <string name="remote_keyboard_service">KDE Connecti kaugklaviatuur</string>
+  <string name="remote_keyboard_service">PocketLinki kaugklaviatuur</string>
   <string name="presenter_pointer">Osutusseade</string>
   <string name="trusted_networks">Usaldusväärsed võrgud</string>
   <string name="trusted_networks_desc">Automaatset tuvastamist kasutatakse ainult tuntud võrkudes</string>
@@ -260,7 +248,6 @@
   <string name="empty_trusted_networks_list_text">Sa ei ole veel lisanud ühtegi usaldusväärset võrku</string>
   <string name="allow_all_networks_text">Luba kõik</string>
   <string name="location_permission_needed_title">Õigusenõue</string>
-  <string name="clipboard_android_x_incompat">Android 10 eemaldas lõikepuhvri kasutamise võimaluse kõigilt rakendustelt. See plugin enam ei tööta.</string>
   <string name="mpris_open_url">Jätka esitamist siin</string>
   <string name="cant_open_url">URL-i avamine esitamise jätkamiseks nurjus</string>
   <string name="bigscreen_home">Kodu</string>
@@ -270,11 +257,8 @@
   <string name="bigscreen_right">Paremal</string>
   <string name="bigscreen_down">All</string>
   <string name="bigscreen_mic">Mikrofon</string>
-  <string name="pref_plugin_bigscreen_desc">Oma seadme kasutamine Plasma suurekraani puldina</string>
   <string name="bigscreen_optional_permission_explanation">Oma telefoni mikrofonisisendi jagamiseks tuleb anda juurdepääs telefoni helisisendile</string>
   <string name="bigscreen_speech_extra_prompt">Kõne</string>
-  <string name="message_reply_label">VASTA</string>
-  <string name="mark_as_read_label">MÄRGI LOETUKS</string>
   <string-array name="convert_to_mms_after_entries">
     <item>After one message</item>
     <item>After two messages</item>
@@ -293,4 +277,43 @@
     <item>Hele</item>
     <item>Tume</item>
   </string-array>
+  <string name="pairing_verification_code_title">Kinnituskood</string>
+  <string name="pairing_compare_verification_code">Võrdle seda koodi mõlemas seadmes enne nõustumist.</string>
+  <string name="pairing_waiting_for_device">Oodatakse, kuni %1$s päringu vastu võtab.</string>
+  <string name="pairing_trusted_device">Seotud seadmega %1$s. See seade on nüüd usaldusväärne.</string>
+
+    <string name="category_share_transfer">Jagamine ja edastamine</string>
+    <string name="category_control_computer">Arvuti juhtimine</string>
+    <string name="category_media_audio">Meedia ja heli</string>
+    <string name="category_device_info">Seadme teave</string>
+    <string name="category_item_count_format">%1$d / %2$d</string>
+    <string name="category_plugins_count_format">%1$d pistikprogrammi</string>
+    <string name="attention_feature_needs_permission">%1$d funktsioon vajab luba</string>
+    <string name="attention_features_need_permission">%1$d funktsiooni vajavad luba</string>
+    <string name="attention_optional_permissions">Saadaval on lisaload (%1$d)</string>
+    <string name="attention_tap_to_review">Puudutage läbivaatamiseks ja juurdepääsu andmiseks</string>
+    <string name="attention_pending_count">%1$d ootel</string>
+    <string name="manage_plugins_title">Pistikprogrammide haldamine</string>
+    <string name="manage_plugins_summary">%1$d / %2$d pistikprogrammi lubatud</string>
+    <string name="manage_plugins_summary_with_disabled">%1$d / %2$d lubatud · %3$d keelatud</string>
+    <string name="manage_plugins_search_hint">Otsi pistikprogramme…</string>
+    <string name="manage_plugins_search_description">Otsi</string>
+    <string name="manage_plugins_clear_search">Puhasta otsing</string>
+    <string name="manage_plugins_no_results">Ükski pistikprogramm ei vasta päringule „%1$s”</string>
+    <string name="manage_plugins_grant_permission">Anna luba</string>
+    <string name="manage_plugins_optional_permission">Valikuline luba</string>
+    <string name="manage_plugins_back">Tagasi töölauale</string>
+    <string name="now_playing">Praegu mängib</string>
+    <string name="permission_badge">Luba</string>
+    <string name="battery_charging">Laadimine</string>
+    <string name="battery_discharging">Tühjenemine</string>
+    <string name="volume_muted_desc">Vaigistatud. Puudutage heli sisselülitamiseks.</string>
+    <string name="volume_low_desc">Madal helitugevus, %1$d protsenti. Puudutage vaigistamiseks.</string>
+    <string name="volume_normal_desc">Helitugevus, %1$d protsenti. Puudutage vaigistamiseks.</string>
+    <string name="quick_action_send_files">Saada faile</string>
+    <string name="quick_action_clipboard">Lõikelaud</string>
+    <string name="quick_action_remote_input">Kaugjuhtimissisend</string>
+    <string name="quick_action_ring_device">Helista seadmele</string>
+    <string name="quick_action_run_command">Käivita käsk</string>
+    <string name="quick_action_presenter">Esitleja</string>
 </resources>
