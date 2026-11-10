@@ -462,9 +462,6 @@
     <string name="manage_plugins_back">Zurück zur Übersicht</string>
     <string name="now_playing">Aktuelle Wiedergabe</string>
     <string name="permission_badge">Berechtigung</string>
-    <string name="notification_sync_direction_format">%1$s → nur %2$s</string>
-    <string name="this_device">Dieses Gerät</string>
-    <string name="ring_device_format">%1$s anrufen</string>
     <string name="battery_charging">Wird geladen</string>
     <string name="battery_discharging">Entladen</string>
     <string name="volume_muted_desc">Stummgeschaltet. Tippen zum Aufheben.</string>

@@ -127,9 +127,6 @@
     <string name="manage_plugins_back">Nazad na kontrolnu tablu</string>
     <string name="now_playing">Trenutno se reproducira</string>
     <string name="permission_badge">Dozvola</string>
-    <string name="notification_sync_direction_format">%1$s → samo %2$s</string>
-    <string name="this_device">Ovaj uređaj</string>
-    <string name="ring_device_format">Pozvoni %1$s</string>
     <string name="battery_charging">Puni se</string>
     <string name="battery_discharging">Prazni se</string>
     <string name="volume_muted_desc">Utišano. Dodirnite za uključivanje zvuka.</string>

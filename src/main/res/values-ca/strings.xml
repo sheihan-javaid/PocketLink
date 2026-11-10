@@ -492,9 +492,6 @@
     <string name="manage_plugins_back">Torna al tauler</string>
     <string name="now_playing">S\'està reproduint</string>
     <string name="permission_badge">Permís</string>
-    <string name="notification_sync_direction_format">%1$s → només %2$s</string>
-    <string name="this_device">Aquest dispositiu</string>
-    <string name="ring_device_format">Fes sonar %1$s</string>
     <string name="battery_charging">S\'està carregant</string>
     <string name="battery_discharging">S\'està descarregant</string>
     <string name="volume_muted_desc">Silenciat. Toqueu per reactivar el so.</string>

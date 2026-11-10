@@ -480,9 +480,6 @@
     <string name="manage_plugins_back">返回仪表盘</string>
     <string name="now_playing">正在播放</string>
     <string name="permission_badge">权限</string>
-    <string name="notification_sync_direction_format">%1$s → 仅 %2$s</string>
-    <string name="this_device">此设备</string>
-    <string name="ring_device_format">响铃 %1$s</string>
     <string name="battery_charging">充电中</string>
     <string name="battery_discharging">放电中</string>
     <string name="volume_muted_desc">已静音。轻触以取消静音。</string>

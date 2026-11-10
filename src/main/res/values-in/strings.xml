@@ -374,9 +374,6 @@
     <string name="manage_plugins_back">Kembali ke dasbor</string>
     <string name="now_playing">Sedang Diputar</string>
     <string name="permission_badge">Izin</string>
-    <string name="notification_sync_direction_format">%1$s → hanya %2$s</string>
-    <string name="this_device">Perangkat ini</string>
-    <string name="ring_device_format">Deringkan %1$s</string>
     <string name="battery_charging">Mengisi daya</string>
     <string name="battery_discharging">Mengosongkan daya</string>
     <string name="volume_muted_desc">Dibisukan. Ketuk untuk mengaktifkan suara.</string>

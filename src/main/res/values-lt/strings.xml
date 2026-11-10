@@ -394,9 +394,6 @@
     <string name="manage_plugins_back">Atgal į skydelį</string>
     <string name="now_playing">Dabar groja</string>
     <string name="permission_badge">Leidimas</string>
-    <string name="notification_sync_direction_format">%1$s → tik %2$s</string>
-    <string name="this_device">Šis įrenginys</string>
-    <string name="ring_device_format">Skambinti į %1$s</string>
     <string name="battery_charging">Kraunama</string>
     <string name="battery_discharging">Iškraunama</string>
     <string name="volume_muted_desc">Nutildyta. Bakstelėkite garsui įjungti.</string>

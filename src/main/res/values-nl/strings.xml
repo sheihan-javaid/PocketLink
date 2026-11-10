@@ -492,9 +492,6 @@
     <string name="manage_plugins_back">Terug naar dashboard</string>
     <string name="now_playing">Nu aan het afspelen</string>
     <string name="permission_badge">Toestemming</string>
-    <string name="notification_sync_direction_format">%1$s → alleen %2$s</string>
-    <string name="this_device">Dit apparaat</string>
-    <string name="ring_device_format">%1$s laten overgaan</string>
     <string name="battery_charging">Opladen</string>
     <string name="battery_discharging">Ontladen</string>
     <string name="volume_muted_desc">Gedempt. Tik om te dempen op te heffen.</string>

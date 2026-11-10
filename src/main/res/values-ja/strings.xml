@@ -443,9 +443,6 @@
     <string name="manage_plugins_back">ダッシュボードに戻る</string>
     <string name="now_playing">再生中</string>
     <string name="permission_badge">権限</string>
-    <string name="notification_sync_direction_format">%1$s → %2$s のみ</string>
-    <string name="this_device">このデバイス</string>
-    <string name="ring_device_format">%1$s を鳴らす</string>
     <string name="battery_charging">充電中</string>
     <string name="battery_discharging">放電中</string>
     <string name="volume_muted_desc">ミュート中。タップしてミュート解除。</string>

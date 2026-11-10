@@ -492,9 +492,6 @@
     <string name="manage_plugins_back">Retour au tableau de bord</string>
     <string name="now_playing">Lecture en cours</string>
     <string name="permission_badge">Autorisation</string>
-    <string name="notification_sync_direction_format">%1$s → %2$s uniquement</string>
-    <string name="this_device">Cet appareil</string>
-    <string name="ring_device_format">Faire sonner %1$s</string>
     <string name="battery_charging">En charge</string>
     <string name="battery_discharging">Décharge</string>
     <string name="volume_muted_desc">En sourdine. Appuyez pour réactiver.</string>

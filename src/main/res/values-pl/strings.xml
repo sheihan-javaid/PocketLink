@@ -500,9 +500,6 @@
     <string name="manage_plugins_back">Wróć do pulpitu</string>
     <string name="now_playing">Teraz odtwarzane</string>
     <string name="permission_badge">Uprawnienie</string>
-    <string name="notification_sync_direction_format">%1$s → tylko %2$s</string>
-    <string name="this_device">To urządzenie</string>
-    <string name="ring_device_format">Zadzwoń na %1$s</string>
     <string name="battery_charging">Ładowanie</string>
     <string name="battery_discharging">Rozładowywanie</string>
     <string name="volume_muted_desc">Wyciszono. Dotknij, aby włączyć dźwięk.</string>

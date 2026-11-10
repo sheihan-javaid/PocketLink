@@ -375,9 +375,6 @@
     <string name="manage_plugins_back">Vissza az áttekintéshez</string>
     <string name="now_playing">Most játszott</string>
     <string name="permission_badge">Engedély</string>
-    <string name="notification_sync_direction_format">%1$s → csak %2$s</string>
-    <string name="this_device">Ez az eszköz</string>
-    <string name="ring_device_format">%1$s megcsörgetése</string>
     <string name="battery_charging">Töltés</string>
     <string name="battery_discharging">Merülés</string>
     <string name="volume_muted_desc">Némítva. Koppintson a visszahangosításhoz.</string>

@@ -504,9 +504,6 @@
     <string name="manage_plugins_back">Späť na prehľad</string>
     <string name="now_playing">Práve hrá</string>
     <string name="permission_badge">Oprávnenie</string>
-    <string name="notification_sync_direction_format">%1$s → iba %2$s</string>
-    <string name="this_device">Toto zariadenie</string>
-    <string name="ring_device_format">Prezvoniť %1$s</string>
     <string name="battery_charging">Nabíja sa</string>
     <string name="battery_discharging">Vybíja sa</string>
     <string name="volume_muted_desc">Stlmené. Ťuknutím zapnete zvuk.</string>

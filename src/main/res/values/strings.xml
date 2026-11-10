@@ -676,9 +676,6 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
     <string name="manage_plugins_back">Back to dashboard</string>
     <string name="now_playing">Now Playing</string>
     <string name="permission_badge">Permission</string>
-    <string name="notification_sync_direction_format">%1$s → %2$s only</string>
-    <string name="this_device">This device</string>
-    <string name="ring_device_format">Ring %1$s</string>
     <string name="battery_charging">Charging</string>
     <string name="battery_discharging">Discharging</string>
     <string name="battery_not_available">Battery unavailable</string>
@@ -695,9 +692,6 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
     <string name="quick_action_presenter">Presenter</string>
     <string name="desktop_preview_title">MacBook Desktop Preview</string>
     <string name="desktop_preview_desc">Connected Mac desktop preview</string>
-    <string name="desktop_preview_unavailable_title">MacBook Desktop Preview</string>
     <string name="desktop_preview_unavailable_message">Real-time desktop wallpaper streaming is not supported by the connected companion over the current KDE Connect protocol.\n\nThis preview frame is ready to automatically display your live Mac desktop wallpaper once companion streaming is enabled.</string>
     <string name="desktop_preview_dialog_dismiss">Understood</string>
-    <string name="desktop_preview_synced_badge">Desktop Synced</string>
-    <string name="desktop_preview_companion_hint">Tap for companion preview info</string>
 </resources>

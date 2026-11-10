@@ -508,9 +508,6 @@
     <string name="manage_plugins_back">Назад до панелі</string>
     <string name="now_playing">Зараз відтворюється</string>
     <string name="permission_badge">Дозвіл</string>
-    <string name="notification_sync_direction_format">%1$s → лише %2$s</string>
-    <string name="this_device">Цей пристрій</string>
-    <string name="ring_device_format">Виклик %1$s</string>
     <string name="battery_charging">Заряджається</string>
     <string name="battery_discharging">Розряджається</string>
     <string name="volume_muted_desc">Вимкнено звук. Торкніться, щоб увімкнути.</string>

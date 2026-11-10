@@ -488,9 +488,6 @@
     <string name="manage_plugins_back">Volver al panel</string>
     <string name="now_playing">Reproduciendo</string>
     <string name="permission_badge">Permiso</string>
-    <string name="notification_sync_direction_format">%1$s → solo %2$s</string>
-    <string name="this_device">Este dispositivo</string>
-    <string name="ring_device_format">Hacer sonar %1$s</string>
     <string name="battery_charging">Cargando</string>
     <string name="battery_discharging">Descargando</string>
     <string name="volume_muted_desc">Silenciado. Toca para reactivar.</string>

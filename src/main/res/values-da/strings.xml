@@ -172,9 +172,6 @@
     <string name="manage_plugins_back">Tilbage til oversigten</string>
     <string name="now_playing">Afspiller nu</string>
     <string name="permission_badge">Tilladelse</string>
-    <string name="notification_sync_direction_format">%1$s → kun %2$s</string>
-    <string name="this_device">Denne enhed</string>
-    <string name="ring_device_format">Ring til %1$s</string>
     <string name="battery_charging">Oplader</string>
     <string name="battery_discharging">Aflader</string>
     <string name="volume_muted_desc">Lyd slået fra. Tryk for at slå lyd til.</string>

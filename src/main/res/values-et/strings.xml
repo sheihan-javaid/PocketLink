@@ -307,9 +307,6 @@
     <string name="manage_plugins_back">Tagasi töölauale</string>
     <string name="now_playing">Praegu mängib</string>
     <string name="permission_badge">Luba</string>
-    <string name="notification_sync_direction_format">%1$s → ainult %2$s</string>
-    <string name="this_device">See seade</string>
-    <string name="ring_device_format">Helista seadmele %1$s</string>
     <string name="battery_charging">Laadimine</string>
     <string name="battery_discharging">Tühjenemine</string>
     <string name="volume_muted_desc">Vaigistatud. Puudutage heli sisselülitamiseks.</string>

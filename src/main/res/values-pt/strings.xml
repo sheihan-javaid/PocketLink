@@ -385,9 +385,6 @@
     <string name="manage_plugins_back">Voltar ao painel</string>
     <string name="now_playing">A Reproduzir</string>
     <string name="permission_badge">Permissão</string>
-    <string name="notification_sync_direction_format">%1$s → apenas %2$s</string>
-    <string name="this_device">Este dispositivo</string>
-    <string name="ring_device_format">Tocar %1$s</string>
     <string name="battery_charging">A carregar</string>
     <string name="battery_discharging">A descarregar</string>
     <string name="volume_muted_desc">Silenciado. Toque para reativar o som.</string>

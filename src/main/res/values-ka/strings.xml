@@ -304,9 +304,6 @@
     <string name="manage_plugins_back">დაფაზე დაბრუნება</string>
     <string name="now_playing">ახლა უკრავს</string>
     <string name="permission_badge">ნებართვა</string>
-    <string name="notification_sync_direction_format">%1$s → მხოლოდ %2$s</string>
-    <string name="this_device">ეს მოწყობილობა</string>
-    <string name="ring_device_format">%1$s-ზე დარეკვა</string>
     <string name="battery_charging">იტენება</string>
     <string name="battery_discharging">იცლება</string>
     <string name="volume_muted_desc">დადუმებულია. შეეხეთ ხმის ჩასართავად.</string>

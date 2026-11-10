@@ -401,9 +401,6 @@
     <string name="manage_plugins_back">Panelə qayıt</string>
     <string name="now_playing">İndi oxunur</string>
     <string name="permission_badge">İcazə</string>
-    <string name="notification_sync_direction_format">%1$s → yalnız %2$s</string>
-    <string name="this_device">Bu cihaz</string>
-    <string name="ring_device_format">%1$s cihazını zəng etdir</string>
     <string name="battery_charging">Doldurulur</string>
     <string name="battery_discharging">Boşalır</string>
     <string name="volume_muted_desc">Səssiz. Səsi açmaq üçün toxunun.</string>

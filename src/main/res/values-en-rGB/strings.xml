@@ -419,9 +419,6 @@
     <string name="manage_plugins_back">Back to dashboard</string>
     <string name="now_playing">Now Playing</string>
     <string name="permission_badge">Permission</string>
-    <string name="notification_sync_direction_format">%1$s → %2$s only</string>
-    <string name="this_device">This device</string>
-    <string name="ring_device_format">Ring %1$s</string>
     <string name="battery_charging">Charging</string>
     <string name="battery_discharging">Discharging</string>
     <string name="volume_muted_desc">Muted. Tap to unmute.</string>

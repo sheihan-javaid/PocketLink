@@ -484,9 +484,6 @@
     <string name="manage_plugins_back">Tillbaka till översikten</string>
     <string name="now_playing">Spelas nu</string>
     <string name="permission_badge">Behörighet</string>
-    <string name="notification_sync_direction_format">%1$s → endast %2$s</string>
-    <string name="this_device">Denna enhet</string>
-    <string name="ring_device_format">Ring %1$s</string>
     <string name="battery_charging">Laddar</string>
     <string name="battery_discharging">Laddar ur</string>
     <string name="volume_muted_desc">Ljud av. Tryck för att slå på ljudet.</string>

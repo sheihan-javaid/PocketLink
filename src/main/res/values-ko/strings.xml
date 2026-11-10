@@ -476,9 +476,6 @@
     <string name="manage_plugins_back">대시보드로 돌아가기</string>
     <string name="now_playing">현재 재생 중</string>
     <string name="permission_badge">권한</string>
-    <string name="notification_sync_direction_format">%1$s → %2$s 전용</string>
-    <string name="this_device">이 기기</string>
-    <string name="ring_device_format">%1$s 벨 울리기</string>
     <string name="battery_charging">충전 중</string>
     <string name="battery_discharging">방전 중</string>
     <string name="volume_muted_desc">음소거됨. 음소거를 해제하려면 탭하세요.</string>

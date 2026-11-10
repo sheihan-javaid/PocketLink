@@ -401,9 +401,6 @@
     <string name="manage_plugins_back">முகப்பலகைக்குத் திரும்பு</string>
     <string name="now_playing">இப்போது இயங்குகிறது</string>
     <string name="permission_badge">அனுமதி</string>
-    <string name="notification_sync_direction_format">%1$s → %2$s மட்டும்</string>
-    <string name="this_device">இந்தச் சாதனம்</string>
-    <string name="ring_device_format">%1$s-ஐ ஒலிக்கச் செய்</string>
     <string name="battery_charging">மின்னேற்றப்படுகிறது</string>
     <string name="battery_discharging">மின்னிறங்குகிறது</string>
     <string name="volume_muted_desc">ஒலி முடக்கப்பட்டது. ஒலியை இயக்க தட்டவும்.</string>

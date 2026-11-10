@@ -82,9 +82,6 @@
     <string name="manage_plugins_back">Бозгашт ба панел</string>
     <string name="now_playing">Ҳоло садо медиҳад</string>
     <string name="permission_badge">Иҷозат</string>
-    <string name="notification_sync_direction_format">%1$s → танҳо %2$s</string>
-    <string name="this_device">Ин дастгоҳ</string>
-    <string name="ring_device_format">Занг ба %1$s</string>
     <string name="battery_charging">Дар ҳоли пуркунӣ</string>
     <string name="battery_discharging">Дар ҳоли холӣ шудан</string>
     <string name="volume_muted_desc">Бесадо. Барои фаъол кардани садо ламс кунед.</string>

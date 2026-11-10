@@ -415,9 +415,6 @@
     <string name="manage_plugins_back">Aftur á stjórnborð</string>
     <string name="now_playing">Í spilun núna</string>
     <string name="permission_badge">Leyfi</string>
-    <string name="notification_sync_direction_format">%1$s → aðeins %2$s</string>
-    <string name="this_device">Þetta tæki</string>
-    <string name="ring_device_format">Hringja í %1$s</string>
     <string name="battery_charging">Í hleðslu</string>
     <string name="battery_discharging">Afhleðst</string>
     <string name="volume_muted_desc">Hljóðlaust. Ýttu til að kveikja á hljóði.</string>

@@ -79,9 +79,6 @@
     <string name="manage_plugins_back">Ar ais go dtí an painéal</string>
     <string name="now_playing">Á Sheinm Anois</string>
     <string name="permission_badge">Cead</string>
-    <string name="notification_sync_direction_format">%1$s → %2$s amháin</string>
-    <string name="this_device">An gléas seo</string>
-    <string name="ring_device_format">Cuir glaoch ar %1$s</string>
     <string name="battery_charging">Ag luchtú</string>
     <string name="battery_discharging">Ag díluchtú</string>
     <string name="volume_muted_desc">Balbhaithe. Tapáil chun díbhalbhú.</string>

@@ -508,9 +508,6 @@
     <string name="manage_plugins_back">Zpět na přehled</string>
     <string name="now_playing">Nyní hraje</string>
     <string name="permission_badge">Oprávnění</string>
-    <string name="notification_sync_direction_format">%1$s → pouze %2$s</string>
-    <string name="this_device">Toto zařízení</string>
-    <string name="ring_device_format">Prozvonit %1$s</string>
     <string name="battery_charging">Nabíjení</string>
     <string name="battery_discharging">Vybíjení</string>
     <string name="volume_muted_desc">Ztlumeno. Klepnutím zapnete zvuk.</string>

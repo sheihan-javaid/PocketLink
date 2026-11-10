@@ -503,9 +503,6 @@
     <string name="manage_plugins_back">חזרה ללוח הבקרה</string>
     <string name="now_playing">מתנגן כעת</string>
     <string name="permission_badge">הרשאה</string>
-    <string name="notification_sync_direction_format">%1$s ← %2$s בלבד</string>
-    <string name="this_device">מכשיר זה</string>
-    <string name="ring_device_format">צלצל אל %1$s</string>
     <string name="battery_charging">בטעינה</string>
     <string name="battery_discharging">בפריקה</string>
     <string name="volume_muted_desc">מושתק. הקש לביטול השתקה.</string>

@@ -427,9 +427,6 @@
     <string name="manage_plugins_back">Reen al la panelo</string>
     <string name="now_playing">Nun ludanta</string>
     <string name="permission_badge">Permeso</string>
-    <string name="notification_sync_direction_format">%1$s → nur %2$s</string>
-    <string name="this_device">Ĉi tiu aparato</string>
-    <string name="ring_device_format">Sonigi %1$s</string>
     <string name="battery_charging">Ŝargante</string>
     <string name="battery_discharging">Malŝargante</string>
     <string name="volume_muted_desc">Silentigita. Frapetu por malsilentigi.</string>

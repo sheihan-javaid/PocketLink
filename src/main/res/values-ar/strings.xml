@@ -524,9 +524,6 @@
     <string name="manage_plugins_back">العودة للوحة التحكم</string>
     <string name="now_playing">يتم التشغيل الآن</string>
     <string name="permission_badge">إذن</string>
-    <string name="notification_sync_direction_format">%1$s ← %2$s فقط</string>
-    <string name="this_device">هذا الجهاز</string>
-    <string name="ring_device_format">رن على %1$s</string>
     <string name="battery_charging">جاري الشحن</string>
     <string name="battery_discharging">جاري التفريغ</string>
     <string name="volume_muted_desc">مكتوم. انقر لإلغاء الكتم.</string>

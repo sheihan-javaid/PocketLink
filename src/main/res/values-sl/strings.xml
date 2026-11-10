@@ -508,9 +508,6 @@
     <string name="manage_plugins_back">Nazaj na nadzorno ploščo</string>
     <string name="now_playing">Zdaj se predvaja</string>
     <string name="permission_badge">Dovoljenje</string>
-    <string name="notification_sync_direction_format">%1$s → samo %2$s</string>
-    <string name="this_device">Ta naprava</string>
-    <string name="ring_device_format">Pozvoni na %1$s</string>
     <string name="battery_charging">Polnjenje</string>
     <string name="battery_discharging">Praznjenje</string>
     <string name="volume_muted_desc">Utišano. Dotaknite se za vklop zvoka.</string>

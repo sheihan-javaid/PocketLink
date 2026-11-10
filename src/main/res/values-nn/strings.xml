@@ -481,9 +481,6 @@
     <string name="manage_plugins_back">Attende til oversikta</string>
     <string name="now_playing">Spelar no</string>
     <string name="permission_badge">Løyve</string>
-    <string name="notification_sync_direction_format">%1$s → berre %2$s</string>
-    <string name="this_device">Denne eininga</string>
-    <string name="ring_device_format">Ring %1$s</string>
     <string name="battery_charging">Ladar</string>
     <string name="battery_discharging">Ladar ut</string>
     <string name="volume_muted_desc">Lydlaus. Trykk for å slå på lyden.</string>

@@ -484,9 +484,6 @@
     <string name="manage_plugins_back">Takaisin koontinäyttöön</string>
     <string name="now_playing">Nyt toistetaan</string>
     <string name="permission_badge">Käyttöoikeus</string>
-    <string name="notification_sync_direction_format">%1$s → vain %2$s</string>
-    <string name="this_device">Tämä laite</string>
-    <string name="ring_device_format">Soita laitteeseen %1$s</string>
     <string name="battery_charging">Lataa</string>
     <string name="battery_discharging">Purkautuu</string>
     <string name="volume_muted_desc">Mykistetty. Poista mykistys napauttamalla.</string>

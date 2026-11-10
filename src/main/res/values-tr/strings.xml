@@ -492,9 +492,6 @@
     <string name="manage_plugins_back">Panoya dön</string>
     <string name="now_playing">Şimdi Çalıyor</string>
     <string name="permission_badge">İzin</string>
-    <string name="notification_sync_direction_format">%1$s → yalnızca %2$s</string>
-    <string name="this_device">Bu aygıt</string>
-    <string name="ring_device_format">%1$s aygıtını çaldır</string>
     <string name="battery_charging">Şarj oluyor</string>
     <string name="battery_discharging">Boşalıyor</string>
     <string name="volume_muted_desc">Sessiz. Sesi açmak için dokunun.</string>

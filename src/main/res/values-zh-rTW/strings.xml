@@ -476,9 +476,6 @@
     <string name="manage_plugins_back">返回儀表板</string>
     <string name="now_playing">現正播放</string>
     <string name="permission_badge">權限</string>
-    <string name="notification_sync_direction_format">%1$s → 僅 %2$s</string>
-    <string name="this_device">此裝置</string>
-    <string name="ring_device_format">讓 %1$s 響鈴</string>
     <string name="battery_charging">充電中</string>
     <string name="battery_discharging">放電中</string>
     <string name="volume_muted_desc">已靜音。輕觸以取消靜音。</string>

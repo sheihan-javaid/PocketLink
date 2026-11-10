@@ -433,9 +433,6 @@
     <string name="manage_plugins_back">Volver ao panel</string>
     <string name="now_playing">Reproducíndose agora</string>
     <string name="permission_badge">Permiso</string>
-    <string name="notification_sync_direction_format">%1$s → só %2$s</string>
-    <string name="this_device">Este dispositivo</string>
-    <string name="ring_device_format">Facer soar %1$s</string>
     <string name="battery_charging">Cargando</string>
     <string name="battery_discharging">Descargando</string>
     <string name="volume_muted_desc">Silenciado. Toque para reactivar o son.</string>

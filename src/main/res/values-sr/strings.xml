@@ -164,9 +164,6 @@
     <string name="manage_plugins_back">Назад на контролну таблу</string>
     <string name="now_playing">Тренутно се пушта</string>
     <string name="permission_badge">Дозвола</string>
-    <string name="notification_sync_direction_format">%1$s → само %2$s</string>
-    <string name="this_device">Овај уређај</string>
-    <string name="ring_device_format">Позови %1$s</string>
     <string name="battery_charging">Пуни се</string>
     <string name="battery_discharging">Пражњење</string>
     <string name="volume_muted_desc">Утишано. Додирните да укључите звук.</string>

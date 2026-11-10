@@ -488,9 +488,6 @@
     <string name="manage_plugins_back">Torna al pannello</string>
     <string name="now_playing">In riproduzione</string>
     <string name="permission_badge">Permesso</string>
-    <string name="notification_sync_direction_format">%1$s → solo %2$s</string>
-    <string name="this_device">Questo dispositivo</string>
-    <string name="ring_device_format">Fai squillare %1$s</string>
     <string name="battery_charging">In carica</string>
     <string name="battery_discharging">In scarica</string>
     <string name="volume_muted_desc">Silenziato. Tocca per riattivare l\'audio.</string>

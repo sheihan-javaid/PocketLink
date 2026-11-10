@@ -23,9 +23,6 @@
     <string name="manage_plugins_back">Назад на панель</string>
     <string name="now_playing">Сейчас играет</string>
     <string name="permission_badge">Разрешение</string>
-    <string name="notification_sync_direction_format">%1$s → только %2$s</string>
-    <string name="this_device">Это устройство</string>
-    <string name="ring_device_format">Вызов %1$s</string>
     <string name="battery_charging">Заряжается</string>
     <string name="battery_discharging">Разряжается</string>
     <string name="volume_muted_desc">Звук отключен. Нажмите для включения.</string>

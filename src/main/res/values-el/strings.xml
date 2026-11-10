@@ -360,9 +360,6 @@
     <string name="manage_plugins_back">Επιστροφή στον πίνακα</string>
     <string name="now_playing">Αναπαραγωγή τώρα</string>
     <string name="permission_badge">Άδεια</string>
-    <string name="notification_sync_direction_format">%1$s → μόνο %2$s</string>
-    <string name="this_device">Αυτή η συσκευή</string>
-    <string name="ring_device_format">Κλήση %1$s</string>
     <string name="battery_charging">Φόρτιση</string>
     <string name="battery_discharging">Αποφόρτιση</string>
     <string name="volume_muted_desc">Σε σίγαση. Πατήστε για κατάργηση σίγασης.</string>

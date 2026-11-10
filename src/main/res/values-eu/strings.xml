@@ -484,9 +484,6 @@
     <string name="manage_plugins_back">Itzuli aginte-panelera</string>
     <string name="now_playing">Orain erreproduzitzen</string>
     <string name="permission_badge">Baimena</string>
-    <string name="notification_sync_direction_format">%1$s → %2$s soilik</string>
-    <string name="this_device">Gailu hau</string>
-    <string name="ring_device_format">%1$s hotsarazi</string>
     <string name="battery_charging">Kargatzen</string>
     <string name="battery_discharging">Deskargatzen</string>
     <string name="volume_muted_desc">Mutututa. Ukitu soinua aktibatzeko.</string>

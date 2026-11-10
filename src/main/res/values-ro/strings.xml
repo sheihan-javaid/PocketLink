@@ -470,9 +470,6 @@
     <string name="manage_plugins_back">Înapoi la panou</string>
     <string name="now_playing">Se redă acum</string>
     <string name="permission_badge">Permisiune</string>
-    <string name="notification_sync_direction_format">%1$s → doar %2$s</string>
-    <string name="this_device">Acest dispozitiv</string>
-    <string name="ring_device_format">Sună %1$s</string>
     <string name="battery_charging">Se încarcă</string>
     <string name="battery_discharging">Se descarcă</string>
     <string name="volume_muted_desc">Silențios. Atingeți pentru a reactiva sunetul.</string>

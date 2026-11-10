@@ -434,9 +434,6 @@
     <string name="manage_plugins_back">Назад към таблото</string>
     <string name="now_playing">В момента звучи</string>
     <string name="permission_badge">Разрешение</string>
-    <string name="notification_sync_direction_format">%1$s → само %2$s</string>
-    <string name="this_device">Това устройство</string>
-    <string name="ring_device_format">Звънене на %1$s</string>
     <string name="battery_charging">Зареждане</string>
     <string name="battery_discharging">Разреждане</string>
     <string name="volume_muted_desc">Заглушено. Докоснете за включване на звука.</string>
