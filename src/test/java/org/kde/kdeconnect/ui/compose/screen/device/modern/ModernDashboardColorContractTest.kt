@@ -156,5 +156,33 @@ class ModernDashboardColorContractTest {
         assertEquals(PluginCategory.DeviceInfo, PluginCategoryRegistry.categoryFor("BatteryPlugin"))
         assertEquals(PluginCategory.DeviceInfo, PluginCategoryRegistry.categoryFor("NotificationsPlugin"))
     }
+
+    @Test
+    fun testPurpleVioletIndigoIdentity() {
+        val light = ModernLightColorScheme
+        val dark = ModernDarkColorScheme
+
+        // Light mode indigo primary, violet secondary, purple tertiary
+        assertEquals(Color(0xFF5B4AC7), light.primary)
+        assertEquals(Color(0xFF724B8B), light.secondary)
+        assertEquals(Color(0xFF5E4B99), light.tertiary)
+
+        // Dark mode lavender primary, violet secondary, lilac tertiary
+        assertEquals(Color(0xFFA896FE), dark.primary)
+        assertEquals(Color(0xFFDABCF3), dark.secondary)
+        assertEquals(Color(0xFFCBBDF6), dark.tertiary)
+    }
+
+    @Test
+    fun testStandardizedCardShapes() {
+        val density = androidx.compose.ui.unit.Density(1f)
+        val size = androidx.compose.ui.geometry.Size(200f, 200f)
+
+        // Main cards standardized to 26dp
+        assertEquals(26f, DashboardShapes.CardShape.topStart.toPx(size, density), 0.01f)
+
+        // Action tiles standardized to 18dp
+        assertEquals(18f, DashboardShapes.TileShape.topStart.toPx(size, density), 0.01f)
+    }
 }
 

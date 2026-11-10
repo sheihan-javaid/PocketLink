@@ -19,6 +19,11 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -375,10 +380,10 @@ fun ManagePluginsPage(
                 )
             }
     ) {
-        // Sticky header content height: status bar + top app bar (64dp) + search field (68dp)
-        val headerContentHeight = topInset + 132.dp
+        // Sticky header content height: status bar + top app bar (56dp) + compact search field (48dp)
+        val headerContentHeight = topInset + 104.dp
 
-        // 1. Scrollable Content Layer (underneath the sticky header and 24dp fade)
+        // 1. Scrollable Content Layer (underneath the sticky header and 20dp fade)
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -389,7 +394,7 @@ fun ManagePluginsPage(
                         brush = Brush.verticalGradient(
                             colors = listOf(Color.Transparent, Color.Black),
                             startY = headerContentHeight.toPx(),
-                            endY = (headerContentHeight + 24.dp).toPx()
+                            endY = (headerContentHeight + 20.dp).toPx()
                         ),
                         blendMode = BlendMode.DstIn
                     )
@@ -404,7 +409,7 @@ fun ManagePluginsPage(
                     .padding(
                         start = KdeSpacing.contentHorizontal,
                         end = KdeSpacing.contentHorizontal,
-                        top = headerContentHeight + 12.dp,
+                        top = headerContentHeight + 10.dp,
                         bottom = 48.dp + navBottomInset
                     ),
                 verticalArrangement = Arrangement.spacedBy(KdeSpacing.medium)
@@ -547,45 +552,75 @@ fun ManagePluginsPage(
                 )
             )
 
+            // Compact Manage Plugins Search Bar (42dp pill, refined purple/violet focus border)
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = KdeSpacing.contentHorizontal, vertical = 6.dp)
+                    .padding(horizontal = KdeSpacing.contentHorizontal, vertical = 2.dp)
             ) {
-                OutlinedTextField(
+                var isSearchFocused by remember { mutableStateOf(false) }
+
+                BasicTextField(
                     value = searchQuery,
                     onValueChange = { searchQuery = it },
-                    placeholder = { Text(stringResource(R.string.manage_plugins_search_hint)) },
-                    leadingIcon = {
-                        Icon(
-                            imageVector = Icons.Default.Search,
-                            contentDescription = stringResource(R.string.manage_plugins_search_description),
-                            tint = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
-                    },
-                    trailingIcon = {
-                        if (searchQuery.isNotEmpty()) {
-                            IconButton(onClick = { searchQuery = "" }) {
-                                Icon(
-                                    imageVector = Icons.Default.Clear,
-                                    contentDescription = stringResource(R.string.manage_plugins_clear_search),
-                                    tint = MaterialTheme.colorScheme.onSurfaceVariant
+                    singleLine = true,
+                    textStyle = MaterialTheme.typography.bodyMedium.copy(
+                        color = tokens.textPrimary
+                    ),
+                    cursorBrush = SolidColor(MaterialTheme.colorScheme.primary),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .onFocusChanged { isSearchFocused = it.isFocused },
+                    decorationBox = { innerTextField ->
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(42.dp)
+                                .clip(RoundedCornerShape(21.dp))
+                                .background(tokens.cardBackground)
+                                .border(
+                                    width = if (isSearchFocused) 1.5.dp else 1.dp,
+                                    color = if (isSearchFocused) MaterialTheme.colorScheme.primary else tokens.cardBorderBottom,
+                                    shape = RoundedCornerShape(21.dp)
                                 )
+                                .padding(horizontal = 14.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Search,
+                                contentDescription = stringResource(R.string.manage_plugins_search_description),
+                                tint = if (isSearchFocused) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f),
+                                modifier = Modifier.size(18.dp)
+                            )
+                            Spacer(modifier = Modifier.width(10.dp))
+                            Box(modifier = Modifier.weight(1f)) {
+                                if (searchQuery.isEmpty()) {
+                                    Text(
+                                        text = stringResource(R.string.manage_plugins_search_hint),
+                                        style = MaterialTheme.typography.bodyMedium,
+                                        color = tokens.textSecondary.copy(alpha = 0.65f)
+                                    )
+                                }
+                                innerTextField()
+                            }
+                            if (searchQuery.isNotEmpty()) {
+                                Box(
+                                    modifier = Modifier
+                                        .size(24.dp)
+                                        .clip(CircleShape)
+                                        .clickable { searchQuery = "" },
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    Icon(
+                                        imageVector = Icons.Default.Clear,
+                                        contentDescription = stringResource(R.string.manage_plugins_clear_search),
+                                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                                        modifier = Modifier.size(16.dp)
+                                    )
+                                }
                             }
                         }
-                    },
-                    singleLine = true,
-                    shape = RoundedCornerShape(12.dp),
-                    colors = OutlinedTextFieldDefaults.colors(
-                        focusedContainerColor = tokens.cardBackground,
-                        unfocusedContainerColor = tokens.cardBackground,
-                        focusedBorderColor = MaterialTheme.colorScheme.primary,
-                        unfocusedBorderColor = tokens.cardBorderBottom,
-                        focusedTextColor = tokens.textPrimary,
-                        unfocusedTextColor = tokens.textPrimary,
-                        cursorColor = MaterialTheme.colorScheme.primary
-                    ),
-                    modifier = Modifier.fillMaxWidth()
+                    }
                 )
             }
 

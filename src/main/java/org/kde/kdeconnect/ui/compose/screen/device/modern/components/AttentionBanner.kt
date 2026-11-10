@@ -51,6 +51,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import org.kde.kdeconnect.ui.compose.KdeSpacing
 import org.kde.kdeconnect.ui.compose.screen.device.modern.AttentionUiState
+import org.kde.kdeconnect.ui.compose.screen.device.modern.DashboardShapes
 import org.kde.kdeconnect.ui.compose.screen.device.modern.PermissionSeverity
 import org.kde.kdeconnect_tp.R
 
@@ -100,9 +101,9 @@ fun AttentionBanner(
     Card(
         modifier = modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(16.dp))
+            .clip(DashboardShapes.CardShape)
             .clickable(role = Role.Button, onClick = onClick),
-        shape = RoundedCornerShape(16.dp),
+        shape = DashboardShapes.CardShape,
         border = BorderStroke(1.dp, strokeColor),
         colors = CardDefaults.cardColors(containerColor = containerColor),
         elevation = CardDefaults.cardElevation(defaultElevation = if (isDark) 0.dp else 2.dp)
