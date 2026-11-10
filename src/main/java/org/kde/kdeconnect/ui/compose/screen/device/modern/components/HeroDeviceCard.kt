@@ -45,6 +45,7 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import org.kde.kdeconnect.ui.compose.KdeSpacing
@@ -52,12 +53,19 @@ import org.kde.kdeconnect.ui.compose.screen.device.modern.HeroUiState
 import org.kde.kdeconnect.ui.compose.screen.device.modern.LocalDashboardTokens
 import org.kde.kdeconnect_tp.R
 
+/**
+ * Compact two-column Connected MacBook Dashboard Card.
+ *
+ * Left column: Device identity (laptop preview icon, device name, connection status)
+ * Right column: Live device info (battery gauge/charging animation, network name)
+ */
 @Composable
 fun HeroDeviceCard(
     hero: HeroUiState,
     modifier: Modifier = Modifier
 ) {
     val isReducedMotion = isReducedMotionMode()
+    val tokens = LocalDashboardTokens.current
 
     val infiniteTransition = rememberInfiniteTransition(label = "connectedPulse")
     val dotAlpha by if (!isReducedMotion && hero.isConnected) {
@@ -77,43 +85,108 @@ fun HeroDeviceCard(
     AuroraGlassCard(
         modifier = modifier
     ) {
-        Column(
+        Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(KdeSpacing.cardPadding),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(10.dp)
+                .padding(horizontal = 16.dp, vertical = 12.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            // Microsoft Phone Link-Inspired MacBook Desktop Preview Frame
-            MacDesktopPreview(
-                deviceName = hero.deviceName,
-                isConnected = hero.isConnected,
-                modifier = Modifier.padding(top = 2.dp, bottom = 4.dp)
-            )
+            // -------------------------------------------------------------
+            // Left Column: Device Identity (compact, vertically aligned)
+            // -------------------------------------------------------------
+            Column(
+                modifier = Modifier.weight(1f),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(6.dp)
+            ) {
+                // Existing laptop preview icon at the top
+                MacDesktopPreview(
+                    deviceName = hero.deviceName,
+                    isConnected = hero.isConnected,
+                    previewWidth = 98.dp
+                )
 
-            // Device Name
-            Text(
-                text = hero.deviceName,
-                style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                modifier = Modifier.semantics { heading() }
-            )
+                // Device name directly underneath
+                Text(
+                    text = hero.deviceName,
+                    style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.semantics { heading() }
+                )
 
-            // Full-width chips row (Connected status, Wi-Fi, Battery)
-            DeviceStatusChipsRow(
-                hero = hero,
-                dotAlpha = dotAlpha
-            )
+                // Connection status below name: Green + "Connected" / Soft Red + "Disconnected"
+                val statusLabel = if (hero.isConnected) {
+                    stringResource(R.string.device_discovery_connected)
+                } else {
+                    stringResource(R.string.device_disconnected)
+                }
+                val statusDotColor = if (hero.isConnected) {
+                    MaterialTheme.colorScheme.tertiary.copy(alpha = dotAlpha)
+                } else {
+                    MaterialTheme.colorScheme.error
+                }
+                val statusTextColor = if (hero.isConnected) {
+                    MaterialTheme.colorScheme.onTertiaryContainer
+                } else {
+                    MaterialTheme.colorScheme.onErrorContainer
+                }
+                val statusBgColor = if (hero.isConnected) {
+                    MaterialTheme.colorScheme.tertiaryContainer
+                } else {
+                    MaterialTheme.colorScheme.errorContainer
+                }
 
-            // Centered Battery Detail if available
-            if (hero.battery != null) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    modifier = Modifier.padding(top = 2.dp)
+                    horizontalArrangement = Arrangement.spacedBy(5.dp),
+                    modifier = Modifier
+                        .semantics { contentDescription = statusLabel }
+                        .clip(RoundedCornerShape(8.dp))
+                        .background(statusBgColor)
+                        .padding(horizontal = 8.dp, vertical = 3.dp)
                 ) {
-                    BatteryRing(battery = hero.battery)
+                    Box(
+                        modifier = Modifier
+                            .size(6.dp)
+                            .clip(CircleShape)
+                            .background(statusDotColor)
+                    )
+                    Text(
+                        text = statusLabel,
+                        style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.SemiBold),
+                        color = statusTextColor,
+                        maxLines = 1
+                    )
+                }
+            }
+
+            // Subtle vertical divider between the two columns
+            Box(
+                modifier = Modifier
+                    .padding(horizontal = 8.dp)
+                    .width(0.5.dp)
+                    .height(96.dp)
+                    .background(tokens.divider)
+            )
+
+            // -------------------------------------------------------------
+            // Right Column: Live Device Information
+            // -------------------------------------------------------------
+            Column(
+                modifier = Modifier.weight(1f),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(6.dp)
+            ) {
+                // Existing battery/charging animation and charging status
+                if (hero.battery != null) {
+                    BatteryRing(
+                        battery = hero.battery,
+                        size = 62.dp,
+                        strokeWidth = 5.dp
+                    )
                     Text(
                         text = "${hero.battery.percent}% · " + if (hero.battery.isCharging) {
                             stringResource(R.string.battery_charging)
@@ -121,94 +194,60 @@ fun HeroDeviceCard(
                             stringResource(R.string.battery_discharging)
                         },
                         style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Medium),
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                } else {
+                    Box(
+                        modifier = Modifier
+                            .size(62.dp)
+                            .clip(CircleShape)
+                            .background(tokens.deviceContainer),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Image(
+                            painter = painterResource(R.drawable.ic_device_laptop_32dp),
+                            contentDescription = null,
+                            colorFilter = ColorFilter.tint(tokens.onDeviceContainer),
+                            modifier = Modifier.size(24.dp)
+                        )
+                    }
+                    Text(
+                        text = stringResource(R.string.battery_not_available),
+                        style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Medium),
+                        color = tokens.textTertiary,
+                        maxLines = 1
                     )
                 }
-            }
-        }
-    }
-}
 
-@Composable
-private fun DeviceStatusChipsRow(
-    hero: HeroUiState,
-    dotAlpha: Float,
-    modifier: Modifier = Modifier
-) {
-    val tokens = LocalDashboardTokens.current
-    Row(
-        modifier = modifier.fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally)
-    ) {
-        val statusLabel = stringResource(
-            if (hero.isConnected) R.string.device_discovery_connected
-            else R.string.error_not_reachable
-        )
-        val statusBg = if (hero.isConnected) {
-            MaterialTheme.colorScheme.tertiaryContainer
-        } else {
-            MaterialTheme.colorScheme.errorContainer
-        }
-        val statusText = if (hero.isConnected) {
-            MaterialTheme.colorScheme.onTertiaryContainer
-        } else {
-            MaterialTheme.colorScheme.onErrorContainer
-        }
-        val dotColor = if (hero.isConnected) {
-            MaterialTheme.colorScheme.tertiary.copy(alpha = dotAlpha)
-        } else {
-            MaterialTheme.colorScheme.error
-        }
-
-        // Pulsing live status pill
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(6.dp),
-            modifier = Modifier
-                .semantics { contentDescription = statusLabel }
-                .clip(RoundedCornerShape(8.dp))
-                .background(statusBg)
-                .padding(horizontal = 9.dp, vertical = 4.dp)
-        ) {
-            // Pulsing dot
-            Box(
-                modifier = Modifier
-                    .size(7.dp)
-                    .clip(CircleShape)
-                    .background(dotColor)
-            )
-            Text(
-                text = statusLabel,
-                style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.SemiBold),
-                color = statusText,
-                maxLines = 1
-            )
-        }
-
-        // Wi-Fi Chip with Signal Icon - full width row guarantees zero truncation
-        hero.networkTypes.forEach { netType ->
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(5.dp),
-                modifier = Modifier
-                    .semantics { contentDescription = netType }
-                    .clip(RoundedCornerShape(8.dp))
-                    .background(tokens.quickActionChipBg)
-                    .padding(horizontal = 9.dp, vertical = 4.dp)
-            ) {
-                Image(
-                    painter = painterResource(R.drawable.ic_wifi),
-                    contentDescription = null,
-                    colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurfaceVariant),
-                    modifier = Modifier.size(13.dp)
-                )
-                Text(
-                    text = netType,
-                    style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Medium),
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    maxLines = 1
-                )
+                // Connected Wi-Fi/network name, when available
+                if (hero.networkTypes.isNotEmpty()) {
+                    val netType = hero.networkTypes.first()
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(5.dp),
+                        modifier = Modifier
+                            .semantics { contentDescription = netType }
+                            .clip(RoundedCornerShape(8.dp))
+                            .background(tokens.quickActionChipBg)
+                            .padding(horizontal = 8.dp, vertical = 3.dp)
+                    ) {
+                        Image(
+                            painter = painterResource(R.drawable.ic_wifi),
+                            contentDescription = null,
+                            colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurfaceVariant),
+                            modifier = Modifier.size(12.dp)
+                        )
+                        Text(
+                            text = netType,
+                            style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Medium),
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
+                        )
+                    }
+                }
             }
         }
     }

@@ -82,7 +82,8 @@ import java.io.File
 fun MacDesktopPreview(
     deviceName: String,
     isConnected: Boolean,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    previewWidth: androidx.compose.ui.unit.Dp = 104.dp
 ) {
     val context = LocalContext.current
     val tokens = LocalDashboardTokens.current
@@ -133,7 +134,7 @@ fun MacDesktopPreview(
         // Outer MacBook Aluminum Display Frame (16:10 aspect ratio)
         Box(
             modifier = Modifier
-                .width(136.dp)
+                .width(previewWidth)
                 .aspectRatio(16f / 10f)
                 .clip(RoundedCornerShape(8.dp))
                 .background(tokens.cardBackground)
@@ -304,7 +305,7 @@ fun MacDesktopPreview(
         // Laptop base stand highlight
         Box(
             modifier = Modifier
-                .width(148.dp)
+                .width(previewWidth + 10.dp)
                 .height(2.5.dp)
                 .clip(RoundedCornerShape(bottomStart = 3.dp, bottomEnd = 3.dp))
                 .background(tokens.cardBorderBottom)

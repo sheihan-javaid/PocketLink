@@ -681,6 +681,8 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
     <string name="ring_device_format">Ring %1$s</string>
     <string name="battery_charging">Charging</string>
     <string name="battery_discharging">Discharging</string>
+    <string name="battery_not_available">Battery unavailable</string>
+    <string name="device_disconnected">Disconnected</string>
     <string name="volume_muted_desc">Muted. Tap to unmute.</string>
     <string name="volume_low_desc">Low volume, %1$d percent. Tap to mute.</string>
     <string name="volume_normal_desc">Volume, %1$d percent. Tap to mute.</string>

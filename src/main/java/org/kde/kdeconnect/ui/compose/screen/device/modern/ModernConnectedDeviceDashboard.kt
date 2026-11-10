@@ -60,8 +60,6 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -380,10 +378,10 @@ fun ManagePluginsPage(
                 )
             }
     ) {
-        // Sticky header content height: status bar + top app bar (56dp) + compact search field (48dp)
-        val headerContentHeight = topInset + 104.dp
+        // Compact sticky header content height: status bar + compact header (42dp) + compact search field (42dp)
+        val headerContentHeight = topInset + 86.dp
 
-        // 1. Scrollable Content Layer (underneath the sticky header and 20dp fade)
+        // 1. Scrollable Content Layer (underneath the sticky header and 16dp fade)
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -394,7 +392,7 @@ fun ManagePluginsPage(
                         brush = Brush.verticalGradient(
                             colors = listOf(Color.Transparent, Color.Black),
                             startY = headerContentHeight.toPx(),
-                            endY = (headerContentHeight + 20.dp).toPx()
+                            endY = (headerContentHeight + 16.dp).toPx()
                         ),
                         blendMode = BlendMode.DstIn
                     )
@@ -409,17 +407,17 @@ fun ManagePluginsPage(
                     .padding(
                         start = KdeSpacing.contentHorizontal,
                         end = KdeSpacing.contentHorizontal,
-                        top = headerContentHeight + 10.dp,
+                        top = headerContentHeight + 8.dp,
                         bottom = 48.dp + navBottomInset
                     ),
-                verticalArrangement = Arrangement.spacedBy(KdeSpacing.medium)
+                verticalArrangement = Arrangement.spacedBy(10.dp)
             ) {
                 // Summary card keeping "N of 23 enabled"
                 AuroraGlassCard {
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(horizontal = 16.dp, vertical = 12.dp),
+                            .padding(horizontal = 16.dp, vertical = 9.dp),
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
@@ -531,28 +529,37 @@ fun ManagePluginsPage(
             }
         }
 
-        // 2. Sticky Header Layer (on top, aligned to TopCenter, transparent over page glow)
+        // 2. Sticky Header Layer (on top, aligned to TopCenter, compact layout)
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .align(Alignment.TopCenter)
         ) {
-            TopAppBar(
-                title = { Text(stringResource(R.string.manage_plugins_title), fontWeight = FontWeight.SemiBold) },
-                navigationIcon = {
-                    IconButton(onClick = onBack) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = stringResource(R.string.manage_plugins_back)
-                        )
-                    }
-                },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = Color.Transparent
+            // Compact Header Row (replaces tall TopAppBar, slightly reduced heading size)
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = topInset + 4.dp, start = 8.dp, end = 16.dp, bottom = 2.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                IconButton(
+                    onClick = onBack,
+                    modifier = Modifier.size(38.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        contentDescription = stringResource(R.string.manage_plugins_back),
+                        modifier = Modifier.size(20.dp)
+                    )
+                }
+                Spacer(modifier = Modifier.width(6.dp))
+                Text(
+                    text = stringResource(R.string.manage_plugins_title),
+                    style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold)
                 )
-            )
+            }
 
-            // Compact Manage Plugins Search Bar (42dp pill, refined purple/violet focus border)
+            // Compact Manage Plugins Search Bar (38dp pill, refined purple/violet focus border)
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -575,13 +582,13 @@ fun ManagePluginsPage(
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .height(42.dp)
-                                .clip(RoundedCornerShape(21.dp))
+                                .height(38.dp)
+                                .clip(RoundedCornerShape(19.dp))
                                 .background(tokens.cardBackground)
                                 .border(
                                     width = if (isSearchFocused) 1.5.dp else 1.dp,
                                     color = if (isSearchFocused) MaterialTheme.colorScheme.primary else tokens.cardBorderBottom,
-                                    shape = RoundedCornerShape(21.dp)
+                                    shape = RoundedCornerShape(19.dp)
                                 )
                                 .padding(horizontal = 14.dp),
                             verticalAlignment = Alignment.CenterVertically
@@ -590,9 +597,9 @@ fun ManagePluginsPage(
                                 imageVector = Icons.Default.Search,
                                 contentDescription = stringResource(R.string.manage_plugins_search_description),
                                 tint = if (isSearchFocused) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f),
-                                modifier = Modifier.size(18.dp)
+                                modifier = Modifier.size(16.dp)
                             )
-                            Spacer(modifier = Modifier.width(10.dp))
+                            Spacer(modifier = Modifier.width(8.dp))
                             Box(modifier = Modifier.weight(1f)) {
                                 if (searchQuery.isEmpty()) {
                                     Text(
@@ -606,7 +613,7 @@ fun ManagePluginsPage(
                             if (searchQuery.isNotEmpty()) {
                                 Box(
                                     modifier = Modifier
-                                        .size(24.dp)
+                                        .size(22.dp)
                                         .clip(CircleShape)
                                         .clickable { searchQuery = "" },
                                     contentAlignment = Alignment.Center
@@ -615,7 +622,7 @@ fun ManagePluginsPage(
                                         imageVector = Icons.Default.Clear,
                                         contentDescription = stringResource(R.string.manage_plugins_clear_search),
                                         tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                                        modifier = Modifier.size(16.dp)
+                                        modifier = Modifier.size(15.dp)
                                     )
                                 }
                             }
