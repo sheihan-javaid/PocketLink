@@ -18,12 +18,12 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
-import org.kde.kdeconnect.ui.compose.KdeDarkSemanticColors
-import org.kde.kdeconnect.ui.compose.KdeLightSemanticColors
-import org.kde.kdeconnect.ui.compose.KdePalette
-import org.kde.kdeconnect.ui.compose.KdeShapes
-import org.kde.kdeconnect.ui.compose.KdeTypography
-import org.kde.kdeconnect.ui.compose.LocalKdeSemanticColors
+import org.kde.kdeconnect.ui.compose.PocketLinkDarkSemanticColors
+import org.kde.kdeconnect.ui.compose.PocketLinkLightSemanticColors
+import org.kde.kdeconnect.ui.compose.PocketLinkPalette
+import org.kde.kdeconnect.ui.compose.PocketLinkShapes
+import org.kde.kdeconnect.ui.compose.PocketLinkTypography
+import org.kde.kdeconnect.ui.compose.LocalPocketLinkSemanticColors
 
 /**
  * Isolated modern theme wrapper for the Stage 6 Part 2 connected device dashboard prototype.
@@ -31,13 +31,13 @@ import org.kde.kdeconnect.ui.compose.LocalKdeSemanticColors
  * without modifying legacy screens or theme defaults outside the modern package.
  */
 @Composable
-fun ModernKdeTheme(
+fun ModernPocketLinkTheme(
     context: Context,
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
     val colorScheme = if (darkTheme) ModernDarkColorScheme else ModernLightColorScheme
-    val semanticColors = if (darkTheme) KdeDarkSemanticColors else KdeLightSemanticColors
+    val semanticColors = if (darkTheme) PocketLinkDarkSemanticColors else PocketLinkLightSemanticColors
 
     val view = LocalView.current
     if (!view.isInEditMode) {
@@ -51,11 +51,11 @@ fun ModernKdeTheme(
         }
     }
 
-    CompositionLocalProvider(LocalKdeSemanticColors provides semanticColors) {
+    CompositionLocalProvider(LocalPocketLinkSemanticColors provides semanticColors) {
         MaterialTheme(
             colorScheme = colorScheme,
-            typography = KdeTypography,
-            shapes = KdeShapes,
+            typography = PocketLinkTypography,
+            shapes = PocketLinkShapes,
             content = content,
         )
     }

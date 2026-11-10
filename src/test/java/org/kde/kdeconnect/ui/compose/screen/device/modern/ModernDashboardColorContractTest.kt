@@ -110,7 +110,7 @@ class ModernDashboardColorContractTest {
 
         modernDir.walkTopDown()
             .filter { it.isFile && it.extension == "kt" }
-            .filter { it.name != "ModernKdeTheme.kt" && it.name != "DashboardEffects.kt" } // Theme and DesignTokens definitions
+            .filter { it.name != "ModernPocketLinkTheme.kt" && it.name != "DashboardEffects.kt" } // Theme and DesignTokens definitions
             .forEach { file ->
                 val text = file.readText()
                 if (hexColorRegex.containsMatchIn(text)) {

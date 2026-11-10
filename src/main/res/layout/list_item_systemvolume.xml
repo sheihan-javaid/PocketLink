@@ -11,10 +11,10 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
     android:id="@+id/sink_card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/kde_spacing_small"
-    app:cardCornerRadius="@dimen/kde_corner_large"
+    android:layout_marginBottom="@dimen/pocketlink_spacing_small"
+    app:cardCornerRadius="@dimen/pocketlink_corner_large"
     app:cardElevation="0dp"
-    app:contentPadding="@dimen/kde_spacing_medium"
+    app:contentPadding="@dimen/pocketlink_spacing_medium"
     app:strokeWidth="1dp"
     app:strokeColor="?attr/colorOutlineVariant">
 
@@ -31,8 +31,8 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
             android:layout_gravity="start"
             android:ellipsize="end"
             android:maxLines="1"
-            android:paddingStart="@dimen/kde_spacing_small"
-            android:paddingEnd="@dimen/kde_spacing_small"
+            android:paddingStart="@dimen/pocketlink_spacing_small"
+            android:paddingEnd="@dimen/pocketlink_spacing_small"
             android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
             android:textColor="?attr/colorOnSurface"
             tools:text="Device name" />
@@ -42,13 +42,13 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="@dimen/kde_spacing_small"
+            android:layout_marginTop="@dimen/pocketlink_spacing_small"
             android:orientation="horizontal">
 
             <ImageButton
                 android:id="@+id/systemvolume_mute"
-                android:layout_width="@dimen/kde_min_touch_target"
-                android:layout_height="@dimen/kde_min_touch_target"
+                android:layout_width="@dimen/pocketlink_min_touch_target"
+                android:layout_height="@dimen/pocketlink_min_touch_target"
                 android:background="@android:color/transparent"
                 android:contentDescription="@string/mute"
                 android:scaleType="fitXY"

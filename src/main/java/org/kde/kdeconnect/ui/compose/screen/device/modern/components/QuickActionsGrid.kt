@@ -41,7 +41,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import org.kde.kdeconnect.ui.compose.KdeSpacing
+import org.kde.kdeconnect.ui.compose.PocketLinkSpacing
 import org.kde.kdeconnect.ui.compose.screen.device.modern.DashboardShapes
 import org.kde.kdeconnect.ui.compose.screen.device.modern.LocalDashboardTokens
 import org.kde.kdeconnect.ui.compose.screen.device.modern.LocalEffectsTier
@@ -61,7 +61,7 @@ fun QuickActionsGrid(
 
     BoxWithConstraints(modifier = modifier.fillMaxWidth()) {
         val columns = if (maxWidth >= 480.dp) 3 else 2
-        val spacing = KdeSpacing.medium
+        val spacing = PocketLinkSpacing.medium
         val itemWidth = ((maxWidth - (spacing * (columns - 1))) / columns) - 2.dp
 
         FlowRow(
@@ -150,7 +150,7 @@ private fun QuickActionTile(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(vertical = KdeSpacing.medium, horizontal = KdeSpacing.small),
+                .padding(vertical = PocketLinkSpacing.medium, horizontal = PocketLinkSpacing.small),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
@@ -174,7 +174,7 @@ private fun QuickActionTile(
                 style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.SemiBold),
                 color = textColor,
                 textAlign = TextAlign.Center,
-                modifier = Modifier.padding(top = KdeSpacing.small)
+                modifier = Modifier.padding(top = PocketLinkSpacing.small)
             )
 
             if (isNeedsPermission) {

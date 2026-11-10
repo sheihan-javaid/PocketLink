@@ -43,7 +43,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import org.kde.kdeconnect.ui.compose.KdeSpacing
+import org.kde.kdeconnect.ui.compose.PocketLinkSpacing
 import org.kde.kdeconnect.ui.compose.screen.device.modern.LocalDashboardTokens
 import org.kde.kdeconnect.ui.compose.screen.device.modern.VolumeControlUiState
 import org.kde.kdeconnect_tp.R
@@ -61,7 +61,7 @@ fun ContextualVolumeCard(
             volumeState = volumeState,
             onVolumeChange = onVolumeChange,
             onVolumeToggleMute = onVolumeToggleMute,
-            modifier = Modifier.padding(start = KdeSpacing.cardPadding, end = KdeSpacing.cardPadding, top = 12.dp, bottom = 2.dp)
+            modifier = Modifier.padding(start = PocketLinkSpacing.cardPadding, end = PocketLinkSpacing.cardPadding, top = 12.dp, bottom = 2.dp)
         )
     }
 }
@@ -122,7 +122,7 @@ fun ContextualVolumeContent(
                         modifier = Modifier.size(24.dp)
                     )
                 }
-                Spacer(modifier = Modifier.width(KdeSpacing.xSmall))
+                Spacer(modifier = Modifier.width(PocketLinkSpacing.xSmall))
                 Text(
                     text = volumeState.sinkName.ifEmpty { stringResource(R.string.pref_plugin_systemvolume) },
                     style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold),

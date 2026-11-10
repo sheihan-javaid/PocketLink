@@ -35,8 +35,8 @@ import androidx.compose.ui.text.TextLinkStyles
 import androidx.compose.ui.text.fromHtml
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
-import org.kde.kdeconnect.ui.compose.KdeTheme
-import org.kde.kdeconnect.ui.compose.components.KdeThemePreviews
+import org.kde.kdeconnect.ui.compose.PocketLinkTheme
+import org.kde.kdeconnect.ui.compose.components.PocketLinkThemePreviews
 import org.kde.kdeconnect_tp.R
 
 @Composable
@@ -100,7 +100,7 @@ private fun Header() {
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         Image(
-            painter = painterResource(id = R.drawable.ic_kde_48dp),
+            painter = painterResource(id = R.drawable.ic_pocketlink_48dp),
             contentDescription = null,
             modifier = Modifier.size(48.dp),
             colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onBackground)
@@ -142,10 +142,10 @@ private fun HtmlCard(htmlContent: String) {
     }
 }
 
-@KdeThemePreviews
+@PocketLinkThemePreviews
 @Composable
 private fun AboutKDEScreenPreview() {
-    KdeTheme(context = LocalContext.current) {
+    PocketLinkTheme(context = LocalContext.current) {
         Surface {
             AboutKDEScreen()
         }

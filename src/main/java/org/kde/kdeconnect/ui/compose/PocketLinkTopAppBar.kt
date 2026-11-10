@@ -23,7 +23,7 @@ import org.kde.kdeconnect_tp.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun KdeTopAppBar(
+fun PocketLinkTopAppBar(
     title: String = stringResource(R.string.kde_connect),
     subTitle: String? = null,
     navIcon: ImageVector = Icons.AutoMirrored.Filled.ArrowBack,

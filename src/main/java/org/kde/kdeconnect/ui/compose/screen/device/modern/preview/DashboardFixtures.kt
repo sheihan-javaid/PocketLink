@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import org.kde.kdeconnect.plugins.Plugin
-import org.kde.kdeconnect.ui.compose.screen.device.modern.ModernKdeTheme
+import org.kde.kdeconnect.ui.compose.screen.device.modern.ModernPocketLinkTheme
 import org.kde.kdeconnect.ui.compose.screen.device.DevicePluginUiModel
 import org.kde.kdeconnect.ui.compose.screen.device.modern.AttentionUiState
 import org.kde.kdeconnect.ui.compose.screen.device.modern.BatteryUiState
@@ -161,7 +161,7 @@ object DashboardFixtures {
 @PreviewLightDark
 @Composable
 private fun ModernConnectedDeviceDashboardPreview() {
-    ModernKdeTheme(context = LocalContext.current) {
+    ModernPocketLinkTheme(context = LocalContext.current) {
         Surface(modifier = Modifier.fillMaxSize()) {
             ModernConnectedDeviceDashboard(
                 state = DashboardFixtures.fullFeaturedState,

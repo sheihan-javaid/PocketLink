@@ -10,11 +10,11 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:minHeight="@dimen/kde_min_touch_target"
-    android:paddingStart="@dimen/kde_spacing_medium"
-    android:paddingEnd="@dimen/kde_spacing_medium"
-    android:paddingTop="@dimen/kde_spacing_small"
-    android:paddingBottom="@dimen/kde_spacing_small"
+    android:minHeight="@dimen/pocketlink_min_touch_target"
+    android:paddingStart="@dimen/pocketlink_spacing_medium"
+    android:paddingEnd="@dimen/pocketlink_spacing_medium"
+    android:paddingTop="@dimen/pocketlink_spacing_small"
+    android:paddingBottom="@dimen/pocketlink_spacing_small"
     android:gravity="center_vertical"
     android:background="?attr/selectableItemBackground"
     tools:ignore="Overdraw">
@@ -25,9 +25,9 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_gravity="center_vertical"
-        android:minHeight="@dimen/kde_min_touch_target"
+        android:minHeight="@dimen/pocketlink_min_touch_target"
         android:gravity="center_vertical"
-        android:paddingEnd="@dimen/kde_spacing_small"
+        android:paddingEnd="@dimen/pocketlink_spacing_small"
         tools:ignore="RtlSymmetry"
         android:orientation="vertical">
 
@@ -58,16 +58,16 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
         android:layout_width="1dp"
         android:layout_height="24dp"
         android:layout_gravity="center_vertical"
-        android:layout_marginStart="@dimen/kde_spacing_small"
-        android:layout_marginEnd="@dimen/kde_spacing_small"
+        android:layout_marginStart="@dimen/pocketlink_spacing_small"
+        android:layout_marginEnd="@dimen/pocketlink_spacing_small"
         android:background="?attr/colorOutlineVariant" />
 
     <LinearLayout
         android:id="@android:id/widget_frame"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minWidth="@dimen/kde_min_touch_target"
-        android:minHeight="@dimen/kde_min_touch_target"
+        android:minWidth="@dimen/pocketlink_min_touch_target"
+        android:minHeight="@dimen/pocketlink_min_touch_target"
         android:layout_gravity="center_vertical"
         android:gravity="center"
         android:orientation="vertical" />

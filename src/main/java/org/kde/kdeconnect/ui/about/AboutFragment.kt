@@ -16,7 +16,7 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
-import org.kde.kdeconnect.ui.compose.KdeTheme
+import org.kde.kdeconnect.ui.compose.PocketLinkTheme
 import org.kde.kdeconnect.ui.compose.screen.about.AboutScreen
 import org.kde.kdeconnect_tp.R
 
@@ -40,7 +40,7 @@ class AboutFragment : Fragment() {
         return ComposeView(requireContext()).apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
-                KdeTheme(context) {
+                PocketLinkTheme(context) {
                     AboutScreen(
                         aboutData = aboutData,
                         onEasterEggTriggered = {

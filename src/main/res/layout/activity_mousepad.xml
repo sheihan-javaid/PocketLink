@@ -32,7 +32,7 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:gravity="center"
-            android:padding="@dimen/kde_spacing_medium"
+            android:padding="@dimen/pocketlink_spacing_medium"
             android:importantForAccessibility="no"
             android:text="@string/mousepad_info"
             android:textColor="?attr/colorOnSurfaceVariant" />
@@ -52,37 +52,37 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_alignParentBottom="true"
-                android:padding="@dimen/kde_spacing_medium">
+                android:padding="@dimen/pocketlink_spacing_medium">
 
             <com.google.android.material.button.MaterialButton
                     android:id="@+id/mouse_click_left"
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/kde_min_touch_target"
+                    android:layout_height="@dimen/pocketlink_min_touch_target"
                     android:layout_weight="1"
                     android:contentDescription="@string/left_click"
-                    android:layout_marginEnd="@dimen/kde_spacing_small"
+                    android:layout_marginEnd="@dimen/pocketlink_spacing_small"
                     app:icon="@drawable/left_click_48dp"
-                    style="@style/KdeConnectButton.IconButton" />
+                    style="@style/PocketLinkButton.IconButton" />
 
             <com.google.android.material.button.MaterialButton
                     android:id="@+id/mouse_click_middle"
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/kde_min_touch_target"
+                    android:layout_height="@dimen/pocketlink_min_touch_target"
                     android:layout_weight="1"
                     android:contentDescription="@string/middle_click"
-                    android:layout_marginStart="@dimen/kde_spacing_small"
-                    android:layout_marginEnd="@dimen/kde_spacing_small"
-                    style="@style/KdeConnectButton.IconButton.Secondary" />
+                    android:layout_marginStart="@dimen/pocketlink_spacing_small"
+                    android:layout_marginEnd="@dimen/pocketlink_spacing_small"
+                    style="@style/PocketLinkButton.IconButton.Secondary" />
 
             <com.google.android.material.button.MaterialButton
                     android:id="@+id/mouse_click_right"
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/kde_min_touch_target"
+                    android:layout_height="@dimen/pocketlink_min_touch_target"
                     android:layout_weight="1"
                     android:contentDescription="@string/right_click"
-                    android:layout_marginStart="@dimen/kde_spacing_small"
+                    android:layout_marginStart="@dimen/pocketlink_spacing_small"
                     app:icon="@drawable/right_click_48dp"
-                    style="@style/KdeConnectButton.IconButton" />
+                    style="@style/PocketLinkButton.IconButton" />
 
         </LinearLayout>
     </RelativeLayout>

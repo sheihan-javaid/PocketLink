@@ -19,7 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
     showBackground = true,
     uiMode = Configuration.UI_MODE_NIGHT_YES
 )
-annotation class KdePortraitThemePreviews
+annotation class PocketLinkPortraitThemePreviews
 
 @Preview(
     name = "Portrait - Light",
@@ -43,4 +43,4 @@ annotation class KdePortraitThemePreviews
     uiMode = Configuration.UI_MODE_NIGHT_YES,
     device = "spec:width=411dp,height=891dp,dpi=420,isRound=false,chinSize=0dp,orientation=landscape"
 )
-annotation class KdeThemePreviews
+annotation class PocketLinkThemePreviews

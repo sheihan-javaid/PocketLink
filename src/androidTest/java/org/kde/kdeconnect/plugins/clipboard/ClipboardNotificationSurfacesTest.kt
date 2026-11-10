@@ -160,7 +160,7 @@ class ClipboardNotificationSurfacesTest {
 
     @Test
     fun notificationPrivacyOptionsHaveReadableTouchTargets() {
-        val themedContext = ContextThemeWrapper(composeRule.activity, R.style.KdeConnectTheme)
+        val themedContext = ContextThemeWrapper(composeRule.activity, R.style.PocketLinkTheme)
         val options = LayoutInflater.from(themedContext)
             .inflate(R.layout.privacy_options, null, false)
         val minimumTarget = composeRule.activity.resources
@@ -173,7 +173,7 @@ class ClipboardNotificationSurfacesTest {
     private fun showNotificationFilterFixture(onSelectionChanged: () -> Unit) {
         composeRule.activity.runOnUiThread {
             val activity = composeRule.activity
-            val themedContext = ContextThemeWrapper(activity, R.style.KdeConnectTheme)
+            val themedContext = ContextThemeWrapper(activity, R.style.PocketLinkTheme)
             val inflater = LayoutInflater.from(themedContext)
             val root = inflater.inflate(R.layout.fragment_notification_filter, null, false)
             activity.setContentView(root)

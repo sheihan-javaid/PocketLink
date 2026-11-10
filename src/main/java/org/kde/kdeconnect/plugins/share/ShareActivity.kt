@@ -24,7 +24,7 @@ import org.kde.kdeconnect.KdeConnect
 import org.kde.kdeconnect.base.BaseActivity
 import org.kde.kdeconnect.helpers.IntentHelper
 import org.kde.kdeconnect.plugins.Plugin
-import org.kde.kdeconnect.ui.compose.KdeTheme
+import org.kde.kdeconnect.ui.compose.PocketLinkTheme
 import org.kde.kdeconnect.ui.compose.extensions.device.toUiModel
 import org.kde.kdeconnect.ui.compose.model.device.DeviceUiModel
 import org.kde.kdeconnect.ui.compose.screen.share.ShareScreen
@@ -135,7 +135,7 @@ class ShareActivity : BaseActivity<ActivityShareBinding>() {
         }
 
         binding.devicesListLayout.composeView.setContent {
-            KdeTheme(this) {
+            PocketLinkTheme(this) {
                 ShareScreen(
                     devices = uiDevices,
                     intentHasUrl = intentHasUrl,

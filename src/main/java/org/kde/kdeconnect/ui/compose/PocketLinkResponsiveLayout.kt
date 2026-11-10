@@ -17,28 +17,28 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
-enum class KdeWindowSizeClass {
+enum class PocketLinkWindowSizeClass {
     Compact,
     Medium,
     Expanded
 }
 
 @Composable
-fun KdeResponsiveContent(
+fun PocketLinkResponsiveContent(
     modifier: Modifier = Modifier,
-    contentPadding: PaddingValues = PaddingValues(horizontal = KdeSpacing.contentHorizontal),
-    content: @Composable (KdeWindowSizeClass) -> Unit
+    contentPadding: PaddingValues = PaddingValues(horizontal = PocketLinkSpacing.contentHorizontal),
+    content: @Composable (PocketLinkWindowSizeClass) -> Unit
 ) {
     BoxWithConstraints(modifier = modifier.fillMaxSize()) {
         val sizeClass = when {
-            maxWidth < KdeSpacing.compactContentMaxWidth -> KdeWindowSizeClass.Compact
-            maxWidth < KdeSpacing.mediumContentMaxWidth -> KdeWindowSizeClass.Medium
-            else -> KdeWindowSizeClass.Expanded
+            maxWidth < PocketLinkSpacing.compactContentMaxWidth -> PocketLinkWindowSizeClass.Compact
+            maxWidth < PocketLinkSpacing.mediumContentMaxWidth -> PocketLinkWindowSizeClass.Medium
+            else -> PocketLinkWindowSizeClass.Expanded
         }
         val maxContentWidth = when (sizeClass) {
-            KdeWindowSizeClass.Compact -> null
-            KdeWindowSizeClass.Medium -> KdeSpacing.mediumContentMaxWidth
-            KdeWindowSizeClass.Expanded -> KdeSpacing.expandedContentMaxWidth
+            PocketLinkWindowSizeClass.Compact -> null
+            PocketLinkWindowSizeClass.Medium -> PocketLinkSpacing.mediumContentMaxWidth
+            PocketLinkWindowSizeClass.Expanded -> PocketLinkSpacing.expandedContentMaxWidth
         }
 
         androidx.compose.foundation.layout.Box(

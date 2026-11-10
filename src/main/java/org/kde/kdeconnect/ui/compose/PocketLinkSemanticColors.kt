@@ -12,7 +12,7 @@ import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 
 @Immutable
-data class KdeSemanticColors(
+data class PocketLinkSemanticColors(
     val success: Color,
     val onSuccess: Color,
     val successContainer: Color,
@@ -31,7 +31,7 @@ data class KdeSemanticColors(
     val onBrandContainer: Color = Color(0xFF1B0F5C)
 )
 
-internal val KdeLightSemanticColors = KdeSemanticColors(
+internal val PocketLinkLightSemanticColors = PocketLinkSemanticColors(
     success = Color(0xFF176B45),
     onSuccess = Color(0xFFFFFFFF),
     successContainer = Color(0xFFD7F3E2),
@@ -50,7 +50,7 @@ internal val KdeLightSemanticColors = KdeSemanticColors(
     onBrandContainer = Color(0xFF1B0F5C)
 )
 
-internal val KdeDarkSemanticColors = KdeSemanticColors(
+internal val PocketLinkDarkSemanticColors = PocketLinkSemanticColors(
     success = Color(0xFF82D6A9),
     onSuccess = Color(0xFF073B25),
     successContainer = Color(0xFF165638),
@@ -69,7 +69,7 @@ internal val KdeDarkSemanticColors = KdeSemanticColors(
     onBrandContainer = Color(0xFFEBE5FB)
 )
 
-internal val LocalKdeSemanticColors = staticCompositionLocalOf { KdeLightSemanticColors }
+internal val LocalPocketLinkSemanticColors = staticCompositionLocalOf { PocketLinkLightSemanticColors }
 
 @Composable
-fun kdeSemanticColors(): KdeSemanticColors = LocalKdeSemanticColors.current
+fun kdeSemanticColors(): PocketLinkSemanticColors = LocalPocketLinkSemanticColors.current

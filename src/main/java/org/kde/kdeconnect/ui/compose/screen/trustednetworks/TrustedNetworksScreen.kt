@@ -43,14 +43,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import org.kde.kdeconnect.ui.compose.KdeSpacing
-import org.kde.kdeconnect.ui.compose.KdeTheme
-import org.kde.kdeconnect.ui.compose.KdeTopAppBar
-import org.kde.kdeconnect.ui.compose.components.KdeConfirmationDialog
-import org.kde.kdeconnect.ui.compose.components.KdePanelKind
-import org.kde.kdeconnect.ui.compose.components.KdeStandardCard
-import org.kde.kdeconnect.ui.compose.components.KdeStatePanel
-import org.kde.kdeconnect.ui.compose.components.KdeThemePreviews
+import org.kde.kdeconnect.ui.compose.PocketLinkSpacing
+import org.kde.kdeconnect.ui.compose.PocketLinkTheme
+import org.kde.kdeconnect.ui.compose.PocketLinkTopAppBar
+import org.kde.kdeconnect.ui.compose.components.PocketLinkConfirmationDialog
+import org.kde.kdeconnect.ui.compose.components.PocketLinkPanelKind
+import org.kde.kdeconnect.ui.compose.components.PocketLinkStandardCard
+import org.kde.kdeconnect.ui.compose.components.PocketLinkStatePanel
+import org.kde.kdeconnect.ui.compose.components.PocketLinkThemePreviews
 import org.kde.kdeconnect.ui.compose.components.SectionHeader
 import org.kde.kdeconnect_tp.R
 
@@ -73,7 +73,7 @@ fun TrustedNetworksScreen(
     Scaffold(
         modifier = modifier,
         topBar = {
-            KdeTopAppBar(
+            PocketLinkTopAppBar(
                 title = stringResource(R.string.trusted_networks),
                 navIconOnClick = onNavigateUp
             )
@@ -99,7 +99,7 @@ fun TrustedNetworksScreen(
     }
 
     networkPendingDelete?.let { network ->
-        KdeConfirmationDialog(
+        PocketLinkConfirmationDialog(
             title = stringResource(R.string.remove_trusted_network_title),
             message = stringResource(R.string.remove_trusted_network_message, network),
             confirmLabel = stringResource(R.string.remove),
@@ -114,7 +114,7 @@ fun TrustedNetworksScreen(
     }
 
     if (showPermissionRationaleDialog) {
-        KdeConfirmationDialog(
+        PocketLinkConfirmationDialog(
             title = stringResource(R.string.location_permission_needed_title),
             message = stringResource(R.string.location_permission_needed_desc),
             confirmLabel = stringResource(R.string.ok),
@@ -145,21 +145,21 @@ fun TrustedNetworksScreenContent(
         LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()
-                .widthIn(max = KdeSpacing.compactContentMaxWidth)
-                .padding(horizontal = KdeSpacing.contentHorizontal),
+                .widthIn(max = PocketLinkSpacing.compactContentMaxWidth)
+                .padding(horizontal = PocketLinkSpacing.contentHorizontal),
             contentPadding = PaddingValues(
-                top = KdeSpacing.medium,
-                bottom = KdeSpacing.large
+                top = PocketLinkSpacing.medium,
+                bottom = PocketLinkSpacing.large
             ),
-            verticalArrangement = Arrangement.spacedBy(KdeSpacing.medium)
+            verticalArrangement = Arrangement.spacedBy(PocketLinkSpacing.medium)
         ) {
             item(key = "toggle_card") {
-                KdeStandardCard {
+                PocketLinkStandardCard {
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .defaultMinSize(minHeight = KdeSpacing.minTouchTarget)
-                            .padding(KdeSpacing.cardPadding),
+                            .defaultMinSize(minHeight = PocketLinkSpacing.minTouchTarget)
+                            .padding(PocketLinkSpacing.cardPadding),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Column(modifier = Modifier.weight(1f)) {
@@ -175,7 +175,7 @@ fun TrustedNetworksScreenContent(
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                             )
                         }
-                        Spacer(Modifier.width(KdeSpacing.medium))
+                        Spacer(Modifier.width(PocketLinkSpacing.medium))
                         Switch(
                             checked = allNetworksAllowed,
                             onCheckedChange = onAllNetworksAllowedChange
@@ -187,14 +187,14 @@ fun TrustedNetworksScreenContent(
             if (!allNetworksAllowed) {
                 if (currentSsid != null && currentSsid !in trustedNetworks) {
                     item(key = "add_current_network") {
-                        KdeStandardCard(
+                        PocketLinkStandardCard(
                             onClick = onAddCurrentNetwork
                         ) {
                             Row(
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .defaultMinSize(minHeight = KdeSpacing.minTouchTarget)
-                                    .padding(KdeSpacing.cardPadding),
+                                    .defaultMinSize(minHeight = PocketLinkSpacing.minTouchTarget)
+                                    .padding(PocketLinkSpacing.cardPadding),
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
                                 Icon(
@@ -203,7 +203,7 @@ fun TrustedNetworksScreenContent(
                                     tint = MaterialTheme.colorScheme.primary,
                                     modifier = Modifier.size(24.dp)
                                 )
-                                Spacer(Modifier.width(KdeSpacing.medium))
+                                Spacer(Modifier.width(PocketLinkSpacing.medium))
                                 Column(modifier = Modifier.weight(1f)) {
                                     Text(
                                         text = stringResource(R.string.add_trusted_network, currentSsid),
@@ -222,10 +222,10 @@ fun TrustedNetworksScreenContent(
 
                 if (trustedNetworks.isEmpty()) {
                     item(key = "empty_state") {
-                        KdeStatePanel(
+                        PocketLinkStatePanel(
                             title = stringResource(R.string.trusted_networks),
                             description = stringResource(R.string.empty_trusted_networks_list_text),
-                            kind = KdePanelKind.Empty,
+                            kind = PocketLinkPanelKind.Empty,
                             icon = null
                         )
                     }
@@ -234,16 +234,16 @@ fun TrustedNetworksScreenContent(
                         items = trustedNetworks,
                         key = { it }
                     ) { network ->
-                        KdeStandardCard {
+                        PocketLinkStandardCard {
                             Row(
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .defaultMinSize(minHeight = KdeSpacing.minTouchTarget)
+                                    .defaultMinSize(minHeight = PocketLinkSpacing.minTouchTarget)
                                     .padding(
-                                        start = KdeSpacing.cardPadding,
-                                        top = KdeSpacing.small,
-                                        bottom = KdeSpacing.small,
-                                        end = KdeSpacing.small
+                                        start = PocketLinkSpacing.cardPadding,
+                                        top = PocketLinkSpacing.small,
+                                        bottom = PocketLinkSpacing.small,
+                                        end = PocketLinkSpacing.small
                                     ),
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
@@ -253,7 +253,7 @@ fun TrustedNetworksScreenContent(
                                     tint = MaterialTheme.colorScheme.primary,
                                     modifier = Modifier.size(24.dp)
                                 )
-                                Spacer(Modifier.width(KdeSpacing.medium))
+                                Spacer(Modifier.width(PocketLinkSpacing.medium))
                                 Text(
                                     text = network,
                                     style = MaterialTheme.typography.bodyLarge,
@@ -264,8 +264,8 @@ fun TrustedNetworksScreenContent(
                                 IconButton(
                                     onClick = { onRequestDeleteNetwork(network) },
                                     modifier = Modifier.defaultMinSize(
-                                        minWidth = KdeSpacing.minTouchTarget,
-                                        minHeight = KdeSpacing.minTouchTarget
+                                        minWidth = PocketLinkSpacing.minTouchTarget,
+                                        minHeight = PocketLinkSpacing.minTouchTarget
                                     )
                                 ) {
                                     Icon(
@@ -283,10 +283,10 @@ fun TrustedNetworksScreenContent(
     }
 }
 
-@KdeThemePreviews
+@PocketLinkThemePreviews
 @Composable
 private fun TrustedNetworksScreenPreview() {
-    KdeTheme(context = LocalContext.current) {
+    PocketLinkTheme(context = LocalContext.current) {
         TrustedNetworksScreenContent(
             allNetworksAllowed = false,
             trustedNetworks = listOf("Home-WiFi-5G", "Work-Office-Secure"),

@@ -44,15 +44,15 @@ import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import org.kde.kdeconnect.ui.compose.KdeComponentSize
-import org.kde.kdeconnect.ui.compose.KdeResponsiveContent
-import org.kde.kdeconnect.ui.compose.KdeSpacing
-import org.kde.kdeconnect.ui.compose.KdeWindowSizeClass
-import org.kde.kdeconnect.ui.compose.components.KdeConnectionStatus
-import org.kde.kdeconnect.ui.compose.components.KdePanelKind
-import org.kde.kdeconnect.ui.compose.components.KdeStandardCard
-import org.kde.kdeconnect.ui.compose.components.KdeStatePanel
-import org.kde.kdeconnect.ui.compose.components.KdeStatusKind
+import org.kde.kdeconnect.ui.compose.PocketLinkComponentSize
+import org.kde.kdeconnect.ui.compose.PocketLinkResponsiveContent
+import org.kde.kdeconnect.ui.compose.PocketLinkSpacing
+import org.kde.kdeconnect.ui.compose.PocketLinkWindowSizeClass
+import org.kde.kdeconnect.ui.compose.components.PocketLinkConnectionStatus
+import org.kde.kdeconnect.ui.compose.components.PocketLinkPanelKind
+import org.kde.kdeconnect.ui.compose.components.PocketLinkStandardCard
+import org.kde.kdeconnect.ui.compose.components.PocketLinkStatePanel
+import org.kde.kdeconnect.ui.compose.components.PocketLinkStatusKind
 import org.kde.kdeconnect.ui.compose.components.SectionHeader
 import org.kde.kdeconnect.ui.compose.model.device.DeviceUiModel
 import org.kde.kdeconnect_tp.R
@@ -73,8 +73,8 @@ fun PairingScreen(
         onRefresh = onRefresh,
         modifier = Modifier.fillMaxSize()
     ) {
-        KdeResponsiveContent(
-            contentPadding = PaddingValues(horizontal = KdeSpacing.contentHorizontal)
+        PocketLinkResponsiveContent(
+            contentPadding = PaddingValues(horizontal = PocketLinkSpacing.contentHorizontal)
         ) { windowSizeClass ->
             PairingDeviceList(
                 uiState = uiState,
@@ -93,7 +93,7 @@ fun PairingScreen(
 @Composable
 private fun PairingDeviceList(
     uiState: PairingUiState,
-    windowSizeClass: KdeWindowSizeClass,
+    windowSizeClass: PocketLinkWindowSizeClass,
     onClick: (String) -> Unit,
     onWifiSettingsClick: () -> Unit,
     onNotificationSettingsClick: () -> Unit,
@@ -102,9 +102,9 @@ private fun PairingDeviceList(
     onCustomDevicesClick: () -> Unit
 ) {
     val horizontalPadding = when (windowSizeClass) {
-        KdeWindowSizeClass.Compact -> 0.dp
-        KdeWindowSizeClass.Medium -> KdeSpacing.medium
-        KdeWindowSizeClass.Expanded -> KdeSpacing.large
+        PocketLinkWindowSizeClass.Compact -> 0.dp
+        PocketLinkWindowSizeClass.Medium -> PocketLinkSpacing.medium
+        PocketLinkWindowSizeClass.Expanded -> PocketLinkSpacing.large
     }
 
     LazyColumn(
@@ -112,10 +112,10 @@ private fun PairingDeviceList(
             .fillMaxSize()
             .padding(horizontal = horizontalPadding),
         contentPadding = PaddingValues(
-            top = KdeSpacing.medium,
-            bottom = KdeSpacing.xLarge
+            top = PocketLinkSpacing.medium,
+            bottom = PocketLinkSpacing.xLarge
         ),
-        verticalArrangement = Arrangement.spacedBy(KdeSpacing.small)
+        verticalArrangement = Arrangement.spacedBy(PocketLinkSpacing.small)
     ) {
         item(key = "header") {
             PairingHeader(
@@ -177,8 +177,8 @@ private fun PairingDeviceList(
                 Text(
                     text = stringResource(R.string.device_list_empty),
                     modifier = Modifier.padding(
-                        horizontal = KdeSpacing.medium,
-                        vertical = KdeSpacing.small
+                        horizontal = PocketLinkSpacing.medium,
+                        vertical = PocketLinkSpacing.small
                     ),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
@@ -189,7 +189,7 @@ private fun PairingDeviceList(
                 DeviceRosterCard(
                     device = device,
                     status = stringResource(R.string.device_discovery_connected),
-                    statusKind = KdeStatusKind.Connected,
+                    statusKind = PocketLinkStatusKind.Connected,
                     onClick = onClick
                 )
             }
@@ -208,13 +208,13 @@ private fun PairingDeviceList(
                     else -> stringResource(R.string.pairing_description)
                 }
 
-                KdeStatePanel(
+                PocketLinkStatePanel(
                     title = stringResource(R.string.device_discovery_empty_title),
                     description = description,
                     kind = if (!uiState.hasLocalNetworkPermission) {
-                        KdePanelKind.Error
+                        PocketLinkPanelKind.Error
                     } else {
-                        KdePanelKind.Empty
+                        PocketLinkPanelKind.Empty
                     },
                     actionLabel = stringResource(R.string.custom_device_list),
                     onAction = onCustomDevicesClick
@@ -225,7 +225,7 @@ private fun PairingDeviceList(
                 DeviceRosterCard(
                     device = device,
                     status = stringResource(R.string.request_pairing),
-                    statusKind = KdeStatusKind.Pending,
+                    statusKind = PocketLinkStatusKind.Pending,
                     onClick = onClick
                 )
             }
@@ -239,7 +239,7 @@ private fun PairingDeviceList(
                 DeviceRosterCard(
                     device = device,
                     status = stringResource(R.string.error_not_reachable),
-                    statusKind = KdeStatusKind.Neutral,
+                    statusKind = PocketLinkStatusKind.Neutral,
                     onClick = onClick
                 )
             }
@@ -250,8 +250,8 @@ private fun PairingDeviceList(
                 Text(
                     text = stringResource(R.string.device_discovery_bluetooth_hint),
                     modifier = Modifier.padding(
-                        horizontal = KdeSpacing.medium,
-                        vertical = KdeSpacing.small
+                        horizontal = PocketLinkSpacing.medium,
+                        vertical = PocketLinkSpacing.small
                     ),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
@@ -270,8 +270,8 @@ private fun PairingHeader(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(bottom = KdeSpacing.small),
-        verticalArrangement = Arrangement.spacedBy(KdeSpacing.medium)
+            .padding(bottom = PocketLinkSpacing.small),
+        verticalArrangement = Arrangement.spacedBy(PocketLinkSpacing.medium)
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -302,10 +302,10 @@ private fun PairingHeader(
             onClick = onCustomDevicesClick,
             modifier = Modifier
                 .fillMaxWidth()
-                .defaultMinSize(minHeight = KdeSpacing.minTouchTarget)
+                .defaultMinSize(minHeight = PocketLinkSpacing.minTouchTarget)
         ) {
             Icon(Icons.Default.Add, contentDescription = null)
-            Spacer(Modifier.width(KdeSpacing.small))
+            Spacer(Modifier.width(PocketLinkSpacing.small))
             Text(stringResource(R.string.custom_device_list))
         }
     }
@@ -315,18 +315,18 @@ private fun PairingHeader(
 private fun DeviceRosterCard(
     device: DeviceUiModel,
     status: String,
-    statusKind: KdeStatusKind,
+    statusKind: PocketLinkStatusKind,
     onClick: (String) -> Unit
 ) {
-    KdeStandardCard(
+    PocketLinkStandardCard(
         modifier = Modifier.semantics(mergeDescendants = true) {},
         onClick = { onClick(device.id) }
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .defaultMinSize(minHeight = KdeComponentSize.deviceCardMinHeight)
-                .padding(KdeSpacing.cardPadding),
+                .defaultMinSize(minHeight = PocketLinkComponentSize.deviceCardMinHeight)
+                .padding(PocketLinkSpacing.cardPadding),
             verticalAlignment = Alignment.CenterVertically
         ) {
             if (device.icon > 0) {
@@ -334,9 +334,9 @@ private fun DeviceRosterCard(
                     painter = painterResource(device.icon),
                     contentDescription = null,
                     colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary),
-                    modifier = Modifier.size(KdeComponentSize.iconLarge)
+                    modifier = Modifier.size(PocketLinkComponentSize.iconLarge)
                 )
-                Spacer(Modifier.width(KdeSpacing.medium))
+                Spacer(Modifier.width(PocketLinkSpacing.medium))
             }
             Column(modifier = Modifier.weight(1f)) {
                 Text(
@@ -354,7 +354,7 @@ private fun DeviceRosterCard(
                 }
             }
             Column(horizontalAlignment = Alignment.End) {
-                KdeConnectionStatus(label = status, kind = statusKind)
+                PocketLinkConnectionStatus(label = status, kind = statusKind)
             }
         }
     }
@@ -379,7 +379,7 @@ private fun PairingNotice(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(KdeSpacing.medium),
+                .padding(PocketLinkSpacing.medium),
             verticalAlignment = Alignment.CenterVertically
         ) {
             if (iconRes != null) {
@@ -389,14 +389,14 @@ private fun PairingNotice(
                     colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSecondaryContainer),
                     modifier = Modifier.size(24.dp)
                 )
-                Spacer(Modifier.width(KdeSpacing.medium))
+                Spacer(Modifier.width(PocketLinkSpacing.medium))
             } else {
                 Icon(
                     Icons.Default.Warning,
                     contentDescription = null,
                     tint = MaterialTheme.colorScheme.onSecondaryContainer
                 )
-                Spacer(Modifier.width(KdeSpacing.medium))
+                Spacer(Modifier.width(PocketLinkSpacing.medium))
             }
             Text(
                 text = text,

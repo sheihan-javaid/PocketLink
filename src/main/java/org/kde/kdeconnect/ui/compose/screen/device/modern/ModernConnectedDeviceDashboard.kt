@@ -91,7 +91,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.kde.kdeconnect.plugins.Plugin
-import org.kde.kdeconnect.ui.compose.KdeSpacing
+import org.kde.kdeconnect.ui.compose.PocketLinkSpacing
 import org.kde.kdeconnect.ui.compose.screen.device.DeviceErrorPanel
 import org.kde.kdeconnect.ui.compose.screen.device.DevicePluginUiModel
 import org.kde.kdeconnect.ui.compose.screen.device.PairingSuccessBanner
@@ -189,8 +189,8 @@ fun ModernConnectedDeviceDashboard(
                                 .widthIn(max = 760.dp)
                                 .fillMaxWidth()
                                 .padding(
-                                    start = KdeSpacing.contentHorizontal,
-                                    end = KdeSpacing.contentHorizontal,
+                                    start = PocketLinkSpacing.contentHorizontal,
+                                    end = PocketLinkSpacing.contentHorizontal,
                                     top = 10.dp,
                                     bottom = 32.dp + bottomInset
                                 ),
@@ -303,7 +303,7 @@ fun ModernConnectedDeviceDashboard(
                         onDismiss = onDismissPairingSuccess,
                         modifier = Modifier
                             .align(Alignment.TopCenter)
-                            .padding(top = 12.dp, start = KdeSpacing.medium, end = KdeSpacing.medium)
+                            .padding(top = 12.dp, start = PocketLinkSpacing.medium, end = PocketLinkSpacing.medium)
                     )
                 }
             }
@@ -381,8 +381,8 @@ fun ManagePluginsPage(
                     .widthIn(max = 760.dp)
                     .fillMaxWidth()
                     .padding(
-                        start = KdeSpacing.contentHorizontal,
-                        end = KdeSpacing.contentHorizontal,
+                        start = PocketLinkSpacing.contentHorizontal,
+                        end = PocketLinkSpacing.contentHorizontal,
                         top = headerContentHeight + 8.dp,
                         bottom = 48.dp + navBottomInset
                     ),
@@ -450,13 +450,13 @@ fun ManagePluginsPage(
                     }
                     if (categoryPlugins.isNotEmpty()) {
                         Column(
-                            verticalArrangement = Arrangement.spacedBy(KdeSpacing.small)
+                            verticalArrangement = Arrangement.spacedBy(PocketLinkSpacing.small)
                         ) {
                             // Category Header with count
                             Row(
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(horizontal = KdeSpacing.small, vertical = 2.dp),
+                                    .padding(horizontal = PocketLinkSpacing.small, vertical = 2.dp),
                                 verticalAlignment = Alignment.CenterVertically,
                                 horizontalArrangement = Arrangement.SpaceBetween
                             ) {
@@ -542,7 +542,7 @@ fun ManagePluginsPage(
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = KdeSpacing.contentHorizontal, vertical = 2.dp)
+                    .padding(horizontal = PocketLinkSpacing.contentHorizontal, vertical = 2.dp)
             ) {
                 var isSearchFocused by remember { mutableStateOf(false) }
 
@@ -710,7 +710,7 @@ private fun CompactManagePluginRow(
                     )
                 }
 
-                Spacer(modifier = Modifier.width(KdeSpacing.medium))
+                Spacer(modifier = Modifier.width(PocketLinkSpacing.medium))
 
                 Column(modifier = Modifier.weight(1f)) {
                     Text(
@@ -731,7 +731,7 @@ private fun CompactManagePluginRow(
                 }
             }
 
-            Spacer(modifier = Modifier.width(KdeSpacing.small))
+            Spacer(modifier = Modifier.width(PocketLinkSpacing.small))
 
             // Switch toggle styled with exact tokens
             Switch(
@@ -754,7 +754,7 @@ private fun CompactManagePluginRow(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = 52.dp),
-                horizontalArrangement = Arrangement.spacedBy(KdeSpacing.small),
+                horizontalArrangement = Arrangement.spacedBy(PocketLinkSpacing.small),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 if (plugin.needsRequiredPermission) {

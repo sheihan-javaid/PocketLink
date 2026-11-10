@@ -49,7 +49,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import org.kde.kdeconnect.ui.compose.KdeSpacing
+import org.kde.kdeconnect.ui.compose.PocketLinkSpacing
 import org.kde.kdeconnect.ui.compose.screen.device.modern.AttentionUiState
 import org.kde.kdeconnect.ui.compose.screen.device.modern.DashboardShapes
 import org.kde.kdeconnect.ui.compose.screen.device.modern.LocalDashboardTokens
@@ -100,7 +100,7 @@ fun AttentionBanner(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(KdeSpacing.cardPadding),
+                .padding(PocketLinkSpacing.cardPadding),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
@@ -127,7 +127,7 @@ fun AttentionBanner(
                     )
                 }
 
-                Spacer(modifier = Modifier.width(KdeSpacing.medium))
+                Spacer(modifier = Modifier.width(PocketLinkSpacing.medium))
 
                 Column(
                     modifier = Modifier.weight(1f),
@@ -158,7 +158,7 @@ fun AttentionBanner(
                 }
             }
 
-            Spacer(modifier = Modifier.width(KdeSpacing.small))
+            Spacer(modifier = Modifier.width(PocketLinkSpacing.small))
 
             Icon(
                 imageVector = Icons.AutoMirrored.Filled.ArrowForward,

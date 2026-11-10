@@ -26,10 +26,10 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextOverflow.Companion.Ellipsis
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import org.kde.kdeconnect.ui.compose.KdeSpacing
+import org.kde.kdeconnect.ui.compose.PocketLinkSpacing
 
 @Composable
-fun KdeTextButton(
+fun PocketLinkTextButton(
     onClick: () -> Unit,
     modifier: Modifier,
     text: String,
@@ -39,7 +39,7 @@ fun KdeTextButton(
 ) {
     TextButton(
         onClick = onClick,
-        modifier = modifier.defaultMinSize(minHeight = KdeSpacing.minTouchTarget),
+        modifier = modifier.defaultMinSize(minHeight = PocketLinkSpacing.minTouchTarget),
         enabled = enabled,
         contentPadding = contentPadding,
         content = {
@@ -53,7 +53,7 @@ fun KdeTextButton(
 }
 
 @Composable
-fun KdeButton(
+fun PocketLinkButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     colors: ButtonColors = ButtonDefaults.buttonColors(),
@@ -64,7 +64,7 @@ fun KdeButton(
 
     Button(
         onClick = onClick,
-        modifier = modifier.defaultMinSize(minHeight = KdeSpacing.minTouchTarget),
+        modifier = modifier.defaultMinSize(minHeight = PocketLinkSpacing.minTouchTarget),
         shape = MaterialTheme.shapes.large,
         colors = colors,
         content = {
@@ -80,7 +80,7 @@ fun KdeButton(
 }
 
 @Composable
-fun KdeSecondaryButton(
+fun PocketLinkSecondaryButton(
     onClick: () -> Unit,
     text: String,
     modifier: Modifier = Modifier,
@@ -89,7 +89,7 @@ fun KdeSecondaryButton(
 ) {
     androidx.compose.material3.FilledTonalButton(
         onClick = onClick,
-        modifier = modifier.defaultMinSize(minHeight = KdeSpacing.minTouchTarget),
+        modifier = modifier.defaultMinSize(minHeight = PocketLinkSpacing.minTouchTarget),
         enabled = enabled,
         shape = MaterialTheme.shapes.medium
     ) {
@@ -101,7 +101,7 @@ fun KdeSecondaryButton(
 @Preview
 @Composable
 fun IconButtonPreview() {
-    KdeButton(
+    PocketLinkButton(
         {},
         Modifier.width(120.dp),
         ButtonDefaults.buttonColors(Color.Gray, Color.DarkGray),

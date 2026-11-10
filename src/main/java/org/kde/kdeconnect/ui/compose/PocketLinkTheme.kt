@@ -20,7 +20,7 @@ import org.kde.kdeconnect.ui.compose.screen.device.modern.ModernDarkColorScheme
 import org.kde.kdeconnect.ui.compose.screen.device.modern.ModernLightColorScheme
 
 @Composable
-fun KdeTheme(
+fun PocketLinkTheme(
     context: Context,
     darkTheme: Boolean = isSystemInDarkTheme(),
     useDynamicColor: Boolean = false,
@@ -37,13 +37,13 @@ fun KdeTheme(
             false -> ModernLightColorScheme
         }
     }
-    val semanticColors = if (darkTheme) KdeDarkSemanticColors else KdeLightSemanticColors
+    val semanticColors = if (darkTheme) PocketLinkDarkSemanticColors else PocketLinkLightSemanticColors
 
-    androidx.compose.runtime.CompositionLocalProvider(LocalKdeSemanticColors provides semanticColors) {
+    androidx.compose.runtime.CompositionLocalProvider(LocalPocketLinkSemanticColors provides semanticColors) {
         MaterialTheme(
             colorScheme = colorScheme,
-            typography = KdeTypography,
-            shapes = KdeShapes,
+            typography = PocketLinkTypography,
+            shapes = PocketLinkShapes,
             content = content,
         )
     }

@@ -13,7 +13,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
-internal object KdePalette {
+internal object PocketLinkPalette {
     val White = androidx.compose.ui.graphics.Color(0xFFFFFFFF)
     val Black = androidx.compose.ui.graphics.Color(0xFF000000)
 
@@ -83,7 +83,7 @@ internal object KdePalette {
     val Neutral25  = androidx.compose.ui.graphics.Color(0xFFF8F9FD) // Clean bright background light
 }
 
-object KdeSpacing {
+object PocketLinkSpacing {
     val xSmall = 4.dp
     val small = 8.dp
     val mediumSmall = 12.dp
@@ -98,7 +98,7 @@ object KdeSpacing {
     val expandedContentMaxWidth = 720.dp
 }
 
-object KdeComponentSize {
+object PocketLinkComponentSize {
     val iconSmall = 16.dp
     val iconMedium = 20.dp
     val iconLarge = 24.dp
@@ -108,7 +108,7 @@ object KdeComponentSize {
     val controlMinHeight = 48.dp
 }
 
-internal val KdeTypography = Typography(
+internal val PocketLinkTypography = Typography(
     displayLarge = TextStyle(fontSize = 57.sp, lineHeight = 64.sp, fontWeight = FontWeight.Normal),
     displayMedium = TextStyle(fontSize = 45.sp, lineHeight = 52.sp, fontWeight = FontWeight.Normal),
     displaySmall = TextStyle(fontSize = 36.sp, lineHeight = 44.sp, fontWeight = FontWeight.Normal),
@@ -126,7 +126,7 @@ internal val KdeTypography = Typography(
     labelSmall = TextStyle(fontSize = 11.sp, lineHeight = 16.sp, fontWeight = FontWeight.Medium)
 )
 
-internal val KdeShapes = Shapes(
+internal val PocketLinkShapes = Shapes(
     extraSmall = androidx.compose.foundation.shape.RoundedCornerShape(4.dp),
     small = androidx.compose.foundation.shape.RoundedCornerShape(8.dp),
     medium = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),

@@ -67,11 +67,11 @@ import androidx.preference.PreferenceManager
 import org.kde.kdeconnect.Device
 import org.kde.kdeconnect.KdeConnect
 import org.kde.kdeconnect.ui.compose.components.DeviceDisconnectedOverlay
-import org.kde.kdeconnect.ui.compose.components.KdeStandardCard
-import org.kde.kdeconnect.ui.compose.KdeButton
-import org.kde.kdeconnect.ui.compose.KdeSpacing
-import org.kde.kdeconnect.ui.compose.KdeTheme
-import org.kde.kdeconnect.ui.compose.KdeTopAppBar
+import org.kde.kdeconnect.ui.compose.components.PocketLinkStandardCard
+import org.kde.kdeconnect.ui.compose.PocketLinkButton
+import org.kde.kdeconnect.ui.compose.PocketLinkSpacing
+import org.kde.kdeconnect.ui.compose.PocketLinkTheme
+import org.kde.kdeconnect.ui.compose.PocketLinkTopAppBar
 import org.kde.kdeconnect_tp.R
 
 private const val VOLUME_UP = 1
@@ -269,7 +269,7 @@ internal fun PresenterScreenContent(
     val context = LocalContext.current
     var zoomControlsVisible by remember { mutableStateOf(false) }
 
-    KdeTheme(context) {
+    PocketLinkTheme(context) {
         Scaffold(
             modifier = modifier.fillMaxSize().safeDrawingPadding(),
             topBar = {
@@ -291,9 +291,9 @@ internal fun PresenterScreenContent(
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
-                        .widthIn(max = KdeSpacing.compactContentMaxWidth)
-                        .padding(KdeSpacing.medium),
-                    verticalArrangement = Arrangement.spacedBy(KdeSpacing.medium)
+                        .widthIn(max = PocketLinkSpacing.compactContentMaxWidth)
+                        .padding(PocketLinkSpacing.medium),
+                    verticalArrangement = Arrangement.spacedBy(PocketLinkSpacing.medium)
                 ) {
                     if (volumeKeys) {
                         Text(
@@ -302,7 +302,7 @@ internal fun PresenterScreenContent(
                                 else R.string.presenter_volume_keys_foreground_tip
                             ),
                             modifier = Modifier
-                                .padding(horizontal = KdeSpacing.small),
+                                .padding(horizontal = PocketLinkSpacing.small),
                             style = MaterialTheme.typography.bodyMedium,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -320,9 +320,9 @@ internal fun PresenterScreenContent(
                         modifier = Modifier
                             .fillMaxWidth()
                             .weight(3f),
-                        horizontalArrangement = Arrangement.spacedBy(KdeSpacing.medium)
+                        horizontalArrangement = Arrangement.spacedBy(PocketLinkSpacing.medium)
                     ) {
-                        KdeButton(
+                        PocketLinkButton(
                             onClick = {
                                 onPrevious()
                                 haptics.performHapticFeedback(HapticFeedbackType.Confirm)
@@ -333,7 +333,7 @@ internal fun PresenterScreenContent(
                             contentDescription = stringResource(R.string.mpris_previous),
                             icon = Icons.AutoMirrored.Filled.ArrowBack
                         )
-                        KdeButton(
+                        PocketLinkButton(
                             onClick = {
                                 onNext()
                                 haptics.performHapticFeedback(HapticFeedbackType.Confirm)
@@ -347,7 +347,7 @@ internal fun PresenterScreenContent(
                     }
 
                     if (hasSensorManager) {
-                        KdeButton(
+                        PocketLinkButton(
                             onClick = {},
                             colors = ButtonDefaults.filledTonalButtonColors(),
                             modifier = Modifier
@@ -389,7 +389,7 @@ private fun PresenterAppBar(
 ) {
     var menuExpanded by remember { mutableStateOf(false) }
 
-    KdeTopAppBar(
+    PocketLinkTopAppBar(
         title = stringResource(R.string.pref_plugin_presenter),
         subTitle = subTitle,
         navIconOnClick = onBackPressed,
@@ -439,14 +439,14 @@ private fun ZoomControls(
     val zoomOutDescription = stringResource(R.string.presenter_zoom_out)
     val zoomInDescription = stringResource(R.string.presenter_zoom_in)
 
-    KdeStandardCard(
+    PocketLinkStandardCard(
         modifier = modifier.fillMaxWidth()
     ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(KdeSpacing.medium),
-            verticalArrangement = Arrangement.spacedBy(KdeSpacing.small)
+                .padding(PocketLinkSpacing.medium),
+            verticalArrangement = Arrangement.spacedBy(PocketLinkSpacing.small)
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -468,7 +468,7 @@ private fun ZoomControls(
             }
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(KdeSpacing.medium)
+                horizontalArrangement = Arrangement.spacedBy(PocketLinkSpacing.medium)
             ) {
                 Button(
                     onClick = {

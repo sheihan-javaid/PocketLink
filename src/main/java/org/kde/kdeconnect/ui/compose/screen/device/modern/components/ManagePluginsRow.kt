@@ -37,7 +37,7 @@ import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import org.kde.kdeconnect.ui.compose.KdeSpacing
+import org.kde.kdeconnect.ui.compose.PocketLinkSpacing
 import org.kde.kdeconnect.ui.compose.screen.device.modern.LocalDashboardTokens
 import org.kde.kdeconnect.ui.compose.screen.device.modern.ManagePluginsSummary
 import org.kde.kdeconnect_tp.R
@@ -86,7 +86,7 @@ fun ManagePluginsRow(
                     )
                 }
 
-                Spacer(modifier = Modifier.width(KdeSpacing.medium))
+                Spacer(modifier = Modifier.width(PocketLinkSpacing.medium))
 
                 Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
                     Text(

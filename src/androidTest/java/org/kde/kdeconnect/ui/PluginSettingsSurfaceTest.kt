@@ -31,7 +31,7 @@ class PluginSettingsSurfaceTest {
 
     @Test
     fun preferenceThemeIsResolvedInAppTheme() {
-        val context = ContextThemeWrapper(composeRule.activity, R.style.KdeConnectTheme)
+        val context = ContextThemeWrapper(composeRule.activity, R.style.PocketLinkTheme)
         val preferenceThemeVal = TypedValue()
         val resolved = context.theme.resolveAttribute(androidx.preference.R.attr.preferenceTheme, preferenceThemeVal, true)
         assertTrue("preferenceTheme must be resolved", resolved)
@@ -52,7 +52,7 @@ class PluginSettingsSurfaceTest {
             }
             val context = ContextThemeWrapper(
                 baseContext.createConfigurationContext(configuration),
-                R.style.KdeConnectTheme
+                R.style.PocketLinkTheme
             )
             val root = LayoutInflater.from(context)
                 .inflate(R.layout.preference_with_button, null, false)

@@ -33,7 +33,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.kde.kdeconnect.plugins.Plugin
-import org.kde.kdeconnect.ui.compose.screen.device.modern.ModernKdeTheme
+import org.kde.kdeconnect.ui.compose.screen.device.modern.ModernPocketLinkTheme
 import org.kde.kdeconnect.ui.compose.screen.device.modern.preview.DashboardFixtures
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicInteger
@@ -47,7 +47,7 @@ class ModernConnectedDeviceDashboardTest {
     @Test
     fun modernDashboardShowsDeviceIdentityBatteryRingAndNetworkChips() {
         composeRule.setContent {
-            ModernKdeTheme(context = composeRule.activity) {
+            ModernPocketLinkTheme(context = composeRule.activity) {
                 ModernConnectedDeviceDashboard(
                     state = DashboardFixtures.fullFeaturedState,
                     actions = DashboardFixtures.mockActions,
@@ -72,7 +72,7 @@ class ModernConnectedDeviceDashboardTest {
         val initialState = DashboardFixtures.fullFeaturedState
 
         composeRule.setContent {
-            ModernKdeTheme(context = composeRule.activity) {
+            ModernPocketLinkTheme(context = composeRule.activity) {
                 val hero = initialState.hero.copy(
                     battery = initialState.hero.battery?.copy(isCharging = isCharging.value)
                 )
@@ -98,7 +98,7 @@ class ModernConnectedDeviceDashboardTest {
         val initialState = DashboardFixtures.fullFeaturedState
 
         composeRule.setContent {
-            ModernKdeTheme(context = composeRule.activity) {
+            ModernPocketLinkTheme(context = composeRule.activity) {
                 ModernConnectedDeviceDashboard(
                     state = initialState.copy(
                         hero = initialState.hero.copy(networkTypes = emptyList())
@@ -119,7 +119,7 @@ class ModernConnectedDeviceDashboardTest {
     @Test
     fun mediaAndAudioSectionAppearsAboveShareAndTransfer() {
         composeRule.setContent {
-            ModernKdeTheme(context = composeRule.activity) {
+            ModernPocketLinkTheme(context = composeRule.activity) {
                 ModernConnectedDeviceDashboard(
                     state = DashboardFixtures.fullFeaturedState,
                     actions = DashboardFixtures.mockActions,
@@ -153,7 +153,7 @@ class ModernConnectedDeviceDashboardTest {
         }
 
         composeRule.setContent {
-            ModernKdeTheme(context = composeRule.activity) {
+            ModernPocketLinkTheme(context = composeRule.activity) {
                 ModernConnectedDeviceDashboard(
                     state = DashboardFixtures.fullFeaturedState,
                     actions = actions,
@@ -181,7 +181,7 @@ class ModernConnectedDeviceDashboardTest {
         }
 
         composeRule.setContent {
-            ModernKdeTheme(context = composeRule.activity) {
+            ModernPocketLinkTheme(context = composeRule.activity) {
                 ModernConnectedDeviceDashboard(
                     state = DashboardFixtures.fullFeaturedState,
                     actions = actions,
@@ -209,7 +209,7 @@ class ModernConnectedDeviceDashboardTest {
         }
 
         composeRule.setContent {
-            ModernKdeTheme(context = composeRule.activity) {
+            ModernPocketLinkTheme(context = composeRule.activity) {
                 ModernConnectedDeviceDashboard(
                     state = DashboardFixtures.fullFeaturedState,
                     actions = actions,
@@ -238,7 +238,7 @@ class ModernConnectedDeviceDashboardTest {
     fun captureLightDashboardScreenshots() {
         // 1. Light Mode Top
         composeRule.setContent {
-            ModernKdeTheme(context = composeRule.activity, darkTheme = false) {
+            ModernPocketLinkTheme(context = composeRule.activity, darkTheme = false) {
                 ModernConnectedDeviceDashboard(
                     state = DashboardFixtures.fullFeaturedState,
                     actions = DashboardFixtures.mockActions,
@@ -290,7 +290,7 @@ class ModernConnectedDeviceDashboardTest {
     fun captureDarkDashboardScreenshots() {
         // 1. Dark Mode Top
         composeRule.setContent {
-            ModernKdeTheme(context = composeRule.activity, darkTheme = true) {
+            ModernPocketLinkTheme(context = composeRule.activity, darkTheme = true) {
                 ModernConnectedDeviceDashboard(
                     state = DashboardFixtures.fullFeaturedState,
                     actions = DashboardFixtures.mockActions,
@@ -394,7 +394,7 @@ class ModernConnectedDeviceDashboardTest {
                     fontScale = 1.35f
                 )
             ) {
-                ModernKdeTheme(context = composeRule.activity, darkTheme = false) {
+                ModernPocketLinkTheme(context = composeRule.activity, darkTheme = false) {
                     ModernConnectedDeviceDashboard(
                         state = DashboardFixtures.fullFeaturedState,
                         actions = DashboardFixtures.mockActions,
@@ -423,7 +423,7 @@ class ModernConnectedDeviceDashboardTest {
                     fontScale = 1.35f
                 )
             ) {
-                ModernKdeTheme(context = composeRule.activity, darkTheme = true) {
+                ModernPocketLinkTheme(context = composeRule.activity, darkTheme = true) {
                     ModernConnectedDeviceDashboard(
                         state = DashboardFixtures.fullFeaturedState,
                         actions = DashboardFixtures.mockActions,
@@ -445,7 +445,7 @@ class ModernConnectedDeviceDashboardTest {
     fun captureBannerHiddenDashboardScreenshot() {
         // State where attention is null (banner hidden)
         composeRule.setContent {
-            ModernKdeTheme(context = composeRule.activity, darkTheme = true) {
+            ModernPocketLinkTheme(context = composeRule.activity, darkTheme = true) {
                 ModernConnectedDeviceDashboard(
                     state = DashboardFixtures.stateWithoutAttention,
                     actions = DashboardFixtures.mockActions,

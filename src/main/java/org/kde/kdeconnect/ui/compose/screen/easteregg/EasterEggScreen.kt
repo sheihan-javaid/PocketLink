@@ -62,7 +62,7 @@ fun EasterEggScreen() {
     val accelerometer = remember { sensorManager?.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) }
 
     var currentAngle by remember { mutableFloatStateOf(0f) }
-    var currentIcon by remember { mutableIntStateOf(R.drawable.ic_kde_48dp) }
+    var currentIcon by remember { mutableIntStateOf(R.drawable.ic_pocketlink_48dp) }
     var backgroundColor by remember { mutableStateOf(KDE_ICON_BACKGROUND_COLOR) }
 
     val animatedRotation by animateFloatAsState(
@@ -96,7 +96,7 @@ fun EasterEggScreen() {
             R.drawable.ic_next_black, R.drawable.ic_previous_black,
             R.drawable.ic_presenter_24dp, R.drawable.ic_key,
             R.drawable.ic_keyboard_return_black_24dp, R.drawable.ic_keyboard_hide_36dp,
-            R.drawable.ic_kde_24dp, R.drawable.ic_album_art_placeholder,
+            R.drawable.ic_pocketlink_24dp, R.drawable.ic_album_art_placeholder,
             R.drawable.ic_arrow_back_black_24dp, R.drawable.share_plugin_action_24dp
         )
     }

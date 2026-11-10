@@ -22,7 +22,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
-import org.kde.kdeconnect.ui.compose.KdeTheme
+import org.kde.kdeconnect.ui.compose.PocketLinkTheme
 import org.kde.kdeconnect.ui.compose.screen.licenses.LicensesEvent
 import org.kde.kdeconnect.ui.compose.screen.licenses.LicensesScreen
 import org.kde.kdeconnect_tp.R
@@ -36,7 +36,7 @@ class LicensesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            KdeTheme(this) {
+            PocketLinkTheme(this) {
                 Scaffold(
                     topBar = {
                         LicensesTopBar(

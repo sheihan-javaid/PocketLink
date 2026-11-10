@@ -28,7 +28,7 @@ class RemoteInputMediaLayoutsTest {
         lateinit var mpris: android.view.View
         lateinit var sink: android.view.View
         composeRule.activityRule.scenario.onActivity { activity ->
-            activity.setTheme(R.style.KdeConnectTheme)
+            activity.setTheme(R.style.PocketLinkTheme)
             mousepad = activity.layoutInflater.inflate(R.layout.activity_mousepad, null)
             mpris = activity.layoutInflater.inflate(R.layout.mpris_now_playing, null)
             sink = activity.layoutInflater.inflate(R.layout.list_item_systemvolume, null)

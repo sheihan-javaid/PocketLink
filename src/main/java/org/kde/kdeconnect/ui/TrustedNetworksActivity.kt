@@ -18,7 +18,7 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import org.kde.kdeconnect.helpers.TrustedNetworkHelper
-import org.kde.kdeconnect.ui.compose.KdeTheme
+import org.kde.kdeconnect.ui.compose.PocketLinkTheme
 import org.kde.kdeconnect.ui.compose.screen.trustednetworks.TrustedNetworksScreen
 
 class TrustedNetworksActivity : AppCompatActivity() {
@@ -54,7 +54,7 @@ class TrustedNetworksActivity : AppCompatActivity() {
         currentSsid = trustedNetworkHelper.getCurrentSSID()
 
         setContent {
-            KdeTheme(this) {
+            PocketLinkTheme(this) {
                 TrustedNetworksScreen(
                     allNetworksAllowed = allNetworksAllowed,
                     trustedNetworks = trustedNetworks,

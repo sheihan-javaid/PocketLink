@@ -44,7 +44,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.kde.kdeconnect.plugins.Plugin
-import org.kde.kdeconnect.ui.compose.KdeSpacing
+import org.kde.kdeconnect.ui.compose.PocketLinkSpacing
 import org.kde.kdeconnect.ui.compose.screen.device.modern.LocalDashboardTokens
 import org.kde.kdeconnect.ui.compose.screen.device.modern.MediaPlaybackUiState
 import org.kde.kdeconnect.ui.compose.screen.device.modern.PluginCategory
@@ -232,12 +232,12 @@ private fun ServiceRow(
                     }
                 }
 
-                Spacer(modifier = Modifier.width(KdeSpacing.medium))
+                Spacer(modifier = Modifier.width(PocketLinkSpacing.medium))
 
                 Column(modifier = Modifier.weight(1f)) {
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(KdeSpacing.small)
+                        horizontalArrangement = Arrangement.spacedBy(PocketLinkSpacing.small)
                     ) {
                         Text(
                             text = row.title,
@@ -284,13 +284,13 @@ private fun ServiceRow(
 
             // Single trailing button when no permissions needed
             if (row.buttons.size == 1 && !row.needsPermission) {
-                Spacer(modifier = Modifier.width(KdeSpacing.small))
+                Spacer(modifier = Modifier.width(PocketLinkSpacing.small))
                 FilledTonalButton(
                     onClick = { onPluginButtonClick(row.buttons.first()) },
                     contentPadding = PaddingValues(horizontal = 14.dp, vertical = 6.dp),
                     modifier = Modifier
                         .height(38.dp)
-                        .padding(start = KdeSpacing.xSmall)
+                        .padding(start = PocketLinkSpacing.xSmall)
                 ) {
                     Text(
                         text = row.buttons.first().name,
@@ -306,8 +306,8 @@ private fun ServiceRow(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = 52.dp),
-                horizontalArrangement = Arrangement.spacedBy(KdeSpacing.small),
-                verticalArrangement = Arrangement.spacedBy(KdeSpacing.small)
+                horizontalArrangement = Arrangement.spacedBy(PocketLinkSpacing.small),
+                verticalArrangement = Arrangement.spacedBy(PocketLinkSpacing.small)
             ) {
                 if (row.needsPermission && onPermissionClick != null) {
                     FilledTonalButton(

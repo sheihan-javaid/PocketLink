@@ -25,7 +25,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.kde.kdeconnect.ui.compose.KdeTheme
+import org.kde.kdeconnect.ui.compose.PocketLinkTheme
 import org.kde.kdeconnect_tp.R
 import java.io.File
 import java.io.FileOutputStream
@@ -68,7 +68,7 @@ class RemoteKeyboardScreenTest {
             CompositionLocalProvider(
                 LocalDensity provides Density(density.density, fontScale = 1.8f)
             ) {
-                KdeTheme(
+                PocketLinkTheme(
                     context = LocalContext.current,
                     darkTheme = true,
                     useDynamicColor = false
@@ -98,7 +98,7 @@ class RemoteKeyboardScreenTest {
         onClear: () -> Unit
     ) {
         composeRule.setContent {
-            KdeTheme(
+            PocketLinkTheme(
                 context = LocalContext.current,
                 darkTheme = false,
                 useDynamicColor = false

@@ -20,17 +20,17 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
         android:id="@+id/preferencesContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="@dimen/kde_spacing_medium"
-        android:paddingEnd="@dimen/kde_spacing_medium" />
+        android:paddingStart="@dimen/pocketlink_spacing_medium"
+        android:paddingEnd="@dimen/pocketlink_spacing_medium" />
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/kde_spacing_medium"
-        android:layout_marginTop="@dimen/kde_spacing_small"
-        android:layout_marginEnd="@dimen/kde_spacing_medium"
+        android:layout_marginStart="@dimen/pocketlink_spacing_medium"
+        android:layout_marginTop="@dimen/pocketlink_spacing_small"
+        android:layout_marginEnd="@dimen/pocketlink_spacing_medium"
         app:cardBackgroundColor="?attr/colorSurface"
-        app:cardCornerRadius="?attr/kdeCornerLarge"
+        app:cardCornerRadius="?attr/pocketlinkCornerLarge"
         app:cardElevation="0dp"
         app:strokeColor="?attr/colorOutlineVariant"
         app:strokeWidth="1dp">
@@ -39,7 +39,7 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
             android:id="@+id/tFilter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/kde_spacing_medium"
+            android:padding="@dimen/pocketlink_spacing_medium"
             android:text="@string/filter_apps_info"
             android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
             android:textColor="?attr/colorOnSurfaceVariant" />
@@ -50,22 +50,22 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="@dimen/kde_spacing_xlarge"
+        android:layout_marginTop="@dimen/pocketlink_spacing_xlarge"
         android:indeterminateTint="?attr/colorPrimary" />
 
     <ListView
         android:id="@+id/lvFilterApps"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginStart="@dimen/kde_spacing_medium"
-        android:layout_marginTop="@dimen/kde_spacing_small"
-        android:layout_marginEnd="@dimen/kde_spacing_medium"
+        android:layout_marginStart="@dimen/pocketlink_spacing_medium"
+        android:layout_marginTop="@dimen/pocketlink_spacing_small"
+        android:layout_marginEnd="@dimen/pocketlink_spacing_medium"
         android:layout_weight="1"
         android:background="@android:color/transparent"
         android:clipToPadding="false"
         android:divider="@android:color/transparent"
-        android:dividerHeight="@dimen/kde_spacing_small"
-        android:paddingBottom="@dimen/kde_spacing_medium"
+        android:dividerHeight="@dimen/pocketlink_spacing_small"
+        android:paddingBottom="@dimen/pocketlink_spacing_medium"
         android:visibility="gone" />
 
 </LinearLayout>

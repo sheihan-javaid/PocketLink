@@ -72,14 +72,14 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.kde.kdeconnect.Device
-import org.kde.kdeconnect.ui.compose.KdeComponentSize
-import org.kde.kdeconnect.ui.compose.KdeSpacing
-import org.kde.kdeconnect.ui.compose.KdeTheme
-import org.kde.kdeconnect.ui.compose.KdeTopAppBar
+import org.kde.kdeconnect.ui.compose.PocketLinkComponentSize
+import org.kde.kdeconnect.ui.compose.PocketLinkSpacing
+import org.kde.kdeconnect.ui.compose.PocketLinkTheme
+import org.kde.kdeconnect.ui.compose.PocketLinkTopAppBar
 import org.kde.kdeconnect.ui.compose.components.DeviceDisconnectedOverlay
-import org.kde.kdeconnect.ui.compose.components.KdePanelKind
-import org.kde.kdeconnect.ui.compose.components.KdeStandardCard
-import org.kde.kdeconnect.ui.compose.components.KdeStatePanel
+import org.kde.kdeconnect.ui.compose.components.PocketLinkPanelKind
+import org.kde.kdeconnect.ui.compose.components.PocketLinkStandardCard
+import org.kde.kdeconnect.ui.compose.components.PocketLinkStatePanel
 import org.kde.kdeconnect.ui.compose.kdeSemanticColors
 import org.kde.kdeconnect_tp.R
 import kotlin.time.Duration.Companion.seconds
@@ -162,7 +162,7 @@ internal fun RunCommandScreenContent(
 ) {
     val context = LocalContext.current
 
-    KdeTheme(context) {
+    PocketLinkTheme(context) {
         Scaffold(
             modifier = modifier.safeDrawingPadding(),
             topBar = {
@@ -215,7 +215,7 @@ internal fun RunCommandScreenContent(
                     confirmButton = {
                         TextButton(
                             onClick = onDismissDialog,
-                            modifier = Modifier.defaultMinSize(minHeight = KdeSpacing.minTouchTarget)
+                            modifier = Modifier.defaultMinSize(minHeight = PocketLinkSpacing.minTouchTarget)
                         ) {
                             Text(stringResource(R.string.ok))
                         }
@@ -232,16 +232,16 @@ internal fun RunCommandScreenContent(
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
-                        .widthIn(max = KdeSpacing.compactContentMaxWidth)
+                        .widthIn(max = PocketLinkSpacing.compactContentMaxWidth)
                 ) {
                     if (commandList.isNotEmpty()) {
                         LazyColumn(
                             modifier = Modifier.fillMaxSize(),
                             contentPadding = PaddingValues(
-                                top = KdeSpacing.medium,
-                                bottom = KdeSpacing.xLarge
+                                top = PocketLinkSpacing.medium,
+                                bottom = PocketLinkSpacing.xLarge
                             ),
-                            verticalArrangement = Arrangement.spacedBy(KdeSpacing.small)
+                            verticalArrangement = Arrangement.spacedBy(PocketLinkSpacing.small)
                         ) {
                             if (showOutputCard) {
                                 item {
@@ -265,10 +265,10 @@ internal fun RunCommandScreenContent(
                         if (!canAddCommand) {
                             explanation += "\n" + stringResource(R.string.addcommand_explanation2)
                         }
-                        KdeStatePanel(
+                        PocketLinkStatePanel(
                             title = stringResource(R.string.pref_plugin_runcommand),
                             description = explanation,
-                            kind = KdePanelKind.Empty,
+                            kind = PocketLinkPanelKind.Empty,
                             icon = Icons.Default.PlayArrow,
                             actionLabel = if (canAddCommand && isReachable) stringResource(R.string.add_command) else null,
                             onAction = if (canAddCommand && isReachable) onAddCommand else null,
@@ -293,9 +293,9 @@ private fun CommandCard(
     val haptics = LocalHapticFeedback.current
     var menuExpanded by remember { mutableStateOf(false) }
 
-    KdeStandardCard(
+    PocketLinkStandardCard(
         modifier = modifier
-            .padding(horizontal = KdeSpacing.contentHorizontal)
+            .padding(horizontal = PocketLinkSpacing.contentHorizontal)
             .semantics {
                 contentDescription = "${command.name}: ${command.command}"
             }
@@ -303,7 +303,7 @@ private fun CommandCard(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .defaultMinSize(minHeight = KdeComponentSize.deviceCardMinHeight)
+                .defaultMinSize(minHeight = PocketLinkComponentSize.deviceCardMinHeight)
                 .combinedClickable(
                     indication = ripple(),
                     interactionSource = remember { MutableInteractionSource() },
@@ -313,16 +313,16 @@ private fun CommandCard(
                         menuExpanded = true
                     }
                 )
-                .padding(KdeSpacing.cardPadding),
+                .padding(PocketLinkSpacing.cardPadding),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
                 painter = painterResource(R.drawable.ic_action_image_edit_24dp),
                 contentDescription = null,
                 tint = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.size(KdeComponentSize.iconLarge)
+                modifier = Modifier.size(PocketLinkComponentSize.iconLarge)
             )
-            Spacer(Modifier.width(KdeSpacing.medium))
+            Spacer(Modifier.width(PocketLinkSpacing.medium))
             Column(modifier = Modifier.weight(1f)) {
                 Text(
                     text = command.name,
@@ -342,7 +342,7 @@ private fun CommandCard(
             Box {
                 IconButton(
                     onClick = { menuExpanded = true },
-                    modifier = Modifier.size(KdeComponentSize.controlMinHeight)
+                    modifier = Modifier.size(PocketLinkComponentSize.controlMinHeight)
                 ) {
                     Icon(
                         imageVector = Icons.Default.MoreVert,
@@ -388,18 +388,18 @@ private fun OutputCard(
         }
     }
 
-    KdeStandardCard(
+    PocketLinkStandardCard(
         modifier = modifier
             .fillMaxWidth()
             .height(280.dp)
-            .padding(horizontal = KdeSpacing.contentHorizontal, vertical = KdeSpacing.xSmall)
+            .padding(horizontal = PocketLinkSpacing.contentHorizontal, vertical = PocketLinkSpacing.xSmall)
     ) {
         if (outputList.isNotEmpty()) {
             Box(modifier = Modifier.fillMaxSize()) {
                 LazyColumn(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(KdeSpacing.cardPadding),
+                        .padding(PocketLinkSpacing.cardPadding),
                     state = state,
                     verticalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
@@ -421,7 +421,7 @@ private fun OutputCard(
                     Column(
                         modifier = Modifier
                             .fillMaxSize()
-                            .padding(KdeSpacing.small),
+                            .padding(PocketLinkSpacing.small),
                         horizontalAlignment = Alignment.End,
                         verticalArrangement = Arrangement.Bottom
                     ) {
@@ -440,7 +440,7 @@ private fun OutputCard(
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(KdeSpacing.large),
+                    .padding(PocketLinkSpacing.large),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
@@ -451,7 +451,7 @@ private fun OutputCard(
                     style = MaterialTheme.typography.titleMedium,
                     color = MaterialTheme.colorScheme.onSurface
                 )
-                Spacer(Modifier.height(KdeSpacing.xSmall))
+                Spacer(Modifier.height(PocketLinkSpacing.xSmall))
                 Text(
                     text = stringResource(R.string.runcommand_output_no_output_desc),
                     textAlign = TextAlign.Center,
@@ -478,7 +478,7 @@ fun RunCommandAppBar(
     showClearOutput: Boolean,
     onClearOutput: () -> Unit,
 ) {
-    KdeTopAppBar(
+    PocketLinkTopAppBar(
         title = stringResource(R.string.pref_plugin_runcommand),
         subTitle = subTitle,
         navIconOnClick = onBackPressed,

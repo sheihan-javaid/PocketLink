@@ -32,8 +32,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.withContext
-import org.kde.kdeconnect.ui.compose.KdeTheme
-import org.kde.kdeconnect.ui.compose.components.KdeThemePreviews
+import org.kde.kdeconnect.ui.compose.PocketLinkTheme
+import org.kde.kdeconnect.ui.compose.components.PocketLinkThemePreviews
 import org.kde.kdeconnect_tp.R
 
 @Composable
@@ -110,10 +110,10 @@ fun LicensesScreen(
     }
 }
 
-@KdeThemePreviews
+@PocketLinkThemePreviews
 @Composable
 private fun LicensesScreenPreview() {
-    KdeTheme(context = LocalContext.current) {
+    PocketLinkTheme(context = LocalContext.current) {
         LicensesScreen(eventFlow = remember { MutableSharedFlow() })
     }
 }

@@ -15,9 +15,9 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
         android:id="@+id/checkbox_contents"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="?attr/kdeMinTouchTarget"
-        android:paddingStart="@dimen/kde_spacing_medium"
-        android:paddingEnd="@dimen/kde_spacing_medium"
+        android:minHeight="?attr/pocketlinkMinTouchTarget"
+        android:paddingStart="@dimen/pocketlink_spacing_medium"
+        android:paddingEnd="@dimen/pocketlink_spacing_medium"
         android:textColor="?attr/colorOnSurface"
         android:text="@string/block_notification_contents" />
 
@@ -25,9 +25,9 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
         android:id="@+id/checkbox_images"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="?attr/kdeMinTouchTarget"
-        android:paddingStart="@dimen/kde_spacing_medium"
-        android:paddingEnd="@dimen/kde_spacing_medium"
+        android:minHeight="?attr/pocketlinkMinTouchTarget"
+        android:paddingStart="@dimen/pocketlink_spacing_medium"
+        android:paddingEnd="@dimen/pocketlink_spacing_medium"
         android:textColor="?attr/colorOnSurface"
         android:text="@string/block_notification_images" />
 </LinearLayout>

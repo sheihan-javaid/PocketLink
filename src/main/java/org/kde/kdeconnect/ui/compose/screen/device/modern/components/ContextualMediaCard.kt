@@ -46,7 +46,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import org.kde.kdeconnect.ui.compose.KdeSpacing
+import org.kde.kdeconnect.ui.compose.PocketLinkSpacing
 import org.kde.kdeconnect.ui.compose.screen.device.modern.LocalDashboardTokens
 import org.kde.kdeconnect.ui.compose.screen.device.modern.MediaPlaybackUiState
 import org.kde.kdeconnect_tp.R
@@ -69,7 +69,7 @@ fun ContextualMediaCard(
             onNext = onNext,
             onPrevious = onPrevious,
             onSeek = onSeek,
-            modifier = Modifier.padding(KdeSpacing.cardPadding)
+            modifier = Modifier.padding(PocketLinkSpacing.cardPadding)
         )
     }
 }
@@ -91,7 +91,7 @@ fun ContextualMediaContent(
 
     Column(
         modifier = modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(KdeSpacing.medium)
+        verticalArrangement = Arrangement.spacedBy(PocketLinkSpacing.medium)
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -113,7 +113,7 @@ fun ContextualMediaContent(
                 )
             }
 
-            Spacer(modifier = Modifier.width(KdeSpacing.medium))
+            Spacer(modifier = Modifier.width(PocketLinkSpacing.medium))
 
             Column(modifier = Modifier.weight(1f)) {
                 Row(
@@ -211,12 +211,12 @@ fun ContextualMediaContent(
                 }
             }
 
-            Spacer(modifier = Modifier.width(KdeSpacing.small))
+            Spacer(modifier = Modifier.width(PocketLinkSpacing.small))
 
             // Playback Controls
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(KdeSpacing.xSmall)
+                horizontalArrangement = Arrangement.spacedBy(PocketLinkSpacing.xSmall)
             ) {
                 IconButton(
                     onClick = onPrevious,

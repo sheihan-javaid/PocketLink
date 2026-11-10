@@ -21,10 +21,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import org.kde.kdeconnect.ui.compose.KdeTheme
+import org.kde.kdeconnect.ui.compose.PocketLinkTheme
 
 @Composable
-private fun KdeText(
+private fun PocketLinkText(
     text: String,
     style: TextStyle,
     modifier: Modifier = Modifier,
@@ -52,7 +52,7 @@ private fun KdeText(
 }
 
 @Composable
-fun KdeBodySmallText(
+fun PocketLinkBodySmallText(
     text: String,
     modifier: Modifier = Modifier,
     textAlign: TextAlign = TextAlign.Start,
@@ -60,7 +60,7 @@ fun KdeBodySmallText(
     fontSize: TextUnit = TextUnit.Unspecified,
     maxLines: Int = Int.MAX_VALUE,
     onClick: (() -> Unit)? = null,
-) = KdeText(
+) = PocketLinkText(
     text = text,
     style = MaterialTheme.typography.bodySmall,
     modifier = modifier,
@@ -72,7 +72,7 @@ fun KdeBodySmallText(
 )
 
 @Composable
-fun KdeBodyMediumText(
+fun PocketLinkBodyMediumText(
     text: String,
     modifier: Modifier = Modifier,
     textAlign: TextAlign = TextAlign.Start,
@@ -81,7 +81,7 @@ fun KdeBodyMediumText(
     maxLines: Int = Int.MAX_VALUE,
     onClick: (() -> Unit)? = null,
 ) =
-    KdeText(
+    PocketLinkText(
         text = text,
         style = MaterialTheme.typography.bodyMedium,
         modifier = modifier,
@@ -93,7 +93,7 @@ fun KdeBodyMediumText(
     )
 
 @Composable
-fun KdeBodyLargeText(
+fun PocketLinkBodyLargeText(
     text: String,
     modifier: Modifier = Modifier,
     textAlign: TextAlign = TextAlign.Start,
@@ -102,7 +102,7 @@ fun KdeBodyLargeText(
     maxLines: Int = Int.MAX_VALUE,
     onClick: (() -> Unit)? = null,
 ) =
-    KdeText(
+    PocketLinkText(
         text = text,
         style = MaterialTheme.typography.bodyLarge,
         modifier = modifier,
@@ -114,7 +114,7 @@ fun KdeBodyLargeText(
     )
 
 @Composable
-fun KdeTitleMediumText(
+fun PocketLinkTitleMediumText(
     text: String,
     modifier: Modifier = Modifier,
     textAlign: TextAlign = TextAlign.Start,
@@ -123,7 +123,7 @@ fun KdeTitleMediumText(
     maxLines: Int = Int.MAX_VALUE,
     onClick: (() -> Unit)? = null,
 ) =
-    KdeText(
+    PocketLinkText(
         text = text,
         style = MaterialTheme.typography.titleMedium,
         modifier = modifier,
@@ -134,28 +134,28 @@ fun KdeTitleMediumText(
         onClick = onClick
     )
 
-@KdePortraitThemePreviews
+@PocketLinkPortraitThemePreviews
 @Composable
-private fun KdeTextsPreview() {
-    KdeTheme(context = LocalContext.current) {
+private fun PocketLinkTextsPreview() {
+    PocketLinkTheme(context = LocalContext.current) {
         Column(modifier = Modifier.fillMaxWidth()) {
-            KdeBodySmallText(
-                text = "KdeBodySmallText",
+            PocketLinkBodySmallText(
+                text = "PocketLinkBodySmallText",
                 color = Color(0xFFCC2222),
                 fontSize = 14.sp,
                 maxLines = 1,
                 modifier = Modifier.padding(all = 16.dp),
             )
-            KdeBodyMediumText(
-                text = "KdeBodyMediumText",
+            PocketLinkBodyMediumText(
+                text = "PocketLinkBodyMediumText",
                 modifier = Modifier.padding(all = 16.dp),
             )
-            KdeBodyLargeText(
-                text = "KdeBodyLargeText",
+            PocketLinkBodyLargeText(
+                text = "PocketLinkBodyLargeText",
                 modifier = Modifier.padding(all = 16.dp),
             )
-            KdeTitleMediumText(
-                text = "KdeTitleMediumText",
+            PocketLinkTitleMediumText(
+                text = "PocketLinkTitleMediumText",
                 modifier = Modifier.padding(all = 16.dp),
             )
         }

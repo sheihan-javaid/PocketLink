@@ -44,7 +44,7 @@ import org.kde.kdeconnect.plugins.Plugin
 import org.kde.kdeconnect.plugins.battery.BatteryPlugin
 import org.kde.kdeconnect.plugins.connectivityreport.ConnectivityReportPlugin
 import org.kde.kdeconnect.plugins.PluginFactory
-import org.kde.kdeconnect.ui.compose.KdeTheme
+import org.kde.kdeconnect.ui.compose.PocketLinkTheme
 import org.kde.kdeconnect.ui.compose.screen.device.ConnectedDeviceDashboard
 import org.kde.kdeconnect.ui.compose.screen.device.DevicePluginUiModel
 import org.kde.kdeconnect.ui.compose.screen.device.DevicePairingScreen
@@ -55,7 +55,7 @@ import org.kde.kdeconnect.ui.compose.screen.device.modern.DashboardUiStateMapper
 import org.kde.kdeconnect.ui.compose.screen.device.modern.DashboardActions
 import org.kde.kdeconnect.ui.compose.screen.device.modern.QuickActionAvailability
 import org.kde.kdeconnect.ui.compose.screen.device.modern.QuickActionUiModel
-import org.kde.kdeconnect.ui.compose.KdeSpacing
+import org.kde.kdeconnect.ui.compose.PocketLinkSpacing
 import org.kde.kdeconnect_tp.R
 import org.kde.kdeconnect_tp.databinding.ActivityDeviceBinding
 
@@ -254,7 +254,7 @@ class DeviceFragment : BaseFragment<ActivityDeviceBinding>() {
         binding.deviceView.apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
-                KdeTheme(context) {
+                PocketLinkTheme(context) {
                     val isRefreshing by viewModel.isRefreshing.collectAsStateWithLifecycle()
                     val pairingErrorMessage by viewModel.pairingErrorMessage.collectAsStateWithLifecycle()
                     val pairingSucceeded by viewModel.pairingSucceeded.collectAsStateWithLifecycle()
@@ -364,7 +364,7 @@ class DeviceFragment : BaseFragment<ActivityDeviceBinding>() {
                                             onDismiss = { viewModel.setPairingSucceeded(false) },
                                             modifier = Modifier
                                                 .align(Alignment.TopCenter)
-                                                .padding(KdeSpacing.medium)
+                                                .padding(PocketLinkSpacing.medium)
                                         )
                                     }
                                 }

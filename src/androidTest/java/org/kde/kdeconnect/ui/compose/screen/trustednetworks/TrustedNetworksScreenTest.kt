@@ -18,7 +18,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.kde.kdeconnect.ui.compose.KdeTheme
+import org.kde.kdeconnect.ui.compose.PocketLinkTheme
 import org.kde.kdeconnect_tp.R
 
 @RunWith(AndroidJUnit4::class)
@@ -30,7 +30,7 @@ class TrustedNetworksScreenTest {
     @Test
     fun allowAllModeDisplaysSwitchAndHidesNetworkList() {
         composeRule.setContent {
-            KdeTheme(composeRule.activity) {
+            PocketLinkTheme(composeRule.activity) {
                 TrustedNetworksScreen(
                     allNetworksAllowed = true,
                     trustedNetworks = listOf("HomeWiFi"),
@@ -56,7 +56,7 @@ class TrustedNetworksScreenTest {
         val currentSsid = "CoffeeShop-Guest"
 
         composeRule.setContent {
-            KdeTheme(composeRule.activity) {
+            PocketLinkTheme(composeRule.activity) {
                 TrustedNetworksScreen(
                     allNetworksAllowed = false,
                     trustedNetworks = emptyList(),
@@ -85,7 +85,7 @@ class TrustedNetworksScreenTest {
         val networks = listOf("Home-Mesh-5G", "Work-HQ")
 
         composeRule.setContent {
-            KdeTheme(composeRule.activity) {
+            PocketLinkTheme(composeRule.activity) {
                 TrustedNetworksScreen(
                     allNetworksAllowed = false,
                     trustedNetworks = networks,

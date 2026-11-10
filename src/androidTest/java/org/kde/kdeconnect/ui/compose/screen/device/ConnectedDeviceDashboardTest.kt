@@ -25,7 +25,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.kde.kdeconnect.plugins.Plugin
-import org.kde.kdeconnect.ui.compose.KdeTheme
+import org.kde.kdeconnect.ui.compose.PocketLinkTheme
 import org.kde.kdeconnect_tp.R
 import java.util.concurrent.atomic.AtomicInteger
 
@@ -141,7 +141,7 @@ class ConnectedDeviceDashboardTest {
             CompositionLocalProvider(
                 LocalDensity provides Density(density.density, fontScale = 1.8f)
             ) {
-                KdeTheme(
+                PocketLinkTheme(
                     context = LocalContext.current,
                     darkTheme = true,
                     useDynamicColor = false
@@ -180,7 +180,7 @@ class ConnectedDeviceDashboardTest {
         onRefresh: () -> Unit = {}
     ) {
         composeRule.setContent {
-            KdeTheme(
+            PocketLinkTheme(
                 context = LocalContext.current,
                 darkTheme = false,
                 useDynamicColor = false

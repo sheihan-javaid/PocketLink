@@ -49,12 +49,12 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
-import org.kde.kdeconnect.ui.compose.KdeComponentSize
-import org.kde.kdeconnect.ui.compose.KdeSpacing
+import org.kde.kdeconnect.ui.compose.PocketLinkComponentSize
+import org.kde.kdeconnect.ui.compose.PocketLinkSpacing
 import org.kde.kdeconnect.ui.compose.kdeSemanticColors
 
 @Composable
-fun KdeStandardCard(
+fun PocketLinkStandardCard(
     modifier: Modifier = Modifier,
     onClick: (() -> Unit)? = null,
     content: @Composable ColumnScope.() -> Unit
@@ -80,22 +80,22 @@ fun KdeStandardCard(
 }
 
 @Composable
-fun KdeDeviceCard(
+fun PocketLinkDeviceCard(
     name: String,
     status: String,
     modifier: Modifier = Modifier,
     icon: ImageVector? = null,
     onClick: () -> Unit
 ) {
-    KdeStandardCard(
+    PocketLinkStandardCard(
         modifier = modifier.semantics { role = Role.Button },
         onClick = onClick
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .defaultMinSize(minHeight = KdeComponentSize.deviceCardMinHeight)
-                .padding(KdeSpacing.cardPadding),
+                .defaultMinSize(minHeight = PocketLinkComponentSize.deviceCardMinHeight)
+                .padding(PocketLinkSpacing.cardPadding),
             verticalAlignment = Alignment.CenterVertically
         ) {
             if (icon != null) {
@@ -103,9 +103,9 @@ fun KdeDeviceCard(
                     imageVector = icon,
                     contentDescription = null,
                     tint = MaterialTheme.colorScheme.primary,
-                    modifier = Modifier.size(KdeComponentSize.iconLarge)
+                    modifier = Modifier.size(PocketLinkComponentSize.iconLarge)
                 )
-                Spacer(Modifier.width(KdeSpacing.medium))
+                Spacer(Modifier.width(PocketLinkSpacing.medium))
             }
             Column(modifier = Modifier.weight(1f)) {
                 Text(name, style = MaterialTheme.typography.titleMedium)
@@ -120,7 +120,7 @@ fun KdeDeviceCard(
 }
 
 @Composable
-fun KdePluginActionCard(
+fun PocketLinkPluginActionCard(
     title: String,
     modifier: Modifier = Modifier,
     icon: ImageVector? = null,
@@ -131,7 +131,7 @@ fun KdePluginActionCard(
         onClick = onClick,
         enabled = enabled,
         modifier = modifier
-            .defaultMinSize(minHeight = KdeComponentSize.actionCardMinHeight),
+            .defaultMinSize(minHeight = PocketLinkComponentSize.actionCardMinHeight),
         shape = MaterialTheme.shapes.medium,
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceContainer
@@ -141,8 +141,8 @@ fun KdePluginActionCard(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(KdeSpacing.medium),
-            verticalArrangement = Arrangement.spacedBy(KdeSpacing.small)
+                .padding(PocketLinkSpacing.medium),
+            verticalArrangement = Arrangement.spacedBy(PocketLinkSpacing.small)
         ) {
             if (icon != null) {
                 Icon(icon, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
@@ -152,7 +152,7 @@ fun KdePluginActionCard(
     }
 }
 
-enum class KdeStatusKind {
+enum class PocketLinkStatusKind {
     Connected,
     Pending,
     Warning,
@@ -160,7 +160,7 @@ enum class KdeStatusKind {
     Neutral
 }
 
-enum class KdePanelKind {
+enum class PocketLinkPanelKind {
     Empty,
     Error,
     Offline,
@@ -168,17 +168,17 @@ enum class KdePanelKind {
 }
 
 @Composable
-fun KdeConnectionStatus(
+fun PocketLinkConnectionStatus(
     label: String,
-    kind: KdeStatusKind,
+    kind: PocketLinkStatusKind,
     modifier: Modifier = Modifier
 ) {
     val semanticColors = kdeSemanticColors()
     val color = when (kind) {
-        KdeStatusKind.Connected -> semanticColors.success
-        KdeStatusKind.Pending, KdeStatusKind.Warning -> semanticColors.warning
-        KdeStatusKind.Error -> MaterialTheme.colorScheme.error
-        KdeStatusKind.Neutral -> MaterialTheme.colorScheme.onSurfaceVariant
+        PocketLinkStatusKind.Connected -> semanticColors.success
+        PocketLinkStatusKind.Pending, PocketLinkStatusKind.Warning -> semanticColors.warning
+        PocketLinkStatusKind.Error -> MaterialTheme.colorScheme.error
+        PocketLinkStatusKind.Neutral -> MaterialTheme.colorScheme.onSurfaceVariant
     }
     Row(
         modifier = modifier.clearAndSetSemantics {
@@ -191,13 +191,13 @@ fun KdeConnectionStatus(
                 .size(8.dp)
                 .background(color, CircleShape)
         )
-        Spacer(Modifier.width(KdeSpacing.small))
+        Spacer(Modifier.width(PocketLinkSpacing.small))
         Text(label, style = MaterialTheme.typography.labelMedium)
     }
 }
 
 @Composable
-fun KdePermissionStatusRow(
+fun PocketLinkPermissionStatusRow(
     title: String,
     explanation: String,
     actionLabel: String,
@@ -209,8 +209,8 @@ fun KdePermissionStatusRow(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .defaultMinSize(minHeight = KdeSpacing.minTouchTarget)
-            .padding(horizontal = KdeSpacing.medium, vertical = KdeSpacing.small),
+            .defaultMinSize(minHeight = PocketLinkSpacing.minTouchTarget)
+            .padding(horizontal = PocketLinkSpacing.medium, vertical = PocketLinkSpacing.small),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Column(modifier = Modifier.weight(1f)) {
@@ -224,10 +224,10 @@ fun KdePermissionStatusRow(
                 )
             }
         }
-        Spacer(Modifier.width(KdeSpacing.small))
+        Spacer(Modifier.width(PocketLinkSpacing.small))
         TextButton(
             onClick = onAction,
-            modifier = Modifier.defaultMinSize(minHeight = KdeSpacing.minTouchTarget)
+            modifier = Modifier.defaultMinSize(minHeight = PocketLinkSpacing.minTouchTarget)
         ) {
             Text(actionLabel)
         }
@@ -235,34 +235,34 @@ fun KdePermissionStatusRow(
 }
 
 @Composable
-fun KdeStatePanel(
+fun PocketLinkStatePanel(
     title: String,
     description: String,
     modifier: Modifier = Modifier,
-    kind: KdePanelKind = KdePanelKind.Empty,
+    kind: PocketLinkPanelKind = PocketLinkPanelKind.Empty,
     icon: ImageVector? = null,
     actionLabel: String? = null,
     onAction: (() -> Unit)? = null
 ) {
     val semanticColors = kdeSemanticColors()
     val iconTint = when (kind) {
-        KdePanelKind.Empty -> MaterialTheme.colorScheme.primary
-        KdePanelKind.Error -> MaterialTheme.colorScheme.error
-        KdePanelKind.Offline -> semanticColors.warning
-        KdePanelKind.Unsupported -> MaterialTheme.colorScheme.onSurfaceVariant
+        PocketLinkPanelKind.Empty -> MaterialTheme.colorScheme.primary
+        PocketLinkPanelKind.Error -> MaterialTheme.colorScheme.error
+        PocketLinkPanelKind.Offline -> semanticColors.warning
+        PocketLinkPanelKind.Unsupported -> MaterialTheme.colorScheme.onSurfaceVariant
     }
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .padding(KdeSpacing.xLarge),
+            .padding(PocketLinkSpacing.xLarge),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(KdeSpacing.medium)
+        verticalArrangement = Arrangement.spacedBy(PocketLinkSpacing.medium)
     ) {
         Icon(
             icon ?: Icons.Default.Info,
             contentDescription = null,
             tint = iconTint,
-            modifier = Modifier.size(KdeComponentSize.iconFeatured)
+            modifier = Modifier.size(PocketLinkComponentSize.iconFeatured)
         )
         Text(
             title,
@@ -277,7 +277,7 @@ fun KdeStatePanel(
         if (actionLabel != null && onAction != null) {
             Button(
                 onClick = onAction,
-                modifier = Modifier.defaultMinSize(minHeight = KdeSpacing.minTouchTarget)
+                modifier = Modifier.defaultMinSize(minHeight = PocketLinkSpacing.minTouchTarget)
             ) {
                 Text(actionLabel)
             }
@@ -286,26 +286,26 @@ fun KdeStatePanel(
 }
 
 @Composable
-fun KdeLoadingState(
+fun PocketLinkLoadingState(
     label: String,
     modifier: Modifier = Modifier
 ) {
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .defaultMinSize(minHeight = KdeSpacing.minTouchTarget)
+            .defaultMinSize(minHeight = PocketLinkSpacing.minTouchTarget)
             .semantics { contentDescription = label },
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
     ) {
         CircularProgressIndicator(modifier = Modifier.size(24.dp))
-        Spacer(Modifier.width(KdeSpacing.medium))
+        Spacer(Modifier.width(PocketLinkSpacing.medium))
         Text(label, style = MaterialTheme.typography.bodyMedium)
     }
 }
 
 @Composable
-fun KdeLinearProgress(
+fun PocketLinkLinearProgress(
     progress: Float,
     modifier: Modifier = Modifier,
     label: String? = null
@@ -324,7 +324,7 @@ fun KdeLinearProgress(
 }
 
 @Composable
-fun KdeSearchField(
+fun PocketLinkSearchField(
     value: String,
     onValueChange: (String) -> Unit,
     label: String,
@@ -342,7 +342,7 @@ fun KdeSearchField(
 }
 
 @Composable
-fun KdeSettingsRow(
+fun PocketLinkSettingsRow(
     title: String,
     modifier: Modifier = Modifier,
     summary: String? = null,
@@ -352,8 +352,8 @@ fun KdeSettingsRow(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .defaultMinSize(minHeight = KdeSpacing.minTouchTarget)
-            .padding(horizontal = KdeSpacing.medium, vertical = KdeSpacing.small),
+            .defaultMinSize(minHeight = PocketLinkSpacing.minTouchTarget)
+            .padding(horizontal = PocketLinkSpacing.medium, vertical = PocketLinkSpacing.small),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Column(
@@ -375,14 +375,14 @@ fun KdeSettingsRow(
             }
         }
         trailingContent?.let {
-            Spacer(Modifier.width(KdeSpacing.medium))
+            Spacer(Modifier.width(PocketLinkSpacing.medium))
             it()
         }
     }
 }
 
 @Composable
-fun KdeConfirmationDialog(
+fun PocketLinkConfirmationDialog(
     title: String,
     message: String,
     confirmLabel: String,
@@ -398,7 +398,7 @@ fun KdeConfirmationDialog(
         confirmButton = {
             TextButton(
                 onClick = onConfirm,
-                modifier = Modifier.defaultMinSize(minHeight = KdeSpacing.minTouchTarget)
+                modifier = Modifier.defaultMinSize(minHeight = PocketLinkSpacing.minTouchTarget)
             ) {
                 Text(
                     confirmLabel,
@@ -410,7 +410,7 @@ fun KdeConfirmationDialog(
         dismissButton = {
             TextButton(
                 onClick = onDismiss,
-                modifier = Modifier.defaultMinSize(minHeight = KdeSpacing.minTouchTarget)
+                modifier = Modifier.defaultMinSize(minHeight = PocketLinkSpacing.minTouchTarget)
             ) {
                 Text(dismissLabel)
             }
@@ -420,7 +420,7 @@ fun KdeConfirmationDialog(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun KdeBottomSheet(
+fun PocketLinkBottomSheet(
     onDismissRequest: () -> Unit,
     sheetState: SheetState,
     content: @Composable ColumnScope.() -> Unit
@@ -434,6 +434,6 @@ fun KdeBottomSheet(
 }
 
 @Composable
-fun KdeSnackbarHost(hostState: SnackbarHostState, modifier: Modifier = Modifier) {
+fun PocketLinkSnackbarHost(hostState: SnackbarHostState, modifier: Modifier = Modifier) {
     SnackbarHost(hostState = hostState, modifier = modifier)
 }

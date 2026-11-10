@@ -22,7 +22,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.kde.kdeconnect.PairingHandler
-import org.kde.kdeconnect.ui.compose.KdeTheme
+import org.kde.kdeconnect.ui.compose.PocketLinkTheme
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import java.util.concurrent.atomic.AtomicInteger
 
@@ -130,7 +130,7 @@ class DevicePairingScreenTest {
             CompositionLocalProvider(
                 LocalDensity provides Density(density.density, fontScale = 2f)
             ) {
-                KdeTheme(context = context, darkTheme = true, useDynamicColor = false) {
+                PocketLinkTheme(context = context, darkTheme = true, useDynamicColor = false) {
                     DevicePairingScreen(
                         deviceName = "Work laptop",
                         pairStatus = PairingHandler.PairState.RequestedByPeer,
@@ -154,7 +154,7 @@ class DevicePairingScreenTest {
         val dismissActions = AtomicInteger()
 
         composeRule.setContent {
-            KdeTheme(context = LocalContext.current, darkTheme = false, useDynamicColor = false) {
+            PocketLinkTheme(context = LocalContext.current, darkTheme = false, useDynamicColor = false) {
                 PairingSuccessBanner(
                     deviceName = "Work laptop",
                     onDismiss = { dismissActions.incrementAndGet() }
@@ -179,7 +179,7 @@ class DevicePairingScreenTest {
         onCancelPairing: () -> Unit = {}
     ) {
         composeRule.setContent {
-            KdeTheme(context = LocalContext.current, darkTheme = false, useDynamicColor = false) {
+            PocketLinkTheme(context = LocalContext.current, darkTheme = false, useDynamicColor = false) {
                 DevicePairingScreen(
                     deviceName = "Work laptop",
                     pairStatus = pairStatus,

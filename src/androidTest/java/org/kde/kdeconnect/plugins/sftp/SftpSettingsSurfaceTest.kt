@@ -41,7 +41,7 @@ class SftpSettingsSurfaceTest {
             }
             val context = ContextThemeWrapper(
                 baseContext.createConfigurationContext(configuration),
-                R.style.KdeConnectTheme
+                R.style.PocketLinkTheme
             )
             val root = LayoutInflater.from(context)
                 .inflate(R.layout.fragment_storage_preference_dialog, null, false)

@@ -27,14 +27,14 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="vertical"
-            android:padding="?attr/kdeSpacingLarge">
+            android:padding="?attr/pocketlinkSpacingLarge">
 
             <com.google.android.material.card.MaterialCardView
-                style="@style/KdeConnectCardStyle.Filled"
+                style="@style/PocketLinkCardStyle.Filled"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardBackgroundColor="?attr/colorSurfaceContainer"
-                app:cardCornerRadius="?attr/kdeCornerExtraLarge"
+                app:cardCornerRadius="?attr/pocketlinkCornerExtraLarge"
                 app:strokeColor="?attr/colorOutlineVariant"
                 app:strokeWidth="1dp">
 
@@ -43,13 +43,13 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="?attr/kdeSpacingLarge">
+                    android:padding="?attr/pocketlinkSpacingLarge">
 
                     <com.google.android.material.card.MaterialCardView
                         android:layout_width="88dp"
                         android:layout_height="88dp"
                         app:cardBackgroundColor="?attr/colorPrimaryContainer"
-                        app:cardCornerRadius="?attr/kdeCornerLarge"
+                        app:cardCornerRadius="?attr/pocketlinkCornerLarge"
                         app:strokeWidth="0dp">
 
                         <ImageView
@@ -65,7 +65,7 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
                         android:id="@+id/tvFindMyPhoneTitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="?attr/kdeSpacingMedium"
+                        android:layout_marginTop="?attr/pocketlinkSpacingMedium"
                         android:gravity="center"
                         android:text="@string/findmyphone_title"
                         android:textColor="?attr/colorOnSurface"
@@ -75,7 +75,7 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="?attr/kdeSpacingSmall"
+                        android:layout_marginTop="?attr/pocketlinkSpacingSmall"
                         android:gravity="center"
                         android:text="@string/findmyphone_description"
                         android:textColor="?attr/colorOnSurfaceVariant"
@@ -87,12 +87,12 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
                 android:id="@+id/bFindMyPhone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="?attr/kdeSpacingLarge"
+                android:layout_marginTop="?attr/pocketlinkSpacingLarge"
                 android:minHeight="64dp"
                 android:text="@string/findmyphone_found"
                 android:textAllCaps="false"
                 android:textSize="18sp"
-                app:cornerRadius="?attr/kdeCornerLarge" />
+                app:cornerRadius="?attr/pocketlinkCornerLarge" />
         </LinearLayout>
     </ScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

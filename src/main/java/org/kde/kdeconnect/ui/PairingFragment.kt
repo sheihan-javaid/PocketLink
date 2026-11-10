@@ -34,7 +34,7 @@ import org.kde.kdeconnect.Device
 import org.kde.kdeconnect.KdeConnect
 import org.kde.kdeconnect.base.BaseFragment
 import org.kde.kdeconnect.helpers.TrustedNetworkHelper
-import org.kde.kdeconnect.ui.compose.KdeTheme
+import org.kde.kdeconnect.ui.compose.PocketLinkTheme
 import org.kde.kdeconnect.ui.compose.screen.pairing.PairingScreen
 import org.kde.kdeconnect.ui.compose.screen.pairing.PairingViewModel
 import org.kde.kdeconnect_tp.R
@@ -111,7 +111,7 @@ class PairingFragment : BaseFragment<DevicesListBinding>() {
     private fun createComposeView() {
         binding.composeView.apply {
             setContent {
-                KdeTheme(context) {
+                PocketLinkTheme(context) {
                     val state by viewModel.pairingUiState.collectAsStateWithLifecycle()
 
                     PairingScreen(

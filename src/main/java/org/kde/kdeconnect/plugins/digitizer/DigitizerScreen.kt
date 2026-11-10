@@ -51,9 +51,9 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import org.kde.kdeconnect.Device
-import org.kde.kdeconnect.ui.compose.KdeSpacing
-import org.kde.kdeconnect.ui.compose.KdeTheme
-import org.kde.kdeconnect.ui.compose.KdeTopAppBar
+import org.kde.kdeconnect.ui.compose.PocketLinkSpacing
+import org.kde.kdeconnect.ui.compose.PocketLinkTheme
+import org.kde.kdeconnect.ui.compose.PocketLinkTopAppBar
 import org.kde.kdeconnect.ui.compose.components.DeviceDisconnectedOverlay
 import org.kde.kdeconnect_tp.R
 
@@ -86,7 +86,7 @@ fun DigitizerScreen(
         else -> Alignment.BottomStart
     }
 
-    KdeTheme(context) {
+    PocketLinkTheme(context) {
         Scaffold(
             modifier = modifier.fillMaxSize(),
             topBar = {
@@ -95,7 +95,7 @@ fun DigitizerScreen(
                     enter = slideInVertically() + fadeIn(),
                     exit = slideOutVertically() + fadeOut()
                 ) {
-                    KdeTopAppBar(
+                    PocketLinkTopAppBar(
                         title = stringResource(R.string.pref_plugin_digitizer),
                         subTitle = deviceName,
                         navIconOnClick = { onBackPressedDispatcher.onBackPressed() },
@@ -185,7 +185,7 @@ fun DigitizerScreen(
                     Box(
                         modifier = Modifier
                             .fillMaxSize()
-                            .padding(KdeSpacing.large)
+                            .padding(PocketLinkSpacing.large)
                             .then(if (isFullscreen) Modifier.safeDrawingPadding() else Modifier),
                         contentAlignment = buttonAlignment
                     ) {
@@ -235,7 +235,7 @@ fun DigitizerScreen(
                         modifier = Modifier
                             .fillMaxSize()
                             .safeDrawingPadding()
-                            .padding(KdeSpacing.medium),
+                            .padding(PocketLinkSpacing.medium),
                         contentAlignment = Alignment.TopEnd
                     ) {
                         SmallFloatingActionButton(

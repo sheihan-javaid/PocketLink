@@ -30,13 +30,13 @@ import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.semantics
 import org.kde.kdeconnect.PairingHandler
-import org.kde.kdeconnect.ui.compose.KdeResponsiveContent
-import org.kde.kdeconnect.ui.compose.KdeSpacing
-import org.kde.kdeconnect.ui.compose.KdeTheme
-import org.kde.kdeconnect.ui.compose.components.KdeConnectionStatus
-import org.kde.kdeconnect.ui.compose.components.KdeStandardCard
-import org.kde.kdeconnect.ui.compose.components.KdeStatusKind
-import org.kde.kdeconnect.ui.compose.components.KdeThemePreviews
+import org.kde.kdeconnect.ui.compose.PocketLinkResponsiveContent
+import org.kde.kdeconnect.ui.compose.PocketLinkSpacing
+import org.kde.kdeconnect.ui.compose.PocketLinkTheme
+import org.kde.kdeconnect.ui.compose.components.PocketLinkConnectionStatus
+import org.kde.kdeconnect.ui.compose.components.PocketLinkStandardCard
+import org.kde.kdeconnect.ui.compose.components.PocketLinkStatusKind
+import org.kde.kdeconnect.ui.compose.components.PocketLinkThemePreviews
 import org.kde.kdeconnect_tp.R
 
 @Composable
@@ -57,23 +57,23 @@ fun DevicePairingScreen(
         PairingHandler.PairState.Paired -> stringResource(R.string.pair_succeeded)
     }
 
-    KdeResponsiveContent {
+    PocketLinkResponsiveContent {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .verticalScroll(rememberScrollState())
-                .padding(vertical = KdeSpacing.medium),
-            verticalArrangement = Arrangement.spacedBy(KdeSpacing.medium)
+                .padding(vertical = PocketLinkSpacing.medium),
+            verticalArrangement = Arrangement.spacedBy(PocketLinkSpacing.medium)
         ) {
             PairingIdentityCard(
                 deviceName = deviceName,
                 status = statusLabel,
                 statusKind = when {
-                    pairMessage != null -> KdeStatusKind.Error
-                    pairStatus == PairingHandler.PairState.Paired -> KdeStatusKind.Connected
+                    pairMessage != null -> PocketLinkStatusKind.Error
+                    pairStatus == PairingHandler.PairState.Paired -> PocketLinkStatusKind.Connected
                     pairStatus == PairingHandler.PairState.Requested ||
-                        pairStatus == PairingHandler.PairState.RequestedByPeer -> KdeStatusKind.Pending
-                    else -> KdeStatusKind.Neutral
+                        pairStatus == PairingHandler.PairState.RequestedByPeer -> PocketLinkStatusKind.Pending
+                    else -> PocketLinkStatusKind.Neutral
                 }
             )
 
@@ -87,16 +87,16 @@ fun DevicePairingScreen(
                             null
                         },
                         statusKind = if (pairMessage != null) {
-                            KdeStatusKind.Error
+                            PocketLinkStatusKind.Error
                         } else {
-                            KdeStatusKind.Neutral
+                            PocketLinkStatusKind.Neutral
                         }
                     )
                     Button(
                         onClick = onRequestPairing,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(top = KdeSpacing.xSmall)
+                            .padding(top = PocketLinkSpacing.xSmall)
                     ) {
                         Text(stringResource(R.string.request_pairing))
                     }
@@ -112,7 +112,7 @@ fun DevicePairingScreen(
                         onClick = onCancelPairing,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(top = KdeSpacing.xSmall)
+                            .padding(top = PocketLinkSpacing.xSmall)
                     ) {
                         Text(stringResource(R.string.cancel_pairing))
                     }
@@ -127,8 +127,8 @@ fun DevicePairingScreen(
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(top = KdeSpacing.xSmall),
-                        horizontalArrangement = Arrangement.spacedBy(KdeSpacing.small)
+                            .padding(top = PocketLinkSpacing.xSmall),
+                        horizontalArrangement = Arrangement.spacedBy(PocketLinkSpacing.small)
                     ) {
                         OutlinedButton(
                             onClick = onRejectPairing,
@@ -152,7 +152,7 @@ fun DevicePairingScreen(
                     PairingMessageCard(
                         title = stringResource(R.string.pair_succeeded),
                         message = stringResource(R.string.pairing_trusted_device, deviceName),
-                        statusKind = KdeStatusKind.Connected
+                        statusKind = PocketLinkStatusKind.Connected
                     )
                 }
             }
@@ -164,21 +164,21 @@ fun DevicePairingScreen(
 private fun PairingIdentityCard(
     deviceName: String,
     status: String,
-    statusKind: KdeStatusKind
+    statusKind: PocketLinkStatusKind
 ) {
-    KdeStandardCard {
+    PocketLinkStandardCard {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(KdeSpacing.cardPadding),
-            verticalArrangement = Arrangement.spacedBy(KdeSpacing.small)
+                .padding(PocketLinkSpacing.cardPadding),
+            verticalArrangement = Arrangement.spacedBy(PocketLinkSpacing.small)
         ) {
             Text(
                 text = deviceName,
                 style = MaterialTheme.typography.headlineSmall,
                 modifier = Modifier.semantics { heading() }
             )
-            KdeConnectionStatus(label = status, kind = statusKind)
+            PocketLinkConnectionStatus(label = status, kind = statusKind)
         }
     }
 }
@@ -187,14 +187,14 @@ private fun PairingIdentityCard(
 private fun PairingMessageCard(
     title: String,
     message: String?,
-    statusKind: KdeStatusKind = KdeStatusKind.Neutral
+    statusKind: PocketLinkStatusKind = PocketLinkStatusKind.Neutral
 ) {
-    KdeStandardCard {
+    PocketLinkStandardCard {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(KdeSpacing.cardPadding),
-            verticalArrangement = Arrangement.spacedBy(KdeSpacing.small)
+                .padding(PocketLinkSpacing.cardPadding),
+            verticalArrangement = Arrangement.spacedBy(PocketLinkSpacing.small)
         ) {
             Text(
                 text = title,
@@ -202,7 +202,7 @@ private fun PairingMessageCard(
                 modifier = Modifier
                     .semantics {
                         heading()
-                        if (statusKind == KdeStatusKind.Error) {
+                        if (statusKind == PocketLinkStatusKind.Error) {
                             liveRegion = LiveRegionMode.Polite
                         }
                     }
@@ -222,12 +222,12 @@ private fun PairingMessageCard(
 private fun VerificationCodeCard(verificationKey: String) {
     if (verificationKey.isBlank()) return
 
-    KdeStandardCard {
+    PocketLinkStandardCard {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(KdeSpacing.cardPadding),
-            verticalArrangement = Arrangement.spacedBy(KdeSpacing.small)
+                .padding(PocketLinkSpacing.cardPadding),
+            verticalArrangement = Arrangement.spacedBy(PocketLinkSpacing.small)
         ) {
             Text(
                 text = stringResource(R.string.pairing_verification_code_title),
@@ -253,34 +253,34 @@ fun PairingSuccessBanner(
     onDismiss: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    KdeStandardCard(
+    PocketLinkStandardCard(
         modifier = modifier.semantics { liveRegion = LiveRegionMode.Polite }
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = KdeSpacing.cardPadding, end = KdeSpacing.small),
+                .padding(start = PocketLinkSpacing.cardPadding, end = PocketLinkSpacing.small),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Column(
                 modifier = Modifier
                     .weight(1f)
-                    .padding(vertical = KdeSpacing.medium),
-                verticalArrangement = Arrangement.spacedBy(KdeSpacing.xSmall)
+                    .padding(vertical = PocketLinkSpacing.medium),
+                verticalArrangement = Arrangement.spacedBy(PocketLinkSpacing.xSmall)
             ) {
-                KdeConnectionStatus(
+                PocketLinkConnectionStatus(
                     label = stringResource(R.string.pair_succeeded),
-                    kind = KdeStatusKind.Connected
+                    kind = PocketLinkStatusKind.Connected
                 )
                 Text(
                     text = stringResource(R.string.pairing_trusted_device, deviceName),
                     style = MaterialTheme.typography.bodyMedium
                 )
             }
-            Spacer(Modifier.width(KdeSpacing.xSmall))
+            Spacer(Modifier.width(PocketLinkSpacing.xSmall))
             TextButton(
                 onClick = onDismiss,
-                modifier = Modifier.padding(vertical = KdeSpacing.xSmall)
+                modifier = Modifier.padding(vertical = PocketLinkSpacing.xSmall)
             ) {
                 Text(stringResource(R.string.ok))
             }
@@ -288,10 +288,10 @@ fun PairingSuccessBanner(
     }
 }
 
-@KdeThemePreviews
+@PocketLinkThemePreviews
 @Composable
 private fun DevicePairingScreenIncomingPreview() {
-    KdeTheme(context = LocalContext.current) {
+    PocketLinkTheme(context = LocalContext.current) {
         DevicePairingScreen(
             deviceName = "Work laptop",
             pairStatus = PairingHandler.PairState.RequestedByPeer,

@@ -16,7 +16,7 @@ import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 import org.kde.kdeconnect.Device
 import org.kde.kdeconnect.KdeConnect
-import org.kde.kdeconnect.ui.compose.KdeTheme
+import org.kde.kdeconnect.ui.compose.PocketLinkTheme
 import org.kde.kdeconnect_tp.R
 
 private const val INPUT_CACHE_KEY = "compose_send_input_cache"
@@ -44,7 +44,7 @@ class ComposeSendActivity : AppCompatActivity() {
         }
 
         setContent {
-            KdeTheme(this) {
+            PocketLinkTheme(this) {
                 RemoteKeyboardScreen(
                     deviceName = device.name,
                     input = userInput,

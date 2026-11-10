@@ -30,11 +30,11 @@ import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import org.kde.kdeconnect.plugins.Plugin
-import org.kde.kdeconnect.ui.compose.KdeSpacing
-import org.kde.kdeconnect.ui.compose.components.KdeConnectionStatus
-import org.kde.kdeconnect.ui.compose.components.KdeSettingsRow
-import org.kde.kdeconnect.ui.compose.components.KdeStandardCard
-import org.kde.kdeconnect.ui.compose.components.KdeStatusKind
+import org.kde.kdeconnect.ui.compose.PocketLinkSpacing
+import org.kde.kdeconnect.ui.compose.components.PocketLinkConnectionStatus
+import org.kde.kdeconnect.ui.compose.components.PocketLinkSettingsRow
+import org.kde.kdeconnect.ui.compose.components.PocketLinkStandardCard
+import org.kde.kdeconnect.ui.compose.components.PocketLinkStatusKind
 import org.kde.kdeconnect.ui.compose.components.SectionHeader
 import org.kde.kdeconnect_tp.R
 
@@ -71,10 +71,10 @@ fun ConnectedDeviceDashboard(
                     .widthIn(max = 760.dp)
                     .fillMaxWidth()
                     .padding(
-                        horizontal = KdeSpacing.contentHorizontal,
-                        vertical = KdeSpacing.medium
+                        horizontal = PocketLinkSpacing.contentHorizontal,
+                        vertical = PocketLinkSpacing.medium
                     ),
-                verticalArrangement = Arrangement.spacedBy(KdeSpacing.medium)
+                verticalArrangement = Arrangement.spacedBy(PocketLinkSpacing.medium)
             ) {
                 DeviceIdentityCard(
                     deviceName = deviceName,
@@ -87,12 +87,12 @@ fun ConnectedDeviceDashboard(
                 } else {
                     if (batteryStatus != null || connectivityStatus != null) {
                         SectionHeader(stringResource(R.string.view_status_title))
-                        KdeStandardCard {
+                        PocketLinkStandardCard {
                             batteryStatus?.let {
-                                KdeSettingsRow(title = it)
+                                PocketLinkSettingsRow(title = it)
                             }
                             connectivityStatus?.let {
-                                KdeSettingsRow(
+                                PocketLinkSettingsRow(
                                     title = stringResource(R.string.pref_plugin_connectivity_report),
                                     summary = it
                                 )
@@ -119,13 +119,13 @@ private fun DeviceIdentityCard(
     deviceIconRes: Int,
     isConnected: Boolean
 ) {
-    KdeStandardCard {
+    PocketLinkStandardCard {
         FlowRow(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(KdeSpacing.cardPadding),
-            horizontalArrangement = Arrangement.spacedBy(KdeSpacing.medium),
-            verticalArrangement = Arrangement.spacedBy(KdeSpacing.small),
+                .padding(PocketLinkSpacing.cardPadding),
+            horizontalArrangement = Arrangement.spacedBy(PocketLinkSpacing.medium),
+            verticalArrangement = Arrangement.spacedBy(PocketLinkSpacing.small),
             itemVerticalAlignment = Alignment.CenterVertically
         ) {
             Image(
@@ -134,19 +134,19 @@ private fun DeviceIdentityCard(
             )
             Column(
                 modifier = Modifier.weight(1f),
-                verticalArrangement = Arrangement.spacedBy(KdeSpacing.small)
+                verticalArrangement = Arrangement.spacedBy(PocketLinkSpacing.small)
             ) {
                 Text(
                     text = deviceName,
                     style = MaterialTheme.typography.headlineSmall,
                     modifier = Modifier.semantics { heading() }
                 )
-                KdeConnectionStatus(
+                PocketLinkConnectionStatus(
                     label = stringResource(
                         if (isConnected) R.string.device_discovery_connected
                         else R.string.error_not_reachable
                     ),
-                    kind = if (isConnected) KdeStatusKind.Connected else KdeStatusKind.Warning
+                    kind = if (isConnected) PocketLinkStatusKind.Connected else PocketLinkStatusKind.Warning
                 )
             }
         }

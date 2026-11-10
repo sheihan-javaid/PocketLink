@@ -29,11 +29,11 @@ import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import org.kde.kdeconnect.plugins.Plugin
-import org.kde.kdeconnect.ui.compose.KdeSpacing
-import org.kde.kdeconnect.ui.compose.components.KdeSettingsRow
-import org.kde.kdeconnect.ui.compose.components.KdeStandardCard
-import org.kde.kdeconnect.ui.compose.components.KdeStatePanel
-import org.kde.kdeconnect.ui.compose.components.KdePanelKind
+import org.kde.kdeconnect.ui.compose.PocketLinkSpacing
+import org.kde.kdeconnect.ui.compose.components.PocketLinkSettingsRow
+import org.kde.kdeconnect.ui.compose.components.PocketLinkStandardCard
+import org.kde.kdeconnect.ui.compose.components.PocketLinkStatePanel
+import org.kde.kdeconnect.ui.compose.components.PocketLinkPanelKind
 import org.kde.kdeconnect.ui.compose.components.SectionHeader
 import org.kde.kdeconnect_tp.R
 
@@ -58,15 +58,15 @@ fun PluginsScreen(
 ) {
     Column(
         modifier = modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(KdeSpacing.medium)
+        verticalArrangement = Arrangement.spacedBy(PocketLinkSpacing.medium)
     ) {
         SectionHeader(stringResource(R.string.device_menu_plugins))
 
         if (plugins.isEmpty()) {
-            KdeStatePanel(
+            PocketLinkStatePanel(
                 title = stringResource(R.string.device_menu_plugins),
                 description = stringResource(R.string.device_no_supported_plugins),
-                kind = KdePanelKind.Unsupported
+                kind = PocketLinkPanelKind.Unsupported
             )
         } else {
             plugins.forEach { plugin ->
@@ -94,12 +94,12 @@ private fun DevicePluginCard(
     onRequiredPermissionClick: () -> Unit,
     onOptionalPermissionClick: () -> Unit
 ) {
-    KdeStandardCard {
+    PocketLinkStandardCard {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(KdeSpacing.cardPadding),
-            verticalArrangement = Arrangement.spacedBy(KdeSpacing.small)
+                .padding(PocketLinkSpacing.cardPadding),
+            verticalArrangement = Arrangement.spacedBy(PocketLinkSpacing.small)
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -107,7 +107,7 @@ private fun DevicePluginCard(
             ) {
                 Column(
                     modifier = Modifier.weight(1f),
-                    verticalArrangement = Arrangement.spacedBy(KdeSpacing.xSmall)
+                    verticalArrangement = Arrangement.spacedBy(PocketLinkSpacing.xSmall)
                 ) {
                     Text(plugin.displayName, style = MaterialTheme.typography.titleMedium)
                     Text(
@@ -126,7 +126,7 @@ private fun DevicePluginCard(
             }
 
             if (plugin.needsRequiredPermission) {
-                KdeSettingsRow(
+                PocketLinkSettingsRow(
                     title = stringResource(R.string.plugins_need_permission),
                     summary = stringResource(R.string.permission_explanation),
                     onClick = onRequiredPermissionClick
@@ -134,7 +134,7 @@ private fun DevicePluginCard(
             }
 
             if (plugin.needsOptionalPermission) {
-                KdeSettingsRow(
+                PocketLinkSettingsRow(
                     title = stringResource(R.string.plugins_need_optional_permission),
                     summary = stringResource(R.string.permission_explanation),
                     onClick = onOptionalPermissionClick
@@ -144,8 +144,8 @@ private fun DevicePluginCard(
             if (plugin.actionButtons.isNotEmpty()) {
                 FlowRow(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(KdeSpacing.small),
-                    verticalArrangement = Arrangement.spacedBy(KdeSpacing.small)
+                    horizontalArrangement = Arrangement.spacedBy(PocketLinkSpacing.small),
+                    verticalArrangement = Arrangement.spacedBy(PocketLinkSpacing.small)
                 ) {
                     plugin.actionButtons.forEach { button ->
                         Card(
@@ -159,9 +159,9 @@ private fun DevicePluginCard(
                             Row(
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(KdeSpacing.medium),
+                                    .padding(PocketLinkSpacing.medium),
                                 verticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.spacedBy(KdeSpacing.small)
+                                horizontalArrangement = Arrangement.spacedBy(PocketLinkSpacing.small)
                             ) {
                                 Icon(
                                     painter = painterResource(button.iconRes),

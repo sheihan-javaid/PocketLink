@@ -14,7 +14,7 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
     android:layout_gravity="center"
     android:gravity="center"
     android:orientation="vertical"
-    android:padding="@dimen/kde_spacing_medium">
+    android:padding="@dimen/pocketlink_spacing_medium">
 
     <TextView
         android:id="@+id/no_players"
@@ -39,7 +39,7 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
         android:ellipsize="marquee"
         android:gravity="center"
         android:marqueeRepeatLimit="marquee_forever"
-        android:padding="@dimen/kde_spacing_small"
+        android:padding="@dimen/pocketlink_spacing_small"
         android:scrollHorizontally="true"
         android:singleLine="true"
         android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
@@ -54,14 +54,14 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
         <com.google.android.material.button.MaterialButton
             android:id="@+id/loop_button"
             android:layout_width="0dp"
-            android:layout_height="@dimen/kde_min_touch_target"
+            android:layout_height="@dimen/pocketlink_min_touch_target"
             android:layout_gravity="center"
             android:adjustViewBounds="false"
             android:baselineAlignBottom="true"
             android:clickable="false"
             android:contentDescription="@string/mpris_loop"
             app:icon="@drawable/ic_loop_none_black"
-            style="@style/KdeConnectButton.IconButton"
+            style="@style/PocketLinkButton.IconButton"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintWidth_percent="0.20" />
@@ -69,14 +69,14 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
         <com.google.android.material.button.MaterialButton
             android:id="@+id/play_button"
             android:layout_width="0dp"
-            android:layout_height="@dimen/kde_min_touch_target"
+            android:layout_height="@dimen/pocketlink_min_touch_target"
             android:layout_gravity="center"
             android:adjustViewBounds="false"
             android:baselineAlignBottom="true"
             android:clickable="false"
             android:contentDescription="@string/mpris_play"
             app:icon="@drawable/ic_play_black"
-            style="@style/KdeConnectButton.IconButton"
+            style="@style/PocketLinkButton.IconButton"
             app:layout_constraintEnd_toStartOf="@id/shuffle_button"
             app:layout_constraintStart_toEndOf="@id/loop_button"
             app:layout_constraintTop_toTopOf="parent"
@@ -85,14 +85,14 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
         <com.google.android.material.button.MaterialButton
             android:id="@+id/shuffle_button"
             android:layout_width="0dp"
-            android:layout_height="@dimen/kde_min_touch_target"
+            android:layout_height="@dimen/pocketlink_min_touch_target"
             android:layout_gravity="center"
             android:adjustViewBounds="false"
             android:baselineAlignBottom="true"
             android:clickable="false"
             android:contentDescription="@string/mpris_shuffle"
             app:icon="@drawable/ic_shuffle_off_black"
-            style="@style/KdeConnectButton.IconButton"
+            style="@style/PocketLinkButton.IconButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -101,7 +101,7 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/kde_min_touch_target"
+        android:layout_height="@dimen/pocketlink_min_touch_target"
         android:layout_gravity="center"
         android:orientation="horizontal">
 
@@ -112,7 +112,7 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
             android:layout_weight="1"
             android:contentDescription="@string/mpris_previous"
             app:icon="@drawable/ic_previous_black"
-            style="@style/KdeConnectButton.IconButton.Secondary" />
+            style="@style/PocketLinkButton.IconButton.Secondary" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/rew_button"
@@ -121,7 +121,7 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
             android:layout_weight="1"
             android:contentDescription="@string/mpris_rew"
             app:icon="@drawable/ic_rewind_black"
-            style="@style/KdeConnectButton.IconButton.Secondary" />
+            style="@style/PocketLinkButton.IconButton.Secondary" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/stop_button"
@@ -130,7 +130,7 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
             android:layout_weight="1"
             android:contentDescription="@string/mpris_stop"
             app:icon="@drawable/ic_stop"
-            style="@style/KdeConnectButton.IconButton.Secondary" />
+            style="@style/PocketLinkButton.IconButton.Secondary" />
 
 
         <com.google.android.material.button.MaterialButton
@@ -140,7 +140,7 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
             android:layout_weight="1"
             android:contentDescription="@string/mpris_ff"
             app:icon="@drawable/ic_fast_forward_black"
-            style="@style/KdeConnectButton.IconButton.Secondary" />
+            style="@style/PocketLinkButton.IconButton.Secondary" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/next_button"
@@ -149,7 +149,7 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
             android:layout_weight="1"
             android:contentDescription="@string/mpris_next"
             app:icon="@drawable/ic_next_black"
-            style="@style/KdeConnectButton.IconButton.Secondary" />
+            style="@style/PocketLinkButton.IconButton.Secondary" />
     </LinearLayout>
 
     <LinearLayout
@@ -164,7 +164,7 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:padding="@dimen/kde_spacing_small"
+            android:padding="@dimen/pocketlink_spacing_small"
             android:singleLine="true"
             tools:text="00:00"
             android:textAppearance="?android:attr/textAppearanceMedium"
@@ -183,7 +183,7 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:padding="@dimen/kde_spacing_small"
+            android:padding="@dimen/pocketlink_spacing_small"
             android:singleLine="true"
             tools:text="00:00"
             android:textAppearance="?android:attr/textAppearanceMedium"
@@ -195,7 +195,7 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="@dimen/kde_spacing_small"
+        android:layout_marginTop="@dimen/pocketlink_spacing_small"
         android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatImageView

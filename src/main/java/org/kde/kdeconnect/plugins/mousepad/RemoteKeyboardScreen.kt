@@ -27,11 +27,11 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import org.kde.kdeconnect.ui.compose.KdeSpacing
-import org.kde.kdeconnect.ui.compose.KdeTextButton
-import org.kde.kdeconnect.ui.compose.KdeTextField
-import org.kde.kdeconnect.ui.compose.KdeTopAppBar
-import org.kde.kdeconnect.ui.compose.components.KdeStandardCard
+import org.kde.kdeconnect.ui.compose.PocketLinkSpacing
+import org.kde.kdeconnect.ui.compose.PocketLinkTextButton
+import org.kde.kdeconnect.ui.compose.PocketLinkTextField
+import org.kde.kdeconnect.ui.compose.PocketLinkTopAppBar
+import org.kde.kdeconnect.ui.compose.components.PocketLinkStandardCard
 import org.kde.kdeconnect_tp.R
 
 @Composable
@@ -52,7 +52,7 @@ internal fun RemoteKeyboardScreen(
     Scaffold(
         modifier = modifier,
         topBar = {
-            KdeTopAppBar(
+            PocketLinkTopAppBar(
                 title = stringResource(R.string.compose_send_title),
                 subTitle = deviceName,
                 navIconOnClick = onBack,
@@ -60,8 +60,8 @@ internal fun RemoteKeyboardScreen(
                     androidx.appcompat.R.string.abc_action_bar_up_description
                 ),
                 actions = {
-                    KdeTextButton(
-                        modifier = Modifier.padding(horizontal = KdeSpacing.small),
+                    PocketLinkTextButton(
+                        modifier = Modifier.padding(horizontal = PocketLinkSpacing.small),
                         onClick = onClear,
                         text = stringResource(R.string.clear_compose)
                     )
@@ -75,18 +75,18 @@ internal fun RemoteKeyboardScreen(
                 .fillMaxSize()
                 .imePadding()
                 .padding(
-                    horizontal = KdeSpacing.contentHorizontal,
-                    vertical = KdeSpacing.medium
+                    horizontal = PocketLinkSpacing.contentHorizontal,
+                    vertical = PocketLinkSpacing.medium
                 ),
-            verticalArrangement = Arrangement.spacedBy(KdeSpacing.medium)
+            verticalArrangement = Arrangement.spacedBy(PocketLinkSpacing.medium)
         ) {
-            KdeStandardCard(modifier = Modifier.weight(1f)) {
+            PocketLinkStandardCard(modifier = Modifier.weight(1f)) {
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(KdeSpacing.small)
+                        .padding(PocketLinkSpacing.small)
                 ) {
-                    KdeTextField(
+                    PocketLinkTextField(
                         modifier = Modifier
                             .focusRequester(focusRequester)
                             .fillMaxSize(),
@@ -100,7 +100,7 @@ internal fun RemoteKeyboardScreen(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.End
             ) {
-                KdeTextButton(
+                PocketLinkTextButton(
                     onClick = onSend,
                     modifier = Modifier,
                     enabled = input.value.isNotEmpty(),

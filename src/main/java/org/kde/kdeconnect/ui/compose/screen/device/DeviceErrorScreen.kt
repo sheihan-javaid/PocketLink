@@ -8,16 +8,16 @@ package org.kde.kdeconnect.ui.compose.screen.device
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
-import org.kde.kdeconnect.ui.compose.components.KdePanelKind
-import org.kde.kdeconnect.ui.compose.components.KdeStatePanel
+import org.kde.kdeconnect.ui.compose.components.PocketLinkPanelKind
+import org.kde.kdeconnect.ui.compose.components.PocketLinkStatePanel
 import org.kde.kdeconnect_tp.R
 
 @Composable
 internal fun DeviceErrorPanel(onRefresh: () -> Unit) {
-    KdeStatePanel(
+    PocketLinkStatePanel(
         title = stringResource(R.string.error_not_reachable),
         description = stringResource(R.string.unreachable_description),
-        kind = KdePanelKind.Offline,
+        kind = PocketLinkPanelKind.Offline,
         actionLabel = stringResource(R.string.refresh),
         onAction = onRefresh
     )

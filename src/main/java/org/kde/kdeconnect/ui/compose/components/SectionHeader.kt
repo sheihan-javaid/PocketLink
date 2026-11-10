@@ -15,12 +15,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
-import org.kde.kdeconnect.ui.compose.KdeTheme
+import org.kde.kdeconnect.ui.compose.PocketLinkTheme
 import org.kde.kdeconnect_tp.R
 
 @Composable
 fun SectionHeader(title: String) {
-    KdeTitleMediumText(
+    PocketLinkTitleMediumText(
         text = title,
         color = MaterialTheme.colorScheme.onSurfaceVariant,
         modifier = Modifier.padding(
@@ -31,10 +31,10 @@ fun SectionHeader(title: String) {
     )
 }
 
-@KdePortraitThemePreviews
+@PocketLinkPortraitThemePreviews
 @Composable
 private fun SectionHeaderPreview() {
-    KdeTheme(context = LocalContext.current) {
+    PocketLinkTheme(context = LocalContext.current) {
         SectionHeader(title = stringResource(id = R.string.category_connected_devices))
     }
 }

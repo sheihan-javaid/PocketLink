@@ -20,7 +20,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.kde.kdeconnect.ui.compose.KdeTheme
+import org.kde.kdeconnect.ui.compose.PocketLinkTheme
 import org.kde.kdeconnect.ui.compose.model.device.DeviceUiModel
 import org.kde.kdeconnect_tp.R
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -44,7 +44,7 @@ class PairingScreenTest {
         )
 
         composeRule.setContent {
-            KdeTheme(context = LocalContext.current, darkTheme = false, useDynamicColor = false) {
+            PocketLinkTheme(context = LocalContext.current, darkTheme = false, useDynamicColor = false) {
                 PairingScreen(uiState = state, onClick = selectedDeviceId::set)
             }
         }
@@ -70,7 +70,7 @@ class PairingScreenTest {
         val refreshActions = AtomicInteger()
 
         composeRule.setContent {
-            KdeTheme(context = LocalContext.current, darkTheme = false, useDynamicColor = false) {
+            PocketLinkTheme(context = LocalContext.current, darkTheme = false, useDynamicColor = false) {
                 PairingScreen(
                     uiState = pairingState(),
                     onClick = {},
@@ -99,7 +99,7 @@ class PairingScreenTest {
         val state = pairingState(hasLocalNetworkPermission = false)
 
         composeRule.setContent {
-            KdeTheme(context = LocalContext.current, darkTheme = true, useDynamicColor = false) {
+            PocketLinkTheme(context = LocalContext.current, darkTheme = true, useDynamicColor = false) {
                 PairingScreen(
                     uiState = state,
                     onClick = {},
@@ -122,7 +122,7 @@ class PairingScreenTest {
         val wifiSettingsActions = AtomicInteger()
 
         composeRule.setContent {
-            KdeTheme(context = LocalContext.current, darkTheme = false, useDynamicColor = false) {
+            PocketLinkTheme(context = LocalContext.current, darkTheme = false, useDynamicColor = false) {
                 PairingScreen(
                     uiState = pairingState(isWifiAvailable = false),
                     onClick = {},
@@ -144,7 +144,7 @@ class PairingScreenTest {
         val notificationSettingsActions = AtomicInteger()
 
         composeRule.setContent {
-            KdeTheme(context = LocalContext.current, darkTheme = false, useDynamicColor = false) {
+            PocketLinkTheme(context = LocalContext.current, darkTheme = false, useDynamicColor = false) {
                 PairingScreen(
                     uiState = pairingState(hasNotificationsPermission = false),
                     onClick = {},

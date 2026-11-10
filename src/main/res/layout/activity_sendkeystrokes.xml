@@ -30,9 +30,9 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="@dimen/kde_spacing_small"
-            android:paddingHorizontal="@dimen/kde_spacing_medium"
-            android:layout_marginVertical="@dimen/kde_spacing_small"
+            android:paddingTop="@dimen/pocketlink_spacing_small"
+            android:paddingHorizontal="@dimen/pocketlink_spacing_medium"
+            android:layout_marginVertical="@dimen/pocketlink_spacing_small"
             app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
