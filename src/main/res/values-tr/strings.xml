@@ -116,7 +116,6 @@
   <string name="mouse_receiver_plugin_name">Fare alıcısı</string>
   <string name="mouse_receiver_no_permissions">Dokunma girdilerini uzaktan almak için erişilebilirlik izinlerini sağlamanız gerekir.</string>
   <string name="mouse_keyboard_receiver_service_description">Uzak fare hareketlerini ve klavye girişlerini al</string>
-  <string name="view_status_title">Durum</string>
   <string name="battery_status_format">Pil: %%%d</string>
   <string name="battery_status_low_format">Pil: %%%d Düşük pil</string>
   <string name="battery_status_charging_format">Pil: %%%d Şarj oluyor</string>
@@ -288,10 +287,8 @@
   <string name="findmyphone_found">Bulundu</string>
   <string name="open">Aç</string>
   <string name="close">Kapat</string>
-  <string name="plugins_need_permission">Bazı Eklentiler çalışmak için izne gereksinim duyar (daha fazla bilgi için dokunun):</string>
   <string name="permission_explanation">Bu eklenti, çalışmak için izne gereksinim duyuyor</string>
   <string name="optional_permission_explanation">Tüm işlevleri etkinleştirmek için daha fazla yetkiye gereksiniminiz var</string>
-  <string name="plugins_need_optional_permission">Bazı eklentilerin özellikleri, izin yetersizliğinden kapalı gelmektedir (daha fazla bilgi için dokunun):</string>
   <string name="share_optional_permission_explanation">Dosyalar almak için depolama erişimini etkinleştirmelisiniz</string>
   <string name="share_notifications_explanation">Dosyalar alırken ve gönderirken ilerlemeyi görmek için bildirimlere izin vermeniz gerekir</string>
   <string name="telepathy_permission_explanation">Masaüstünde SMS yazma ve okuma yapmak için SMS izni gereklidir</string>

@@ -97,7 +97,6 @@
   <string name="pref_plugin_mousepad_send_keystrokes">Senda sem lyklaáslátt</string>
   <string name="mouse_receiver_plugin_description">"Taka á móti  fjartengdum músarhreyfingum"</string>
   <string name="mouse_receiver_plugin_name">Móttakari músarmerkja</string>
-  <string name="view_status_title">Staða</string>
   <string name="battery_status_format">Rafhlaða: %d%%</string>
   <string name="battery_status_low_format">Rafhlaða: %d%% lítil hleðsla</string>
   <string name="battery_status_charging_format">Rafhlaða: %d%% í hleðslu</string>
@@ -249,10 +248,8 @@
   <string name="findmyphone_found">Fann það</string>
   <string name="open">Opna</string>
   <string name="close">Loka</string>
-  <string name="plugins_need_permission">Sumar viðbætur þurfa viðbótarheimildir til að virka (ýttu til að sjá frekari upplýsingar):</string>
   <string name="permission_explanation">Þessi viðbót þarf sérstakar heimildir til að virka</string>
   <string name="optional_permission_explanation">Þú þarft að veita viðbótarheimildir til að virkja alla eiginleika</string>
-  <string name="plugins_need_optional_permission">Sumar viðbætur eru með óvirka eiginleika vegna skorts á heimildum (ýttu til að sjá frekari upplýsingar):</string>
   <string name="share_optional_permission_explanation">Til að taka við skrám þarftu að veita aðgang að geymslurými</string>
   <string name="telepathy_permission_explanation">Til að geta lesið og skrifað SMS á vinnutölvunni, þarft þú að gefa heimild til að nota SMS</string>
   <string name="telephony_permission_explanation">Til að geta skoðað símtöl á vinnutölvunni, þarft þú að gefa heimild til að nota atvikaskrá símtala og stöðu síma</string>

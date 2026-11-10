@@ -116,7 +116,6 @@
   <string name="mouse_receiver_plugin_name">Receptor del ratolí</string>
   <string name="mouse_receiver_no_permissions">Per a rebre entrades tàctils remotament cal atorgar el permís d\'Accessibilitat</string>
   <string name="mouse_keyboard_receiver_service_description">Rep el moviment del ratolí remot i l\'entrada de teclat</string>
-  <string name="view_status_title">Estat</string>
   <string name="battery_status_format">Bateria: %d%%</string>
   <string name="battery_status_low_format">Bateria: %d%% bateria baixa</string>
   <string name="battery_status_charging_format">Bateria: %d%% està carregant</string>
@@ -288,10 +287,8 @@
   <string name="findmyphone_found">S\'ha trobat</string>
   <string name="open">Obre</string>
   <string name="close">Tanca</string>
-  <string name="plugins_need_permission">Alguns connectors necessiten permisos per a funcionar (toqueu per a més informació):</string>
   <string name="permission_explanation">Aquest connector necessita permisos per a funcionar</string>
   <string name="optional_permission_explanation">Us caldrà atorgar permisos extres per a accedir a totes les característiques</string>
-  <string name="plugins_need_optional_permission">Alguns connectors tenen característiques desactivades per la falta de permís (toqueu per a més informació):</string>
   <string name="share_optional_permission_explanation">Per a rebre fitxers cal permetre l\'accés a l\'emmagatzematge</string>
   <string name="share_notifications_explanation">Per a veure el progrés en enviar i rebre fitxers, cal permetre les notificacions</string>
   <string name="telepathy_permission_explanation">Per a llegir i escriure SMS des de l\'escriptori, cal donar permís als SMS</string>

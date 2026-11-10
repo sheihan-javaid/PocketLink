@@ -94,7 +94,6 @@
   <string name="pref_plugin_mousepad_send_keystrokes">Sendi kiel klavopremojn</string>
   <string name="mouse_receiver_plugin_description">Ricevi foran musan movon</string>
   <string name="mouse_receiver_plugin_name">Musa ricevilo</string>
-  <string name="view_status_title">Statuso</string>
   <string name="battery_status_format">Baterio: %d%%</string>
   <string name="battery_status_low_format">Baterio: %d%% Malalta Baterio</string>
   <string name="battery_status_charging_format">Baterio: %d%% ŝarĝo</string>
@@ -247,10 +246,8 @@
   <string name="findmyphone_found">Trovis ĝin</string>
   <string name="open">Malfermi</string>
   <string name="close">Fermi</string>
-  <string name="plugins_need_permission">Iuj Kromaĵoj bezonas permesojn por funkcii (frapu por pliaj informoj):</string>
   <string name="permission_explanation">Ĉi tiu kromaĵo bezonas permesojn por funkcii</string>
   <string name="optional_permission_explanation">Vi devas doni kromajn permesojn por ebligi ĉiujn funkciojn</string>
-  <string name="plugins_need_optional_permission">Iuj kromprogramoj havas funkciojn malŝaltitaj pro manko de permeso (frapu por pliaj informoj):</string>
   <string name="share_optional_permission_explanation">Por ricevi dosierojn vi devas permesi konservan aliron</string>
   <string name="share_notifications_explanation">Por vidi la progreson dum sendado kaj ricevado de dosieroj, vi devas permesi sciigojn</string>
   <string name="telepathy_permission_explanation">Por legi kaj skribi SMS de via labortablo vi devas doni permeson al SMS</string>

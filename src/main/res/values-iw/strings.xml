@@ -116,7 +116,6 @@
   <string name="mouse_receiver_plugin_name">מקלט עכבר</string>
   <string name="mouse_receiver_no_permissions">כדי לקבל קלט מגע מרחוק יש להעניק הרשאות נגישות</string>
   <string name="mouse_keyboard_receiver_service_description">קבלת קלט תנועות עכבר ומקלדת מרוחק</string>
-  <string name="view_status_title">מצב</string>
   <string name="battery_status_format">סוללה: %d%%</string>
   <string name="battery_status_low_format">סוללה: %d%% סוללה חלשה</string>
   <string name="battery_status_charging_format">סוללה: %d%% נטענת</string>
@@ -303,10 +302,8 @@
   <string name="findmyphone_found">מצאתי</string>
   <string name="open">פתיחה</string>
   <string name="close">סגירה</string>
-  <string name="plugins_need_permission">חלק מהתוספים צריכים הרשאות כדי לעבור (לגעת למידע נוסף):</string>
   <string name="permission_explanation">תוסף זה צריך הרשאות כדי לעבוד</string>
   <string name="optional_permission_explanation">יש להעניק הרשאות נוספות כדי להפעיל את כל היכולות</string>
-  <string name="plugins_need_optional_permission">חלק מיכולות התוספים מושבתות עקב העדר הרשאה (לגעת למידע נוסף):</string>
   <string name="share_optional_permission_explanation">כדי לקבל קבצים צריך לאפשר גישה לאחסון</string>
   <string name="share_notifications_explanation">כדי לצפות בהתקדמות שליחת וקבלת קבצים צריך לאשר הרשאות</string>
   <string name="telepathy_permission_explanation">כדי לקרוא ולכתוב מסרונים משולחן העבודה שלך צריך לתת הרשאות למסרונים</string>

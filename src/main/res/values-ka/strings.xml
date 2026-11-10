@@ -70,7 +70,6 @@
   <string name="sendkeystrokes_pref_category_title">სად გაიგზავნება ღილაკის დაჭერა</string>
   <string name="sendkeystrokes_pref_enabled">ღილაკის დაჭერის გაგზავნის ჩართვა</string>
   <string name="mouse_receiver_plugin_name">თაგუნას მიმღები</string>
-  <string name="view_status_title">მდგომარეობა</string>
   <string name="battery_status_format">ელემენტი: %d%%</string>
   <string name="battery_status_low_format">ელემენტი: %d%% ელემენტი დასატენია</string>
   <string name="battery_status_charging_format">ელემენტი: %d%% იტენება</string>
@@ -177,7 +176,6 @@
   <string name="findmyphone_found">ვიპოვე</string>
   <string name="open">გახსნა</string>
   <string name="close">დახურვა</string>
-  <string name="plugins_need_permission">ზოგიერთ დამატებას სამუშაოდ წვდომები ესაჭიროება (დაატყაპუნეთ მეტი ინფორმაციისთვის):</string>
   <string name="permission_explanation">დამატებას სამუშაოდ წვდომები ესაჭიროება</string>
   <string name="select_ringtone">"ზარის  არჩევა"</string>
   <string name="telephony_pref_blocked_title">დაბლოკილი ნომრები</string>

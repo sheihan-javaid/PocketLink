@@ -104,7 +104,6 @@
   <string name="pref_plugin_mousepad_send_keystrokes">Als Tasteneingaben senden</string>
   <string name="mouse_receiver_plugin_description">Entfernte Mausbewegungen empfangen</string>
   <string name="mouse_receiver_plugin_name">Maus-Empfänger</string>
-  <string name="view_status_title">Status</string>
   <string name="battery_status_format">Akku: %d%%</string>
   <string name="battery_status_low_format">Akku: %d%% Niedriger Ladestand</string>
   <string name="battery_status_charging_format">Akku: %d%% Wird geladen</string>
@@ -273,10 +272,8 @@
   <string name="findmyphone_found">Gefunden</string>
   <string name="open">Öffnen</string>
   <string name="close">Schließen</string>
-  <string name="plugins_need_permission">Einige Module benötigen zusätzliche Berechtigungen, tippen Sie für weitere Details:</string>
   <string name="permission_explanation">Dieses Modul benötigt zusätzliche Berechtigungen</string>
   <string name="optional_permission_explanation">Es müssen weitere Berechtigungen erteilt werden, um alle Funktionen nutzen zu können</string>
-  <string name="plugins_need_optional_permission">Einige Module haben eingeschränkte Funktionen aufgrund fehlender Berechtigungen, tippen Sie für weitere Informationen:</string>
   <string name="share_optional_permission_explanation">Um Dateien zu empfangen, müssen Sie Speicherzugriff erlauben</string>
   <string name="share_notifications_explanation">Um den Fortschritt beim Senden und Empfangen von Dateien zu sehen, müssen Sie Benachrichtigungen erlauben</string>
   <string name="telepathy_permission_explanation">Um SMS vom Rechner aus zu lesen und zu versenden, müssen Sie Zugriff auf die SMS-Funktion erlauben</string>
