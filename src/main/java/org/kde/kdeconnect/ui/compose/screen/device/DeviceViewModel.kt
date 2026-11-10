@@ -33,17 +33,14 @@ class DeviceViewModel : ViewModel() {
     private val _pairingSucceeded = MutableStateFlow(value = false)
     val pairingSucceeded: StateFlow<Boolean> = _pairingSucceeded.asStateFlow()
 
-    private val _useLegacyDashboard = MutableStateFlow(value = false)
-    val useLegacyDashboard: StateFlow<Boolean> = _useLegacyDashboard.asStateFlow()
+    private val _connectivityStatus = MutableStateFlow<String?>(value = null)
+    val connectivityStatus: StateFlow<String?> = _connectivityStatus.asStateFlow()
 
     private val _mediaPlaybackState = MutableStateFlow<MediaPlaybackUiState?>(value = null)
     val mediaPlaybackState: StateFlow<MediaPlaybackUiState?> = _mediaPlaybackState.asStateFlow()
 
     private val _volumeControlState = MutableStateFlow<VolumeControlUiState?>(value = null)
     val volumeControlState: StateFlow<VolumeControlUiState?> = _volumeControlState.asStateFlow()
-
-    private val _connectivityStatus = MutableStateFlow<String?>(value = null)
-    val connectivityStatus: StateFlow<String?> = _connectivityStatus.asStateFlow()
 
     private var currentDevice: Device? = null
 
@@ -69,10 +66,6 @@ class DeviceViewModel : ViewModel() {
 
     fun setPairingSucceeded(succeeded: Boolean) {
         _pairingSucceeded.value = succeeded
-    }
-
-    fun setUseLegacyDashboard(useLegacy: Boolean) {
-        _useLegacyDashboard.value = useLegacy
     }
 
     fun bindDevice(device: Device) {
