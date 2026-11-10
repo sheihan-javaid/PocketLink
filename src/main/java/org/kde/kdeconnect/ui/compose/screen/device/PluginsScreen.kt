@@ -37,16 +37,6 @@ import org.kde.kdeconnect.ui.compose.components.PocketLinkPanelKind
 import org.kde.kdeconnect.ui.compose.components.SectionHeader
 import org.kde.kdeconnect_tp.R
 
-data class DevicePluginUiModel(
-    val pluginKey: String,
-    val displayName: String,
-    val description: String,
-    val isEnabled: Boolean,
-    val actionButtons: List<Plugin.PluginUiButton>,
-    val needsRequiredPermission: Boolean,
-    val needsOptionalPermission: Boolean
-)
-
 @Composable
 fun PluginsScreen(
     plugins: List<DevicePluginUiModel>,
