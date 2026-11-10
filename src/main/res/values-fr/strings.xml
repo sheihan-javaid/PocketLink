@@ -116,7 +116,6 @@
   <string name="mouse_receiver_plugin_name">Récepteur de souris</string>
   <string name="mouse_receiver_no_permissions">Pour recevoir des entrées tactiles à distance, vous devez accorder des autorisations d\'accessibilité</string>
   <string name="mouse_keyboard_receiver_service_description">Recevoir les mouvements de la souris distante et des entrées de clavier</string>
-  <string name="view_status_title">État</string>
   <string name="battery_status_format">Batterie : %d %%</string>
   <string name="battery_status_low_format">Batterie : %d %% Batterie faible</string>
   <string name="battery_status_charging_format">Batterie : %d%% en charge</string>
@@ -288,10 +287,8 @@
   <string name="findmyphone_found">Trouvé</string>
   <string name="open">Ouvrir</string>
   <string name="close">Fermer</string>
-  <string name="plugins_need_permission">Certains modules externes nécessitent des permissions pour fonctionner (tapez pour plus d\'informations) :</string>
   <string name="permission_explanation">Ce module externe nécessite des permissions pour fonctionner</string>
   <string name="optional_permission_explanation">Vous devez accorder des permissions supplémentaires pour activer toutes les fonctionnalités</string>
-  <string name="plugins_need_optional_permission">Certaines fonctionnalités de modules externes sont désactivées faute de permissions suffisantes (tapez pour plus d\'informations) :</string>
   <string name="share_optional_permission_explanation">Pour la réception de fichiers, vous devez autoriser un accès en écriture.</string>
   <string name="share_notifications_explanation">Pour afficher l\'avancement lors de l\'envoi et de la réception de fichiers, vous devez autoriser les notifications</string>
   <string name="telepathy_permission_explanation">Pour lire et écrire des SMS depuis votre ordinateur, veuillez permettre l\'accès aux SMS</string>

@@ -86,7 +86,6 @@
   <string name="pref_plugin_mousepad_send_keystrokes">Küldés billentyűleütésként</string>
   <string name="mouse_receiver_plugin_description">Távoli egérmozgások fogadása</string>
   <string name="mouse_receiver_plugin_name">Egérvevő</string>
-  <string name="view_status_title">Állapot</string>
   <string name="battery_status_format">Akku: %d%%</string>
   <string name="battery_status_low_format">Akku: %d%% alacsony töltöttség</string>
   <string name="battery_status_charging_format">Akku: %d%% töltés</string>
@@ -226,10 +225,8 @@
   <string name="findmyphone_found">Megtalálva</string>
   <string name="open">Megnyitás</string>
   <string name="close">Bezárás</string>
-  <string name="plugins_need_permission">Néhány bővítménynek engedélyekre van szüksége a működéshez (koppintson további információkért):</string>
   <string name="permission_explanation">Ez a bővítmény engedélyeket kér a működéshez</string>
   <string name="optional_permission_explanation">További engedélyeket kell biztosítania az összes funkció bekapcsolásához</string>
-  <string name="plugins_need_optional_permission">Néhány bővítmény jogosultság hiányában kikapcsolta egyes funkcióit (koppintson további információkért):</string>
   <string name="telepathy_permission_explanation">Az SMS-ek írásához és olvasásához a számítógépéről engedélyt kell adnia az SMS-nek</string>
   <string name="telephony_permission_explanation">Ahhoz, hogy a telefonhívásokat a számítógépén láthassa, engedélyt kell adnia a hívásnaplókhoz és a telefon állapotához</string>
   <string name="telephony_optional_permission_explanation">Ahhoz, hogy a telefonszám helyett a nevet lássa, hozzáférést kell adnia a telefon névjegyeihez</string>
