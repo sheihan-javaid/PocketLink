@@ -17,7 +17,7 @@ import android.util.Log
 import android.widget.RemoteViews
 import androidx.core.net.toUri
 import org.kde.kdeconnect.Device
-import org.kde.kdeconnect.KdeConnect
+import org.kde.kdeconnect.PocketLink
 import org.kde.kdeconnect_tp.BuildConfig
 import org.kde.kdeconnect_tp.R
 
@@ -41,13 +41,13 @@ class RunCommandWidgetProvider : AppWidgetProvider() {
 
     override fun onEnabled(context: Context) {
         super.onEnabled(context)
-        KdeConnect.getInstance().addDeviceListChangedCallback("RunCommandWidget") {
+        PocketLink.getInstance().addDeviceListChangedCallback("RunCommandWidget") {
             forceRefreshWidgets(context)
         }
     }
 
     override fun onDisabled(context: Context) {
-        KdeConnect.getInstance().removeDeviceListChangedCallback("RunCommandWidget")
+        PocketLink.getInstance().removeDeviceListChangedCallback("RunCommandWidget")
         super.onDisabled(context)
     }
 
@@ -57,7 +57,7 @@ class RunCommandWidgetProvider : AppWidgetProvider() {
         if (intent.action == RUN_COMMAND_ACTION) {
             val targetCommand = intent.getStringExtra(TARGET_COMMAND)
             val targetDevice = intent.getStringExtra(TARGET_DEVICE)
-            val device = KdeConnect.getInstance().getDevice(targetDevice)
+            val device = PocketLink.getInstance().getDevice(targetDevice)
             val plugin = device?.getPlugin<RunCommandPlugin>()
             // The plugin is kept while the device is unreachable, but we can't run commands then
             if (plugin != null && device?.isReachable == true) {
@@ -111,7 +111,7 @@ internal fun updateAppWidget(
 
     // Determine which device provided these commands
     val deviceId = loadWidgetDeviceIdPref(context, appWidgetId)
-    val device: Device? = if (deviceId != null) KdeConnect.getInstance().getDevice(deviceId) else null
+    val device: Device? = if (deviceId != null) PocketLink.getInstance().getDevice(deviceId) else null
 
     val views = RemoteViews(BuildConfig.APPLICATION_ID, R.layout.widget_remotecommandplugin)
     assignTitleIntent(context, appWidgetId, views)
@@ -124,7 +124,7 @@ internal fun updateAppWidget(
     if (device == null) {
         // There are two reasons we reach this condition:
         // 1. there is no preference string for this widget id
-        // 2. the string id does not match any devices in KdeConnect.getInstance()
+        // 2. the string id does not match any devices in PocketLink.getInstance()
         // In both cases, we want the user to assign a device to this widget
         views.setTextViewText(R.id.widget_title_text, context.getString(R.string.kde_connect))
         views.setTextViewText(R.id.widget_error_text, context.getString(R.string.runcommand_widget_no_device))

@@ -20,7 +20,7 @@ import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 import org.kde.kdeconnect.BackgroundService
 import org.kde.kdeconnect.Device
-import org.kde.kdeconnect.KdeConnect
+import org.kde.kdeconnect.PocketLink
 import org.kde.kdeconnect.base.BaseActivity
 import org.kde.kdeconnect.helpers.IntentHelper
 import org.kde.kdeconnect.plugins.Plugin
@@ -74,7 +74,7 @@ class ShareActivity : BaseActivity<ActivityShareBinding>() {
             finish()
             return
         }
-        val devices = KdeConnect.getInstance().devices.values
+        val devices = PocketLink.getInstance().devices.values
         this.intentHasUrl = IntentHelper.parseIntentUrls(intent).isNotEmpty()
         val sharePluginKey = Plugin.getPluginKey(SharePlugin::class.java)
         this.uiDevices = devices
@@ -90,7 +90,7 @@ class ShareActivity : BaseActivity<ActivityShareBinding>() {
         if (shareStarted) return
         shareStarted = true
 
-        val device = KdeConnect.getInstance().getDevice(id = deviceId)
+        val device = PocketLink.getInstance().getDevice(id = deviceId)
         if (device == null) {
             Toast.makeText(this, getString(R.string.unknown_device), Toast.LENGTH_LONG ).show()
             finish()
@@ -164,7 +164,7 @@ class ShareActivity : BaseActivity<ActivityShareBinding>() {
         if (deviceId != null) {
             shareToDeviceAndFinish(deviceId, intent)
         } else {
-            KdeConnect.getInstance().addDeviceListChangedCallback("ShareActivity") {
+            PocketLink.getInstance().addDeviceListChangedCallback("ShareActivity") {
                 runOnUiThread { updateDeviceList() }
             }
             BackgroundService.ForceRefreshConnections(context = this) // force a network re-discover
@@ -178,7 +178,7 @@ class ShareActivity : BaseActivity<ActivityShareBinding>() {
     }
 
     override fun onStop() {
-        KdeConnect.getInstance().removeDeviceListChangedCallback("ShareActivity")
+        PocketLink.getInstance().removeDeviceListChangedCallback("ShareActivity")
         super.onStop()
     }
 

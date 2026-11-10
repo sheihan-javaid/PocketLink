@@ -15,7 +15,7 @@ import android.view.Window
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.edit
 import org.kde.kdeconnect.Device
-import org.kde.kdeconnect.KdeConnect
+import org.kde.kdeconnect.PocketLink
 import org.kde.kdeconnect.ui.list.DeviceItem
 import org.kde.kdeconnect.ui.list.ListAdapter
 import org.kde.kdeconnect_tp.databinding.WidgetRemoteCommandPluginDialogBinding
@@ -40,7 +40,7 @@ class RunCommandWidgetConfigActivity : AppCompatActivity() {
         val binding = WidgetRemoteCommandPluginDialogBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val pairedDevices = KdeConnect.getInstance().devices.values.asSequence().filter(Device::isPaired).toList()
+        val pairedDevices = PocketLink.getInstance().devices.values.asSequence().filter(Device::isPaired).toList()
 
         val list = ListAdapter(this, pairedDevices.map { DeviceItem(it, ::deviceClicked) })
         binding.runCommandsDeviceList.adapter = list

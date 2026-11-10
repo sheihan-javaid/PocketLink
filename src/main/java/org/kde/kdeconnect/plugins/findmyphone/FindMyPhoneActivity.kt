@@ -9,7 +9,7 @@ import android.os.Build
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.core.view.ViewCompat
-import org.kde.kdeconnect.KdeConnect
+import org.kde.kdeconnect.PocketLink
 import org.kde.kdeconnect.base.BaseActivity
 import org.kde.kdeconnect_tp.databinding.ActivityFindMyPhoneBinding
 
@@ -50,7 +50,7 @@ class FindMyPhoneActivity : BaseActivity<ActivityFindMyPhoneBinding>() {
 
     override fun onStart() {
         super.onStart()
-        val plugin = KdeConnect.getInstance().getDevicePlugin<FindMyPhonePlugin>(deviceId) ?: return
+        val plugin = PocketLink.getInstance().getDevicePlugin<FindMyPhonePlugin>(deviceId) ?: return
         binding.tvFindMyPhoneTitle.text = plugin.displayName
         plugin.startPlaying()
         plugin.startFlashing()
@@ -59,7 +59,7 @@ class FindMyPhoneActivity : BaseActivity<ActivityFindMyPhoneBinding>() {
 
     override fun onStop() {
         super.onStop()
-        val plugin = KdeConnect.getInstance().getDevicePlugin<FindMyPhonePlugin>(deviceId) ?: return
+        val plugin = PocketLink.getInstance().getDevicePlugin<FindMyPhonePlugin>(deviceId) ?: return
         plugin.stopPlaying()
         plugin.stopFlashing()
     }

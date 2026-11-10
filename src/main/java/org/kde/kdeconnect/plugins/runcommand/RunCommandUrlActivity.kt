@@ -13,7 +13,7 @@ import android.view.Gravity
 import android.widget.TextView
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
-import org.kde.kdeconnect.KdeConnect
+import org.kde.kdeconnect.PocketLink
 import org.kde.kdeconnect_tp.R
 
 class RunCommandUrlActivity : AppCompatActivity() {
@@ -26,7 +26,7 @@ class RunCommandUrlActivity : AppCompatActivity() {
                 val uri = intent.data ?: return
                 val deviceId = uri.pathSegments[0]
 
-                val device = KdeConnect.getInstance().getDevice(deviceId)
+                val device = PocketLink.getInstance().getDevice(deviceId)
 
                 if (device == null) {
                     error(R.string.runcommand_nosuchdevice)

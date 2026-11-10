@@ -12,7 +12,7 @@ import android.widget.Toast
 import androidx.preference.PreferenceManager
 import org.kde.kdeconnect.BackgroundService
 import org.kde.kdeconnect.Device
-import org.kde.kdeconnect.KdeConnect
+import org.kde.kdeconnect.PocketLink
 import org.kde.kdeconnect.base.BaseActivity
 import org.kde.kdeconnect.extensions.setupBottomPadding
 import org.kde.kdeconnect.helpers.SafeTextChecker
@@ -72,7 +72,7 @@ class SendKeystrokesToHostActivity : BaseActivity<ActivitySendkeystrokesBinding>
 
                 // If we trust the sending app, check if there is only one device paired / reachable...
                 if (contentIsOkay) {
-                    val reachableDevices = KdeConnect.getInstance().devices.values
+                    val reachableDevices = PocketLink.getInstance().devices.values
                         .filter { it.isReachable }
                         .take(2) // we only need the first two; if its more than one, we need to show the user the device-selection
 
@@ -85,7 +85,7 @@ class SendKeystrokesToHostActivity : BaseActivity<ActivitySendkeystrokesBinding>
                     }
                 }
 
-                KdeConnect.getInstance().addDeviceListChangedCallback("SendKeystrokesToHostActivity") {
+                PocketLink.getInstance().addDeviceListChangedCallback("SendKeystrokesToHostActivity") {
                     runOnUiThread { updateDeviceList() }
                 }
                 BackgroundService.ForceRefreshConnections(this) // force a network re-discover
@@ -98,7 +98,7 @@ class SendKeystrokesToHostActivity : BaseActivity<ActivitySendkeystrokesBinding>
     }
 
     override fun onStop() {
-        KdeConnect.getInstance().removeDeviceListChangedCallback("SendKeystrokesToHostActivity")
+        PocketLink.getInstance().removeDeviceListChangedCallback("SendKeystrokesToHostActivity")
         super.onStop()
     }
 
@@ -106,7 +106,7 @@ class SendKeystrokesToHostActivity : BaseActivity<ActivitySendkeystrokesBinding>
         val text = binding.textToSend.text
         val toSend = text?.toString()?.trim() ?: ""
         if (toSend.isNotEmpty()) {
-            val plugin = KdeConnect.getInstance().getDevicePlugin(deviceId.deviceId, MousePadPlugin::class.java)
+            val plugin = PocketLink.getInstance().getDevicePlugin(deviceId.deviceId, MousePadPlugin::class.java)
             if (plugin == null) {
                 finish()
                 return
@@ -121,7 +121,7 @@ class SendKeystrokesToHostActivity : BaseActivity<ActivitySendkeystrokesBinding>
     }
 
     private fun updateDeviceList() {
-        val devices = KdeConnect.getInstance().devices.values
+        val devices = PocketLink.getInstance().devices.values
         val devicesList = ArrayList<Device>()
         val items = ArrayList<ListAdapter.Item>()
 

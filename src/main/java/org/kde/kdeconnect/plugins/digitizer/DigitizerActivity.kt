@@ -22,7 +22,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.preference.PreferenceManager
 import org.kde.kdeconnect.Device
-import org.kde.kdeconnect.KdeConnect
+import org.kde.kdeconnect.PocketLink
 import org.kde.kdeconnect.ui.PluginSettingsActivity
 import org.kde.kdeconnect_tp.R
 import kotlin.math.roundToInt
@@ -54,7 +54,7 @@ class DigitizerActivity : AppCompatActivity() {
             finish()
             return
         }
-        val currentDevice = KdeConnect.getInstance().getDevice(deviceId)
+        val currentDevice = PocketLink.getInstance().getDevice(deviceId)
         device = currentDevice
         plugin = currentDevice?.getPlugin<DigitizerPlugin>() ?: run {
             finish()

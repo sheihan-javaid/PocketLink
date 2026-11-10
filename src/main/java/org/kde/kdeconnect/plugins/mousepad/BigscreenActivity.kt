@@ -17,7 +17,7 @@ import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.preference.PreferenceManager
 import org.kde.kdeconnect.Device
-import org.kde.kdeconnect.KdeConnect
+import org.kde.kdeconnect.PocketLink
 import org.kde.kdeconnect.ui.compose.components.addDeviceDisconnectedOverlay
 import org.kde.kdeconnect.base.BaseActivity
 import org.kde.kdeconnect.extensions.viewBinding
@@ -56,7 +56,7 @@ class BigscreenActivity : BaseActivity<ActivityBigscreenBinding>() {
             binding.micButton.visibility = View.INVISIBLE
         }
 
-        val device = KdeConnect.getInstance().getDevice(deviceId)
+        val device = PocketLink.getInstance().getDevice(deviceId)
         plugin = device?.getPlugin<MousePadPlugin>() ?: run {
             finish()
             return

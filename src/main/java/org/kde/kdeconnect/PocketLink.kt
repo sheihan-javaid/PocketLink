@@ -41,7 +41,7 @@ import java.util.concurrent.ConcurrentHashMap
  * It also takes care of initializing all classes that need so when the app boots.
  * It provides a ConnectionReceiver that the BackgroundService uses to ping this class every time a new DeviceLink is created.
  */
-class KdeConnect : Application() {
+class PocketLink : Application() {
     fun interface DeviceListChangedCallback {
         fun onDeviceListChanged()
     }
@@ -54,7 +54,7 @@ class KdeConnect : Application() {
         super.onCreate()
         _instance = this
         setupSL4JLogging()
-        Log.d("KdeConnect/Application", "onCreate")
+        Log.d("PocketLink/Application", "onCreate")
         ThemeUtil.setUserPreferredTheme(this)
         DeviceHelper.initializeDeviceId(this)
         RsaHelper.initialiseRsaKeys(this)
@@ -95,7 +95,7 @@ class KdeConnect : Application() {
     }
 
     override fun onTerminate() {
-        Log.d("KdeConnect/Application", "onTerminate")
+        Log.d("PocketLink/Application", "onTerminate")
         super.onTerminate()
     }
 
@@ -137,7 +137,7 @@ class KdeConnect : Application() {
         // Log.e("BackgroundService", "Loading remembered trusted devices")
         val trustedDevices = TrustedDevices.getAllTrustedDevices(this)
         trustedDevices.asSequence()
-            .onEach { Log.d("KdeConnect", "Loading device $it") }
+            .onEach { Log.d("PocketLink", "Loading device $it") }
             .forEach {
                 try {
                     val device = Device(applicationContext, it)
@@ -153,7 +153,7 @@ class KdeConnect : Application() {
                     device.addPairingCallback(devicePairingCallback)
                 } catch (e: CertificateException) {
                     Log.w(
-                        "KdeConnect",
+                        "PocketLink",
                         "Couldn't load the certificate for a remembered device. Removing from trusted list.", e
                     )
                     TrustedDevices.removeTrustedDevice(this, it)
@@ -189,7 +189,7 @@ class KdeConnect : Application() {
             if (device != null) {
                 device.addLink(link)
             } else {
-                device = Device(this@KdeConnect, link)
+                device = Device(this@PocketLink, link)
                 devices[link.deviceId] = device
                 device.addPairingCallback(devicePairingCallback)
             }
@@ -215,7 +215,7 @@ class KdeConnect : Application() {
         override fun onDeviceInfoUpdated(deviceInfo: DeviceInfo) {
             val device = devices[deviceInfo.id]
             if (device == null) {
-                Log.e("KdeConnect", "onDeviceInfoUpdated for an unknown device")
+                Log.e("PocketLink", "onDeviceInfoUpdated for an unknown device")
                 return
             }
             val hasChanges = device.updateDeviceInfo(deviceInfo)
@@ -234,26 +234,26 @@ class KdeConnect : Application() {
         //       `Runtime.getRuntime().gc()` to actually make them disappear. If we have leaks,
         //       deleting devices from the map is actually counterproductive because each time we
         //       detect the same device, a new Device object will be created (and leaked again).
-        Log.i("KdeConnect", "Scheduled for deletion: $device, paired: ${device.isPaired}, reachable: ${device.isReachable}")
+        Log.i("PocketLink", "Scheduled for deletion: $device, paired: ${device.isPaired}, reachable: ${device.isReachable}")
         ThreadHelper.runOnNewThread {
             try {Thread.sleep(1000)} catch (_: InterruptedException) { }
             if (device.isReachable) {
-                Log.i("KdeConnect", "Not deleting device since it's reachable again: $device")
+                Log.i("PocketLink", "Not deleting device since it's reachable again: $device")
                 return@runOnNewThread
             }
             if (device.isPaired) {
-                Log.i("KdeConnect", "Not deleting device since it's still paired: $device")
+                Log.i("PocketLink", "Not deleting device since it's still paired: $device")
                 return@runOnNewThread
             }
-            Log.i("KdeConnect", "Deleting unpaired and unreachable device: $device")
+            Log.i("PocketLink", "Deleting unpaired and unreachable device: $device")
             device.removePairingCallback(devicePairingCallback)
             devices.remove(device.deviceId)
         }
     }
 
     companion object {
-        private lateinit var _instance: KdeConnect
+        private lateinit var _instance: PocketLink
 
-        fun getInstance(): KdeConnect = _instance
+        fun getInstance(): PocketLink = _instance
     }
 }

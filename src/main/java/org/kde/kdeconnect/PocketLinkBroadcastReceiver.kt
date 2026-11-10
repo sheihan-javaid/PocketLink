@@ -12,20 +12,20 @@ import android.net.ConnectivityManager
 import android.net.wifi.WifiManager
 import android.util.Log
 
-class KdeConnectBroadcastReceiver : BroadcastReceiver() {
+class PocketLinkBroadcastReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
-        // Log.e("KdeConnect", "Broadcast event: "+intent.getAction());
+        // Log.e("PocketLink", "Broadcast event: "+intent.getAction());
 
         val action = intent.action
 
         when (action) {
             Intent.ACTION_MY_PACKAGE_REPLACED -> {
-                Log.i("KdeConnect", "MyUpdateReceiver")
+                Log.i("PocketLink", "MyUpdateReceiver")
                 BackgroundService.Start(context)
             }
 
             Intent.ACTION_BOOT_COMPLETED -> {
-                Log.i("KdeConnect", "KdeConnectBroadcastReceiver")
+                Log.i("PocketLink", "PocketLinkBroadcastReceiver")
                 try {
                     BackgroundService.Start(context)
                 } catch (e: IllegalStateException) { // To catch ForegroundServiceStartNotAllowedException
@@ -34,7 +34,7 @@ class KdeConnectBroadcastReceiver : BroadcastReceiver() {
             }
 
             WifiManager.SUPPLICANT_CONNECTION_CHANGE_ACTION, WifiManager.WIFI_STATE_CHANGED_ACTION, ConnectivityManager.CONNECTIVITY_ACTION -> {
-                Log.i("KdeConnect", "Connection state changed, trying to connect")
+                Log.i("PocketLink", "Connection state changed, trying to connect")
                 BackgroundService.ForceRefreshConnections(context)
             }
 

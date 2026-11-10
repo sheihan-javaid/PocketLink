@@ -10,7 +10,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.preference.PreferenceFragmentCompat
 import org.kde.kdeconnect.Device
-import org.kde.kdeconnect.KdeConnect
+import org.kde.kdeconnect.PocketLink
 import org.kde.kdeconnect.extensions.setupBottomPadding
 import org.kde.kdeconnect.plugins.Plugin
 import org.kde.kdeconnect.plugins.PluginFactory
@@ -42,7 +42,7 @@ open class PluginSettingsFragment : PreferenceFragmentCompat() {
         this.layouts = arguments.getIntArray(ARG_LAYOUT)!!
         val deviceId = requireArguments().getString(ARG_DEVICE_ID)!!
         // PluginSettingsActivity only creates or restores this fragment when the device and plugin are available
-        this.device = KdeConnect.getInstance().getDevice(deviceId)!!
+        this.device = PocketLink.getInstance().getDevice(deviceId)!!
         this.plugin = device.getPluginIncludingWithoutPermissions(pluginKey)!!
         super.onCreate(savedInstanceState)
     }

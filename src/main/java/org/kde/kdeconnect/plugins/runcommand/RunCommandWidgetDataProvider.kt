@@ -15,7 +15,7 @@ import android.view.View
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
 import android.widget.RemoteViewsService.RemoteViewsFactory
-import org.kde.kdeconnect.KdeConnect
+import org.kde.kdeconnect.PocketLink
 import org.kde.kdeconnect_tp.R
 
 internal class RunCommandWidgetDataProvider(private val context: Context, val intent: Intent?) : RemoteViewsFactory {
@@ -39,7 +39,7 @@ internal class RunCommandWidgetDataProvider(private val context: Context, val in
     override fun onDestroy() {}
 
     private fun getPlugin(): RunCommandPlugin? {
-        return KdeConnect.getInstance().getDevicePlugin<RunCommandPlugin>(deviceId)
+        return PocketLink.getInstance().getDevicePlugin<RunCommandPlugin>(deviceId)
     }
 
     override fun getCount(): Int {

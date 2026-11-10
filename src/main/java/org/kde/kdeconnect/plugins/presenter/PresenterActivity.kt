@@ -65,7 +65,7 @@ import androidx.compose.ui.unit.dp
 import androidx.media.VolumeProviderCompat
 import androidx.preference.PreferenceManager
 import org.kde.kdeconnect.Device
-import org.kde.kdeconnect.KdeConnect
+import org.kde.kdeconnect.PocketLink
 import org.kde.kdeconnect.ui.compose.components.DeviceDisconnectedOverlay
 import org.kde.kdeconnect.ui.compose.components.PocketLinkStandardCard
 import org.kde.kdeconnect.ui.compose.PocketLinkButton
@@ -108,7 +108,7 @@ class PresenterActivity : AppCompatActivity(), SensorEventListener, OnSharedPref
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
         val deviceId = intent.getStringExtra(EXTRA_DEVICE_ID)!!
-        val device = KdeConnect.getInstance().getDevice(deviceId)
+        val device = PocketLink.getInstance().getDevice(deviceId)
         plugin = device?.getPlugin<PresenterPlugin>() ?: run {
             finish()
             return

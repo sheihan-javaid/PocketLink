@@ -12,14 +12,14 @@ import androidx.core.net.toUri
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import org.kde.kdeconnect.KdeConnect
+import org.kde.kdeconnect.PocketLink
 
 class StartActivityAlertDialogFragment : AlertDialogFragment() {
 
     // The dialog stays open while the launched activity is shown, since the result is
     // delivered to this fragment and would be lost if it had been dismissed already
     private val reloadPluginsOnResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-        KdeConnect.getInstance().reloadAllDevicePlugins()
+        PocketLink.getInstance().reloadAllDevicePlugins()
         dismiss()
     }
 

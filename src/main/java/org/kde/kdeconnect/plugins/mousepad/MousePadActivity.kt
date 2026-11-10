@@ -27,7 +27,7 @@ import androidx.core.view.OnApplyWindowInsetsListener
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.preference.PreferenceManager
-import org.kde.kdeconnect.KdeConnect
+import org.kde.kdeconnect.PocketLink
 import org.kde.kdeconnect.ui.compose.components.addDeviceDisconnectedOverlay
 import org.kde.kdeconnect.base.BaseActivity
 import org.kde.kdeconnect.ui.PluginSettingsActivity
@@ -140,7 +140,7 @@ class MousePadActivity :
         binding.mouseClickRight.setOnClickListener { sendRightClick() }
 
         deviceId = intent.getStringExtra(EXTRA_DEVICE_ID) ?: ""
-        val device = KdeConnect.getInstance().getDevice(deviceId)
+        val device = PocketLink.getInstance().getDevice(deviceId)
         plugin = device?.getPlugin<MousePadPlugin>() ?: run {
             finish()
             return

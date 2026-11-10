@@ -30,7 +30,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.preference.PreferenceManager
 import org.kde.kdeconnect.Device
-import org.kde.kdeconnect.KdeConnect
+import org.kde.kdeconnect.PocketLink
 import org.kde.kdeconnect.helpers.DEFAULT_MAX_VOLUME
 import org.kde.kdeconnect.helpers.DEFAULT_VOLUME_STEP
 import org.kde.kdeconnect.helpers.VideoUrlsHelper
@@ -192,7 +192,7 @@ class MprisNowPlayingFragment : Fragment(), VolumeKeyListener {
 
     private fun connectToPlugin() {
         val deviceId = arguments?.getString(EXTRA_DEVICE_ID)!!
-        val device = KdeConnect.getInstance().getDevice(deviceId)
+        val device = PocketLink.getInstance().getDevice(deviceId)
         val plugin = device?.getPlugin<MprisPlugin>()
         if (plugin == null) {
             if (isAdded) {

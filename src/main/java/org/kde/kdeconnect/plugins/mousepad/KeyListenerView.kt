@@ -13,7 +13,7 @@ import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputConnection
-import org.kde.kdeconnect.KdeConnect
+import org.kde.kdeconnect.PocketLink
 import org.kde.kdeconnect.NetworkPacket
 
 class KeyListenerView(
@@ -40,12 +40,12 @@ class KeyListenerView(
     override fun onCheckIsTextEditor(): Boolean = true
 
     fun sendChars(chars: CharSequence) {
-        KdeConnect.getInstance().getDevicePlugin<MousePadPlugin>(deviceId)
+        PocketLink.getInstance().getDevicePlugin<MousePadPlugin>(deviceId)
             ?.sendText(chars.toString())
     }
 
     private fun sendKeyPressPacket(np: NetworkPacket) {
-        KdeConnect.getInstance().getDevicePlugin<MousePadPlugin>(deviceId)
+        PocketLink.getInstance().getDevicePlugin<MousePadPlugin>(deviceId)
             ?.sendPacket(np)
     }
 

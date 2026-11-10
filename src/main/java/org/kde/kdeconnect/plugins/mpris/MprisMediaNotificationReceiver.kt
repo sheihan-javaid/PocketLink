@@ -9,7 +9,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.util.Log
-import org.kde.kdeconnect.KdeConnect
+import org.kde.kdeconnect.PocketLink
 import org.kde.kdeconnect.extensions.getParcelableExtraCompat
 
 /**
@@ -27,7 +27,7 @@ class MprisMediaNotificationReceiver : BroadcastReceiver() {
             // Get the correct device, the mpris plugin and the mpris player
 
             val deviceId = intent.getStringExtra(EXTRA_DEVICE_ID)
-            val plugin = KdeConnect.getInstance().getDevicePlugin<MprisPlugin>(deviceId) ?: return
+            val plugin = PocketLink.getInstance().getDevicePlugin<MprisPlugin>(deviceId) ?: return
             val player = plugin.getPlayerStatus(intent.getStringExtra(EXTRA_MPRIS_PLAYER))
                 ?: return
 

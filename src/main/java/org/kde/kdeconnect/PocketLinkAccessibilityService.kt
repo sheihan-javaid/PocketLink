@@ -35,7 +35,7 @@ import java.util.Deque
 import kotlin.math.abs
 import kotlin.math.sign
 
-open class KdeConnectAccessibilityService : AccessibilityService() {
+open class PocketLinkAccessibilityService : AccessibilityService() {
 
     // Position of the center of the cursor
     private var x = 0
@@ -64,7 +64,7 @@ open class KdeConnectAccessibilityService : AccessibilityService() {
     private val runHandler = Handler(Looper.getMainLooper())
     private val hideRunnable = Runnable {
         cursorView?.visibility = View.GONE
-        Log.i("KdeConnectAccessibilityService", "Hiding pointer due to inactivity")
+        Log.i("PocketLinkAccessibilityService", "Hiding pointer due to inactivity")
     }
 
     private var swipeStoke: StrokeDescription? = null
@@ -80,7 +80,7 @@ open class KdeConnectAccessibilityService : AccessibilityService() {
         super.onCreate()
         windowManager = getSystemService<WindowManager>()!!
         instance = this
-        Log.i("KdeConnectAccessibilityService", "created")
+        Log.i("PocketLinkAccessibilityService", "created")
     }
 
     override fun onServiceConnected() {
@@ -98,7 +98,7 @@ open class KdeConnectAccessibilityService : AccessibilityService() {
         try {
             windowManager.addView(cursorView, cursorLayout)
         } catch (e: WindowManager.BadTokenException) {
-            Log.e("KdeConnectAccessibilityService", "Could not add cursor overlay", e)
+            Log.e("PocketLinkAccessibilityService", "Could not add cursor overlay", e)
             cursorView = null
         }
 
@@ -302,7 +302,7 @@ open class KdeConnectAccessibilityService : AccessibilityService() {
     override fun onInterrupt() { }
 
     companion object {
-        var instance: KdeConnectAccessibilityService? = null
+        var instance: PocketLinkAccessibilityService? = null
 
         @RequiresApi(api = Build.VERSION_CODES.N)
         private fun createClick(x: Int, y: Int, duration: Int): GestureDescription {

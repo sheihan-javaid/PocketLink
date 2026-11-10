@@ -21,7 +21,7 @@ import androidx.preference.PreferenceScreen
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.kde.kdeconnect.DeviceStats
-import org.kde.kdeconnect.KdeConnect
+import org.kde.kdeconnect.PocketLink
 import org.kde.kdeconnect.extensions.setupBottomPadding
 import org.kde.kdeconnect.plugins.PluginFactory
 import org.kde.kdeconnect_tp.R
@@ -66,7 +66,7 @@ class PluginSettingsListFragment : PreferenceFragmentCompat() {
         val deviceId = requireArguments().getString(ARG_DEVICE_ID) ?: return
         val cb = callback ?: return
 
-        val device = KdeConnect.getInstance().getDevice(deviceId)
+        val device = PocketLink.getInstance().getDevice(deviceId)
         if (device == null) {
             val activity = requireActivity()
             activity.runOnUiThread(activity::finish)

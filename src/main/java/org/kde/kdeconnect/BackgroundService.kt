@@ -43,16 +43,16 @@ import org.kde.kdeconnect_tp.R
 /**
  * This class (still) does 3 things:
  * - Keeps the app running by creating a foreground notification.
- * - Holds references to the active LinkProviders, but doesn't handle the DeviceLink those create (the KdeConnect class does that).
+ * - Holds references to the active LinkProviders, but doesn't handle the DeviceLink those create (the PocketLink class does that).
  * - Listens for network connectivity changes and tells the LinkProviders to re-check for devices.
- * It can be started by the KdeConnectBroadcastReceiver on some events or when the MainActivity is launched.
+ * It can be started by the PocketLinkBroadcastReceiver on some events or when the MainActivity is launched.
  */
 class BackgroundService : Service() {
-    private lateinit var applicationInstance: KdeConnect
+    private lateinit var applicationInstance: PocketLink
 
     private val linkProviders = mutableListOf<BaseLinkProvider>()
 
-    private var screenOnReceiver: KdeConnectBroadcastReceiver? = null
+    private var screenOnReceiver: PocketLinkBroadcastReceiver? = null
     private var networkCallback: NetworkCallback? = null
 
     /** Indicates whether device is connected over wifi / usb / bluetooth / (anything other than cellular) */
@@ -100,11 +100,11 @@ class BackgroundService : Service() {
     @MainThread
     override fun onCreate() {
         super.onCreate()
-        Log.d("KdeConnect/BgService", "onCreate")
-        this.applicationInstance = KdeConnect.getInstance()
+        Log.d("PocketLink/BgService", "onCreate")
+        this.applicationInstance = PocketLink.getInstance()
         instance = this
 
-        KdeConnect.getInstance().addDeviceListChangedCallback("BackgroundService", this::updateForegroundNotification)
+        PocketLink.getInstance().addDeviceListChangedCallback("BackgroundService", this::updateForegroundNotification)
 
         // Register screen on listener
         val filter = IntentFilter(Intent.ACTION_SCREEN_ON)
@@ -112,7 +112,7 @@ class BackgroundService : Service() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
             filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION)
         }
-        screenOnReceiver = KdeConnectBroadcastReceiver().also {
+        screenOnReceiver = PocketLinkBroadcastReceiver().also {
             registerReceiver(it, filter)
         }
 
@@ -210,7 +210,7 @@ class BackgroundService : Service() {
 
             if (connectedDeviceIds.size == 1) {
                 val deviceId = connectedDeviceIds[0]
-                val device = KdeConnect.getInstance().getDevice(deviceId)
+                val device = PocketLink.getInstance().getDevice(deviceId)
                 if (device != null) {
                     // Adding two action buttons only when there is a single device connected.
                     // Setting up Send File Intent.
@@ -236,12 +236,12 @@ class BackgroundService : Service() {
     }
 
     override fun onDestroy() {
-        Log.d("KdeConnect/BgService", "onDestroy")
+        Log.d("PocketLink/BgService", "onDestroy")
         initialized = false
         for (linkProvider in linkProviders) {
             linkProvider.onStop()
         }
-        KdeConnect.getInstance().removeDeviceListChangedCallback("BackgroundService")
+        PocketLink.getInstance().removeDeviceListChangedCallback("BackgroundService")
         screenOnReceiver?.let { unregisterReceiver(it) }
         screenOnReceiver = null
         networkCallback?.let { getSystemService<ConnectivityManager>()?.unregisterNetworkCallback(it) }

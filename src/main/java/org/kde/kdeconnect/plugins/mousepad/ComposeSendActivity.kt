@@ -15,7 +15,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 import org.kde.kdeconnect.Device
-import org.kde.kdeconnect.KdeConnect
+import org.kde.kdeconnect.PocketLink
 import org.kde.kdeconnect.ui.compose.PocketLinkTheme
 import org.kde.kdeconnect_tp.R
 
@@ -34,7 +34,7 @@ class ComposeSendActivity : AppCompatActivity() {
         prefs.getString(INPUT_CACHE_KEY, null)?.let { userInput.value = it }
 
         deviceId = intent.getStringExtra(EXTRA_DEVICE_ID)!!
-        device = KdeConnect.getInstance().getDevice(deviceId) ?: run {
+        device = PocketLink.getInstance().getDevice(deviceId) ?: run {
             finish()
             return
         }

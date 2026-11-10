@@ -34,7 +34,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.kde.kdeconnect.BackgroundService
 import org.kde.kdeconnect.Device
 import org.kde.kdeconnect.Device.PluginsChangedListener
-import org.kde.kdeconnect.KdeConnect
+import org.kde.kdeconnect.PocketLink
 import org.kde.kdeconnect.PairingHandler
 import org.kde.kdeconnect.base.BaseFragment
 import org.kde.kdeconnect.extensions.setupBottomPadding
@@ -86,7 +86,7 @@ class DeviceFragment : BaseFragment<ActivityDeviceBinding>() {
             ?: throw RuntimeException("You must instantiate a new DeviceFragment using DeviceFragment.newInstance()")
     }
 
-    private val device by lazy { KdeConnect.getInstance().getDevice(deviceId) }
+    private val device by lazy { PocketLink.getInstance().getDevice(deviceId) }
 
     private val viewModel by viewModels<DeviceViewModel>()
 
