@@ -116,7 +116,6 @@
   <string name="mouse_receiver_plugin_name">Prijímač myši</string>
   <string name="mouse_receiver_no_permissions">Na prijímanie dotykových vstupov na diaľku musíte udeliť oprávnenia Prístupnosti</string>
   <string name="mouse_keyboard_receiver_service_description">Prijímanie pohybu vzdialenej myši a vstupu z klávesnice</string>
-  <string name="view_status_title">Stav</string>
   <string name="battery_status_format">Batéria: %d%%</string>
   <string name="battery_status_low_format">Batéria: %d%% Nízka úroveň batérie</string>
   <string name="battery_status_charging_format">Batéria: %d%% nabíja sa</string>
@@ -304,10 +303,8 @@
   <string name="findmyphone_found">Nájdené</string>
   <string name="open">Otvoriť</string>
   <string name="close">Zavrieť</string>
-  <string name="plugins_need_permission">Niektoré zásuvné moduly vyžadujú oprávnenia, aby mohli fungovať (ťuknutím získate viac informácií):</string>
   <string name="permission_explanation">Tento zásuvný modul vyžaduje oprávnenie, aby mohol fungovať</string>
   <string name="optional_permission_explanation">Musíte udeliť oprávnenia navyše, aby boli povolené všetky funkcie</string>
-  <string name="plugins_need_optional_permission">Niektoré zásuvné moduly majú zakázané funkcie, pretože im chýbajú oprávnenia (ťuknutím získate viac informácií):</string>
   <string name="share_optional_permission_explanation">Ak chcete prijímať zdieľané súbory, musíte zvoliť cieľový adresár</string>
   <string name="share_notifications_explanation">Na zobrazenie priebehu pri odosielaní a prijímaní súborov musíte povoliť oznámenia</string>
   <string name="telepathy_permission_explanation">Na čítanie a písanie SMS z vášho počítača, musíte udeliť oprávnenie k správam SMS</string>
@@ -504,9 +501,6 @@
     <string name="manage_plugins_back">Späť na prehľad</string>
     <string name="now_playing">Práve hrá</string>
     <string name="permission_badge">Oprávnenie</string>
-    <string name="notification_sync_direction_format">%1$s → iba %2$s</string>
-    <string name="this_device">Toto zariadenie</string>
-    <string name="ring_device_format">Prezvoniť %1$s</string>
     <string name="battery_charging">Nabíja sa</string>
     <string name="battery_discharging">Vybíja sa</string>
     <string name="volume_muted_desc">Stlmené. Ťuknutím zapnete zvuk.</string>

@@ -168,10 +168,8 @@
   <string name="pref_plugin_telepathy_desc">Unvia SMS dende l\'ordenador</string>
   <string name="findmyphone_description">Fai qu\'esti preséu suene pa que pueas atopalu</string>
   <string name="findmyphone_found">Atopélu</string>
-  <string name="plugins_need_permission">Dalgunos plugins precisen permisos pa funcionar (tócalos pa más información):</string>
   <string name="permission_explanation">Esti plugin precisa permisos pa funcionar</string>
   <string name="optional_permission_explanation">Precises conceder permisos adicionales p\'activar toles funciones</string>
-  <string name="plugins_need_optional_permission">Dalgunos plugins tienen carauterísiques desactivaes pola falta de permisos (tócalos pa más información):</string>
   <string name="select_ringtone">Timbre</string>
   <string name="telephony_pref_blocked_title">Númberos bloquiaos</string>
   <string name="telephony_pref_blocked_dialog_desc">Nun s\'amuesen les llamaes nin SMS de los númberos que configures. Especifica un númberu per llinia.</string>
@@ -269,9 +267,6 @@
     <string name="manage_plugins_back">Volver al panel</string>
     <string name="now_playing">Reproduciendo agora</string>
     <string name="permission_badge">Permisu</string>
-    <string name="notification_sync_direction_format">%1$s → namás %2$s</string>
-    <string name="this_device">Esti preséu</string>
-    <string name="ring_device_format">Facer sonar %1$s</string>
     <string name="battery_charging">Cargando</string>
     <string name="battery_discharging">Descargando</string>
     <string name="volume_muted_desc">Silenciáu. Toca pa reactivar el soníu.</string>

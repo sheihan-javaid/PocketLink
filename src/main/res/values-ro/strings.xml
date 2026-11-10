@@ -102,7 +102,6 @@
   <string name="pref_plugin_mousepad_send_keystrokes">Trimite ca apăsări de taste</string>
   <string name="mouse_receiver_plugin_description">Primește mișcări de maus de la distanță</string>
   <string name="mouse_receiver_plugin_name">Receptor pentru maus</string>
-  <string name="view_status_title">Stare</string>
   <string name="battery_status_format">Acumulator: %d%%</string>
   <string name="battery_status_low_format">Acumulator: %d%% Acumulator scăzut</string>
   <string name="battery_status_charging_format">Acumulator: %d%% se încarcă</string>
@@ -279,10 +278,8 @@
   <string name="findmyphone_found">L-am găsit</string>
   <string name="open">Deschide</string>
   <string name="close">Închide</string>
-  <string name="plugins_need_permission">Unele extensii necesită permisiuni pentru a funcționa (atingeți pentru informații suplimentare):</string>
   <string name="permission_explanation">Această extensie are nevoie de permisiuni ca să lucreze</string>
   <string name="optional_permission_explanation">Trebuie să acordați permisiuni suplimentare pentru activarea tuturor funcțiilor</string>
-  <string name="plugins_need_optional_permission">Unele extensii au caracteristici dezactivate din cauza lipsei permisiunilor (atingeți pentru informații suplimentare):</string>
   <string name="share_optional_permission_explanation">Pentru a primi fișiere, trebuie să permiteți accesul la stocare</string>
   <string name="share_notifications_explanation">Pentru a vedea progresul transferurilor de fișiere, trebuie să permiteți notificările</string>
   <string name="telepathy_permission_explanation">Pentru a citi și scrie SMS de pe calculatorul de birou, trebuie să acordați permisiuni asupra SMS-urilor</string>
@@ -470,9 +467,6 @@
     <string name="manage_plugins_back">Înapoi la panou</string>
     <string name="now_playing">Se redă acum</string>
     <string name="permission_badge">Permisiune</string>
-    <string name="notification_sync_direction_format">%1$s → doar %2$s</string>
-    <string name="this_device">Acest dispozitiv</string>
-    <string name="ring_device_format">Sună %1$s</string>
     <string name="battery_charging">Se încarcă</string>
     <string name="battery_discharging">Se descarcă</string>
     <string name="volume_muted_desc">Silențios. Atingeți pentru a reactiva sunetul.</string>

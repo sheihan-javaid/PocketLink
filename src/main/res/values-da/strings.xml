@@ -121,10 +121,8 @@
   <string name="findmyphone_description">Ringer til denne enhed, så du kan finde den.</string>
   <string name="open">Åbn</string>
   <string name="close">Luk</string>
-  <string name="plugins_need_permission">Nogle plugins kræver tilladelser for at virke (tap for mere info):</string>
   <string name="permission_explanation">Dette plugin kræver tilladelser for at virke</string>
   <string name="optional_permission_explanation">Du skal give ekstra tilladelser for at aktivere alle funktioner</string>
-  <string name="plugins_need_optional_permission">Nogle plugins har deaktiverede funktioner pga. manglende tilladelser (tap for mere info):</string>
   <string name="telepathy_permission_explanation">For at læse og skrive sms\'er fra din desktop, skal du give tilladelse til sms</string>
   <string name="telephony_optional_permission_explanation">For at se et kontaktnavn i stedet for et telefonnummer, skal du give adgang til telefonens kontakter</string>
   <string-array name="convert_to_mms_after_entries">
@@ -172,9 +170,6 @@
     <string name="manage_plugins_back">Tilbage til oversigten</string>
     <string name="now_playing">Afspiller nu</string>
     <string name="permission_badge">Tilladelse</string>
-    <string name="notification_sync_direction_format">%1$s → kun %2$s</string>
-    <string name="this_device">Denne enhed</string>
-    <string name="ring_device_format">Ring til %1$s</string>
     <string name="battery_charging">Oplader</string>
     <string name="battery_discharging">Aflader</string>
     <string name="volume_muted_desc">Lyd slået fra. Tryk for at slå lyd til.</string>

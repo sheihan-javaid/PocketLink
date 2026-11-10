@@ -40,7 +40,7 @@ class FindMyPhoneScreenTest {
             onView(withId(R.id.bFindMyPhone)).check(matches(isDisplayed()))
             scenario.onActivity { activity ->
                 val button = activity.findViewById<View>(R.id.bFindMyPhone)
-                val minimumTarget = activity.resources.getDimensionPixelSize(R.dimen.kde_min_touch_target)
+                val minimumTarget = activity.resources.getDimensionPixelSize(R.dimen.pocketlink_min_touch_target)
                 assertTrue(button.minimumHeight >= minimumTarget)
             }
             onView(withId(R.id.bFindMyPhone)).perform(click())

@@ -115,7 +115,6 @@
   <string name="mouse_receiver_plugin_name">Hiirivastaanotin</string>
   <string name="mouse_receiver_no_permissions">Etäkosketussyötteen vastaanottamiseksi on annettava esteettömyyden käyttöoikeus</string>
   <string name="mouse_keyboard_receiver_service_description">Vastaanota etähiiren liike ja etänäppäimistösyöte</string>
-  <string name="view_status_title">Tila</string>
   <string name="battery_status_format">Varaus: %d %%</string>
   <string name="battery_status_low_format">Varaus: %d %%, vähissä</string>
   <string name="battery_status_charging_format">Varaus: %d %%, latautuu</string>
@@ -286,10 +285,8 @@
   <string name="findmyphone_found">Löytyi</string>
   <string name="open">Avaa</string>
   <string name="close">Sulje</string>
-  <string name="plugins_need_permission">Jotkin liitännäiset vaativat toimiakseen lisäkäyttöoikeuksia (lisätietoa napsauttamalla):</string>
   <string name="permission_explanation">Liitännäinen tarvitsee toimiakseen lisäkäyttöoikeuksia</string>
   <string name="optional_permission_explanation">Kaikkien toimintojen käyttämiseksi sinun on annettava lisäkäyttöoikeuksia</string>
-  <string name="plugins_need_optional_permission">Jotkin liitännäisten ominaisuudet eivät ole käytössä puuttuvien käyttöoikeuksien takia (lisätietoa napsauttamalla):</string>
   <string name="share_optional_permission_explanation">Talletustilan käyttö on sallittava tiedostojen vastaanottamiseksi</string>
   <string name="share_notifications_explanation">Ilmoitukset on otetettava käyttöön, jotta tiedostojen siirron etenemisen voi näyttää</string>
   <string name="telepathy_permission_explanation">Lukeaksesi ja lähettääksesi tekstiviestejä työpöydältä sinun on annettava käyttöoikeudet tekstiviesteihin</string>
@@ -484,9 +481,6 @@
     <string name="manage_plugins_back">Takaisin koontinäyttöön</string>
     <string name="now_playing">Nyt toistetaan</string>
     <string name="permission_badge">Käyttöoikeus</string>
-    <string name="notification_sync_direction_format">%1$s → vain %2$s</string>
-    <string name="this_device">Tämä laite</string>
-    <string name="ring_device_format">Soita laitteeseen %1$s</string>
     <string name="battery_charging">Lataa</string>
     <string name="battery_discharging">Purkautuu</string>
     <string name="volume_muted_desc">Mykistetty. Poista mykistys napauttamalla.</string>

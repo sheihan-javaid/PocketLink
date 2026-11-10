@@ -57,7 +57,7 @@ class PluginSettingsSurfaceTest {
             val root = LayoutInflater.from(context)
                 .inflate(R.layout.preference_with_button, null, false)
 
-            val minTarget = context.resources.getDimensionPixelSize(R.dimen.kde_min_touch_target)
+            val minTarget = context.resources.getDimensionPixelSize(R.dimen.pocketlink_min_touch_target)
             assertTrue("Root minHeight must be >= minTouchTarget", root.minimumHeight >= minTarget)
 
             val titleView = root.findViewById<TextView>(android.R.id.title)

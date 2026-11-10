@@ -115,7 +115,7 @@ class ClipboardNotificationSurfacesTest {
         val appRow = composeRule.activity.findViewById<CheckedTextView>(R.id.notification_filter_app_row)
         assertNotNull(appRow.checkMarkDrawable)
         assertTrue(
-            appRow.minimumHeight >= composeRule.activity.resources.getDimensionPixelSize(R.dimen.kde_min_touch_target)
+            appRow.minimumHeight >= composeRule.activity.resources.getDimensionPixelSize(R.dimen.pocketlink_min_touch_target)
         )
 
         composeRule.runOnIdle {
@@ -164,7 +164,7 @@ class ClipboardNotificationSurfacesTest {
         val options = LayoutInflater.from(themedContext)
             .inflate(R.layout.privacy_options, null, false)
         val minimumTarget = composeRule.activity.resources
-            .getDimensionPixelSize(R.dimen.kde_min_touch_target)
+            .getDimensionPixelSize(R.dimen.pocketlink_min_touch_target)
 
         assertTrue(options.findViewById<View>(R.id.checkbox_contents).minimumHeight >= minimumTarget)
         assertTrue(options.findViewById<View>(R.id.checkbox_images).minimumHeight >= minimumTarget)

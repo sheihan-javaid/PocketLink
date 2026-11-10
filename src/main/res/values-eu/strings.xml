@@ -115,7 +115,6 @@
   <string name="mouse_receiver_plugin_name">Sagu jasotzailea</string>
   <string name="mouse_receiver_no_permissions">Urrutiko ukimen-sarrerak jasotzeko, irisgarritasun-baimenak eman behar dituzu</string>
   <string name="mouse_keyboard_receiver_service_description">Urrutiko sagu-mugimenduak eta teklatu-sarrera jaso</string>
-  <string name="view_status_title">Egoera</string>
   <string name="battery_status_format">Bateria: %%%d</string>
   <string name="battery_status_low_format">Bateria: %%%d bateria baxu</string>
   <string name="battery_status_charging_format">Bateria: %%%d kargatzen</string>
@@ -286,10 +285,8 @@
   <string name="findmyphone_found">Aurkitu du</string>
   <string name="open">Ireki</string>
   <string name="close">Itxi</string>
-  <string name="plugins_need_permission">Plugin batzuek jarduteko baimenak behar dituzte (tak egin informazio gehiagorako):</string>
   <string name="permission_explanation">Plugin honek baimena behar du funtzionatzeko</string>
   <string name="optional_permission_explanation">Baimen gehiago eman behar dituzu funtzio guztiak gaitzeko</string>
-  <string name="plugins_need_optional_permission">Plugin batzuek desgaitutako eginbideak dituzte baimenak faltan dituztelako (tak egin informazio gehiagorako):</string>
   <string name="share_optional_permission_explanation">Fitxategiak jasotzeko biltegiratze sarbidea baimendu behar duzu</string>
   <string name="share_notifications_explanation">Fitxategiak bidaltzean eta jasotzean aurrerapena ikusteko, jakinarazpenak baimendu behar dituzu</string>
   <string name="telepathy_permission_explanation">SMSak zure mahaigainetik bidali ahal izateko, SMSak erabiltzeko baimena eman behar duzu</string>
@@ -484,9 +481,6 @@
     <string name="manage_plugins_back">Itzuli aginte-panelera</string>
     <string name="now_playing">Orain erreproduzitzen</string>
     <string name="permission_badge">Baimena</string>
-    <string name="notification_sync_direction_format">%1$s → %2$s soilik</string>
-    <string name="this_device">Gailu hau</string>
-    <string name="ring_device_format">%1$s hotsarazi</string>
     <string name="battery_charging">Kargatzen</string>
     <string name="battery_discharging">Deskargatzen</string>
     <string name="volume_muted_desc">Mutututa. Ukitu soinua aktibatzeko.</string>

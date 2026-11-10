@@ -116,7 +116,6 @@
   <string name="mouse_receiver_plugin_name">Příjemce myši</string>
   <string name="mouse_receiver_no_permissions">Chcete-li přijímat dotykové vstupy na dálku, musíte udělit oprávnění pro usnadnění přístupu</string>
   <string name="mouse_keyboard_receiver_service_description">Přijímání pohybů myši a vstupů z klávesnice ze vzdáleného zařízení</string>
-  <string name="view_status_title">Stav</string>
   <string name="battery_status_format">Baterie: %d%%</string>
   <string name="battery_status_low_format">Baterie: %d%% Téměř vybitá baterie</string>
   <string name="battery_status_charging_format">Baterie: %d%% nabíjí se</string>
@@ -304,10 +303,8 @@
   <string name="findmyphone_found">Nalezeno</string>
   <string name="open">Otevřít</string>
   <string name="close">Zavřít</string>
-  <string name="plugins_need_permission">Některé moduly potřebují pro práci povolení (ťukněte pro více informací):</string>
   <string name="permission_explanation">Tento modul potřebuje pro práci povolení</string>
   <string name="optional_permission_explanation">Pro zpřístupnění všech funkcí potřebujete další oprávnění</string>
-  <string name="plugins_need_optional_permission">Některé moduly mají vypnuté vlastnosti, kvůli nedostatečným oprávněním (ťukněte pro více informací):</string>
   <string name="share_optional_permission_explanation">Pro příjem souborů je potřeba povolit přístup k úložišti</string>
   <string name="share_notifications_explanation">Abyste mohli vidět průběh odesílání nebo přijímání souborů, potřebujete povolit upozornění</string>
   <string name="telepathy_permission_explanation">Pro čtení a psaní SMS z počítače musíte udělit oprávnění k SMS</string>
@@ -508,9 +505,6 @@
     <string name="manage_plugins_back">Zpět na přehled</string>
     <string name="now_playing">Nyní hraje</string>
     <string name="permission_badge">Oprávnění</string>
-    <string name="notification_sync_direction_format">%1$s → pouze %2$s</string>
-    <string name="this_device">Toto zařízení</string>
-    <string name="ring_device_format">Prozvonit %1$s</string>
     <string name="battery_charging">Nabíjení</string>
     <string name="battery_discharging">Vybíjení</string>
     <string name="volume_muted_desc">Ztlumeno. Klepnutím zapnete zvuk.</string>

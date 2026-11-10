@@ -116,7 +116,6 @@
   <string name="mouse_receiver_plugin_name">Receptor de mouse</string>
   <string name="mouse_receiver_no_permissions">Para receber entradas de toque remotamente, você precisa conceder permissões de acessibilidade</string>
   <string name="mouse_keyboard_receiver_service_description">Receber movimentos do mouse e entradas de teclado remotos</string>
-  <string name="view_status_title">Status</string>
   <string name="battery_status_format">Bateria: %d%%</string>
   <string name="battery_status_low_format">Bateria: %d%% bateria baixa</string>
   <string name="battery_status_charging_format">Bateria: %d%% carregando</string>
@@ -288,10 +287,8 @@
   <string name="findmyphone_found">Encontrado</string>
   <string name="open">Abrir</string>
   <string name="close">Fechar</string>
-  <string name="plugins_need_permission">Alguns plugins precisam de permissões para funcionar (toque para mais informações):</string>
   <string name="permission_explanation">Este plugin precisa de permissões para funcionar</string>
   <string name="optional_permission_explanation">Você precisa conceder permissões extras para ativar todas as funções</string>
-  <string name="plugins_need_optional_permission">Alguns plugins possuem recursos desativados devido à falta de permissões (toque para obter mais informações):</string>
   <string name="share_optional_permission_explanation">Para receber arquivos você precisa permitir o acesso ao armazenamento</string>
   <string name="share_notifications_explanation">Para acompanhar o progresso ao enviar e receber arquivos, você precisa permitir as notificações</string>
   <string name="telepathy_permission_explanation">Para ler e gravar SMS a partir do seu ambiente de trabalho é necessário conceder permissão para SMS</string>
@@ -492,9 +489,6 @@
     <string name="manage_plugins_back">Voltar ao painel</string>
     <string name="now_playing">Reproduzindo Agora</string>
     <string name="permission_badge">Permissão</string>
-    <string name="notification_sync_direction_format">%1$s → apenas %2$s</string>
-    <string name="this_device">Este dispositivo</string>
-    <string name="ring_device_format">Tocar %1$s</string>
     <string name="battery_charging">Carregando</string>
     <string name="battery_discharging">Descarregando</string>
     <string name="volume_muted_desc">Mudo. Toque para ativar o som.</string>

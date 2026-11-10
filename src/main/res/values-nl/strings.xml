@@ -116,7 +116,6 @@
   <string name="mouse_receiver_plugin_name">Muisontvanger</string>
   <string name="mouse_receiver_no_permissions">Om aanraakinvoer op afstand te ontvangen moet u toegangsrechten toekennen</string>
   <string name="mouse_keyboard_receiver_service_description">Muisbewegingen en toetsenbordinvoer van afstand ontvangen</string>
-  <string name="view_status_title">Status</string>
   <string name="battery_status_format">Batterij: %d%%</string>
   <string name="battery_status_low_format">Batterij: %d%% lage batterij</string>
   <string name="battery_status_charging_format">Batterij: %d%% opladen</string>
@@ -288,10 +287,8 @@
   <string name="findmyphone_found">Gevonden</string>
   <string name="open">Openen</string>
   <string name="close">Sluiten</string>
-  <string name="plugins_need_permission">Sommige plug-ins hebben toestemming nodig om te werken (tik voor meer informatie):</string>
   <string name="permission_explanation">Deze plug-in heeft toestemming nodig om te werken</string>
   <string name="optional_permission_explanation">U moet toestemming geven om alle functies in te schakelen</string>
-  <string name="plugins_need_optional_permission">Sommige plug-ins hebben functies uitgeschakeld vanwege ontbrekende toestemming (tik voor meer informatie):</string>
   <string name="share_optional_permission_explanation">Om bestanden te ontvangen die u nodig hebt voor toegang tot opslag</string>
   <string name="share_notifications_explanation">Om de voortgang te zien bij verzenden en ontvangen van bestanden moet u meldingen toestaan</string>
   <string name="telepathy_permission_explanation">Om een SMS te lezen of te schrijven vanaf uw bureaublad moet u toestemming geven tot SMS</string>
@@ -492,9 +489,6 @@
     <string name="manage_plugins_back">Terug naar dashboard</string>
     <string name="now_playing">Nu aan het afspelen</string>
     <string name="permission_badge">Toestemming</string>
-    <string name="notification_sync_direction_format">%1$s → alleen %2$s</string>
-    <string name="this_device">Dit apparaat</string>
-    <string name="ring_device_format">%1$s laten overgaan</string>
     <string name="battery_charging">Opladen</string>
     <string name="battery_discharging">Ontladen</string>
     <string name="volume_muted_desc">Gedempt. Tik om te dempen op te heffen.</string>

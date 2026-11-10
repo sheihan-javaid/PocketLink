@@ -113,7 +113,6 @@
   <string name="mouse_receiver_plugin_description">Ta imot eksterne muserørsler</string>
   <string name="mouse_receiver_plugin_name">Muserørsle-mottakar</string>
   <string name="mouse_receiver_no_permissions">For å kunna ta imot trykk-data, må du gje tilgjenge­løyva</string>
-  <string name="view_status_title">Status</string>
   <string name="battery_status_format">Batteri: %d %%</string>
   <string name="battery_status_low_format">Batteri: %d %% – lågt batterinivå</string>
   <string name="battery_status_charging_format">Batteri: %d %% – ladar</string>
@@ -284,10 +283,8 @@
   <string name="findmyphone_found">Fann han</string>
   <string name="open">Opna</string>
   <string name="close">Lukk</string>
-  <string name="plugins_need_permission">Nokre av tillegga treng utvida løyva for å fungera (trykk på dei for meir informasjon):</string>
   <string name="permission_explanation">Dette tillegget treng utvida løyve for å fungera</string>
   <string name="optional_permission_explanation">Du må gje utvida løyve for at alle funksjonane skal fungera</string>
-  <string name="plugins_need_optional_permission">På grunn av manglande løyve vil desse funksjonane ikkje verka (trykk på dei for meir informasjon):</string>
   <string name="share_optional_permission_explanation">For å kunna ta imot filer må du gje tilgangsløyve til lagringsområdet</string>
   <string name="share_notifications_explanation">For å kunna sjå framdrift ved sending og mottak av filer må du gje appen varslingsløyve</string>
   <string name="telepathy_permission_explanation">For å kunna lesa og skriva tekstmeldingar frå datamaskina må du gje appen tilgang til SMS</string>
@@ -481,9 +478,6 @@
     <string name="manage_plugins_back">Attende til oversikta</string>
     <string name="now_playing">Spelar no</string>
     <string name="permission_badge">Løyve</string>
-    <string name="notification_sync_direction_format">%1$s → berre %2$s</string>
-    <string name="this_device">Denne eininga</string>
-    <string name="ring_device_format">Ring %1$s</string>
     <string name="battery_charging">Ladar</string>
     <string name="battery_discharging">Ladar ut</string>
     <string name="volume_muted_desc">Lydlaus. Trykk for å slå på lyden.</string>

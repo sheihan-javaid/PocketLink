@@ -116,7 +116,6 @@
   <string name="mouse_receiver_plugin_name">مستقبل الفأرة</string>
   <string name="mouse_receiver_no_permissions">لتلقي مدخلات اللمس عن بُعد، عليك منح أذونات الإتاحة.</string>
   <string name="mouse_keyboard_receiver_service_description">استقبل حركة الفأرة البعيدة ومدخلات لوحة المفاتيح</string>
-  <string name="view_status_title">الحالة</string>
   <string name="battery_status_format">البطارية: %d%%</string>
   <string name="battery_status_low_format">البطارية: %d%% منخفضة</string>
   <string name="battery_status_charging_format">البطارية: %d%% تشحن</string>
@@ -320,10 +319,8 @@
   <string name="findmyphone_found">عثرت عليه</string>
   <string name="open">افتح</string>
   <string name="close">أغلق</string>
-  <string name="plugins_need_permission">تحتاج بعض المُلحَقَات إلى أذون للعمل (انقر للحصول على مزيد من المعلومات):</string>
   <string name="permission_explanation">تحتاج هذه الملحقة إلى أذون للعمل</string>
   <string name="optional_permission_explanation">تحتاج إلى منح أذون إضافية لتمكين جميع الوظائف</string>
-  <string name="plugins_need_optional_permission">تحتوي بعض المُلحقات على ميزات معطلة بسبب عدم وجود إذن (انقر للحصول على مزيد من المعلومات):</string>
   <string name="share_optional_permission_explanation">لتلقي الملفات تحتاج إلى السماح بالوصول إلى التخزين</string>
   <string name="share_notifications_explanation">لرؤية التقدم المحرز عند إرسال واستقبال الملفات تحتاج إلى السماح بالإشعارات</string>
   <string name="telepathy_permission_explanation">لقراءة الرسائل النصية القصيرة وكتابتها من سطح المكتب، تحتاج إلى منح الإذن للرسائل النصية القصيرة</string>
@@ -524,9 +521,6 @@
     <string name="manage_plugins_back">العودة للوحة التحكم</string>
     <string name="now_playing">يتم التشغيل الآن</string>
     <string name="permission_badge">إذن</string>
-    <string name="notification_sync_direction_format">%1$s ← %2$s فقط</string>
-    <string name="this_device">هذا الجهاز</string>
-    <string name="ring_device_format">رن على %1$s</string>
     <string name="battery_charging">جاري الشحن</string>
     <string name="battery_discharging">جاري التفريغ</string>
     <string name="volume_muted_desc">مكتوم. انقر لإلغاء الكتم.</string>

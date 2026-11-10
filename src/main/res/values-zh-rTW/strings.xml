@@ -115,7 +115,6 @@
   <string name="mouse_receiver_plugin_name">滑鼠接收器</string>
   <string name="mouse_receiver_no_permissions">若要遠端接收觸控輸入，您必須給予輔助功能權限</string>
   <string name="mouse_keyboard_receiver_service_description">接收遠端滑鼠移動與鍵盤輸入</string>
-  <string name="view_status_title">狀態</string>
   <string name="battery_status_format">電池：%d%%</string>
   <string name="battery_status_low_format">電池：%d%% 低電量</string>
   <string name="battery_status_charging_format">電池：%d%% 充電中</string>
@@ -278,10 +277,8 @@
   <string name="findmyphone_found">找到裝置</string>
   <string name="open">開啟</string>
   <string name="close">關閉</string>
-  <string name="plugins_need_permission">部份的外掛程式需要權限才能運作（點擊以取得更多資訊）</string>
   <string name="permission_explanation">這外掛程式需要權限以運作</string>
   <string name="optional_permission_explanation">您必須給予額外權限才能啟用所有功能</string>
-  <string name="plugins_need_optional_permission">某些外掛程式由於缺乏權限而功能被停用（點擊以了解更多）：</string>
   <string name="share_optional_permission_explanation">要接收檔案您必須允許存取儲存裝置</string>
   <string name="share_notifications_explanation">要能夠看到傳送或接收檔案時的進度您必須允許通知</string>
   <string name="telepathy_permission_explanation">要從電腦端傳送和讀取簡訊，您必須給予簡訊權限</string>
@@ -476,9 +473,6 @@
     <string name="manage_plugins_back">返回儀表板</string>
     <string name="now_playing">現正播放</string>
     <string name="permission_badge">權限</string>
-    <string name="notification_sync_direction_format">%1$s → 僅 %2$s</string>
-    <string name="this_device">此裝置</string>
-    <string name="ring_device_format">讓 %1$s 響鈴</string>
     <string name="battery_charging">充電中</string>
     <string name="battery_discharging">放電中</string>
     <string name="volume_muted_desc">已靜音。輕觸以取消靜音。</string>
