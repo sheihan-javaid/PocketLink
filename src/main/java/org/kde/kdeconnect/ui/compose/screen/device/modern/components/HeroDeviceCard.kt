@@ -14,13 +14,17 @@ import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -35,29 +39,22 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import org.kde.kdeconnect.ui.compose.KdeSpacing
+import androidx.compose.ui.unit.sp
 import org.kde.kdeconnect.ui.compose.screen.device.modern.HeroUiState
 import org.kde.kdeconnect.ui.compose.screen.device.modern.LocalDashboardTokens
 import org.kde.kdeconnect_tp.R
 
 /**
- * Compact two-column Connected MacBook Dashboard Card.
- *
- * Left column: Device identity (laptop preview icon, device name, connection status)
- * Right column: Live device info (battery gauge/charging animation, network name)
+ * Compact connected-device card with desktop preview, identity, network, and battery state.
  */
 @Composable
 fun HeroDeviceCard(
@@ -90,118 +87,111 @@ fun HeroDeviceCard(
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp, vertical = 12.dp),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
+            horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            // -------------------------------------------------------------
-            // Left Column: Device Identity (compact, vertically aligned)
-            // -------------------------------------------------------------
+            DesktopPreviewThumbnail(
+                modifier = Modifier.width(88.dp)
+            )
+
             Column(
                 modifier = Modifier.weight(1f),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(6.dp)
+                horizontalAlignment = Alignment.Start,
+                verticalArrangement = Arrangement.spacedBy(4.dp)
             ) {
-                // Existing laptop preview icon at the top
-                MacDesktopPreview(
-                    deviceName = hero.deviceName,
-                    isConnected = hero.isConnected,
-                    previewWidth = 98.dp
-                )
-
-                // Device name directly underneath
                 Text(
                     text = hero.deviceName,
-                    style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
+                    style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.SemiBold),
+                    color = tokens.textPrimary,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
-                    textAlign = TextAlign.Center,
                     modifier = Modifier.semantics { heading() }
                 )
 
-                // Connection status below name: Green + "Connected" / Soft Red + "Disconnected"
                 val statusLabel = if (hero.isConnected) {
                     stringResource(R.string.device_discovery_connected)
                 } else {
                     stringResource(R.string.device_disconnected)
                 }
                 val statusDotColor = if (hero.isConnected) {
-                    MaterialTheme.colorScheme.tertiary.copy(alpha = dotAlpha)
+                    tokens.statusConnectedText.copy(alpha = dotAlpha)
                 } else {
-                    MaterialTheme.colorScheme.error
+                    tokens.statusDisconnectedText
                 }
                 val statusTextColor = if (hero.isConnected) {
-                    MaterialTheme.colorScheme.onTertiaryContainer
+                    tokens.statusConnectedText
                 } else {
-                    MaterialTheme.colorScheme.onErrorContainer
+                    tokens.statusDisconnectedText
                 }
-                val statusBgColor = if (hero.isConnected) {
-                    MaterialTheme.colorScheme.tertiaryContainer
-                } else {
-                    MaterialTheme.colorScheme.errorContainer
-                }
-
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(5.dp),
+                    horizontalArrangement = Arrangement.spacedBy(6.dp),
                     modifier = Modifier
                         .semantics { contentDescription = statusLabel }
-                        .clip(RoundedCornerShape(8.dp))
-                        .background(statusBgColor)
-                        .padding(horizontal = 8.dp, vertical = 3.dp)
                 ) {
                     Box(
                         modifier = Modifier
-                            .size(6.dp)
+                            .size(8.dp)
                             .clip(CircleShape)
                             .background(statusDotColor)
                     )
                     Text(
                         text = statusLabel,
-                        style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.SemiBold),
+                        style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.SemiBold),
                         color = statusTextColor,
                         maxLines = 1
                     )
                 }
+
+                val networkName = hero.networkTypes.firstOrNull()
+                    ?.takeIf { it.isNotBlank() && it != "<unknown ssid>" }
+                    ?: stringResource(R.string.network_name_unavailable)
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(6.dp),
+                    modifier = Modifier.semantics { contentDescription = networkName }
+                ) {
+                    Image(
+                        painter = painterResource(R.drawable.ic_wifi),
+                        contentDescription = null,
+                        colorFilter = ColorFilter.tint(tokens.networkChipText),
+                        modifier = Modifier.size(16.dp)
+                    )
+                    Text(
+                        text = networkName,
+                        style = MaterialTheme.typography.labelMedium,
+                        color = tokens.networkChipText,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                }
             }
 
-            // Subtle vertical divider between the two columns
-            Box(
-                modifier = Modifier
-                    .padding(horizontal = 8.dp)
-                    .width(0.5.dp)
-                    .height(96.dp)
-                    .background(tokens.divider)
-            )
-
-            // -------------------------------------------------------------
-            // Right Column: Live Device Information
-            // -------------------------------------------------------------
             Column(
-                modifier = Modifier.weight(1f),
+                modifier = Modifier.width(84.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(6.dp)
+                verticalArrangement = Arrangement.spacedBy(4.dp)
             ) {
-                // Existing battery/charging animation and charging status
                 if (hero.battery != null) {
                     BatteryRing(
                         battery = hero.battery,
-                        size = 62.dp,
-                        strokeWidth = 5.dp
+                        size = 72.dp,
+                        strokeWidth = 6.dp
                     )
                     Text(
-                        text = "${hero.battery.percent}% · " + if (hero.battery.isCharging) {
+                        text = if (hero.battery.isCharging) {
                             stringResource(R.string.battery_charging)
                         } else {
                             stringResource(R.string.battery_discharging)
                         },
-                        style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Medium),
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Medium),
+                        color = tokens.textSecondary,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
                 } else {
                     Box(
                         modifier = Modifier
-                            .size(62.dp)
+                            .size(72.dp)
                             .clip(CircleShape)
                             .background(tokens.deviceContainer),
                         contentAlignment = Alignment.Center
@@ -215,40 +205,87 @@ fun HeroDeviceCard(
                     }
                     Text(
                         text = stringResource(R.string.battery_not_available),
-                        style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Medium),
+                        style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Medium),
                         color = tokens.textTertiary,
                         maxLines = 1
                     )
                 }
+            }
+        }
+    }
+}
 
-                // Connected Wi-Fi/network name, when available
-                if (hero.networkTypes.isNotEmpty()) {
-                    val netType = hero.networkTypes.first()
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(5.dp),
+@Composable
+private fun DesktopPreviewThumbnail(modifier: Modifier = Modifier) {
+    val tokens = LocalDashboardTokens.current
+    val previewDescription = stringResource(R.string.desktop_preview_desc)
+    val shape = RoundedCornerShape(6.dp)
+
+    BoxWithConstraints(
+        modifier = modifier
+            .aspectRatio(16f / 10f)
+            .clip(shape)
+            .background(tokens.accentIndigo)
+            .border(1.dp, tokens.cardBorderBottom, shape)
+            .semantics { contentDescription = previewDescription }
+    ) {
+        val previewWidth = maxWidth
+        val previewHeight = maxHeight
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight(0.07f)
+                .background(tokens.accentSoftIndigo.copy(alpha = 0.75f))
+        )
+
+        Box(
+            modifier = Modifier
+                .offset(x = previewWidth * 0.09f, y = previewHeight * 0.2f)
+                .size(width = previewWidth * 0.52f, height = previewHeight * 0.58f)
+                .clip(RoundedCornerShape(3.dp))
+                .background(tokens.laptopTileBg)
+        ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight(0.12f)
+                    .background(tokens.cardBorderTop)
+            )
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth(0.84f)
+                    .align(Alignment.TopStart)
+                    .padding(start = previewWidth * 0.08f, top = previewHeight * 0.24f),
+                verticalArrangement = Arrangement.spacedBy(2.dp)
+            ) {
+                repeat(3) { index ->
+                    Box(
                         modifier = Modifier
-                            .semantics { contentDescription = netType }
-                            .clip(RoundedCornerShape(8.dp))
-                            .background(tokens.quickActionChipBg)
-                            .padding(horizontal = 8.dp, vertical = 3.dp)
-                    ) {
-                        Image(
-                            painter = painterResource(R.drawable.ic_wifi),
-                            contentDescription = null,
-                            colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurfaceVariant),
-                            modifier = Modifier.size(12.dp)
-                        )
-                        Text(
-                            text = netType,
-                            style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Medium),
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis
-                        )
-                    }
+                            .fillMaxWidth(if (index == 1) 0.6f else 0.82f)
+                            .fillMaxHeight(0.07f)
+                            .background(tokens.accentSoftIndigo.copy(alpha = 0.55f))
+                    )
                 }
             }
         }
+
+        Box(
+            modifier = Modifier
+                .align(Alignment.TopEnd)
+                .offset(x = -(previewWidth * 0.08f), y = previewHeight * 0.36f)
+                .size(width = previewWidth * 0.3f, height = previewHeight * 0.44f)
+                .clip(RoundedCornerShape(3.dp))
+                .background(tokens.accentSoftIndigo)
+        )
+
+        Box(
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .offset(y = -(previewHeight * 0.05f))
+                .fillMaxWidth(0.42f)
+                .fillMaxHeight(0.07f)
+                .clip(RoundedCornerShape(4.dp))
+                .background(tokens.laptopTileBg)
+        )
     }
 }

@@ -57,8 +57,8 @@ fun resolveEffectsTier(
 val LocalEffectsTier = staticCompositionLocalOf { EffectsTier.Full }
 
 /**
- * Pure Material 3 derived design tokens for the modern dashboard surfaces and components.
- * Zero hardcoded Color(0x...) hexes. All colors derive strictly from M3 ColorScheme roles.
+ * Pure Material 3 and sampled-palette design tokens for the modern dashboard surfaces and components.
+ * Matches reference screenshots with exact sampled hex values.
  */
 @Immutable
 data class DashboardDesignTokens(
@@ -75,6 +75,8 @@ data class DashboardDesignTokens(
     val textPrimary: Color,
     val textSecondary: Color,
     val textTertiary: Color,
+    val textDescription: Color = textSecondary,
+    val sectionHeaderLabel: Color = textSecondary,
     val shareContainer: Color,
     val onShareContainer: Color,
     val controlContainer: Color,
@@ -90,40 +92,120 @@ data class DashboardDesignTokens(
     val mediaScrim: Color,
     val quickActionChipBg: Color,
     val quickActionChipPressed: Color,
-    val quickActionStroke: Color
+    val quickActionStroke: Color,
+    // Screen gradient tokens
+    val backgroundGradientTop: Color = if (isDark) Color(0xFF191731) else Color(0xFFE9E7F7),
+    val backgroundGradientMid: Color = if (isDark) Color(0xFF0D0D1A) else Color(0xFFEEECF9),
+    val backgroundGradientBottom: Color = if (isDark) Color(0xFF07080D) else Color(0xFFF4F3FB),
+    // Accents
+    val accentIndigo: Color = if (isDark) Color(0xFF7C6CFF) else Color(0xFF6254C7),
+    val accentSoftIndigo: Color = if (isDark) Color(0xFFA99AEF) else Color(0xFF4338CA),
+    val accentCyan: Color = if (isDark) Color(0xFF3DDBFF) else Color(0xFF0F766E),
+    // Battery Ring
+    val ringArc: Color = Color(0xFF737BFF),
+    val ringCap: Color = Color(0xFF3DDBFF),
+    val ringTrack: Color = if (isDark) Color(0xFF1C1E2A) else Color(0xFFECEBFA),
+    val pauseGradientStart: Color = Color(0xFF7773FF),
+    val pauseGradientEnd: Color = Color(0xFF3FD6FF),
+    // Status indicators
+    val statusConnectedText: Color = if (isDark) Color(0xFF4ADE9F) else Color(0xFF166534),
+    val statusConnectedBg: Color = if (isDark) Color(0xFF172E2C) else Color(0xFFDCFCE7),
+    val statusDisconnectedText: Color = if (isDark) Color(0xFFFF6B7A) else Color(0xFF991B1B),
+    val statusDisconnectedBg: Color = if (isDark) Color(0xFF3C222C) else Color(0xFFFEF2F2),
+    val networkChipBg: Color = if (isDark) Color(0xFF2C2E36) else Color(0xFFF1F5F9),
+    val networkChipText: Color = if (isDark) Color(0xFF94A3B8) else Color(0xFF475569),
+    // Attention/Permission Banner
+    val permissionBannerBg: Color = if (isDark) Color(0xFF2E151B) else Color(0xFFFEF2F2),
+    val permissionBannerBorder: Color = if (isDark) Color(0xFF4D222B) else Color(0xFFFDBCBC),
+    val permissionBannerTitle: Color = if (isDark) Color(0xFFFF7A88) else Color(0xFF991B1B),
+    val permissionBannerSubtitle: Color = if (isDark) Color(0xFFE5989B) else Color(0xFFA83B3B),
+    // Laptop icon tile
+    val laptopTileBg: Color = if (isDark) Color(0xFF232445) else Color(0xFFECF0FF),
+    val laptopTileIcon: Color = if (isDark) Color(0xFF3DDBFF) else Color(0xFF6254C7),
+    // Quick-action tiles (tile fill / icon colour)
+    val qaSendFilesBg: Color = if (isDark) Color(0xFF232244) else Color(0xFFEBF0FF),
+    val qaSendFilesIcon: Color = if (isDark) Color(0xFFA99AEF) else Color(0xFF4338CA),
+    val qaClipboardBg: Color = if (isDark) Color(0xFF173644) else Color(0xFFEBFDF9),
+    val qaClipboardIcon: Color = if (isDark) Color(0xFF3DDBFF) else Color(0xFF0F766E),
+    val qaRemoteInputBg: Color = if (isDark) Color(0xFF312245) else Color(0xFFF4F2FF),
+    val qaRemoteInputIcon: Color = if (isDark) Color(0xFFE0A7FF) else Color(0xFF6D28D9),
+    val qaRingMacBg: Color = if (isDark) Color(0xFF3B2F22) else Color(0xFFFFF5E8),
+    val qaRingMacIcon: Color = if (isDark) Color(0xFFFFB547) else Color(0xFFC2410C),
+    val qaRunCommandBg: Color = if (isDark) Color(0xFF1A3733) else Color(0xFFEDFDF2),
+    val qaRunCommandIcon: Color = if (isDark) Color(0xFF4ADE9F) else Color(0xFF15803D),
+    val qaPresenterBg: Color = if (isDark) Color(0xFF3C222C) else Color(0xFFFDF2FF),
+    val qaPresenterIcon: Color = if (isDark) Color(0xFFFF6B7A) else Color(0xFFA21CAF),
+    // List-row icon tiles (tile / icon)
+    val rowShareBg: Color = if (isDark) Color(0xFF1F1E3C) else Color(0xFFF0FDFA),
+    val rowShareIcon: Color = if (isDark) Color(0xFFA99AEF) else Color(0xFF0F766E),
+    val rowControlBg: Color = if (isDark) Color(0xFF162F3C) else Color(0xFFF0FDFA),
+    val rowControlIcon: Color = if (isDark) Color(0xFF3DDBFF) else Color(0xFF0F766E),
+    val rowDeviceInfoBg: Color = if (isDark) Color(0xFF182F2E) else Color(0xFFF0FDFA),
+    val rowDeviceInfoIcon: Color = if (isDark) Color(0xFF4ADE9F) else Color(0xFF0F766E),
+    // Action pills
+    val actionPillBg: Color = if (isDark) Color(0xFF222238) else Color(0xFFEEF2FF),
+    val actionPillText: Color = if (isDark) Color(0xFFA99AEF) else Color(0xFF4338CA),
+    // Controls
+    val volumeChipBg: Color = if (isDark) Color(0xFF162E3A) else Color(0xFFECE8F6),
+    val volumeChipText: Color = if (isDark) Color(0xFF3DDBFF) else Color(0xFF6254C7),
+    val sliderFill: Color = if (isDark) Color(0xFF7C6CFF) else Color(0xFF6254C7),
+    val sliderTrack: Color = if (isDark) Color(0xFF133845) else Color(0xFFECE8F6),
+    val sliderThumbFill: Color = Color(0xFFFFFFFF),
+    val sliderThumbRing: Color = if (isDark) Color(0xFF3DDBFF) else Color(0xFF6254C7),
+    val toggleTrackOn: Color = if (isDark) Color(0xFF7C6CFF) else Color(0xFF6254C7),
+    val toggleThumbOn: Color = Color(0xFFFFFFFF),
+    val toggleTrackOff: Color = if (isDark) Color(0xFF232530) else Color(0xFFE6E0E9),
+    val toggleThumbOff: Color = if (isDark) Color(0xFF798598) else Color(0xFF8C909C),
+    val toggleBorderOff: Color = if (isDark) Color(0xFF2D2F37) else Color(0xFF8C909C),
+    val sectionHeaderCount: Color = if (isDark) Color(0xFF798598) else Color(0xFF6A7586),
+    val searchBarBg: Color = if (isDark) Color(0xFF0F111A) else Color(0xFFFFFFFF),
+    val searchBarBorder: Color = if (isDark) Color(0xFF2D2F37) else Color(0xFFE2E8F0),
+    val searchBarText: Color = if (isDark) Color(0xFFF1F5F9) else Color(0xFF0F172A),
+    val searchBarPlaceholder: Color = if (isDark) Color(0xFF798598) else Color(0xFF475569),
+    val searchBarFocusRing: Color = if (isDark) Color(0xFF7C6CFF) else Color(0xFF6254C7)
 )
 
 fun createDashboardTokens(colorScheme: ColorScheme, isDark: Boolean): DashboardDesignTokens {
+    val cardBackground = if (isDark) Color(0xFF0F111A) else Color(0xFFFFFFFF)
+    val cardBorder = if (isDark) Color(0xFF2D2F37) else Color(0xFFE2E8F0)
+    val textPrimary = if (isDark) Color(0xFFF1F5F9) else Color(0xFF0F172A)
+    val textSecondary = if (isDark) Color(0xFF94A3B8) else Color(0xFF475569)
+    val textDescription = if (isDark) Color(0xFF798598) else Color(0xFF64748B)
+    val sectionHeaderLabel = if (isDark) Color(0xFF778496) else Color(0xFF6A7586)
+    val divider = if (isDark) Color(0xFF2C2E36) else Color(0xFFE2E8F0)
+
     return DashboardDesignTokens(
         isDark = isDark,
-        pageBackground = if (isDark) colorScheme.surfaceContainerLowest else colorScheme.surfaceContainer,
-        cardBackground = if (isDark) colorScheme.surfaceContainer else colorScheme.surfaceContainerLowest,
-        cardElevated = if (isDark) colorScheme.surfaceContainerHigh else colorScheme.surface,
-        cardPressed = if (isDark) colorScheme.surfaceContainerHighest else colorScheme.surfaceContainerLow,
-        cardBorderTop = if (isDark) colorScheme.onSurface.copy(alpha = 0.14f) else colorScheme.onSurface.copy(alpha = 0.08f),
-        cardBorderBottom = colorScheme.outlineVariant.copy(alpha = if (isDark) 0.35f else 0.5f),
-        cardSheenTop = if (isDark) colorScheme.onSurface.copy(alpha = 0.05f) else colorScheme.surfaceBright.copy(alpha = 0.45f),
-        divider = colorScheme.outlineVariant.copy(alpha = if (isDark) 0.35f else 0.55f),
-        glow = colorScheme.primary.copy(alpha = if (isDark) 0.20f else 0.08f),
-        textPrimary = colorScheme.onSurface,
-        textSecondary = colorScheme.onSurfaceVariant,
-        textTertiary = colorScheme.outline,
-        shareContainer = colorScheme.primaryContainer,
-        onShareContainer = colorScheme.onPrimaryContainer,
-        controlContainer = colorScheme.secondaryContainer,
-        onControlContainer = colorScheme.onSecondaryContainer,
-        mediaContainer = colorScheme.tertiaryContainer,
-        onMediaContainer = colorScheme.onTertiaryContainer,
-        deviceContainer = colorScheme.surfaceVariant,
-        onDeviceContainer = colorScheme.onSurfaceVariant,
-        permissionBadgeBg = colorScheme.errorContainer,
-        permissionBadgeText = colorScheme.onErrorContainer,
-        optionalBadgeBg = colorScheme.secondaryContainer,
-        optionalBadgeText = colorScheme.onSecondaryContainer,
-        mediaScrim = colorScheme.surfaceContainerHigh.copy(alpha = 0.82f),
-        quickActionChipBg = if (isDark) colorScheme.surfaceContainerHigh else colorScheme.surfaceContainerLowest,
-        quickActionChipPressed = if (isDark) colorScheme.surfaceContainerHighest else colorScheme.surfaceContainerLow,
-        quickActionStroke = colorScheme.outlineVariant.copy(alpha = if (isDark) 0.4f else 0.6f)
+        pageBackground = if (isDark) Color(0xFF0D0D1A) else Color(0xFFEEECF9),
+        cardBackground = cardBackground,
+        cardElevated = cardBackground,
+        cardPressed = if (isDark) Color(0xFF141724) else Color(0xFFF1F5F9),
+        cardBorderTop = cardBorder,
+        cardBorderBottom = cardBorder,
+        cardSheenTop = Color.Transparent, // No sheen or shadow per prompt
+        divider = divider,
+        glow = if (isDark) Color(0x30191731) else Color(0x20E9E7F7),
+        textPrimary = textPrimary,
+        textSecondary = textSecondary,
+        textTertiary = textDescription,
+        textDescription = textDescription,
+        sectionHeaderLabel = sectionHeaderLabel,
+        shareContainer = if (isDark) Color(0xFF1F1E3C) else Color(0xFFF0FDFA),
+        onShareContainer = if (isDark) Color(0xFFA99AEF) else Color(0xFF0F766E),
+        controlContainer = if (isDark) Color(0xFF162F3C) else Color(0xFFF0FDFA),
+        onControlContainer = if (isDark) Color(0xFF3DDBFF) else Color(0xFF0F766E),
+        mediaContainer = if (isDark) Color(0xFF1E1D3A) else Color(0xFFEEF2FF),
+        onMediaContainer = if (isDark) Color(0xFFA99AEF) else Color(0xFF4338CA),
+        deviceContainer = if (isDark) Color(0xFF182F2E) else Color(0xFFF0FDFA),
+        onDeviceContainer = if (isDark) Color(0xFF4ADE9F) else Color(0xFF0F766E),
+        permissionBadgeBg = if (isDark) Color(0xFF2E151B) else Color(0xFFFEF2F2),
+        permissionBadgeText = if (isDark) Color(0xFFFF7A88) else Color(0xFF991B1B),
+        optionalBadgeBg = if (isDark) Color(0xFF2D2538) else Color(0xFFF3E8FC),
+        optionalBadgeText = if (isDark) Color(0xFFDABCF3) else Color(0xFF6D28D9),
+        mediaScrim = if (isDark) Color(0xD00F111A) else Color(0xD0FFFFFF),
+        quickActionChipBg = if (isDark) Color(0xFF1A1C28) else Color(0xFFF8FAFC),
+        quickActionChipPressed = if (isDark) Color(0xFF242738) else Color(0xFFE2E8F0),
+        quickActionStroke = cardBorder
     )
 }
 

@@ -52,6 +52,7 @@ import androidx.compose.ui.unit.dp
 import org.kde.kdeconnect.ui.compose.KdeSpacing
 import org.kde.kdeconnect.ui.compose.screen.device.modern.AttentionUiState
 import org.kde.kdeconnect.ui.compose.screen.device.modern.DashboardShapes
+import org.kde.kdeconnect.ui.compose.screen.device.modern.LocalDashboardTokens
 import org.kde.kdeconnect.ui.compose.screen.device.modern.PermissionSeverity
 import org.kde.kdeconnect_tp.R
 
@@ -63,25 +64,13 @@ fun AttentionBanner(
 ) {
     val isDark = isDarkThemeMode()
     val isReducedMotion = isReducedMotionMode()
+    val tokens = LocalDashboardTokens.current
     val isRequired = attention.severity == PermissionSeverity.Required
 
-    val containerColor = if (isRequired) {
-        MaterialTheme.colorScheme.errorContainer
-    } else {
-        MaterialTheme.colorScheme.secondaryContainer
-    }
-
-    val contentColor = if (isRequired) {
-        MaterialTheme.colorScheme.onErrorContainer
-    } else {
-        MaterialTheme.colorScheme.onSecondaryContainer
-    }
-
-    val strokeColor = if (isRequired) {
-        MaterialTheme.colorScheme.error.copy(alpha = 0.4f)
-    } else {
-        MaterialTheme.colorScheme.secondary.copy(alpha = 0.4f)
-    }
+    val containerColor = if (isRequired) tokens.permissionBannerBg else tokens.optionalBadgeBg
+    val titleColor = if (isRequired) tokens.permissionBannerTitle else tokens.optionalBadgeText
+    val subtitleColor = if (isRequired) tokens.permissionBannerSubtitle else tokens.optionalBadgeText.copy(alpha = 0.85f)
+    val strokeColor = if (isRequired) tokens.permissionBannerBorder else tokens.optionalBadgeText.copy(alpha = 0.35f)
 
     val infiniteTransition = rememberInfiniteTransition(label = "attentionPulse")
     val pulseScale by if (!isReducedMotion) {
@@ -127,13 +116,13 @@ fun AttentionBanner(
                             scaleY = pulseScale
                         }
                         .clip(RoundedCornerShape(12.dp))
-                        .background(contentColor.copy(alpha = if (isDark) 0.16f else 0.12f)),
+                        .background(titleColor.copy(alpha = if (isDark) 0.16f else 0.12f)),
                     contentAlignment = Alignment.Center
                 ) {
                     Icon(
                         imageVector = if (isRequired) Icons.Default.Warning else Icons.Default.Info,
                         contentDescription = null,
-                        tint = contentColor,
+                        tint = titleColor,
                         modifier = Modifier.size(24.dp)
                     )
                 }
@@ -155,14 +144,14 @@ fun AttentionBanner(
                             stringResource(R.string.attention_optional_permissions, attention.optionalCount)
                         },
                         style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold),
-                        color = contentColor,
+                        color = titleColor,
                         maxLines = 2,
                         softWrap = true
                     )
                     Text(
                         text = stringResource(R.string.attention_tap_to_review),
                         style = MaterialTheme.typography.bodySmall,
-                        color = contentColor.copy(alpha = 0.85f),
+                        color = subtitleColor,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
@@ -174,7 +163,7 @@ fun AttentionBanner(
             Icon(
                 imageVector = Icons.AutoMirrored.Filled.ArrowForward,
                 contentDescription = null,
-                tint = contentColor,
+                tint = titleColor,
                 modifier = Modifier.size(20.dp)
             )
         }

@@ -20,6 +20,7 @@ import androidx.compose.ui.test.performScrollTo
 import androidx.compose.ui.test.performTouchInput
 import androidx.compose.ui.test.swipeUp
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
@@ -63,6 +64,81 @@ class ModernConnectedDeviceDashboardTest {
         composeRule.onNodeWithContentDescription("Connected").assertIsDisplayed()
         composeRule.onNodeWithText("55%").assertIsDisplayed()
         composeRule.onAllNodesWithText("Wi-Fi (5 GHz)").onFirst().assertIsDisplayed()
+    }
+
+    @Test
+    fun batteryLabelUpdatesWhenChargingStateChanges() {
+        val isCharging = mutableStateOf(false)
+        val initialState = DashboardFixtures.fullFeaturedState
+
+        composeRule.setContent {
+            ModernKdeTheme(context = composeRule.activity) {
+                val hero = initialState.hero.copy(
+                    battery = initialState.hero.battery?.copy(isCharging = isCharging.value)
+                )
+                ModernConnectedDeviceDashboard(
+                    state = initialState.copy(hero = hero),
+                    actions = DashboardFixtures.mockActions,
+                    pluginModelsForManagePage = DashboardFixtures.samplePluginModels,
+                    onPluginEnabledChange = { _, _ -> },
+                    onButtonClick = {},
+                    onRequiredPermissionClick = {},
+                    onOptionalPermissionClick = {}
+                )
+            }
+        }
+
+        composeRule.onNodeWithText("Discharging").assertIsDisplayed()
+        composeRule.runOnIdle { isCharging.value = true }
+        composeRule.onNodeWithText("Charging").assertIsDisplayed()
+    }
+
+    @Test
+    fun heroShowsNetworkFallbackWhenNetworkNameIsUnavailable() {
+        val initialState = DashboardFixtures.fullFeaturedState
+
+        composeRule.setContent {
+            ModernKdeTheme(context = composeRule.activity) {
+                ModernConnectedDeviceDashboard(
+                    state = initialState.copy(
+                        hero = initialState.hero.copy(networkTypes = emptyList())
+                    ),
+                    actions = DashboardFixtures.mockActions,
+                    pluginModelsForManagePage = DashboardFixtures.samplePluginModels,
+                    onPluginEnabledChange = { _, _ -> },
+                    onButtonClick = {},
+                    onRequiredPermissionClick = {},
+                    onOptionalPermissionClick = {}
+                )
+            }
+        }
+
+        composeRule.onNodeWithText("Network unavailable").assertIsDisplayed()
+    }
+
+    @Test
+    fun mediaAndAudioSectionAppearsAboveShareAndTransfer() {
+        composeRule.setContent {
+            ModernKdeTheme(context = composeRule.activity) {
+                ModernConnectedDeviceDashboard(
+                    state = DashboardFixtures.fullFeaturedState,
+                    actions = DashboardFixtures.mockActions,
+                    pluginModelsForManagePage = DashboardFixtures.samplePluginModels,
+                    onPluginEnabledChange = { _, _ -> },
+                    onButtonClick = {},
+                    onRequiredPermissionClick = {},
+                    onOptionalPermissionClick = {}
+                )
+            }
+        }
+
+        val mediaBounds = composeRule.onNodeWithText("MEDIA & AUDIO")
+            .performScrollTo()
+            .getBoundsInRoot()
+        val shareBounds = composeRule.onNodeWithText("SHARE & TRANSFER")
+            .performScrollTo()
+            .getBoundsInRoot()
+        assertTrue("Media & Audio should appear before Share & Transfer", mediaBounds.top < shareBounds.top)
     }
 
     @Test

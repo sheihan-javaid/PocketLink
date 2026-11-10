@@ -78,7 +78,7 @@ fun AuroraGlassCard(
 
     val containerColor = if (isElevated) tokens.cardElevated else tokens.cardBackground
     val border = dashboardCardBorder(tokens, tier)
-    val elevation: Dp = if (isDark) 0.dp else if (isElevated) 2.dp else 1.dp
+    val elevation: Dp = if (isDark) 0.dp else if (isElevated) 1.dp else 0.dp
 
     Card(
         modifier = modifier
@@ -96,27 +96,9 @@ fun AuroraGlassCard(
         colors = CardDefaults.cardColors(containerColor = containerColor),
         elevation = CardDefaults.cardElevation(defaultElevation = elevation)
     ) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .drawBehind {
-                    if (tier != EffectsTier.Minimal) {
-                        // Subtle top gloss sheen (vertical fade over top 40% of the card)
-                        drawRect(
-                            brush = Brush.verticalGradient(
-                                colors = listOf(tokens.cardSheenTop, Color.Transparent),
-                                startY = 0f,
-                                endY = size.height * 0.40f
-                            ),
-                            size = Size(size.width, size.height * 0.40f)
-                        )
-                    }
-                }
-        ) {
-            Column(
-                modifier = Modifier.fillMaxWidth(),
-                content = content
-            )
-        }
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            content = content
+        )
     }
 }

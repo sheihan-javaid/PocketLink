@@ -133,7 +133,7 @@ fun ContextualVolumeContent(
             Box(
                 modifier = Modifier
                     .clip(RoundedCornerShape(8.dp))
-                    .background(tokens.shareContainer)
+                    .background(tokens.volumeChipBg)
                     .padding(horizontal = 8.dp, vertical = 3.dp)
             ) {
                 Text(
@@ -142,7 +142,7 @@ fun ContextualVolumeContent(
                         fontWeight = FontWeight.Bold,
                         fontFeatureSettings = "tnum"
                     ),
-                    color = tokens.onShareContainer
+                    color = tokens.volumeChipText
                 )
             }
         }
@@ -166,8 +166,8 @@ fun ContextualVolumeContent(
                     modifier = Modifier
                         .size(20.dp)
                         .clip(CircleShape)
-                        .background(MaterialTheme.colorScheme.surface)
-                        .border(2.5.dp, MaterialTheme.colorScheme.primary, CircleShape)
+                        .background(tokens.sliderThumbFill)
+                        .border(2.5.dp, tokens.sliderThumbRing, CircleShape)
                 )
             },
             track = { sliderState ->
@@ -175,8 +175,8 @@ fun ContextualVolumeContent(
                     sliderState = sliderState,
                     modifier = Modifier.height(6.dp),
                     colors = SliderDefaults.colors(
-                        activeTrackColor = MaterialTheme.colorScheme.primary,
-                        inactiveTrackColor = MaterialTheme.colorScheme.surfaceVariant
+                        activeTrackColor = tokens.sliderFill,
+                        inactiveTrackColor = tokens.sliderTrack
                     ),
                     drawStopIndicator = null
                 )

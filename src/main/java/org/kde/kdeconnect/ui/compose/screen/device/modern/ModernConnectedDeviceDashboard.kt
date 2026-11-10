@@ -59,10 +59,12 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Switch
+import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -114,6 +116,7 @@ fun ModernConnectedDeviceDashboard(
     onOptionalPermissionClick: (pluginKey: String) -> Unit,
     pairingSucceeded: Boolean = false,
     onDismissPairingSuccess: () -> Unit = {},
+    onManagingPluginsChange: (Boolean) -> Unit = {},
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
@@ -139,6 +142,10 @@ fun ModernConnectedDeviceDashboard(
     ) {
         var isManagingPlugins by remember { mutableStateOf(false) }
 
+        LaunchedEffect(isManagingPlugins) {
+            onManagingPluginsChange(isManagingPlugins)
+        }
+
         if (isManagingPlugins) {
             BackHandler { isManagingPlugins = false }
             ManagePluginsPage(
@@ -151,22 +158,20 @@ fun ModernConnectedDeviceDashboard(
                 modifier = modifier
             )
         } else {
-            val topInset = WindowInsets.statusBars.asPaddingValues().calculateTopPadding()
             val bottomInset = WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding()
 
             Box(
                 modifier = modifier
                     .fillMaxSize()
-                    .drawBehind {
-                        drawRect(tokens.pageBackground)
-                        drawRect(
-                            brush = Brush.radialGradient(
-                                colors = listOf(tokens.glow, Color.Transparent),
-                                center = Offset(size.width * 0.15f, size.height * 0.1f),
-                                radius = size.maxDimension * 0.85f
+                    .background(
+                        Brush.verticalGradient(
+                            listOf(
+                                tokens.backgroundGradientTop,
+                                tokens.backgroundGradientMid,
+                                tokens.backgroundGradientBottom
                             )
                         )
-                    }
+                    )
             ) {
                 PullToRefreshBox(
                     isRefreshing = state.isRefreshing,
@@ -186,8 +191,8 @@ fun ModernConnectedDeviceDashboard(
                                 .padding(
                                     start = KdeSpacing.contentHorizontal,
                                     end = KdeSpacing.contentHorizontal,
-                                    top = KdeSpacing.medium + topInset,
-                                    bottom = 48.dp + bottomInset
+                                    top = 10.dp,
+                                    bottom = 32.dp + bottomInset
                                 ),
                             verticalArrangement = Arrangement.spacedBy(12.dp)
                         ) {
@@ -226,27 +231,7 @@ fun ModernConnectedDeviceDashboard(
                                 // One UI-Style 5 Grouped Cards Layout
                                 // -------------------------------------------------------------
 
-                                // Card 1: Share and Transfer
-                                val shareSection = state.sections.firstOrNull { it.category == PluginCategory.ShareTransfer }
-                                if (shareSection != null && shareSection.rows.isNotEmpty()) {
-                                    ServiceSection(
-                                        section = shareSection,
-                                        onPluginButtonClick = actions::onPluginButtonClick,
-                                        onPermissionClick = actions::onPermissionItemClick
-                                    )
-                                }
-
-                                // Card 2: Control Computer
-                                val controlSection = state.sections.firstOrNull { it.category == PluginCategory.ControlComputer }
-                                if (controlSection != null && controlSection.rows.isNotEmpty()) {
-                                    ServiceSection(
-                                        section = controlSection,
-                                        onPluginButtonClick = actions::onPluginButtonClick,
-                                        onPermissionClick = actions::onPermissionItemClick
-                                    )
-                                }
-
-                                // Card 3: Media and Audio (integrating contextual media controls & volume slider)
+                                // Card 1: Media and Audio (integrating contextual media controls & volume slider)
                                 val mediaSection = state.sections.firstOrNull { it.category == PluginCategory.MediaAudio }
                                     ?: ServiceSectionUiModel(
                                         category = PluginCategory.MediaAudio,
@@ -267,6 +252,26 @@ fun ModernConnectedDeviceDashboard(
                                     onVolumeChange = actions::onVolumeChange,
                                     onVolumeToggleMute = actions::onVolumeToggleMute
                                 )
+
+                                // Card 2: Share and Transfer
+                                val shareSection = state.sections.firstOrNull { it.category == PluginCategory.ShareTransfer }
+                                if (shareSection != null && shareSection.rows.isNotEmpty()) {
+                                    ServiceSection(
+                                        section = shareSection,
+                                        onPluginButtonClick = actions::onPluginButtonClick,
+                                        onPermissionClick = actions::onPermissionItemClick
+                                    )
+                                }
+
+                                // Card 3: Control Computer
+                                val controlSection = state.sections.firstOrNull { it.category == PluginCategory.ControlComputer }
+                                if (controlSection != null && controlSection.rows.isNotEmpty()) {
+                                    ServiceSection(
+                                        section = controlSection,
+                                        onPluginButtonClick = actions::onPluginButtonClick,
+                                        onPermissionClick = actions::onPermissionItemClick
+                                    )
+                                }
 
                                 // Card 4: Device Information
                                 val deviceSection = state.sections.firstOrNull { it.category == PluginCategory.DeviceInfo }
@@ -291,21 +296,6 @@ fun ModernConnectedDeviceDashboard(
                     }
                 }
 
-                // Top Status-Bar Scrim/Fade so scrolling content never collides with status bar icons
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(topInset + 14.dp)
-                        .align(Alignment.TopCenter)
-                        .background(
-                            Brush.verticalGradient(
-                                0.0f to tokens.pageBackground,
-                                0.7f to tokens.pageBackground.copy(alpha = 0.85f),
-                                1.0f to Color.Transparent
-                            )
-                        )
-                )
-
                 // Pairing Success Banner (Animated top overlay when pairing succeeds)
                 if (pairingSucceeded) {
                     PairingSuccessBanner(
@@ -313,7 +303,7 @@ fun ModernConnectedDeviceDashboard(
                         onDismiss = onDismissPairingSuccess,
                         modifier = Modifier
                             .align(Alignment.TopCenter)
-                            .padding(top = topInset + KdeSpacing.medium, start = KdeSpacing.medium, end = KdeSpacing.medium)
+                            .padding(top = 12.dp, start = KdeSpacing.medium, end = KdeSpacing.medium)
                     )
                 }
             }
@@ -362,41 +352,27 @@ fun ManagePluginsPage(
     val navBottomInset = WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding()
     val tokens = LocalDashboardTokens.current
 
-    // Sticky header: draw the page glow behind BOTH header and list (one background layer, no seam),
-    // with the header transparent over it and a ~24dp fade matching background color at that y.
+    // Manage Plugins page uses full screen gradient background
     Box(
         modifier = modifier
             .fillMaxSize()
-            .drawBehind {
-                drawRect(tokens.pageBackground)
-                drawRect(
-                    brush = Brush.radialGradient(
-                        colors = listOf(tokens.glow, Color.Transparent),
-                        center = Offset(size.width * 0.15f, size.height * 0.1f),
-                        radius = size.maxDimension * 0.85f
+            .background(
+                brush = Brush.verticalGradient(
+                    colors = listOf(
+                        tokens.backgroundGradientTop,
+                        tokens.backgroundGradientMid,
+                        tokens.backgroundGradientBottom
                     )
                 )
-            }
+            )
     ) {
-        // Compact sticky header content height: status bar + compact header (42dp) + compact search field (42dp)
-        val headerContentHeight = topInset + 86.dp
+        // Sticky header content height: topInset + Back title row (~44dp) + Search field (~52dp) + bottom buffer (~6dp)
+        val headerContentHeight = topInset + 102.dp
 
-        // 1. Scrollable Content Layer (underneath the sticky header and 16dp fade)
+        // 1. Scrollable Content Layer (underneath sticky header)
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .graphicsLayer { compositingStrategy = CompositingStrategy.Offscreen }
-                .drawWithContent {
-                    drawContent()
-                    drawRect(
-                        brush = Brush.verticalGradient(
-                            colors = listOf(Color.Transparent, Color.Black),
-                            startY = headerContentHeight.toPx(),
-                            endY = (headerContentHeight + 16.dp).toPx()
-                        ),
-                        blendMode = BlendMode.DstIn
-                    )
-                }
                 .verticalScroll(rememberScrollState())
         ) {
             Column(
@@ -491,7 +467,7 @@ fun ManagePluginsPage(
                                         letterSpacing = 1.2.sp,
                                         fontWeight = FontWeight.Bold
                                     ),
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.8f),
+                                    color = tokens.sectionHeaderLabel,
                                     modifier = Modifier.semantics { heading() }
                                 )
                                 Text(
@@ -500,7 +476,7 @@ fun ManagePluginsPage(
                                         fontWeight = FontWeight.Medium,
                                         fontFeatureSettings = "tnum"
                                     ),
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f)
+                                    color = tokens.sectionHeaderCount
                                 )
                             }
 
@@ -534,12 +510,13 @@ fun ManagePluginsPage(
             modifier = Modifier
                 .fillMaxWidth()
                 .align(Alignment.TopCenter)
+                .background(tokens.backgroundGradientTop)
         ) {
             // Compact Header Row (replaces tall TopAppBar, slightly reduced heading size)
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = topInset + 4.dp, start = 8.dp, end = 16.dp, bottom = 2.dp),
+                    .padding(top = topInset + 4.dp, start = 8.dp, end = 16.dp, bottom = 4.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 IconButton(
@@ -549,17 +526,19 @@ fun ManagePluginsPage(
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                         contentDescription = stringResource(R.string.manage_plugins_back),
+                        tint = tokens.textPrimary,
                         modifier = Modifier.size(20.dp)
                     )
                 }
                 Spacer(modifier = Modifier.width(6.dp))
                 Text(
                     text = stringResource(R.string.manage_plugins_title),
-                    style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold)
+                    style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold),
+                    color = tokens.textPrimary
                 )
             }
 
-            // Compact Manage Plugins Search Bar (38dp pill, refined purple/violet focus border)
+            // Compact Manage Plugins Search Bar (44dp pill, refined focus border)
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -572,9 +551,9 @@ fun ManagePluginsPage(
                     onValueChange = { searchQuery = it },
                     singleLine = true,
                     textStyle = MaterialTheme.typography.bodyMedium.copy(
-                        color = tokens.textPrimary
+                        color = tokens.searchBarText
                     ),
-                    cursorBrush = SolidColor(MaterialTheme.colorScheme.primary),
+                    cursorBrush = SolidColor(tokens.searchBarFocusRing),
                     modifier = Modifier
                         .fillMaxWidth()
                         .onFocusChanged { isSearchFocused = it.isFocused },
@@ -582,13 +561,13 @@ fun ManagePluginsPage(
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .height(38.dp)
-                                .clip(RoundedCornerShape(19.dp))
-                                .background(tokens.cardBackground)
+                                .height(44.dp)
+                                .clip(RoundedCornerShape(22.dp))
+                                .background(tokens.searchBarBg)
                                 .border(
                                     width = if (isSearchFocused) 1.5.dp else 1.dp,
-                                    color = if (isSearchFocused) MaterialTheme.colorScheme.primary else tokens.cardBorderBottom,
-                                    shape = RoundedCornerShape(19.dp)
+                                    color = if (isSearchFocused) tokens.searchBarFocusRing else tokens.searchBarBorder,
+                                    shape = RoundedCornerShape(22.dp)
                                 )
                                 .padding(horizontal = 14.dp),
                             verticalAlignment = Alignment.CenterVertically
@@ -596,8 +575,8 @@ fun ManagePluginsPage(
                             Icon(
                                 imageVector = Icons.Default.Search,
                                 contentDescription = stringResource(R.string.manage_plugins_search_description),
-                                tint = if (isSearchFocused) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f),
-                                modifier = Modifier.size(16.dp)
+                                tint = if (isSearchFocused) tokens.searchBarFocusRing else tokens.searchBarPlaceholder,
+                                modifier = Modifier.size(18.dp)
                             )
                             Spacer(modifier = Modifier.width(8.dp))
                             Box(modifier = Modifier.weight(1f)) {
@@ -605,7 +584,7 @@ fun ManagePluginsPage(
                                     Text(
                                         text = stringResource(R.string.manage_plugins_search_hint),
                                         style = MaterialTheme.typography.bodyMedium,
-                                        color = tokens.textSecondary.copy(alpha = 0.65f)
+                                        color = tokens.searchBarPlaceholder
                                     )
                                 }
                                 innerTextField()
@@ -621,8 +600,8 @@ fun ManagePluginsPage(
                                     Icon(
                                         imageVector = Icons.Default.Clear,
                                         contentDescription = stringResource(R.string.manage_plugins_clear_search),
-                                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                                        modifier = Modifier.size(15.dp)
+                                        tint = tokens.searchBarPlaceholder,
+                                        modifier = Modifier.size(16.dp)
                                     )
                                 }
                             }
@@ -631,14 +610,14 @@ fun ManagePluginsPage(
                 )
             }
 
-            // ~24dp fade matching background color at that y so rows dissolve seamlessly
+            // Subtle 6dp fade to dissolve rows cleanly without hard cutoffs
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(24.dp)
+                    .height(6.dp)
                     .background(
                         brush = Brush.verticalGradient(
-                            colors = listOf(tokens.pageBackground, Color.Transparent)
+                            colors = listOf(tokens.backgroundGradientTop, Color.Transparent)
                         )
                     )
             )
@@ -694,10 +673,10 @@ private fun CompactManagePluginRow(
     val tokens = LocalDashboardTokens.current
     val iconRes = getPluginIconRes(plugin.pluginKey)
     val (iconBg, iconTint) = when (category) {
-        PluginCategory.ShareTransfer -> Pair(tokens.shareContainer, tokens.onShareContainer)
-        PluginCategory.ControlComputer -> Pair(tokens.controlContainer, tokens.onControlContainer)
+        PluginCategory.ShareTransfer -> Pair(tokens.rowShareBg, tokens.rowShareIcon)
+        PluginCategory.ControlComputer -> Pair(tokens.rowControlBg, tokens.rowControlIcon)
         PluginCategory.MediaAudio -> Pair(tokens.mediaContainer, tokens.onMediaContainer)
-        PluginCategory.DeviceInfo -> Pair(tokens.deviceContainer, tokens.onDeviceContainer)
+        PluginCategory.DeviceInfo -> Pair(tokens.rowDeviceInfoBg, tokens.rowDeviceInfoIcon)
     }
 
     Column(
@@ -754,10 +733,18 @@ private fun CompactManagePluginRow(
 
             Spacer(modifier = Modifier.width(KdeSpacing.small))
 
-            // Switch toggle
+            // Switch toggle styled with exact tokens
             Switch(
                 checked = plugin.isEnabled,
-                onCheckedChange = onEnabledChange
+                onCheckedChange = onEnabledChange,
+                colors = SwitchDefaults.colors(
+                    checkedThumbColor = tokens.toggleThumbOn,
+                    checkedTrackColor = tokens.toggleTrackOn,
+                    checkedBorderColor = Color.Transparent,
+                    uncheckedThumbColor = tokens.toggleThumbOff,
+                    uncheckedTrackColor = tokens.toggleTrackOff,
+                    uncheckedBorderColor = tokens.toggleBorderOff
+                )
             )
         }
 
@@ -807,8 +794,8 @@ private fun CompactManagePluginRow(
                         onClick = { onButtonClick(button) },
                         contentPadding = PaddingValues(horizontal = 10.dp, vertical = 2.dp),
                         colors = ButtonDefaults.filledTonalButtonColors(
-                            containerColor = tokens.shareContainer,
-                            contentColor = tokens.onShareContainer
+                            containerColor = tokens.actionPillBg,
+                            contentColor = tokens.actionPillText
                         ),
                         modifier = Modifier.height(30.dp)
                     ) {

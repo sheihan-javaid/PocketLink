@@ -100,7 +100,7 @@ fun ServiceSection(
                     letterSpacing = 1.2.sp,
                     fontWeight = FontWeight.Bold
                 ),
-                color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.85f),
+                color = tokens.sectionHeaderLabel,
                 modifier = Modifier.semantics { heading() }
             )
             Text(
@@ -109,7 +109,7 @@ fun ServiceSection(
                     fontWeight = FontWeight.Medium,
                     fontFeatureSettings = "tnum"
                 ),
-                color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.65f)
+                color = tokens.sectionHeaderLabel
             )
         }
 
@@ -179,10 +179,10 @@ private fun ServiceRow(
     val tokens = LocalDashboardTokens.current
 
     val (iconBg, iconTint) = when (category) {
-        PluginCategory.ShareTransfer -> Pair(tokens.shareContainer, tokens.onShareContainer)
-        PluginCategory.ControlComputer -> Pair(tokens.controlContainer, tokens.onControlContainer)
+        PluginCategory.ShareTransfer -> Pair(tokens.rowShareBg, tokens.rowShareIcon)
+        PluginCategory.ControlComputer -> Pair(tokens.rowControlBg, tokens.rowControlIcon)
         PluginCategory.MediaAudio -> Pair(tokens.mediaContainer, tokens.onMediaContainer)
-        PluginCategory.DeviceInfo -> Pair(tokens.deviceContainer, tokens.onDeviceContainer)
+        PluginCategory.DeviceInfo -> Pair(tokens.rowDeviceInfoBg, tokens.rowDeviceInfoIcon)
     }
 
     Column(

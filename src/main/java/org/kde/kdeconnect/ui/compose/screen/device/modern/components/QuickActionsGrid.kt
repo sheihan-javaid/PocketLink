@@ -96,10 +96,13 @@ private fun QuickActionTile(
     val interactionSource = remember { MutableInteractionSource() }
 
     val (chipBg, iconTintColor) = when (action.id) {
-        "send_files", "clipboard" -> Pair(tokens.shareContainer, tokens.onShareContainer)
-        "remote_input", "presenter", "run_command" -> Pair(tokens.controlContainer, tokens.onControlContainer)
-        "ring_device" -> Pair(tokens.mediaContainer, tokens.onMediaContainer)
-        else -> Pair(tokens.deviceContainer, tokens.onDeviceContainer)
+        "send_files" -> Pair(tokens.qaSendFilesBg, tokens.qaSendFilesIcon)
+        "clipboard" -> Pair(tokens.qaClipboardBg, tokens.qaClipboardIcon)
+        "remote_input" -> Pair(tokens.qaRemoteInputBg, tokens.qaRemoteInputIcon)
+        "ring_device" -> Pair(tokens.qaRingMacBg, tokens.qaRingMacIcon)
+        "run_command" -> Pair(tokens.qaRunCommandBg, tokens.qaRunCommandIcon)
+        "presenter" -> Pair(tokens.qaPresenterBg, tokens.qaPresenterIcon)
+        else -> Pair(tokens.qaSendFilesBg, tokens.qaSendFilesIcon)
     }
 
     val cardBg = if (!isEnabled) {

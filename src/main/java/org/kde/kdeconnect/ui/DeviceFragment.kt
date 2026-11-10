@@ -215,9 +215,15 @@ class DeviceFragment : BaseFragment<ActivityDeviceBinding>() {
     }
 
     private val pluginsChangedListener =
-        PluginsChangedListener { mActivity?.runOnUiThread { refreshUI() } }
+        PluginsChangedListener {
+            mActivity?.runOnUiThread {
+                viewModel.updateConnectivityState()
+                refreshUI()
+            }
+        }
 
     override fun onDestroyView() {
+        (mActivity as? MainActivity)?.findViewById<View>(R.id.toolbar_layout)?.visibility = View.VISIBLE
         viewModel.unbindDevice()
         device?.apply {
             removePluginsChangedListener(pluginsChangedListener)
@@ -255,6 +261,7 @@ class DeviceFragment : BaseFragment<ActivityDeviceBinding>() {
                     val useLegacyDashboard by viewModel.useLegacyDashboard.collectAsStateWithLifecycle()
                     val liveMedia by viewModel.mediaPlaybackState.collectAsStateWithLifecycle()
                     val liveVolume by viewModel.volumeControlState.collectAsStateWithLifecycle()
+                    val liveConnectivity by viewModel.connectivityStatus.collectAsStateWithLifecycle()
 
                     when (device.pairStatus) {
                         PairingHandler.PairState.Paired -> {
@@ -282,6 +289,27 @@ class DeviceFragment : BaseFragment<ActivityDeviceBinding>() {
                             } else {
                                 emptyList()
                             }
+                            val allManageablePlugins = PluginFactory.sortPluginList(PluginFactory.availablePlugins)
+                                .filter { it != "ReceiveNotificationsPlugin" }
+                                .map { pluginKey ->
+                                    val pluginInfo = PluginFactory.getPluginInfo(pluginKey)
+                                    DevicePluginUiModel(
+                                        pluginKey = pluginKey,
+                                        displayName = pluginInfo.displayName,
+                                        description = pluginInfo.description,
+                                        isEnabled = device.isPluginEnabled(pluginKey),
+                                        actionButtons = device.loadedPlugins[pluginKey]
+                                            ?.getUiButtons()
+                                            .orEmpty(),
+                                        needsRequiredPermission =
+                                            device.isPluginEnabled(pluginKey) &&
+                                                pluginKey in device.pluginsWithoutPermissions,
+                                        needsOptionalPermission =
+                                            device.isPluginEnabled(pluginKey) &&
+                                                pluginKey in device.pluginsWithoutOptionalPermissions
+                                    )
+                                }
+
                             val batteryStatus = device.getPlugin<BatteryPlugin>()
                                 ?.remoteBatteryInfo
                                 ?.let { batteryInfo ->
@@ -298,8 +326,10 @@ class DeviceFragment : BaseFragment<ActivityDeviceBinding>() {
                                 device.getPlugin<ConnectivityReportPlugin>()
                                     ?.remoteConnectivityInfo
                                     ?.values
-                                    ?.map { it.networkType }
-                                    ?.filter { it.isNotEmpty() }
+                                    ?.mapNotNull { info ->
+                                        info.networkName?.takeIf { it.isNotBlank() && it != "<unknown ssid>" }
+                                            ?: info.networkType.takeIf { it.isNotBlank() }
+                                    }
                                     ?.distinct()
                                     ?.joinToString(", ")
                                     ?.ifEmpty { null }
@@ -343,11 +373,11 @@ class DeviceFragment : BaseFragment<ActivityDeviceBinding>() {
                                     deviceName = device.name,
                                     deviceIconRes = device.iconDrawable,
                                     isConnected = device.isReachable,
-                                    plugins = pluginModels,
+                                    plugins = allManageablePlugins,
                                     batteryPercent = device.getPlugin<BatteryPlugin>()?.remoteBatteryInfo?.currentCharge,
                                     isBatteryCharging = device.getPlugin<BatteryPlugin>()?.remoteBatteryInfo?.isCharging ?: false,
                                     isBatteryLow = device.getPlugin<BatteryPlugin>()?.remoteBatteryInfo?.let { BatteryPlugin.isLowBattery(it) } ?: false,
-                                    connectivitySummary = connectivityStatus,
+                                    connectivitySummary = liveConnectivity ?: connectivityStatus,
                                     mediaState = liveMedia,
                                     volumeState = liveVolume,
                                     isRefreshing = isRefreshing,
@@ -433,7 +463,7 @@ class DeviceFragment : BaseFragment<ActivityDeviceBinding>() {
                                 ModernConnectedDeviceDashboard(
                                     state = modernDashboardState,
                                     actions = modernActions,
-                                    pluginModelsForManagePage = pluginModels,
+                                    pluginModelsForManagePage = allManageablePlugins,
                                     onPluginEnabledChange = device::setPluginEnabled,
                                     onButtonClick = { button -> button.onClick(mActivity!!) },
                                     onRequiredPermissionClick = { pluginKey ->
@@ -447,7 +477,11 @@ class DeviceFragment : BaseFragment<ActivityDeviceBinding>() {
                                             ?.show(childFragmentManager, null)
                                     },
                                     pairingSucceeded = pairingSucceeded,
-                                    onDismissPairingSuccess = { viewModel.setPairingSucceeded(false) }
+                                    onDismissPairingSuccess = { viewModel.setPairingSucceeded(false) },
+                                    onManagingPluginsChange = { isManaging ->
+                                        (mActivity as? MainActivity)?.findViewById<View>(R.id.toolbar_layout)?.visibility =
+                                            if (isManaging) View.GONE else View.VISIBLE
+                                    }
                                 )
                             }
                         }

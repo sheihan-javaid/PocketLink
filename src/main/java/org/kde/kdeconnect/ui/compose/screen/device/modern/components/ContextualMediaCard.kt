@@ -231,14 +231,14 @@ fun ContextualMediaContent(
                     )
                 }
 
-                // High-contrast Gradient Play Button
+                // High-contrast Gradient Play/Pause Button
                 Box(
                     modifier = Modifier
                         .size(44.dp)
                         .clip(CircleShape)
                         .background(
                             Brush.horizontalGradient(
-                                listOf(primaryColor, secondaryColor)
+                                listOf(tokens.pauseGradientStart, tokens.pauseGradientEnd)
                             )
                         )
                         .semantics { role = Role.Button }
@@ -254,7 +254,7 @@ fun ContextualMediaContent(
                             if (media.isPlaying) R.string.mpris_pause
                             else R.string.mpris_play
                         ),
-                        colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onPrimary),
+                        colorFilter = ColorFilter.tint(Color.White),
                         modifier = Modifier.size(22.dp)
                     )
                 }

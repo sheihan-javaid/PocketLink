@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import org.kde.kdeconnect.Device
+import org.kde.kdeconnect.plugins.connectivityreport.ConnectivityReportPlugin
 import org.kde.kdeconnect.plugins.mpris.MprisPlugin
 import org.kde.kdeconnect.plugins.systemvolume.Sink
 import org.kde.kdeconnect.plugins.systemvolume.SystemVolumePlugin
@@ -40,6 +41,9 @@ class DeviceViewModel : ViewModel() {
 
     private val _volumeControlState = MutableStateFlow<VolumeControlUiState?>(value = null)
     val volumeControlState: StateFlow<VolumeControlUiState?> = _volumeControlState.asStateFlow()
+
+    private val _connectivityStatus = MutableStateFlow<String?>(value = null)
+    val connectivityStatus: StateFlow<String?> = _connectivityStatus.asStateFlow()
 
     private var currentDevice: Device? = null
 
@@ -100,6 +104,7 @@ class DeviceViewModel : ViewModel() {
 
         updateMediaState()
         updateVolumeState()
+        updateConnectivityState()
     }
 
     fun unbindDevice() {
@@ -116,6 +121,25 @@ class DeviceViewModel : ViewModel() {
         currentDevice = null
         _mediaPlaybackState.value = null
         _volumeControlState.value = null
+        _connectivityStatus.value = null
+    }
+
+    fun updateConnectivityState() {
+        val device = currentDevice ?: run {
+            _connectivityStatus.value = null
+            return
+        }
+        val connectivityPlugin = device.getPlugin<ConnectivityReportPlugin>()
+        val infoList = connectivityPlugin?.remoteConnectivityInfo?.values
+        val status = infoList
+            ?.mapNotNull { info ->
+                info.networkName?.takeIf { it.isNotBlank() && it != "<unknown ssid>" }
+                    ?: info.networkType.takeIf { it.isNotBlank() }
+            }
+            ?.distinct()
+            ?.joinToString(", ")
+            ?.ifEmpty { null }
+        _connectivityStatus.value = status
     }
 
     fun updateMediaState() {

@@ -20,6 +20,7 @@ import org.kde.kdeconnect.NetworkPacket
 data class DeviceConnectivityInfo(
     val networkType: String,
     val signalStrength: Int,
+    val networkName: String? = null,
 ) {
     companion object {
         /**
@@ -31,13 +32,37 @@ data class DeviceConnectivityInfo(
             require(np.type == ConnectivityReportPlugin.PACKET_TYPE_CONNECTIVITY_REPORT) {
                 "Packet type must be PACKET_TYPE_CONNECTIVITY_REPORT"
             }
-            val signalStrengths = np.getJsonObject("signalStrengths") ?: return emptyMap()
+            val globalSsid = np.getString("ssid").takeIf { it.isNotBlank() }
+                ?: np.getString("networkName").takeIf { it.isNotBlank() }
+            val globalNetworkType = np.getString("networkType").takeIf { it.isNotBlank() }
+            val signalStrengths = np.getJsonObject("signalStrengths")
+            if (signalStrengths == null) {
+                if (!globalNetworkType.isNullOrBlank() || !globalSsid.isNullOrBlank()) {
+                    val netType = globalNetworkType ?: "Wi-Fi"
+                    val strength = np.getInt("signalStrength", 4)
+                    return mapOf("0" to DeviceConnectivityInfo(netType, strength, globalSsid))
+                }
+                return emptyMap()
+            }
             val result = mutableMapOf<String, DeviceConnectivityInfo>()
             for ((key, signalStrength) in signalStrengths) {
                 signalStrength as? JsonObject ?: continue
-                val networkType = (signalStrength["networkType"] as? JsonPrimitive)?.contentOrNull ?: continue
-                val signalStrength = (signalStrength["signalStrength"] as? JsonPrimitive)?.contentOrNull?.toIntOrNull() ?: continue
-                result[key] = DeviceConnectivityInfo(networkType, signalStrength)
+                val networkType = (signalStrength["networkType"] as? JsonPrimitive)?.contentOrNull
+                    ?: (signalStrength["name"] as? JsonPrimitive)?.contentOrNull
+                    ?: globalNetworkType
+                    ?: ""
+                val signalStrengthVal = (signalStrength["signalStrength"] as? JsonPrimitive)?.contentOrNull?.toIntOrNull()
+                    ?: np.getInt("signalStrength", 0)
+                val networkName = (signalStrength["ssid"] as? JsonPrimitive)?.contentOrNull
+                    ?: (signalStrength["networkName"] as? JsonPrimitive)?.contentOrNull
+                    ?: (signalStrength["name"] as? JsonPrimitive)?.contentOrNull
+                    ?: globalSsid
+                result[key] = DeviceConnectivityInfo(networkType, signalStrengthVal, networkName)
+            }
+            if (result.isEmpty() && (!globalNetworkType.isNullOrBlank() || !globalSsid.isNullOrBlank())) {
+                val netType = globalNetworkType ?: "Wi-Fi"
+                val strength = np.getInt("signalStrength", 4)
+                result["0"] = DeviceConnectivityInfo(netType, strength, globalSsid)
             }
             return result
         }
