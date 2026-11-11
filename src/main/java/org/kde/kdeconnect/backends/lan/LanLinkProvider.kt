@@ -62,6 +62,11 @@ class LanLinkProvider(private val context: Context) : BaseLinkProvider() {
     private val lastConnectionTimeByDeviceId = ConcurrentHashMap<String, Long>()
     private val lastConnectionTimeByIp = ConcurrentHashMap<InetAddress, Long>()
 
+    // Tracks when each device was last disconnected, to apply a reconnect backoff so a hostile
+    // peer cannot cause infinite drop-and-reconnect cycles (e.g. by sending oversized lines).
+    private val disconnectTimesByDeviceId = ConcurrentHashMap<String, Long>()
+    private val RECONNECT_BACKOFF_MS = 5_000L // 5 seconds
+
     private val customDevicePreferences: SharedPreferences =
         context.getSharedPreferences(context.packageName + "_preferences", Context.MODE_PRIVATE)
 
@@ -98,6 +103,8 @@ class LanLinkProvider(private val context: Context) : BaseLinkProvider() {
 
     override fun onConnectionLost(link: BaseLink) {
         val deviceId = link.deviceId
+        // Record disconnect time so addOrUpdateLink() can apply a reconnect backoff.
+        disconnectTimesByDeviceId[deviceId] = System.currentTimeMillis()
         // Do not let an old connection remove its replacement.
         if (visibleDevices.remove(deviceId, link)) {
             super.onConnectionLost(link)
@@ -401,6 +408,21 @@ class LanLinkProvider(private val context: Context) : BaseLinkProvider() {
     @WorkerThread
     @Synchronized
     private fun addOrUpdateLink(socket: SSLSocket, deviceInfo: DeviceInfo) {
+        val deviceId = deviceInfo.id
+
+        // Reconnect backoff: if this device was recently disconnected (e.g. due to an oversized
+        // line from a hostile peer), reject the new connection until the backoff expires. The
+        // peer will retry; once a connection succeeds the backoff is reset below.
+        val lastDisconnect = disconnectTimesByDeviceId[deviceId] ?: 0L
+        val elapsed = System.currentTimeMillis() - lastDisconnect
+        if (elapsed < RECONNECT_BACKOFF_MS) {
+            Log.w("KDE/LanLinkProvider", "Reconnection to $deviceId too soon after disconnect (${elapsed}ms < ${RECONNECT_BACKOFF_MS}ms), dropping")
+            socket.closeSafe()
+            return
+        }
+        // Backoff expired or no prior disconnect: reset and allow the connection.
+        disconnectTimesByDeviceId.remove(deviceId)
+
         var linkCreated = false
         val link = visibleDevices.computeIfAbsent(deviceInfo.id) {
             linkCreated = true
