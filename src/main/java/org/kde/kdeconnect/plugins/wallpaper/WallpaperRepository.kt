@@ -90,10 +90,12 @@ object WallpaperRepository {
         val wallpapersRoot = File(context.getNoBackupFilesDir(), DIR_NAME)
         if (!wallpapersRoot.exists()) return
         wallpapersRoot.listFiles()?.forEach { deviceDir ->
-            val tmp = File(deviceDir, ".wallpaper.tmp")
-            if (tmp.exists()) {
+            // Match all .wallpaper.tmp* files (unique per-transfer names from store(), plus
+            // any legacy .wallpaper.tmp left by older versions). Runs once at startup when
+            // no transfer can be in-progress, so an active transfer's temp file is never touched.
+            deviceDir.listFiles()?.filter { it.name.startsWith(TEMP_PREFIX) }?.forEach { tmp ->
                 tmp.delete()
-                Log.i(TAG, "Deleted orphaned wallpaper temp file for ${deviceDir.name}")
+                Log.i(TAG, "Deleted orphaned wallpaper temp file ${tmp.name} for ${deviceDir.name}")
             }
         }
     }

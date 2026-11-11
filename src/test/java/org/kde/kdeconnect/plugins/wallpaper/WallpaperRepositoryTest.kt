@@ -236,4 +236,28 @@ class WallpaperRepositoryTest {
         val tempFiles = dir.listFiles()?.filter { it.name.startsWith(".wallpaper.tmp") } ?: emptyList()
         assertTrue("No .wallpaper.tmp must remain after a failed store", tempFiles.isEmpty())
     }
+
+    @Test
+    fun initializeClearsOrphanedTempFiles() {
+        val dir = File(context.getNoBackupFilesDir(), "wallpapers/$deviceId")
+        dir.mkdirs()
+        // Create orphaned temp files with the unique per-transfer naming pattern.
+        File(dir, ".wallpaper.tmp.1").writeText("orphan")
+        File(dir, ".wallpaper.tmp.2").writeText("orphan")
+        // Also create a legacy .wallpaper.tmp without suffix.
+        File(dir, ".wallpaper.tmp").writeText("legacy orphan")
+        // A real wallpaper image must NOT be deleted.
+        File(dir, "wallpaper.img").writeText("real image")
+
+        // initialize() runs clearOrphanedTempFiles() once at startup.
+        WallpaperRepository.initialize(context)
+
+        assertFalse("Orphaned .wallpaper.tmp.1 must be deleted", File(dir, ".wallpaper.tmp.1").exists())
+        assertFalse("Orphaned .wallpaper.tmp.2 must be deleted", File(dir, ".wallpaper.tmp.2").exists())
+        assertFalse("Legacy orphaned .wallpaper.tmp must be deleted", File(dir, ".wallpaper.tmp").exists())
+        assertTrue("Real wallpaper.img must survive startup cleanup", File(dir, "wallpaper.img").exists())
+
+        // Clean up so @After deleteDevice() doesn't fail.
+        File(dir, "wallpaper.img").delete()
+    }
 }
