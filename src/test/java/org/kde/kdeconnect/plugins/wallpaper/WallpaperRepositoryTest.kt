@@ -220,7 +220,7 @@ class WallpaperRepositoryTest {
         // Exactly one valid wallpaper must remain; no corruption or crash.
         val info = WallpaperRepository.getWallpaperInfo(deviceId).value
         assertNotNull("Concurrent receives must leave a valid wallpaper", info)
-        assertTrue("Wallpaper file must exist", info.file.exists())
+        assertTrue("Wallpaper file must exist", info!!.file.exists())
     }
 
     @Test

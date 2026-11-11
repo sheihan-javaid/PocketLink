@@ -145,8 +145,9 @@ object WallpaperRepository {
         var width = 0
         var height = 0
         var success = false
-        inputStream.use { input ->
-            val digest = MessageDigest.getInstance("SHA-256")
+        try {
+            inputStream.use { input ->
+                val digest = MessageDigest.getInstance("SHA-256")
             DigestInputStream(input, digest).use { digestInput ->
                 FileOutputStream(tempFile).use { output ->
                     val buffer = ByteArray(8192)
@@ -186,6 +187,7 @@ object WallpaperRepository {
             width = options.outWidth
             height = options.outHeight
             success = true
+        }
         } catch (e: Exception) {
             Log.w(TAG, "Wallpaper receive failed for $deviceId", e)
         } finally {
@@ -193,6 +195,7 @@ object WallpaperRepository {
                 tempFile.delete()
             }
         }
+
         if (!success) return@withContext null
 
         // ---- Phase 2: commit INSIDE the lock with a generation check ----

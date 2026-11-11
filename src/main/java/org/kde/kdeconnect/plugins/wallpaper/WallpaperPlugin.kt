@@ -71,9 +71,7 @@ class WallpaperPlugin : Plugin() {
 
     override fun onDestroy() {
         // Abort any in-flight wallpaper transfer so it cannot outlive this plugin instance.
-        if (::device.isInitialized) {
-            WallpaperRepository.cancelStore(device.deviceId)
-        }
+        WallpaperRepository.cancelStore(device.deviceId)
     }
 
     companion object {
