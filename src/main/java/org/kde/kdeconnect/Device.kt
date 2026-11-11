@@ -41,6 +41,8 @@ import org.kde.kdeconnect.helpers.TrustedDevices
 import org.kde.kdeconnect.plugins.Plugin
 import org.kde.kdeconnect.plugins.Plugin.Companion.getPluginKey
 import org.kde.kdeconnect.plugins.PluginFactory
+import org.kde.kdeconnect.plugins.wallpaper.WallpaperPlugin
+import org.kde.kdeconnect.plugins.wallpaper.WallpaperRepository
 import org.kde.kdeconnect.ui.MainActivity
 import org.kde.kdeconnect_tp.R
 import java.io.IOException
@@ -138,11 +140,29 @@ class Device : PacketReceiver {
         addLink(link)
     }
 
-    fun supportsPacketType(type: String): Boolean =
-        NetworkPacket.PROTOCOL_PACKET_TYPES.contains(type) || deviceInfo.incomingCapabilities?.contains(type) ?: true
+    /**
+     * Whether the remote device can RECEIVE this packet type from us.
+     *
+     * Checks [DeviceInfo.incomingCapabilities] (the capabilities the remote advertised
+     * as "I can receive these"), plus the built-in [NetworkPacket.PROTOCOL_PACKET_TYPES].
+     * While capabilities are null (legacy stored devices, pre-exchange, or older peers
+     * that omit them), returns true for backwards compatibility — see the `?: true`
+     * comment below.
+     */
+    fun remoteCanReceive(type: String): Boolean =
+        NetworkPacket.PROTOCOL_PACKET_TYPES.contains(type) || deviceInfo.incomingCapabilities?.contains(type) ?: true // legacy compat while capabilities are null
 
-    fun canSendPacketType(type: String): Boolean =
-        NetworkPacket.PROTOCOL_PACKET_TYPES.contains(type) || deviceInfo.outgoingCapabilities?.contains(type) ?: true
+    /**
+     * Whether the remote device can SEND this packet type to us.
+     *
+     * Checks [DeviceInfo.outgoingCapabilities] (the capabilities the remote advertised
+     * as "I can send these"), plus the built-in [NetworkPacket.PROTOCOL_PACKET_TYPES].
+     * While capabilities are null (legacy stored devices, pre-exchange, or older peers
+     * that omit them), returns true for backwards compatibility — see the `?: true`
+     * comment below.
+     */
+    fun remoteCanSend(type: String): Boolean =
+        NetworkPacket.PROTOCOL_PACKET_TYPES.contains(type) || deviceInfo.outgoingCapabilities?.contains(type) ?: true // legacy compat while capabilities are null
 
     fun interface PluginsChangedListener {
         fun onPluginsChanged(device: Device)
@@ -239,6 +259,10 @@ class Device : PacketReceiver {
                 assert(device == this@Device)
                 Log.i("Device", "unpaired, removing from trusted devices list")
                 TrustedDevices.removeTrustedDevice(context, deviceInfo.id)
+
+                // Primary unpair cleanup: fires for offline devices too (PairingHandler.unpair calls
+                // callback.unpaired unconditionally). The Plugin.onDeviceUnpaired hook is secondary.
+                WallpaperRepository.deleteDevice(deviceInfo.id)
 
                 notifyPluginsOfDeviceUnpaired(context, deviceInfo.id)
 
@@ -544,7 +568,7 @@ class Device : PacketReceiver {
         callback: SendPacketStatusCallback,
         sendPayloadFromSameThread: Boolean
     ): Boolean {
-        if (!supportsPacketType(np.type)) {
+        if (!remoteCanReceive(np.type)) {
             Log.e("KDE/sendPacket", "Tried to send an unsupported packet type ${np.type} to: ${deviceInfo.name}")
             return false
         }
@@ -658,6 +682,9 @@ class Device : PacketReceiver {
 
     fun setPluginEnabled(pluginKey: String, value: Boolean) {
         if (pluginKey == "ReceiveNotificationsPlugin") return
+        if (pluginKey == WallpaperPlugin::class.java.simpleName && !value) {
+            WallpaperRepository.deleteOnDisable(deviceId)
+        }
         TrustedDevices.getDeviceSettings(context, deviceId).edit { putBoolean(pluginKey, value) }
         reloadPluginsFromSettings()
     }

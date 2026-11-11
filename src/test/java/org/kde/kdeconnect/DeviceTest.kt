@@ -26,6 +26,7 @@ import org.kde.kdeconnect.helpers.DeviceHelper
 import org.kde.kdeconnect.helpers.TrustedDevices
 import org.kde.kdeconnect.helpers.security.RsaHelper
 import org.kde.kdeconnect.helpers.security.SslHelper
+import org.kde.kdeconnect.plugins.wallpaper.WallpaperPlugin
 import java.security.cert.CertificateException
 
 class DeviceTest {
@@ -272,5 +273,76 @@ class DeviceTest {
         Assert.assertFalse(TrustedDevices.isTrustedDevice(context, device.deviceId))
 
         verify(exactly = 1) { pairingCallback.unpaired(device) }
+    }
+
+    @Test
+    fun wallpaperRemoteCanSendReturnsTrueWhenOutgoingCapabilityAdvertised() {
+        val device = Device(context, "testDevice")
+
+        // Remote advertises pocketlink.wallpaper in OUTGOING capabilities (Mac sends wallpaper to phone)
+        device.deviceInfo.outgoingCapabilities = hashSetOf(WallpaperPlugin.PACKET_TYPE_WALLPAPER)
+        device.deviceInfo.incomingCapabilities = emptySet()
+
+        // remoteCanSend checks outgoingCapabilities (what the remote can SEND to us) - correct direction
+        Assert.assertTrue(
+            "remoteCanSend should return true for pocketlink.wallpaper when advertised in outgoing capabilities",
+            device.remoteCanSend(WallpaperPlugin.PACKET_TYPE_WALLPAPER)
+        )
+        // remoteCanReceive checks incomingCapabilities (what the remote can RECEIVE from us) - wrong direction here
+        Assert.assertFalse(
+            "remoteCanReceive should return false (it checks incoming, not outgoing)",
+            device.remoteCanReceive(WallpaperPlugin.PACKET_TYPE_WALLPAPER)
+        )
+    }
+
+    @Test
+    fun wallpaperRemoteCanSendReturnsFalseWhenOutgoingCapabilityMissing() {
+        val device = Device(context, "testDevice")
+
+        // Remote does NOT advertise pocketlink.wallpaper in outgoing capabilities
+        device.deviceInfo.outgoingCapabilities = emptySet()
+        device.deviceInfo.incomingCapabilities = emptySet()
+
+        // remoteCanSend should return false when capability is not advertised
+        Assert.assertFalse(
+            "remoteCanSend should return false for pocketlink.wallpaper when not advertised",
+            device.remoteCanSend(WallpaperPlugin.PACKET_TYPE_WALLPAPER)
+        )
+    }
+
+    @Test
+    fun remoteCanReceiveReturnsTrueWhenCapabilitiesNull() {
+        val device = Device(context, "testDevice")
+
+        // Capabilities null: legacy stored device / pre-exchange / older peer that omits them
+        device.deviceInfo.outgoingCapabilities = null
+        device.deviceInfo.incomingCapabilities = null
+
+        // Legacy compat: null capabilities means "allow" (backwards compatibility)
+        Assert.assertTrue(
+            "remoteCanReceive should return true when incomingCapabilities is null (legacy compat)",
+            device.remoteCanReceive(WallpaperPlugin.PACKET_TYPE_WALLPAPER)
+        )
+        Assert.assertTrue(
+            "remoteCanSend should return true when outgoingCapabilities is null (legacy compat)",
+            device.remoteCanSend(WallpaperPlugin.PACKET_TYPE_WALLPAPER)
+        )
+    }
+
+    @Test
+    fun remoteCanReceiveReturnsFalseForNonProtocolTypeWhenCapabilitiesEmpty() {
+        val device = Device(context, "testDevice")
+
+        device.deviceInfo.outgoingCapabilities = emptySet()
+        device.deviceInfo.incomingCapabilities = emptySet()
+
+        Assert.assertFalse(
+            "remoteCanReceive should return false for non-protocol type when incoming is empty",
+            device.remoteCanReceive("kdeconnect.some.non.protocol.type")
+        )
+        Assert.assertFalse(
+            "remoteCanSend should return false for non-protocol type when outgoing is empty",
+            device.remoteCanSend("kdeconnect.some.non.protocol.type")
+        )
     }
 }

@@ -7,14 +7,21 @@
 package org.kde.kdeconnect.ui.compose.screen.device
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 import org.kde.kdeconnect.Device
 import org.kde.kdeconnect.plugins.connectivityreport.ConnectivityReportPlugin
 import org.kde.kdeconnect.plugins.mpris.MprisPlugin
 import org.kde.kdeconnect.plugins.systemvolume.Sink
 import org.kde.kdeconnect.plugins.systemvolume.SystemVolumePlugin
+import org.kde.kdeconnect.plugins.wallpaper.WallpaperPlugin
+import org.kde.kdeconnect.plugins.wallpaper.WallpaperRepository
+import org.kde.kdeconnect.ui.compose.screen.device.modern.DesktopPreviewState
 import org.kde.kdeconnect.ui.compose.screen.device.modern.MediaPlaybackUiState
 import org.kde.kdeconnect.ui.compose.screen.device.modern.VolumeControlUiState
 
@@ -41,6 +48,11 @@ class DeviceViewModel : ViewModel() {
 
     private val _volumeControlState = MutableStateFlow<VolumeControlUiState?>(value = null)
     val volumeControlState: StateFlow<VolumeControlUiState?> = _volumeControlState.asStateFlow()
+
+    private val _desktopPreviewState = MutableStateFlow<DesktopPreviewState>(DesktopPreviewState.Waiting)
+    val desktopPreviewState: StateFlow<DesktopPreviewState> = _desktopPreviewState.asStateFlow()
+
+    private var desktopPreviewJob: Job? = null
 
     private var currentDevice: Device? = null
 
@@ -98,9 +110,13 @@ class DeviceViewModel : ViewModel() {
         updateMediaState()
         updateVolumeState()
         updateConnectivityState()
+        updateDesktopPreviewState(device)
     }
 
     fun unbindDevice() {
+        desktopPreviewJob?.cancel()
+        desktopPreviewJob = null
+        _desktopPreviewState.value = DesktopPreviewState.Waiting
         val device = currentDevice
         if (device != null) {
             val mpris = device.getPlugin<MprisPlugin>()
@@ -133,6 +149,40 @@ class DeviceViewModel : ViewModel() {
             ?.joinToString(", ")
             ?.ifEmpty { null }
         _connectivityStatus.value = status
+    }
+
+    private fun updateDesktopPreviewState(device: Device) {
+        desktopPreviewJob?.cancel()
+        desktopPreviewJob = null
+
+        val pluginKey = WallpaperPlugin::class.java.simpleName
+        // Wallpaper is a packet the remote SENDS to us, so it must be in the remote's outgoing
+        // capabilities. supportedPlugins is computed via pluginsForCapabilities, which checks the
+        // remote's outgoing capabilities against the plugin's supportedPacketTypes. Using
+        // remoteCanReceive() here would be wrong: it checks incomingCapabilities (what the
+        // remote can receive from us), not outgoingCapabilities.
+        if (!device.supportedPlugins.contains(pluginKey)) {
+            _desktopPreviewState.value = DesktopPreviewState.NotSupported
+            return
+        }
+        if (!device.isPluginEnabled("WallpaperPlugin")) {
+            _desktopPreviewState.value = DesktopPreviewState.Disabled
+            return
+        }
+
+        desktopPreviewJob = viewModelScope.launch {
+            WallpaperRepository.getWallpaperInfo(device.deviceId).collect { info ->
+                when {
+                    info == null -> _desktopPreviewState.value = DesktopPreviewState.Waiting
+                    device.isReachable -> _desktopPreviewState.value = DesktopPreviewState.Available(
+                        info.file.absolutePath, info.sha256
+                    )
+                    else -> _desktopPreviewState.value = DesktopPreviewState.AvailableOffline(
+                        info.file.absolutePath, info.sha256
+                    )
+                }
+            }
+        }
     }
 
     fun updateMediaState() {
