@@ -72,8 +72,10 @@ class LanLink(
                 while (true) {
                     val packet: String = try {
                         readLineBounded(stream, MAX_PACKET_SIZE)
-                    } catch (_: LineTooLongException) {
-                        continue
+                    } catch (e: LineTooLongException) {
+                        Log.w(TAG, "Line too long from peer, dropping link")
+                        currentSocket.closeSafe()
+                        throw e
                     } catch (_: SocketTimeoutException) {
                         continue
                     }
