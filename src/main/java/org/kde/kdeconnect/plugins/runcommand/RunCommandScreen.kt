@@ -111,7 +111,7 @@ fun RunCommandScreen(
 
     val isReachable by device.isReachableFlow.collectAsStateWithLifecycle()
     val showOutputCard = commandList.isNotEmpty() &&
-        device.canSendPacketType(RunCommandPlugin.PACKET_TYPE_RUNCOMMAND_OUTPUT)
+        device.remoteCanSend(RunCommandPlugin.PACKET_TYPE_RUNCOMMAND_OUTPUT)
     val commandRunning by plugin.commandRunning
 
     RunCommandScreenContent(
