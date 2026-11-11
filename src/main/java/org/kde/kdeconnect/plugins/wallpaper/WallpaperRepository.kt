@@ -10,6 +10,7 @@ import android.content.Context
 import android.graphics.BitmapFactory
 import android.util.Log
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -25,12 +26,14 @@ import java.io.InputStream
 import java.security.DigestInputStream
 import java.security.MessageDigest
 import java.util.concurrent.ConcurrentHashMap
+import java.util.concurrent.atomic.AtomicLong
 
 private const val TAG = "KDE/WallpaperRepository"
 
 private const val DIR_NAME = "wallpapers"
 private const val IMAGE_NAME = "wallpaper.img"
 private const val META_NAME = "wallpaper.meta"
+private const val TEMP_PREFIX = ".wallpaper.tmp"
 
 internal const val MAX_BYTES: Long = 8L * 1024 * 1024 // 8 MB
 private const val MAX_SIDE = 4096
@@ -69,6 +72,9 @@ object WallpaperRepository {
 
     private val deviceFlows = ConcurrentHashMap<String, MutableStateFlow<WallpaperInfo?>>()
     private val deviceLocks = ConcurrentHashMap<String, Any>()
+    private val deviceGenerations = ConcurrentHashMap<String, AtomicLong>()
+    private val deviceStoreJobs = ConcurrentHashMap<String, Job>()
+    private val tempCounters = ConcurrentHashMap<String, AtomicLong>()
 
     fun initialize(context: Context) {
         this.context = context.applicationContext
@@ -101,11 +107,13 @@ object WallpaperRepository {
             MutableStateFlow(loadFromDisk(deviceId))
         }.asStateFlow()
     }
-
     /**
      * Receives a wallpaper payload stream, validates it, and stores it atomically.
+     * The payload is copied to a temp file OUTSIDE the per-device lock; the lock is
+     * taken only to commit, guarded by a generation check so a concurrent
+     * deleteDevice()/deleteOnDisable() cannot resurrect a deleted wallpaper.
      * Must be called on [Dispatchers.IO]. Returns the stored [WallpaperInfo] or null on failure.
-     * Always closes [inputStream], including on rejection.
+     * Always closes [inputStream], including on rejection or cancellation.
      */
     suspend fun store(
         deviceId: String,
@@ -115,89 +123,121 @@ object WallpaperRepository {
         claimedWidth: Int,
         claimedHeight: Int
     ): WallpaperInfo? = withContext(Dispatchers.IO) {
+        // Register this coroutine's Job so cancelStore() can abort an in-flight transfer.
+        coroutineContext[Job]?.let { deviceStoreJobs[deviceId] = it }
+
         val dir = deviceDir(deviceId)
         dir.mkdirs()
-        val lock = deviceLocks.getOrPut(deviceId) { Any() }
-        synchronized(lock) {
-            val tempFile = File(dir, ".wallpaper.tmp")
-            var success = false
-            var storedInfo: WallpaperInfo? = null
-            inputStream.use { input ->
-                val digest = MessageDigest.getInstance("SHA-256")
-                try {
-                    DigestInputStream(input, digest).use { digestInput ->
-                        FileOutputStream(tempFile).use { output ->
-                            val buffer = ByteArray(8192)
-                            var read: Int
-                            while (true) {
-                                read = digestInput.read(buffer)
-                                if (read == -1) break
-                                if (read > 0) {
-                                    output.write(buffer, 0, read)
-                                }
-                            }
-                        }
-                    }
+        // Unique temp file per transfer so concurrent receives never collide on the same path.
+        val tempSuffix = tempCounters.getOrPut(deviceId) { AtomicLong() }.incrementAndGet()
+        val tempFile = File(dir, ".wallpaper.tmp.$tempSuffix")
 
-                    val totalBytes = tempFile.length()
-                    if (totalBytes > MAX_BYTES) {
-                        throw WallpaperException("Exceeds max size ($MAX_BYTES bytes)")
-                    }
+        // Snapshot the generation at start. deleteDevice() bumps it; if it differs at
+        // commit time, delete won the race and we must abort without committing.
+        val genLock = deviceLocks.getOrPut(deviceId) { Any() }
+        val startedGeneration = synchronized(genLock) {
+            deviceGenerations.getOrPut(deviceId) { AtomicLong(0L) }.get()
+        }
 
-                    val computedSha256 = digest.digest().joinToString("") { "%02x".format(it) }
-                    if (computedSha256 != claimedSha256.lowercase()) {
-                        throw WallpaperException("SHA-256 mismatch")
-                    }
-
-                    // Validate by content: decoded bounds, not the body's mimeType/width/height hints.
-                    val options = BitmapFactory.Options().apply { inJustDecodeBounds = true }
-                    BitmapFactory.decodeFile(tempFile.absolutePath, options)
-                    if (options.outWidth <= 0 || options.outHeight <= 0) {
-                        throw WallpaperException("Undecodable image")
-                    }
-                    if (options.outWidth > MAX_SIDE || options.outHeight > MAX_SIDE) {
-                        throw WallpaperException("Exceeds max side ($MAX_SIDE px)")
-                    }
-                    if (options.outWidth.toLong() * options.outHeight > MAX_PIXELS) {
-                        throw WallpaperException("Exceeds max pixels ($MAX_PIXELS)")
-                    }
-
-                    val mime = detectMime(tempFile)
-
-                    // Atomic rename on the same filesystem.
-                    val imageFile = File(dir, IMAGE_NAME)
-                    if (!tempFile.renameTo(imageFile)) {
-                        throw WallpaperException("Failed to rename temp file")
-                    }
-
-                    val meta = WallpaperMeta(computedSha256, mime, options.outWidth, options.outHeight, System.currentTimeMillis())
-                    val metaFile = File(dir, META_NAME)
-                    val jsonText = JsonHelper.json.encodeToString(WallpaperMeta.serializer(), meta)
-                    metaFile.outputStream().use { it.write(jsonText.toByteArray()) }
-
-                    storedInfo = WallpaperInfo(
-                        deviceId = deviceId,
-                        file = imageFile,
-                        sha256 = computedSha256,
-                        mimeType = mime,
-                        width = options.outWidth,
-                        height = options.outHeight,
-                        lastModified = meta.lastModified
-                    )
-                    deviceFlows.getOrPut(deviceId) {
-                        MutableStateFlow(null)
-                    }.value = storedInfo
-                    success = true
-                } catch (e: Exception) {
-                    Log.w(TAG, "Wallpaper receive failed for $deviceId", e)
-                } finally {
-                    if (!success) {
-                        tempFile.delete()
+        // ---- Phase 1: copy + validate OUTSIDE the lock ----
+        var computedSha256 = ""
+        var mime = ""
+        var width = 0
+        var height = 0
+        var success = false
+        inputStream.use { input ->
+            val digest = MessageDigest.getInstance("SHA-256")
+            DigestInputStream(input, digest).use { digestInput ->
+                FileOutputStream(tempFile).use { output ->
+                    val buffer = ByteArray(8192)
+                    var read: Int
+                    while (true) {
+                        read = digestInput.read(buffer)
+                        if (read == -1) break
+                        if (read > 0) output.write(buffer, 0, read)
                     }
                 }
             }
-            storedInfo
+
+            val totalBytes = tempFile.length()
+            if (totalBytes > MAX_BYTES) {
+                throw WallpaperException("Exceeds max size ($MAX_BYTES bytes)")
+            }
+
+            computedSha256 = digest.digest().joinToString("") { "%02x".format(it) }
+            if (computedSha256 != claimedSha256.lowercase()) {
+                throw WallpaperException("SHA-256 mismatch")
+            }
+
+            // Validate by content: decoded bounds, not the body's mimeType/width/height hints.
+            val options = BitmapFactory.Options().apply { inJustDecodeBounds = true }
+            BitmapFactory.decodeFile(tempFile.absolutePath, options)
+            if (options.outWidth <= 0 || options.outHeight <= 0) {
+                throw WallpaperException("Undecodable image")
+            }
+            if (options.outWidth > MAX_SIDE || options.outHeight > MAX_SIDE) {
+                throw WallpaperException("Exceeds max side ($MAX_SIDE px)")
+            }
+            if (options.outWidth.toLong() * options.outHeight > MAX_PIXELS) {
+                throw WallpaperException("Exceeds max pixels ($MAX_PIXELS)")
+            }
+
+            mime = detectMime(tempFile)
+            width = options.outWidth
+            height = options.outHeight
+            success = true
+        } catch (e: Exception) {
+            Log.w(TAG, "Wallpaper receive failed for $deviceId", e)
+        } finally {
+            if (!success) {
+                tempFile.delete()
+            }
         }
+        if (!success) return@withContext null
+
+        // ---- Phase 2: commit INSIDE the lock with a generation check ----
+        val lock = deviceLocks.getOrPut(deviceId) { Any() }
+        var storedInfo: WallpaperInfo? = null
+        synchronized(lock) {
+            val currentGeneration = deviceGenerations.getOrPut(deviceId) { AtomicLong(0L) }.get()
+            if (currentGeneration != startedGeneration) {
+                // deleteDevice() raced us and won: abort and drop our temp file.
+                tempFile.delete()
+            } else {
+                // Atomic rename on the same filesystem.
+                val imageFile = File(dir, IMAGE_NAME)
+                if (!tempFile.renameTo(imageFile)) {
+                    throw WallpaperException("Failed to rename temp file")
+                }
+
+                val meta = WallpaperMeta(computedSha256, mime, width, height, System.currentTimeMillis())
+                val metaFile = File(dir, META_NAME)
+                val jsonText = JsonHelper.json.encodeToString(WallpaperMeta.serializer(), meta)
+                metaFile.outputStream().use { it.write(jsonText.toByteArray()) }
+
+                storedInfo = WallpaperInfo(
+                    deviceId = deviceId,
+                    file = imageFile,
+                    sha256 = computedSha256,
+                    mimeType = mime,
+                    width = width,
+                    height = height,
+                    lastModified = meta.lastModified
+                )
+                deviceFlows.getOrPut(deviceId) {
+                    MutableStateFlow(null)
+                }.value = storedInfo
+            }
+        }
+        storedInfo
+    }
+
+    /**
+     * Cancels any in-flight wallpaper store() for [deviceId], e.g. on unpair, disable,
+     * or plugin onDestroy so a transfer cannot outlive the device/wallpaper subscription.
+     */
+    fun cancelStore(deviceId: String) {
+        deviceStoreJobs[deviceId]?.cancel()
     }
 
     /** Deletes the cached wallpaper for [deviceId] (unpair path). Fires from any thread. */
@@ -208,9 +248,19 @@ object WallpaperRepository {
             deviceFlows[deviceId]?.value = null
             return
         }
-        val dir = deviceDir(deviceId)
-        File(dir, IMAGE_NAME).delete()
-        File(dir, META_NAME).delete()
+        // Cancel any in-flight transfer first so it cannot resurrect the wallpaper.
+        cancelStore(deviceId)
+        val lock = deviceLocks.getOrPut(deviceId) { Any() }
+        synchronized(lock) {
+            // Bump the generation so any store() that hasn't committed yet aborts at its
+            // generation check instead of resurrecting the deleted wallpaper.
+            deviceGenerations.getOrPut(deviceId) { AtomicLong(0L) }.incrementAndGet()
+            val dir = deviceDir(deviceId)
+            File(dir, IMAGE_NAME).delete()
+            File(dir, META_NAME).delete()
+            // Clean every temp file for this device, including the per-transfer unique names.
+            dir.listFiles()?.filter { it.name.startsWith(TEMP_PREFIX) }?.forEach { it.delete() }
+        }
         deviceFlows[deviceId]?.value = null
     }
 
