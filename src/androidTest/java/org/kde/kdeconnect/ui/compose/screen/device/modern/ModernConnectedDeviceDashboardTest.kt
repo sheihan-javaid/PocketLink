@@ -481,12 +481,15 @@ class ModernConnectedDeviceDashboardTest {
             batteryPercent = null
         )
 
+        val currentDashboardState = mutableStateOf(emptyState)
+        val currentPlugins = mutableStateOf(emptyList<DevicePluginUiModel>())
+
         composeRule.setContent {
             ModernPocketLinkTheme(context = composeRule.activity) {
                 ModernConnectedDeviceDashboard(
-                    state = emptyState,
+                    state = currentDashboardState.value,
                     actions = DashboardFixtures.mockActions,
-                    pluginModelsForManagePage = emptyList(),
+                    pluginModelsForManagePage = currentPlugins.value,
                     onPluginEnabledChange = { _, _ -> },
                     onButtonClick = {},
                     onRequiredPermissionClick = {},
@@ -501,19 +504,8 @@ class ModernConnectedDeviceDashboardTest {
         composeRule.onNodeWithText(noSupportedPluginsText).assertIsDisplayed()
 
         // When sections are non-empty, the panel should not be shown
-        composeRule.setContent {
-            ModernPocketLinkTheme(context = composeRule.activity) {
-                ModernConnectedDeviceDashboard(
-                    state = DashboardFixtures.fullFeaturedState,
-                    actions = DashboardFixtures.mockActions,
-                    pluginModelsForManagePage = DashboardFixtures.samplePluginModels,
-                    onPluginEnabledChange = { _, _ -> },
-                    onButtonClick = {},
-                    onRequiredPermissionClick = {},
-                    onOptionalPermissionClick = {}
-                )
-            }
-        }
+        currentDashboardState.value = DashboardFixtures.fullFeaturedState
+        currentPlugins.value = DashboardFixtures.samplePluginModels
 
         composeRule.onNodeWithText(noSupportedPluginsTitle).assertDoesNotExist()
         composeRule.onNodeWithText(noSupportedPluginsText).assertDoesNotExist()
