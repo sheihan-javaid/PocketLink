@@ -14,7 +14,7 @@ import org.kde.kdeconnect.ui.compose.components.PocketLinkStatePanel
 import org.kde.kdeconnect_tp.R
 
 @Composable
-fun DeviceErrorPanel(
+internal fun DeviceErrorPanel(
     onRefresh: () -> Unit,
     modifier: Modifier = Modifier
 ) {
