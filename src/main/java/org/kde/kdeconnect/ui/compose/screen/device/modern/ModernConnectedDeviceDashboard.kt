@@ -100,7 +100,7 @@ import org.kde.kdeconnect.plugins.Plugin
 import org.kde.kdeconnect.ui.compose.PocketLinkSpacing
 import org.kde.kdeconnect.ui.compose.components.PocketLinkPanelKind
 import org.kde.kdeconnect.ui.compose.components.PocketLinkStatePanel
-import org.kde.kdeconnect.ui.compose.screen.device.DeviceErrorPanel
+import org.kde.kdeconnect.ui.compose.screen.device.modern.components.DeviceErrorPanel
 import org.kde.kdeconnect.ui.compose.screen.device.DevicePluginUiModel
 import org.kde.kdeconnect.ui.compose.screen.device.PairingSuccessBanner
 import org.kde.kdeconnect.ui.compose.screen.device.modern.components.AttentionBanner
