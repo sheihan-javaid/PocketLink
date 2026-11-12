@@ -8,24 +8,30 @@ package org.kde.kdeconnect.ui
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import androidx.activity.enableEdgeToEdge
 import org.kde.kdeconnect.PocketLink
 import org.kde.kdeconnect.base.BaseActivity
 import org.kde.kdeconnect.plugins.Plugin
-import org.kde.kdeconnect.ui.PluginPreference.PluginPreferenceCallback
 import org.kde.kdeconnect_tp.R
 import org.kde.kdeconnect_tp.databinding.ActivityPluginSettingsBinding
 
-class PluginSettingsActivity : BaseActivity<ActivityPluginSettingsBinding>(), PluginPreferenceCallback {
+class PluginSettingsActivity : BaseActivity<ActivityPluginSettingsBinding>() {
 
     override val binding by lazy { ActivityPluginSettingsBinding.inflate(layoutInflater) }
 
     private lateinit var settingsDeviceId: String
 
     public override fun onCreate(savedInstanceState: Bundle?) {
-        settingsDeviceId = intent.getStringExtra(EXTRA_DEVICE_ID)
-            ?: throw RuntimeException("You must start DeviceSettingActivity using an intent that has a $EXTRA_DEVICE_ID extra")
+        val deviceId = intent.getStringExtra(EXTRA_DEVICE_ID)
+        if (deviceId == null) {
+            Log.w(TAG, "Missing $EXTRA_DEVICE_ID extra, finishing activity")
+            super.onCreate(savedInstanceState)
+            finish()
+            return
+        }
+        settingsDeviceId = deviceId
 
         // Don't restore a specific plugin settings fragment if the device is no longer connected
         val deviceReachable = PocketLink.getInstance().getDevice(settingsDeviceId)?.isReachable == true
@@ -42,19 +48,26 @@ class PluginSettingsActivity : BaseActivity<ActivityPluginSettingsBinding>(), Pl
         var fragment = supportFragmentManager.findFragmentById(R.id.fragmentPlaceHolder)
         if (fragment == null) {
             val pluginKey = intent.getStringExtra(EXTRA_PLUGIN_KEY)
-            if (pluginKey != null) {
-                fragment = PocketLink.getInstance().getDevice(settingsDeviceId)
-                    ?.getPluginIncludingWithoutPermissions(pluginKey)
-                    ?.getSettingsFragment(this)
-            }
-            if (fragment == null) {
-                fragment = PluginSettingsListFragment.newInstance(settingsDeviceId)
+            val plugin = if (pluginKey != null) {
+                device?.getPluginIncludingWithoutPermissions(pluginKey)
+            } else {
+                null
             }
 
-            supportFragmentManager
-                .beginTransaction()
-                .add(R.id.fragmentPlaceHolder, fragment)
-                .commit()
+            fragment = plugin?.getSettingsFragment(this)
+
+            if (fragment != null) {
+                plugin?.displayName?.let { title ->
+                    setTitle(getString(R.string.plugin_settings_with_name, title))
+                }
+                supportFragmentManager
+                    .beginTransaction()
+                    .add(R.id.fragmentPlaceHolder, fragment)
+                    .commit()
+            } else {
+                Log.w(TAG, "No settings fragment available for pluginKey=$pluginKey on device=$settingsDeviceId; finishing")
+                finish()
+            }
         }
     }
 
@@ -71,34 +84,13 @@ class PluginSettingsActivity : BaseActivity<ActivityPluginSettingsBinding>(), Pl
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onStartPluginSettingsFragment(plugin: Plugin) {
-        setTitle(getString(R.string.plugin_settings_with_name, plugin.displayName))
-
-        val fragment = plugin.getSettingsFragment(this)
-
-        supportFragmentManager
-            .beginTransaction()
-            .setCustomAnimations(
-                R.anim.slide_in_right,
-                R.anim.slide_out_left,
-                R.anim.slide_in_left,
-                R.anim.slide_out_right
-            )
-            .replace(R.id.fragmentPlaceHolder, fragment)
-            .addToBackStack(null)
-            .commit()
-    }
-
     override fun onSupportNavigateUp(): Boolean {
         onBackPressedDispatcher.onBackPressed()
         return true
     }
 
-    override fun onFinish() {
-        finish()
-    }
-
     companion object {
+        private const val TAG = "PluginSettingsActivity"
         const val EXTRA_DEVICE_ID: String = "deviceId"
         const val EXTRA_PLUGIN_KEY: String = "pluginKey"
 
