@@ -689,6 +689,12 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
     <string name="quick_action_presenter">Presenter</string>
     <string name="desktop_preview_title">MacBook Desktop Preview</string>
     <string name="desktop_preview_desc">Connected Mac desktop preview</string>
-    <string name="desktop_preview_unavailable_message">Real-time desktop wallpaper streaming is not supported by the connected companion over the current KDE Connect protocol.\n\nThis preview frame is ready to automatically display your live Mac desktop wallpaper once companion streaming is enabled.</string>
+    <string name="desktop_preview_unavailable_message">Wallpaper sync is not supported by the connected Mac companion. Make sure macmate is running and advertises wallpaper sharing.\n\nThis preview frame is ready to display your Mac desktop wallpaper once the companion sends it.</string>
+    <string name="desktop_preview_waiting">Waiting for Mac desktop wallpaper…</string>
+    <string name="desktop_preview_ready">Mac desktop wallpaper</string>
+    <string name="desktop_preview_offline">Showing last synced Mac wallpaper (Mac offline)</string>
+    <string name="desktop_preview_cta_enable">Enable wallpaper sync</string>
     <string name="desktop_preview_dialog_dismiss">Understood</string>
+    <string name="pref_plugin_wallpaper">Desktop wallpaper sync</string>
+    <string name="pref_plugin_wallpaper_desc">Synchronize the connected Mac desktop wallpaper to this device</string>
 </resources>

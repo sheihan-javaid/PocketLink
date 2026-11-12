@@ -17,7 +17,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
@@ -49,6 +48,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import org.kde.kdeconnect.ui.compose.screen.device.modern.DesktopPreviewState
 import org.kde.kdeconnect.ui.compose.screen.device.modern.HeroUiState
 import org.kde.kdeconnect.ui.compose.screen.device.modern.LocalDashboardTokens
 import org.kde.kdeconnect_tp.R
@@ -59,6 +59,8 @@ import org.kde.kdeconnect_tp.R
 @Composable
 fun HeroDeviceCard(
     hero: HeroUiState,
+    desktopPreview: DesktopPreviewState = DesktopPreviewState.Waiting,
+    onPreviewEnableClick: (() -> Unit)? = null,
     modifier: Modifier = Modifier
 ) {
     val isReducedMotion = isReducedMotionMode()
@@ -89,8 +91,11 @@ fun HeroDeviceCard(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            DesktopPreviewThumbnail(
-                modifier = Modifier.width(88.dp)
+            MacDesktopPreview(
+                state = desktopPreview,
+                isConnected = hero.isConnected,
+                modifier = Modifier.width(88.dp),
+                onEnableClick = onPreviewEnableClick
             )
 
             Column(
@@ -212,80 +217,5 @@ fun HeroDeviceCard(
                 }
             }
         }
-    }
-}
-
-@Composable
-private fun DesktopPreviewThumbnail(modifier: Modifier = Modifier) {
-    val tokens = LocalDashboardTokens.current
-    val previewDescription = stringResource(R.string.desktop_preview_desc)
-    val shape = RoundedCornerShape(6.dp)
-
-    BoxWithConstraints(
-        modifier = modifier
-            .aspectRatio(16f / 10f)
-            .clip(shape)
-            .background(tokens.accentIndigo)
-            .border(1.dp, tokens.cardBorderBottom, shape)
-            .semantics { contentDescription = previewDescription }
-    ) {
-        val previewWidth = maxWidth
-        val previewHeight = maxHeight
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight(0.07f)
-                .background(tokens.accentSoftIndigo.copy(alpha = 0.75f))
-        )
-
-        Box(
-            modifier = Modifier
-                .offset(x = previewWidth * 0.09f, y = previewHeight * 0.2f)
-                .size(width = previewWidth * 0.52f, height = previewHeight * 0.58f)
-                .clip(RoundedCornerShape(3.dp))
-                .background(tokens.laptopTileBg)
-        ) {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .fillMaxHeight(0.12f)
-                    .background(tokens.cardBorderTop)
-            )
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth(0.84f)
-                    .align(Alignment.TopStart)
-                    .padding(start = previewWidth * 0.08f, top = previewHeight * 0.24f),
-                verticalArrangement = Arrangement.spacedBy(2.dp)
-            ) {
-                repeat(3) { index ->
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth(if (index == 1) 0.6f else 0.82f)
-                            .fillMaxHeight(0.07f)
-                            .background(tokens.accentSoftIndigo.copy(alpha = 0.55f))
-                    )
-                }
-            }
-        }
-
-        Box(
-            modifier = Modifier
-                .align(Alignment.TopEnd)
-                .offset(x = -(previewWidth * 0.08f), y = previewHeight * 0.36f)
-                .size(width = previewWidth * 0.3f, height = previewHeight * 0.44f)
-                .clip(RoundedCornerShape(3.dp))
-                .background(tokens.accentSoftIndigo)
-        )
-
-        Box(
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .offset(y = -(previewHeight * 0.05f))
-                .fillMaxWidth(0.42f)
-                .fillMaxHeight(0.07f)
-                .clip(RoundedCornerShape(4.dp))
-                .background(tokens.laptopTileBg)
-        )
     }
 }

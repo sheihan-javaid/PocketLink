@@ -27,6 +27,7 @@ import org.kde.kdeconnect.helpers.security.RsaHelper
 import org.kde.kdeconnect.helpers.security.SslHelper
 import org.kde.kdeconnect.plugins.Plugin
 import org.kde.kdeconnect.plugins.PluginFactory
+import org.kde.kdeconnect.plugins.wallpaper.WallpaperRepository
 import org.kde.kdeconnect.ui.ThemeUtil
 import org.kde.kdeconnect_tp.BuildConfig
 import org.slf4j.impl.HandroidLoggerAdapter
@@ -60,6 +61,7 @@ class PocketLink : Application() {
         RsaHelper.initialiseRsaKeys(this)
         SslHelper.initialiseCertificate(this)
         PluginFactory.initPluginInfo(this)
+        WallpaperRepository.initialize(this)
         NotificationHelper.initializeChannels(this)
         LifecycleHelper.initializeObserver()
         loadRememberedDevicesFromSettings()

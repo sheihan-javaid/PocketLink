@@ -53,6 +53,7 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
@@ -64,50 +65,50 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import org.kde.kdeconnect.ui.compose.screen.device.modern.DesktopPreviewState
 import org.kde.kdeconnect.ui.compose.screen.device.modern.LocalDashboardTokens
 import org.kde.kdeconnect_tp.R
-import java.io.File
 
 /**
  * Microsoft Phone Link-inspired compact MacBook desktop preview card.
  *
- * Displays a refined MacBook desktop frame with:
- * - Real connected Mac desktop wallpaper if cached/transferred from companion
- * - Honest, elegant unavailable state when companion protocol does not broadcast wallpaper
- * - Subtle macOS menu bar
- * - Minimal macOS Dock representation
- * - Live connection indicator
+ * Displays:
+ * - The real connected Mac desktop wallpaper when [DesktopPreviewState.Available] /
+ *   [DesktopPreviewState.AvailableOffline] (decoded off-main-thread, downsampled to card size).
+ * - A stylized macOS desktop canvas for [Waiting], [NotSupported], [NotApplicable].
+ * - An optional "Enable wallpaper sync" CTA for [Disabled] via [onEnableClick].
+ * - Subtle macOS menu bar, Dock representation, and live connection indicator.
  */
 @Composable
 fun MacDesktopPreview(
-    deviceName: String,
+    state: DesktopPreviewState,
     isConnected: Boolean,
     modifier: Modifier = Modifier,
-    previewWidth: androidx.compose.ui.unit.Dp = 104.dp
+    previewWidth: androidx.compose.ui.unit.Dp = 104.dp,
+    onEnableClick: (() -> Unit)? = null
 ) {
     val context = LocalContext.current
+    val density = LocalDensity.current
     val tokens = LocalDashboardTokens.current
     val isReducedMotion = isReducedMotionMode()
     var showInfoDialog by remember { mutableStateOf(false) }
 
-    // Check for cached wallpaper file asynchronously
-    val cachedWallpaper by produceState<ImageBitmap?>(initialValue = null, key1 = deviceName) {
-        value = withContext(Dispatchers.IO) {
-            val cacheFile = File(context.cacheDir, "mac_wallpaper.png")
-            val filesFile = File(context.filesDir, "mac_wallpaper.png")
-            val target = when {
-                cacheFile.exists() && cacheFile.length() > 0 -> cacheFile
-                filesFile.exists() && filesFile.length() > 0 -> filesFile
-                else -> null
-            }
-            target?.let {
-                try {
-                    BitmapFactory.decodeFile(it.absolutePath)?.asImageBitmap()
-                } catch (e: Exception) {
-                    null
-                }
+    // Decode the cached wallpaper off the main thread, downsampled to the card size,
+    // keyed on the wallpaper hash so it recomputes when the wallpaper changes.
+    val wallpaperBitmap by produceState<ImageBitmap?>(initialValue = null, key1 = state) {
+        val wallpaperTarget = when (state) {
+            is DesktopPreviewState.Available -> state.wallpaperFilePath to state.wallpaperSha256
+            is DesktopPreviewState.AvailableOffline -> state.wallpaperFilePath to state.wallpaperSha256
+            else -> null
+        }
+        val bitmap = wallpaperTarget?.let { (filePath, _) ->
+            withContext(Dispatchers.IO) {
+                val cardWidthPx = density.run { previewWidth.toPx().toInt() }
+                val cardHeightPx = density.run { (previewWidth * 10f / 16f).toPx().toInt() }
+                decodeWallpaper(filePath, cardWidthPx, cardHeightPx)
             }
         }
+        value = bitmap
     }
 
     val infiniteTransition = rememberInfiniteTransition(label = "desktopPulse")
@@ -125,6 +126,7 @@ fun MacDesktopPreview(
         remember { mutableFloatStateOf(1f) }
     }
 
+    val showWallpaper = state is DesktopPreviewState.Available || state is DesktopPreviewState.AvailableOffline
     val contentDesc = stringResource(R.string.desktop_preview_desc)
 
     Column(
@@ -139,7 +141,14 @@ fun MacDesktopPreview(
                 .clip(RoundedCornerShape(8.dp))
                 .background(tokens.cardBackground)
                 .clickable(role = Role.Button) {
-                    showInfoDialog = true
+                    when (state) {
+                        is DesktopPreviewState.NotSupported,
+                        is DesktopPreviewState.NotApplicable -> showInfoDialog = true
+                        is DesktopPreviewState.Disabled -> onEnableClick?.invoke()
+                        is DesktopPreviewState.Available,
+                        is DesktopPreviewState.AvailableOffline,
+                        is DesktopPreviewState.Waiting -> {}
+                    }
                 }
                 .semantics {
                     role = Role.Button
@@ -161,10 +170,10 @@ fun MacDesktopPreview(
                         )
                     )
             ) {
-                // Display Canvas: Wallpaper or Minimal macOS Desktop Canvas
-                if (cachedWallpaper != null) {
+                // Display Canvas: real wallpaper or stylized macOS desktop canvas
+                if (showWallpaper && wallpaperBitmap != null) {
                     Image(
-                        bitmap = cachedWallpaper!!,
+                        bitmap = wallpaperBitmap!!,
                         contentDescription = stringResource(R.string.desktop_preview_title),
                         contentScale = ContentScale.Crop,
                         modifier = Modifier.fillMaxSize()
@@ -210,15 +219,12 @@ fun MacDesktopPreview(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    // Miniature Apple logo / dot
                     Box(
                         modifier = Modifier
                             .size(3.dp)
                             .clip(CircleShape)
                             .background(tokens.textPrimary.copy(alpha = 0.75f))
                     )
-
-                    // Miniature status indicator dots
                     Row(
                         horizontalArrangement = Arrangement.spacedBy(2.dp),
                         verticalAlignment = Alignment.CenterVertically
@@ -251,7 +257,6 @@ fun MacDesktopPreview(
                         horizontalArrangement = Arrangement.spacedBy(2.5.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        // 5 miniature rounded squircle Dock app icons in palette hues
                         Box(
                             modifier = Modifier
                                 .size(4.dp)
@@ -310,9 +315,22 @@ fun MacDesktopPreview(
                 .clip(RoundedCornerShape(bottomStart = 3.dp, bottomEnd = 3.dp))
                 .background(tokens.cardBorderBottom)
         )
+
+        // "Enable wallpaper sync" CTA when the plugin is disabled locally.
+        if (state is DesktopPreviewState.Disabled && onEnableClick != null) {
+            TextButton(
+                onClick = onEnableClick,
+                modifier = Modifier.padding(top = 4.dp)
+            ) {
+                Text(
+                    text = stringResource(R.string.desktop_preview_cta_enable),
+                    style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Medium)
+                )
+            }
+        }
     }
 
-    // Honest Companion Preview Information Dialog
+    // Companion Preview Information Dialog
     if (showInfoDialog) {
         AlertDialog(
             onDismissRequest = { showInfoDialog = false },
@@ -324,7 +342,13 @@ fun MacDesktopPreview(
             },
             text = {
                 Text(
-                    text = stringResource(R.string.desktop_preview_unavailable_message),
+                    text = when (state) {
+                        is DesktopPreviewState.NotSupported ->
+                            stringResource(R.string.desktop_preview_unavailable_message)
+                        is DesktopPreviewState.NotApplicable ->
+                            stringResource(R.string.desktop_preview_unavailable_message)
+                        else -> stringResource(R.string.desktop_preview_waiting)
+                    },
                     style = MaterialTheme.typography.bodyMedium,
                     color = tokens.textSecondary
                 )
@@ -343,3 +367,22 @@ fun MacDesktopPreview(
     }
 }
 
+/**
+ * Decodes [filePath] into an [ImageBitmap] downsampled to fit within [maxWidthPx] x [maxHeightPx],
+ * keeping memory bounded for large wallpapers.
+ */
+private fun decodeWallpaper(filePath: String, maxWidthPx: Int, maxHeightPx: Int): ImageBitmap? {
+    val bounds = BitmapFactory.Options().apply { inJustDecodeBounds = true }
+    BitmapFactory.decodeFile(filePath, bounds)
+    val outW = bounds.outWidth
+    val outH = bounds.outHeight
+    if (outW <= 0 || outH <= 0) return null
+
+    var inSampleSize = 1
+    while (outW / (inSampleSize * 2) >= maxWidthPx && outH / (inSampleSize * 2) >= maxHeightPx) {
+        inSampleSize *= 2
+    }
+
+    val decodeOpts = BitmapFactory.Options().apply { inSampleSize = inSampleSize }
+    return BitmapFactory.decodeFile(filePath, decodeOpts)?.asImageBitmap()
+}

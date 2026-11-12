@@ -7,12 +7,16 @@ package org.kde.kdeconnect.plugins.telephony
 
 import android.Manifest
 import android.app.Activity
+import android.app.Notification
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.media.AudioManager
+import android.os.Build
+import android.service.notification.StatusBarNotification
+import android.telecom.TelecomManager
 import android.telephony.PhoneNumberUtils
 import android.telephony.TelephonyManager
 import androidx.core.content.ContextCompat
@@ -21,16 +25,30 @@ import org.kde.kdeconnect.NetworkPacket
 import org.kde.kdeconnect.helpers.ContactsHelper
 import org.kde.kdeconnect.plugins.Plugin
 import org.kde.kdeconnect.plugins.PluginFactory.LoadablePlugin
+import org.kde.kdeconnect.plugins.notifications.NotificationReceiver
 import org.kde.kdeconnect.ui.PluginSettingsFragment
 import org.kde.kdeconnect_tp.R
 import java.util.Timer
 import java.util.TimerTask
 
 @LoadablePlugin
-class TelephonyPlugin : Plugin() {
+class TelephonyPlugin : Plugin(), NotificationReceiver.NotificationListener {
     private var lastState = TelephonyManager.CALL_STATE_IDLE
     private var lastPacket: NetworkPacket? = null
     private var isMuted = false
+
+    // Native dialer packages whose calls are handled by the existing broadcast path.
+    // We ignore them here to avoid double notifications for native cellular calls.
+    private val nativeDialerPackages = setOf(
+        "com.android.server.telecom",
+        "com.google.android.dialer",
+        "com.android.dialer",
+        "com.samsung.android.dialer"
+    )
+
+    // Tracks active VoIP calls by StatusBarNotification.key so we do not re-fire on
+    // notification updates (e.g. call answered) and can dismiss the popup on removal.
+    private val activeVoipCalls = mutableMapOf<String, String>()
 
     private val receiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent) {
@@ -61,45 +79,43 @@ class TelephonyPlugin : Plugin() {
     override val description: String
         get() = context.resources.getString(R.string.pref_plugin_telephony_desc)
 
-    private fun callBroadcastReceived(state: Int, phoneNumber: String?) {
+    private fun sendRinging(phoneNumber: String?, contactName: String?) {
         if (isNumberBlocked(phoneNumber)) return
 
         val np = NetworkPacket(PACKET_TYPE_TELEPHONY)
+        np["event"] = "ringing"
 
-        val permissionCheck = ContextCompat.checkSelfPermission(context, Manifest.permission.READ_CONTACTS)
+        // Don't send an empty phoneNumber; fall back to the contact name / title.
+        val numberToSend = if (phoneNumber.isNullOrEmpty()) contactName else phoneNumber
+        if (numberToSend != null) np["phoneNumber"] = numberToSend
+        if (contactName != null) np["contactName"] = contactName
 
-        if (permissionCheck == PackageManager.PERMISSION_GRANTED && phoneNumber != null) {
-            val result = ContactsHelper.phoneNumberLookup(context, phoneNumber)
+        device.sendPacket(np)
+        lastPacket = np
+    }
 
-            val name = result.name
-            if (name != null) {
-                np["contactName"] = name
-            }
-
-            val photoId = result.photoId
-            if (photoId != null) {
-                val base64photo = ContactsHelper.photoId64Encoded(context, photoId)
-                if (!base64photo.isNullOrEmpty()) {
-                    np["phoneThumbnail"] = base64photo
-                }
-            }
-        } else if (phoneNumber != null) {
-            np["contactName"] = phoneNumber
-        }
-
-        if (phoneNumber != null) {
-            np["phoneNumber"] = phoneNumber
-        }
+    private fun callBroadcastReceived(state: Int, phoneNumber: String?) {
+        if (isNumberBlocked(phoneNumber)) return
 
         when (state) {
             TelephonyManager.CALL_STATE_RINGING -> {
                 unmuteRinger()
-                np["event"] = "ringing"
-                device.sendPacket(np)
+                var contactName: String? = null
+                val permissionCheck = ContextCompat.checkSelfPermission(context, Manifest.permission.READ_CONTACTS)
+                if (permissionCheck == PackageManager.PERMISSION_GRANTED && phoneNumber != null) {
+                    val result = ContactsHelper.phoneNumberLookup(context, phoneNumber)
+                    contactName = result.name
+                } else if (phoneNumber != null) {
+                    contactName = phoneNumber
+                }
+                sendRinging(phoneNumber, contactName)
             }
             TelephonyManager.CALL_STATE_OFFHOOK -> {
+                val np = NetworkPacket(PACKET_TYPE_TELEPHONY)
+                if (phoneNumber != null) np["phoneNumber"] = phoneNumber
                 np["event"] = "talking"
                 device.sendPacket(np)
+                lastPacket = np
             }
             TelephonyManager.CALL_STATE_IDLE -> {
                 val lastPacket = lastPacket ?: return
@@ -118,8 +134,9 @@ class TelephonyPlugin : Plugin() {
 
                 // Emit a missed call notification if needed
                 if ("ringing" == lastPacket.getString("event")) {
+                    val np = NetworkPacket(PACKET_TYPE_TELEPHONY)
                     np["event"] = "missedCall"
-                    val phoneNumber = lastPacket.getStringOrNull("phoneNumber")
+                    val phoneNumber = lastPacket.getString("phoneNumber")
                     if (phoneNumber != null) {
                         np["phoneNumber"] = phoneNumber
                     }
@@ -131,8 +148,6 @@ class TelephonyPlugin : Plugin() {
                 }
             }
         }
-
-        lastPacket = np
     }
 
     private fun unmuteRinger() {
@@ -161,9 +176,16 @@ class TelephonyPlugin : Plugin() {
         val filter = IntentFilter(TelephonyManager.ACTION_PHONE_STATE_CHANGED)
         filter.priority = 500
         context.registerReceiver(receiver, filter)
+
+        NotificationReceiver.RunCommand(context) { service ->
+            service.addListener(this@TelephonyPlugin)
+        }
     }
 
     override fun onDestroy() {
+        NotificationReceiver.RunCommand(context) { service ->
+            service.removeListener(this@TelephonyPlugin)
+        }
         context.unregisterReceiver(receiver)
         unmuteRinger()
     }
@@ -173,6 +195,69 @@ class TelephonyPlugin : Plugin() {
             PACKET_TYPE_TELEPHONY_REQUEST_MUTE -> muteRinger()
         }
         return true
+    }
+
+    override fun onListenerConnected(service: NotificationReceiver) {
+        // No-op: we register in onCreate and the service delivers notifications as they arrive.
+    }
+
+    override fun onNotificationPosted(statusBarNotification: StatusBarNotification) {
+        val notification = statusBarNotification.notification
+        if (notification.category != Notification.CATEGORY_CALL) return
+
+        val packageName = statusBarNotification.packageName
+        if (nativeDialerPackages.contains(packageName)) return
+
+        val key = statusBarNotification.key
+        if (activeVoipCalls.containsKey(key)) return
+
+        // Confirm this is an incoming call. On API 31+ prefer EXTRA_CALL_TYPE;
+        // otherwise fall back to a full-screen intent being present.
+        val incoming = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            val callType = notification.extras?.getInt(TelecomManager.EXTRA_CALL_TYPE, -1) ?: -1
+            if (callType != -1) callType == 1 // TelecomManager.CALL_TYPE_INCOMING (API 31)
+            else notification.fullScreenIntent != null
+        } else {
+            notification.fullScreenIntent != null
+        }
+        if (!incoming) return
+
+        val title = notification.extras?.getString(Notification.EXTRA_TITLE) ?: return
+        val phoneNumber = title
+
+        var contactName: String? = null
+        if (looksLikePhoneNumber(title)) {
+            val result = ContactsHelper.phoneNumberLookup(context, title)
+            contactName = result.name ?: title
+        } else {
+            contactName = title
+        }
+
+        activeVoipCalls[key] = phoneNumber
+        sendRinging(phoneNumber, contactName)
+    }
+
+    override fun onNotificationRemoved(statusBarNotification: StatusBarNotification) {
+        val key = statusBarNotification.key
+        val phoneNumber = activeVoipCalls.remove(key) ?: return
+
+        // Cancel the ringing popup, mirroring the native IDLE path's cancel.
+        val cancelPacket = NetworkPacket(PACKET_TYPE_TELEPHONY)
+        cancelPacket["event"] = "ringing"
+        cancelPacket["isCancel"] = "true"
+        cancelPacket["phoneNumber"] = phoneNumber
+        device.sendPacket(cancelPacket)
+
+        // WhatsApp posts its own missed-call notification, which the notifications
+        // plugin already syncs, so we don't synthesize one here.
+    }
+
+    private fun looksLikePhoneNumber(candidate: String): Boolean {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            PhoneNumberUtils.isGlobalPhoneNumber(candidate)
+        } else {
+            candidate.any { it.isDigit() } && candidate.all { it.isDigit() || it == '+' || it == '-' || it == ' ' || it == '(' || it == ')' || it == '.' }
+        }
     }
 
     private fun isNumberBlocked(number: String?): Boolean {
