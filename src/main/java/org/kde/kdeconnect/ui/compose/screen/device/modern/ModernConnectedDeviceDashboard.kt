@@ -387,9 +387,9 @@ fun ManagePluginsPage(
     onButtonClick: (Plugin.PluginUiButton) -> Unit,
     onRequiredPermissionClick: (pluginKey: String) -> Unit,
     onOptionalPermissionClick: (pluginKey: String) -> Unit,
+    modifier: Modifier = Modifier,
     onPluginSettingsClick: (pluginKey: String) -> Unit = {},
-    onStatsClick: () -> Unit = {},
-    modifier: Modifier = Modifier
+    onStatsClick: () -> Unit = {}
 ) {
     val isDark = isDarkThemeMode()
     var searchQuery by remember { mutableStateOf("") }
@@ -750,8 +750,8 @@ private fun CompactManagePluginRow(
     onButtonClick: (Plugin.PluginUiButton) -> Unit,
     onRequiredPermissionClick: () -> Unit,
     onOptionalPermissionClick: () -> Unit,
-    onSettingsClick: () -> Unit = {},
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onSettingsClick: () -> Unit = {}
 ) {
     val tokens = LocalDashboardTokens.current
     val iconRes = getPluginIconRes(plugin.pluginKey)
