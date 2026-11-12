@@ -387,6 +387,7 @@ dependencies {
     // Testing
     testImplementation(libs.junit)
     testImplementation(libs.mockk)
+    testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.slf4j.simple) // do not try to use the Android logger backend in tests
     testImplementation(libs.jsonassert)
     testImplementation(libs.robolectric) {

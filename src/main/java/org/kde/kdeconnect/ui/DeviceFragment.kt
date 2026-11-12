@@ -39,13 +39,11 @@ import org.kde.kdeconnect.helpers.DeviceHelper
 import org.kde.kdeconnect.helpers.security.SslHelper
 import org.kde.kdeconnect.plugins.Plugin
 import org.kde.kdeconnect.plugins.battery.BatteryPlugin
-import org.kde.kdeconnect.plugins.PluginFactory
 import org.kde.kdeconnect.ui.compose.PocketLinkTheme
 import org.kde.kdeconnect.ui.compose.screen.device.DevicePluginUiModel
 import org.kde.kdeconnect.ui.compose.screen.device.DevicePairingScreen
 import org.kde.kdeconnect.ui.compose.screen.device.DeviceViewModel
 import org.kde.kdeconnect.ui.compose.screen.device.modern.ModernConnectedDeviceDashboard
-import org.kde.kdeconnect.ui.compose.screen.device.modern.DashboardUiStateMapper
 import org.kde.kdeconnect.ui.compose.screen.device.modern.DashboardActions
 import org.kde.kdeconnect.ui.compose.screen.device.modern.QuickActionAvailability
 import org.kde.kdeconnect.ui.compose.screen.device.modern.QuickActionUiModel
@@ -183,7 +181,7 @@ class DeviceFragment : BaseFragment<ActivityDeviceBinding>() {
             addPairingCallback(pairingCallback)
             removePluginsChangedListener(pluginsChangedListener)
             addPluginsChangedListener(pluginsChangedListener)
-            viewModel.bindDevice(this)
+            viewModel.bindDevice(this, context?.let { ctx -> DeviceHelper.getDeviceName(ctx) })
         } ?: run { // device is null
             Log.e(TAG, "Trying to display a device fragment but the device is not present")
             (mActivity as? MainActivity)?.onDeviceSelected(null)
@@ -227,7 +225,7 @@ class DeviceFragment : BaseFragment<ActivityDeviceBinding>() {
 
     override fun onResume() {
         super.onResume()
-        device?.let { viewModel.bindDevice(it) }
+        device?.let { viewModel.bindDevice(it, context?.let { ctx -> DeviceHelper.getDeviceName(ctx) }) }
         with(requireView()) {
             isFocusableInTouchMode = true
             requestFocus()
@@ -239,7 +237,7 @@ class DeviceFragment : BaseFragment<ActivityDeviceBinding>() {
         if (!hasBinding) return // in case onDestroyView has already been called
         val device = device ?: return
 
-        viewModel.bindDevice(device)
+        viewModel.bindDevice(device, context?.let { ctx -> DeviceHelper.getDeviceName(ctx) })
 
         //Once in-app, there is no point in keep displaying the notification if any
         device.hidePairingNotification()
@@ -248,54 +246,13 @@ class DeviceFragment : BaseFragment<ActivityDeviceBinding>() {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
                 PocketLinkTheme(context) {
-                    val isRefreshing by viewModel.isRefreshing.collectAsStateWithLifecycle()
                     val pairingErrorMessage by viewModel.pairingErrorMessage.collectAsStateWithLifecycle()
                     val pairingSucceeded by viewModel.pairingSucceeded.collectAsStateWithLifecycle()
-                    val liveMedia by viewModel.mediaPlaybackState.collectAsStateWithLifecycle()
-                    val liveVolume by viewModel.volumeControlState.collectAsStateWithLifecycle()
-                    val liveConnectivity by viewModel.connectivityStatus.collectAsStateWithLifecycle()
-                    val liveDesktopPreview by viewModel.desktopPreviewState.collectAsStateWithLifecycle()
+                    val dashboardState by viewModel.dashboardUiState.collectAsStateWithLifecycle()
+                    val pluginModels by viewModel.pluginModels.collectAsStateWithLifecycle()
 
                     when (device.pairStatus) {
                         PairingHandler.PairState.Paired -> {
-                            val allManageablePlugins = PluginFactory.sortPluginList(PluginFactory.availablePlugins)
-                                .filter { it != "ReceiveNotificationsPlugin" }
-                                .map { pluginKey ->
-                                    val pluginInfo = PluginFactory.getPluginInfo(pluginKey)
-                                    DevicePluginUiModel(
-                                        pluginKey = pluginKey,
-                                        displayName = pluginInfo.displayName,
-                                        description = pluginInfo.description,
-                                        isEnabled = device.isPluginEnabled(pluginKey),
-                                        hasSettings = pluginInfo.hasSettings,
-                                        actionButtons = device.loadedPlugins[pluginKey]
-                                            ?.getUiButtons()
-                                            .orEmpty(),
-                                        needsRequiredPermission =
-                                            device.isPluginEnabled(pluginKey) &&
-                                                pluginKey in device.pluginsWithoutPermissions,
-                                        needsOptionalPermission =
-                                            device.isPluginEnabled(pluginKey) &&
-                                                pluginKey in device.pluginsWithoutOptionalPermissions
-                                    )
-                                }
-
-                        val modernDashboardState = DashboardUiStateMapper.map(
-                            deviceName = device.name,
-                            deviceIconRes = device.iconDrawable,
-                            isConnected = device.isReachable,
-                            plugins = allManageablePlugins,
-                            batteryPercent = device.getPlugin<BatteryPlugin>()?.remoteBatteryInfo?.currentCharge,
-                            isBatteryCharging = device.getPlugin<BatteryPlugin>()?.remoteBatteryInfo?.isCharging ?: false,
-                            isBatteryLow = device.getPlugin<BatteryPlugin>()?.remoteBatteryInfo?.let { BatteryPlugin.isLowBattery(it) } ?: false,
-                            connectivitySummary = liveConnectivity,
-                            mediaState = liveMedia,
-                            volumeState = liveVolume,
-                            isRefreshing = isRefreshing,
-                            localDeviceName = DeviceHelper.getDeviceName(requireContext()),
-                            desktopPreview = liveDesktopPreview
-                        )
-
                             val modernActions = remember(device) {
                                 object : DashboardActions {
                                     override fun onRefresh() {
@@ -373,9 +330,9 @@ class DeviceFragment : BaseFragment<ActivityDeviceBinding>() {
                             }
 
                             ModernConnectedDeviceDashboard(
-                                state = modernDashboardState,
+                                state = dashboardState,
                                 actions = modernActions,
-                                pluginModelsForManagePage = allManageablePlugins,
+                                pluginModelsForManagePage = pluginModels,
                                 deviceId = device.deviceId,
                                 onPluginEnabledChange = device::setPluginEnabled,
                                 onButtonClick = { button -> button.onClick(mActivity!!) },
