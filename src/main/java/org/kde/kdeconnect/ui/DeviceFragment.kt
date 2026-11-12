@@ -267,6 +267,7 @@ class DeviceFragment : BaseFragment<ActivityDeviceBinding>() {
                                         displayName = pluginInfo.displayName,
                                         description = pluginInfo.description,
                                         isEnabled = device.isPluginEnabled(pluginKey),
+                                        hasSettings = pluginInfo.hasSettings,
                                         actionButtons = device.loadedPlugins[pluginKey]
                                             ?.getUiButtons()
                                             .orEmpty(),

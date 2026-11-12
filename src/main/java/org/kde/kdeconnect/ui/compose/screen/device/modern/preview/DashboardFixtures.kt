@@ -126,35 +126,35 @@ object DashboardFixtures {
 
     val samplePluginModels = listOf(
         // Share & Transfer (3)
-        DevicePluginUiModel("SharePlugin", "Share and receive", "Share files and URLs between devices", true, listOf(Plugin.PluginUiButton("Send Files", R.drawable.share_plugin_action_24dp) {}), false, false),
-        DevicePluginUiModel("ClipboardPlugin", "Clipboard sync", "Synchronize clipboard contents across devices", true, listOf(Plugin.PluginUiButton("Send Clipboard", R.drawable.ic_baseline_content_paste_24) {}), false, false),
-        DevicePluginUiModel("SftpPlugin", "Filesystem access", "Allows remote browsing of filesystem via SFTP", true, listOf(Plugin.PluginUiButton("Browse", R.drawable.ic_modern_folder) {}), false, false),
+        DevicePluginUiModel("SharePlugin", "Share and receive", "Share files and URLs between devices", true, true, listOf(Plugin.PluginUiButton("Send Files", R.drawable.share_plugin_action_24dp) {}), false, false),
+        DevicePluginUiModel("ClipboardPlugin", "Clipboard sync", "Synchronize clipboard contents across devices", true, true, listOf(Plugin.PluginUiButton("Send Clipboard", R.drawable.ic_baseline_content_paste_24) {}), false, false),
+        DevicePluginUiModel("SftpPlugin", "Filesystem access", "Allows remote browsing of filesystem via SFTP", true, true, listOf(Plugin.PluginUiButton("Browse", R.drawable.ic_modern_folder) {}), false, false),
 
         // Control Computer (7)
-        DevicePluginUiModel("MousePadPlugin", "Remote input", "Touchpad and keyboard control for your computer", true, listOf(Plugin.PluginUiButton("Open Touchpad", R.drawable.touchpad_plugin_action_24dp) {}), false, false),
-        DevicePluginUiModel("RunCommandPlugin", "Run Command", "Execute configured Mac scripts and commands", true, listOf(Plugin.PluginUiButton("Commands", R.drawable.run_command_plugin_icon_24dp) {}), false, false),
-        DevicePluginUiModel("PresenterPlugin", "Presentation remote", "Slide navigation and laser pointer control", true, listOf(Plugin.PluginUiButton("Presenter", R.drawable.ic_presenter_24dp) {}), false, false),
-        DevicePluginUiModel("FindRemoteDevicePlugin", "Find remote device", "Ring remote computer to locate it", true, listOf(Plugin.PluginUiButton("Ring", R.drawable.ic_modern_bell) {}), false, false),
-        DevicePluginUiModel("RemoteKeyboardPlugin", "Remote keyboard", "Receive keyboard input from remote device", true, emptyList(), false, false),
-        DevicePluginUiModel("RemoteKeyboardIMEPlugin", "Remote keyboard IME", "Input method for remote keyboard entry", false, emptyList(), false, false),
-        DevicePluginUiModel("DigitizerPlugin", "Drawing tablet", "Send stylus and touch input to computer", false, emptyList(), false, false),
+        DevicePluginUiModel("MousePadPlugin", "Remote input", "Touchpad and keyboard control for your computer", true, true, listOf(Plugin.PluginUiButton("Open Touchpad", R.drawable.touchpad_plugin_action_24dp) {}), false, false),
+        DevicePluginUiModel("RunCommandPlugin", "Run Command", "Execute configured Mac scripts and commands", true, true, listOf(Plugin.PluginUiButton("Commands", R.drawable.run_command_plugin_icon_24dp) {}), false, false),
+        DevicePluginUiModel("PresenterPlugin", "Presentation remote", "Slide navigation and laser pointer control", true, true, listOf(Plugin.PluginUiButton("Presenter", R.drawable.ic_presenter_24dp) {}), false, false),
+        DevicePluginUiModel("FindRemoteDevicePlugin", "Find remote device", "Ring remote computer to locate it", true, false, listOf(Plugin.PluginUiButton("Ring", R.drawable.ic_modern_bell) {}), false, false),
+        DevicePluginUiModel("RemoteKeyboardPlugin", "Remote keyboard", "Receive keyboard input from remote device", true, false, emptyList(), false, false),
+        DevicePluginUiModel("RemoteKeyboardIMEPlugin", "Remote keyboard IME", "Input method for remote keyboard entry", false, true, emptyList(), false, false),
+        DevicePluginUiModel("DigitizerPlugin", "Drawing tablet", "Send stylus and touch input to computer", false, true, emptyList(), false, false),
 
         // Media & Audio (3)
-        DevicePluginUiModel("MprisPlugin", "Media control", "Control remote computer media playback", true, emptyList(), false, false),
-        DevicePluginUiModel("SystemVolumePlugin", "System volume", "Control remote computer audio volume", true, emptyList(), false, false),
-        DevicePluginUiModel("MprisReceiverPlugin", "Media control receiver", "Allow remote device to control phone playback", true, emptyList(), false, false),
+        DevicePluginUiModel("MprisPlugin", "Media control", "Control remote computer media playback", true, true, emptyList(), false, false),
+        DevicePluginUiModel("SystemVolumePlugin", "System volume", "Control remote computer audio volume", true, false, emptyList(), false, false),
+        DevicePluginUiModel("MprisReceiverPlugin", "Media control receiver", "Allow remote device to control phone playback", true, false, emptyList(), false, false),
 
         // Device Information & Connectivity (10)
-        DevicePluginUiModel("BatteryPlugin", "Battery report", "Periodic battery level and charging reports", true, emptyList(), false, false),
-        DevicePluginUiModel("ConnectivityReportPlugin", "Connectivity report", "Network signal strength and connection status", true, emptyList(), false, false),
-        DevicePluginUiModel("NotificationsPlugin", "Notification sync", "Forward phone notifications to Mac (one-way)", true, emptyList(), false, false),
-        DevicePluginUiModel("ContactsPlugin", "Contacts synchroniser", "Synchronize phone contacts with remote computer", true, emptyList(), true, false),
-        DevicePluginUiModel("FindMyPhonePlugin", "Find my phone", "Allow remote device to ring this phone", true, emptyList(), false, false),
-        DevicePluginUiModel("InputDevicesReceiverPlugin", "Input devices receiver", "Receive input device events from computer", false, emptyList(), false, false),
-        DevicePluginUiModel("MouseReceiverPlugin", "Mouse receiver", "Receive mouse pointer events on phone", true, emptyList(), false, true),
-        DevicePluginUiModel("PingPlugin", "Ping", "Send and receive connection check pings", true, listOf(Plugin.PluginUiButton("Send Ping", R.drawable.ic_baseline_send_24) {}), false, false),
-        DevicePluginUiModel("SMSPlugin", "SMS / MMS", "Send and receive SMS messages from computer", true, emptyList(), false, false),
-        DevicePluginUiModel("TelephonyPlugin", "Telephony", "Call alerts and incoming call notifications", true, emptyList(), false, false)
+        DevicePluginUiModel("BatteryPlugin", "Battery report", "Periodic battery level and charging reports", true, false, emptyList(), false, false),
+        DevicePluginUiModel("ConnectivityReportPlugin", "Connectivity report", "Network signal strength and connection status", true, false, emptyList(), false, false),
+        DevicePluginUiModel("NotificationsPlugin", "Notification sync", "Forward phone notifications to Mac (one-way)", true, true, emptyList(), false, false),
+        DevicePluginUiModel("ContactsPlugin", "Contacts synchroniser", "Synchronize phone contacts with remote computer", true, false, emptyList(), true, false),
+        DevicePluginUiModel("FindMyPhonePlugin", "Find my phone", "Allow remote device to ring this phone", true, true, emptyList(), false, false),
+        DevicePluginUiModel("InputDevicesReceiverPlugin", "Input devices receiver", "Receive input device events from computer", false, false, emptyList(), false, false),
+        DevicePluginUiModel("MouseReceiverPlugin", "Mouse receiver", "Receive mouse pointer events on phone", true, false, emptyList(), false, true),
+        DevicePluginUiModel("PingPlugin", "Ping", "Send and receive connection check pings", true, false, listOf(Plugin.PluginUiButton("Send Ping", R.drawable.ic_baseline_send_24) {}), false, false),
+        DevicePluginUiModel("SMSPlugin", "SMS / MMS", "Send and receive SMS messages from computer", true, true, emptyList(), false, false),
+        DevicePluginUiModel("TelephonyPlugin", "Telephony", "Call alerts and incoming call notifications", true, true, emptyList(), false, false)
     )
 }
 

@@ -46,6 +46,22 @@ class DashboardUiStateMapperTest {
         "WallpaperPlugin"
     )
 
+    private val pluginsWithSettings = setOf(
+        "ClipboardPlugin",
+        "DigitizerPlugin",
+        "FindMyPhonePlugin",
+        "MousePadPlugin",
+        "MprisPlugin",
+        "NotificationsPlugin",
+        "PresenterPlugin",
+        "RemoteKeyboardIMEPlugin",
+        "RunCommandPlugin",
+        "SftpPlugin",
+        "SharePlugin",
+        "SMSPlugin",
+        "TelephonyPlugin"
+    )
+
     private fun createSampleModels(): List<DevicePluginUiModel> {
         return allExpectedPluginKeys.map { key ->
             DevicePluginUiModel(
@@ -53,6 +69,7 @@ class DashboardUiStateMapperTest {
                 displayName = key.removeSuffix("Plugin"),
                 description = "Description for $key",
                 isEnabled = true,
+                hasSettings = key in pluginsWithSettings,
                 actionButtons = listOf(Plugin.PluginUiButton("Action for $key", R.drawable.ic_notification) {}),
                 needsRequiredPermission = key == "ContactsPlugin",
                 needsOptionalPermission = key == "MouseReceiverPlugin"
@@ -198,6 +215,7 @@ class DashboardUiStateMapperTest {
             displayName = "Remote input",
             description = "Use phone as touchpad",
             isEnabled = true,
+            hasSettings = true,
             actionButtons = listOf(
                 Plugin.PluginUiButton("Open Touchpad", R.drawable.touchpad_plugin_action_24dp) {},
                 Plugin.PluginUiButton("Open TV Remote", R.drawable.touchpad_plugin_action_24dp) {}
@@ -228,6 +246,7 @@ class DashboardUiStateMapperTest {
             displayName = "Contacts",
             description = "Contacts sync",
             isEnabled = true,
+            hasSettings = false,
             actionButtons = emptyList(),
             needsRequiredPermission = true,
             needsOptionalPermission = false
@@ -237,6 +256,7 @@ class DashboardUiStateMapperTest {
             displayName = "Mouse",
             description = "Mouse receiver",
             isEnabled = true,
+            hasSettings = false,
             actionButtons = emptyList(),
             needsRequiredPermission = false,
             needsOptionalPermission = true
@@ -359,6 +379,22 @@ class DashboardUiStateMapperTest {
             desktopPreview = offline
         )
         assertEquals(offline, state.desktopPreview)
+    }
+
+    @Test
+    fun pluginModelHasSettingsReflectsExpectedConfiguration() {
+        val sampleModels = createSampleModels()
+        val modelsWithSettings = sampleModels.filter { it.hasSettings }.map { it.pluginKey }.toSet()
+
+        assertEquals("Exactly 13 plugins should have settings", 13, modelsWithSettings.size)
+        assertEquals(pluginsWithSettings, modelsWithSettings)
+
+        assertTrue("ClipboardPlugin must have settings", sampleModels.first { it.pluginKey == "ClipboardPlugin" }.hasSettings)
+        assertTrue("NotificationsPlugin must have settings", sampleModels.first { it.pluginKey == "NotificationsPlugin" }.hasSettings)
+        assertTrue("SharePlugin must have settings", sampleModels.first { it.pluginKey == "SharePlugin" }.hasSettings)
+        assertFalse("BatteryPlugin must not have settings", sampleModels.first { it.pluginKey == "BatteryPlugin" }.hasSettings)
+        assertFalse("ContactsPlugin must not have settings", sampleModels.first { it.pluginKey == "ContactsPlugin" }.hasSettings)
+        assertFalse("PingPlugin must not have settings", sampleModels.first { it.pluginKey == "PingPlugin" }.hasSettings)
     }
 }
 

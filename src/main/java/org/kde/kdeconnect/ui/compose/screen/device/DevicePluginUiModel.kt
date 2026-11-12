@@ -19,6 +19,7 @@ data class DevicePluginUiModel(
     val displayName: String,
     val description: String,
     val isEnabled: Boolean,
+    val hasSettings: Boolean = false,
     val actionButtons: List<Plugin.PluginUiButton>,
     val needsRequiredPermission: Boolean,
     val needsOptionalPermission: Boolean
