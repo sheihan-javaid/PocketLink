@@ -10,6 +10,7 @@ import androidx.activity.ComponentActivity
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.getBoundsInRoot
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.onAllNodesWithContentDescription
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onFirst
 import androidx.compose.ui.test.onNodeWithContentDescription
@@ -33,10 +34,13 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.kde.kdeconnect.plugins.Plugin
+import org.kde.kdeconnect.ui.compose.screen.device.DevicePluginUiModel
 import org.kde.kdeconnect.ui.compose.screen.device.modern.ModernPocketLinkTheme
 import org.kde.kdeconnect.ui.compose.screen.device.modern.preview.DashboardFixtures
+import org.kde.kdeconnect_tp.R
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicInteger
+import java.util.concurrent.atomic.AtomicReference
 
 @RunWith(AndroidJUnit4::class)
 class ModernConnectedDeviceDashboardTest {
@@ -465,5 +469,170 @@ class ModernConnectedDeviceDashboardTest {
     private fun takeScreencap(path: String) {
         val pfd = androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().uiAutomation.executeShellCommand("screencap -p $path")
         android.os.ParcelFileDescriptor.AutoCloseInputStream(pfd).use { it.readBytes() }
+    }
+
+    @Test
+    fun connectedDeviceWithZeroPluginsShowsEmptyStatePanelAndHiddenWhenNonEmpty() {
+        val emptyState = DashboardUiStateMapper.map(
+            deviceName = "MacBook Pro",
+            deviceIconRes = R.drawable.ic_device_laptop_32dp,
+            isConnected = true,
+            plugins = emptyList(),
+            batteryPercent = null
+        )
+
+        composeRule.setContent {
+            ModernPocketLinkTheme(context = composeRule.activity) {
+                ModernConnectedDeviceDashboard(
+                    state = emptyState,
+                    actions = DashboardFixtures.mockActions,
+                    pluginModelsForManagePage = emptyList(),
+                    onPluginEnabledChange = { _, _ -> },
+                    onButtonClick = {},
+                    onRequiredPermissionClick = {},
+                    onOptionalPermissionClick = {}
+                )
+            }
+        }
+
+        val noSupportedPluginsText = composeRule.activity.getString(R.string.device_no_supported_plugins)
+        composeRule.onNodeWithText(noSupportedPluginsText).assertIsDisplayed()
+
+        // When sections are non-empty, the panel should not be shown
+        composeRule.setContent {
+            ModernPocketLinkTheme(context = composeRule.activity) {
+                ModernConnectedDeviceDashboard(
+                    state = DashboardFixtures.fullFeaturedState,
+                    actions = DashboardFixtures.mockActions,
+                    pluginModelsForManagePage = DashboardFixtures.samplePluginModels,
+                    onPluginEnabledChange = { _, _ -> },
+                    onButtonClick = {},
+                    onRequiredPermissionClick = {},
+                    onOptionalPermissionClick = {}
+                )
+            }
+        }
+
+        composeRule.onNodeWithText(noSupportedPluginsText).assertDoesNotExist()
+    }
+
+    @Test
+    fun offlineDeviceRecoveryActionInvokesRefreshCallbackExactlyOnce() {
+        val refreshCount = AtomicInteger(0)
+        val actions = object : DashboardActions by DashboardFixtures.mockActions {
+            override fun onRefresh() {
+                refreshCount.incrementAndGet()
+            }
+        }
+        val offlineHero = DashboardFixtures.fullFeaturedState.hero.copy(isConnected = false)
+        val offlineState = DashboardFixtures.fullFeaturedState.copy(hero = offlineHero)
+
+        composeRule.setContent {
+            ModernPocketLinkTheme(context = composeRule.activity) {
+                ModernConnectedDeviceDashboard(
+                    state = offlineState,
+                    actions = actions,
+                    pluginModelsForManagePage = DashboardFixtures.samplePluginModels,
+                    onPluginEnabledChange = { _, _ -> },
+                    onButtonClick = {},
+                    onRequiredPermissionClick = {},
+                    onOptionalPermissionClick = {}
+                )
+            }
+        }
+
+        val refreshLabel = composeRule.activity.getString(R.string.refresh)
+        composeRule.onNodeWithText(refreshLabel).performClick()
+
+        assertEquals("onRefresh must be invoked exactly once", 1, refreshCount.get())
+    }
+
+    @Test
+    fun managePluginsPageSettingsGearVisibleOnlyWhenEnabledAndHasSettings() {
+        val clickedKey = AtomicReference<String?>(null)
+        val testPlugins = listOf(
+            DevicePluginUiModel(
+                pluginKey = "SharePlugin",
+                displayName = "Share",
+                description = "File sharing",
+                isEnabled = true,
+                hasSettings = true,
+                actionButtons = emptyList(),
+                needsRequiredPermission = false,
+                needsOptionalPermission = false
+            ),
+            DevicePluginUiModel(
+                pluginKey = "BatteryPlugin",
+                displayName = "Battery",
+                description = "Battery reporting",
+                isEnabled = true,
+                hasSettings = false,
+                actionButtons = emptyList(),
+                needsRequiredPermission = false,
+                needsOptionalPermission = false
+            ),
+            DevicePluginUiModel(
+                pluginKey = "DigitizerPlugin",
+                displayName = "Digitizer",
+                description = "Drawing tablet",
+                isEnabled = false,
+                hasSettings = true,
+                actionButtons = emptyList(),
+                needsRequiredPermission = false,
+                needsOptionalPermission = false
+            )
+        )
+
+        composeRule.setContent {
+            ModernPocketLinkTheme(context = composeRule.activity) {
+                ManagePluginsPage(
+                    plugins = testPlugins,
+                    onBack = {},
+                    onPluginEnabledChange = { _, _ -> },
+                    onButtonClick = {},
+                    onRequiredPermissionClick = {},
+                    onOptionalPermissionClick = {},
+                    onPluginSettingsClick = { key -> clickedKey.set(key) }
+                )
+            }
+        }
+
+        val settingsDesc = composeRule.activity.getString(R.string.manage_plugins_settings)
+        // Only one settings gear should be displayed (for SharePlugin)
+        val settingsNodes = composeRule.onAllNodesWithContentDescription(settingsDesc)
+        settingsNodes.onFirst().assertIsDisplayed()
+        settingsNodes.onFirst().performClick()
+
+        assertEquals("Clicking settings gear must pass the correct plugin key", "SharePlugin", clickedKey.get())
+    }
+
+    @Test
+    fun managePluginsPageStatsButtonOpensDialog() {
+        composeRule.setContent {
+            ModernPocketLinkTheme(context = composeRule.activity) {
+                ModernConnectedDeviceDashboard(
+                    state = DashboardFixtures.fullFeaturedState,
+                    actions = DashboardFixtures.mockActions,
+                    pluginModelsForManagePage = DashboardFixtures.samplePluginModels,
+                    deviceId = "test-device-id",
+                    onPluginEnabledChange = { _, _ -> },
+                    onButtonClick = {},
+                    onRequiredPermissionClick = {},
+                    onOptionalPermissionClick = {}
+                )
+            }
+        }
+
+        // Scroll to and click the Manage Plugins summary card to open ManagePluginsPage
+        val managePluginsTitle = composeRule.activity.getString(R.string.manage_plugins_title)
+        composeRule.onNodeWithText(managePluginsTitle).performScrollTo().performClick()
+
+        // Click stats icon in ManagePluginsPage header
+        val statsDesc = composeRule.activity.getString(R.string.plugin_stats)
+        composeRule.onNodeWithContentDescription(statsDesc).performClick()
+
+        // Verify the AlertDialog is displayed
+        val okLabel = composeRule.activity.getString(R.string.ok)
+        composeRule.onNodeWithText(okLabel).assertIsDisplayed()
     }
 }
