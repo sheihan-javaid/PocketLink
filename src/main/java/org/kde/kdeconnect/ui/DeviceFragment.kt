@@ -376,6 +376,7 @@ class DeviceFragment : BaseFragment<ActivityDeviceBinding>() {
                                 state = modernDashboardState,
                                 actions = modernActions,
                                 pluginModelsForManagePage = allManageablePlugins,
+                                deviceId = device.deviceId,
                                 onPluginEnabledChange = device::setPluginEnabled,
                                 onButtonClick = { button -> button.onClick(mActivity!!) },
                                 onRequiredPermissionClick = { pluginKey ->

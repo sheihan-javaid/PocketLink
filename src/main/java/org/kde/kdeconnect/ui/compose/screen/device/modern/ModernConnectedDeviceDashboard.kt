@@ -44,11 +44,14 @@ import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilledTonalButton
@@ -61,6 +64,7 @@ import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -68,6 +72,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -90,6 +95,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import org.kde.kdeconnect.DeviceStats
 import org.kde.kdeconnect.plugins.Plugin
 import org.kde.kdeconnect.ui.compose.PocketLinkSpacing
 import org.kde.kdeconnect.ui.compose.screen.device.DeviceErrorPanel
@@ -115,6 +121,8 @@ fun ModernConnectedDeviceDashboard(
     onRequiredPermissionClick: (pluginKey: String) -> Unit,
     onOptionalPermissionClick: (pluginKey: String) -> Unit,
     onPluginSettingsClick: (pluginKey: String) -> Unit = {},
+    deviceId: String = "",
+    onPluginStatsClick: () -> Unit = {},
     pairingSucceeded: Boolean = false,
     onDismissPairingSuccess: () -> Unit = {},
     onManagingPluginsChange: (Boolean) -> Unit = {},
@@ -141,7 +149,8 @@ fun ModernConnectedDeviceDashboard(
         LocalDashboardTokens provides tokens,
         LocalEffectsTier provides tier
     ) {
-        var isManagingPlugins by remember { mutableStateOf(false) }
+        var isManagingPlugins by rememberSaveable { mutableStateOf(false) }
+        var showStatsDialog by rememberSaveable { mutableStateOf(false) }
 
         LaunchedEffect(isManagingPlugins) {
             onManagingPluginsChange(isManagingPlugins)
@@ -157,6 +166,10 @@ fun ModernConnectedDeviceDashboard(
                 onRequiredPermissionClick = onRequiredPermissionClick,
                 onOptionalPermissionClick = onOptionalPermissionClick,
                 onPluginSettingsClick = onPluginSettingsClick,
+                onStatsClick = {
+                    showStatsDialog = true
+                    onPluginStatsClick()
+                },
                 modifier = modifier
             )
         } else {
@@ -314,6 +327,42 @@ fun ModernConnectedDeviceDashboard(
                 }
             }
         }
+
+        if (showStatsDialog) {
+            val stats = remember(deviceId) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && deviceId.isNotEmpty()) {
+                    DeviceStats.getStatsForDevice(deviceId)
+                } else {
+                    ""
+                }
+            }
+            val displayText = stats.ifBlank {
+                stringResource(R.string.plugin_stats_empty)
+            }
+
+            AlertDialog(
+                onDismissRequest = { showStatsDialog = false },
+                title = {
+                    Text(
+                        text = stringResource(R.string.plugin_stats),
+                        style = MaterialTheme.typography.titleLarge
+                    )
+                },
+                text = {
+                    SelectionContainer {
+                        Text(
+                            text = displayText,
+                            style = MaterialTheme.typography.bodyMedium
+                        )
+                    }
+                },
+                confirmButton = {
+                    TextButton(onClick = { showStatsDialog = false }) {
+                        Text(stringResource(R.string.ok))
+                    }
+                }
+            )
+        }
     }
 }
 
@@ -327,6 +376,7 @@ fun ManagePluginsPage(
     onRequiredPermissionClick: (pluginKey: String) -> Unit,
     onOptionalPermissionClick: (pluginKey: String) -> Unit,
     onPluginSettingsClick: (pluginKey: String) -> Unit = {},
+    onStatsClick: () -> Unit = {},
     modifier: Modifier = Modifier
 ) {
     val isDark = isDarkThemeMode()
@@ -542,8 +592,20 @@ fun ManagePluginsPage(
                 Text(
                     text = stringResource(R.string.manage_plugins_title),
                     style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold),
-                    color = tokens.textPrimary
+                    color = tokens.textPrimary,
+                    modifier = Modifier.weight(1f)
                 )
+                IconButton(
+                    onClick = onStatsClick,
+                    modifier = Modifier.size(38.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Info,
+                        contentDescription = stringResource(R.string.plugin_stats),
+                        tint = tokens.textPrimary,
+                        modifier = Modifier.size(20.dp)
+                    )
+                }
             }
 
             // Compact Manage Plugins Search Bar (44dp pill, refined focus border)
