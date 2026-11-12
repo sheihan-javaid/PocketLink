@@ -112,13 +112,14 @@ class DeviceFragment : BaseFragment<ActivityDeviceBinding>() {
             }
             for (p in menuEntries) {
                 menu.add(p.name).setOnMenuItemClickListener {
-                    p.onClick(mActivity!!)
+                    activity?.let { act -> p.onClick(act) }
                     true
                 }
             }
-            val intent = PluginSettingsActivity.createIntent(mActivity!!, deviceId)
             menu.add(R.string.device_menu_plugins).setOnMenuItemClickListener {
-                startActivity(intent)
+                activity?.let { act ->
+                    startActivity(PluginSettingsActivity.createIntent(act, deviceId))
+                }
                 true
             }
             if (device.isReachable) {
@@ -181,7 +182,7 @@ class DeviceFragment : BaseFragment<ActivityDeviceBinding>() {
             addPairingCallback(pairingCallback)
             removePluginsChangedListener(pluginsChangedListener)
             addPluginsChangedListener(pluginsChangedListener)
-            viewModel.bindDevice(this, context?.let { ctx -> DeviceHelper.getDeviceName(ctx) })
+            viewModel.bindDevice(this, DeviceHelper.getDeviceName(requireContext()))
         } ?: run { // device is null
             Log.e(TAG, "Trying to display a device fragment but the device is not present")
             (mActivity as? MainActivity)?.onDeviceSelected(null)
@@ -277,14 +278,14 @@ class DeviceFragment : BaseFragment<ActivityDeviceBinding>() {
                                                 }
                                             }
                                             is QuickActionAvailability.Ready -> {
-                                                action.actionButton?.onClick(mActivity!!)
+                                                activity?.let { act -> action.actionButton?.onClick(act) }
                                             }
                                             is QuickActionAvailability.Disabled -> {}
                                         }
                                     }
 
                                     override fun onPluginButtonClick(button: Plugin.PluginUiButton) {
-                                        button.onClick(mActivity!!)
+                                        activity?.let { act -> button.onClick(act) }
                                     }
 
                                     override fun onPermissionItemClick(pluginKey: String, isRequired: Boolean) {
@@ -335,7 +336,7 @@ class DeviceFragment : BaseFragment<ActivityDeviceBinding>() {
                                 pluginModelsForManagePage = pluginModels,
                                 deviceId = device.deviceId,
                                 onPluginEnabledChange = device::setPluginEnabled,
-                                onButtonClick = { button -> button.onClick(mActivity!!) },
+                                onButtonClick = { button -> activity?.let { act -> button.onClick(act) } },
                                 onRequiredPermissionClick = { pluginKey ->
                                     device.pluginsWithoutPermissions[pluginKey]
                                         ?.permissionExplanationDialog
