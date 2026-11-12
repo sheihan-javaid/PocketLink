@@ -114,6 +114,7 @@ fun ModernConnectedDeviceDashboard(
     onButtonClick: (Plugin.PluginUiButton) -> Unit,
     onRequiredPermissionClick: (pluginKey: String) -> Unit,
     onOptionalPermissionClick: (pluginKey: String) -> Unit,
+    onPluginSettingsClick: (pluginKey: String) -> Unit = {},
     pairingSucceeded: Boolean = false,
     onDismissPairingSuccess: () -> Unit = {},
     onManagingPluginsChange: (Boolean) -> Unit = {},
@@ -155,6 +156,7 @@ fun ModernConnectedDeviceDashboard(
                 onButtonClick = onButtonClick,
                 onRequiredPermissionClick = onRequiredPermissionClick,
                 onOptionalPermissionClick = onOptionalPermissionClick,
+                onPluginSettingsClick = onPluginSettingsClick,
                 modifier = modifier
             )
         } else {
@@ -324,6 +326,7 @@ fun ManagePluginsPage(
     onButtonClick: (Plugin.PluginUiButton) -> Unit,
     onRequiredPermissionClick: (pluginKey: String) -> Unit,
     onOptionalPermissionClick: (pluginKey: String) -> Unit,
+    onPluginSettingsClick: (pluginKey: String) -> Unit = {},
     modifier: Modifier = Modifier
 ) {
     val isDark = isDarkThemeMode()
@@ -492,7 +495,8 @@ fun ManagePluginsPage(
                                         onEnabledChange = { onPluginEnabledChange(plugin.pluginKey, it) },
                                         onButtonClick = onButtonClick,
                                         onRequiredPermissionClick = { onRequiredPermissionClick(plugin.pluginKey) },
-                                        onOptionalPermissionClick = { onOptionalPermissionClick(plugin.pluginKey) }
+                                        onOptionalPermissionClick = { onOptionalPermissionClick(plugin.pluginKey) },
+                                        onSettingsClick = { onPluginSettingsClick(plugin.pluginKey) }
                                     )
                                     if (index < categoryPlugins.lastIndex) {
                                         HorizontalDivider(
@@ -672,6 +676,7 @@ private fun CompactManagePluginRow(
     onButtonClick: (Plugin.PluginUiButton) -> Unit,
     onRequiredPermissionClick: () -> Unit,
     onOptionalPermissionClick: () -> Unit,
+    onSettingsClick: () -> Unit = {},
     modifier: Modifier = Modifier
 ) {
     val tokens = LocalDashboardTokens.current
@@ -736,6 +741,16 @@ private fun CompactManagePluginRow(
             }
 
             Spacer(modifier = Modifier.width(PocketLinkSpacing.small))
+
+            if (plugin.isEnabled && plugin.hasSettings) {
+                IconButton(onClick = onSettingsClick) {
+                    Icon(
+                        painter = painterResource(R.drawable.ic_settings_24dp),
+                        contentDescription = stringResource(R.string.manage_plugins_settings),
+                        tint = tokens.textSecondary
+                    )
+                }
+            }
 
             // Switch toggle styled with exact tokens
             Switch(

@@ -388,6 +388,13 @@ class DeviceFragment : BaseFragment<ActivityDeviceBinding>() {
                                         ?.optionalPermissionExplanationDialog
                                         ?.show(childFragmentManager, null)
                                 },
+                                onPluginSettingsClick = { pluginKey ->
+                                    context?.let { ctx ->
+                                        ctx.startActivity(
+                                            PluginSettingsActivity.createIntent(ctx, device.deviceId, pluginKey)
+                                        )
+                                    }
+                                },
                                 pairingSucceeded = pairingSucceeded,
                                 onDismissPairingSuccess = { viewModel.setPairingSucceeded(false) },
                                 onManagingPluginsChange = { isManaging ->
