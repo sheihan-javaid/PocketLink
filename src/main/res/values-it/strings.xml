@@ -496,4 +496,5 @@
     <string name="quick_action_ring_device">Fai squillare</string>
     <string name="quick_action_run_command">Esegui comando</string>
     <string name="quick_action_presenter">Presentatore</string>
+    <string name="device_no_supported_plugins">Non sono disponibili funzionalità compatibili per questo dispositivo.</string>
 </resources>

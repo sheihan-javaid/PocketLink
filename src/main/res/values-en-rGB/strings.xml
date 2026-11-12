@@ -427,4 +427,5 @@
     <string name="quick_action_ring_device">Ring Device</string>
     <string name="quick_action_run_command">Run Command</string>
     <string name="quick_action_presenter">Presenter</string>
+    <string name="device_no_supported_plugins">No compatible features are available for this device.</string>
 </resources>

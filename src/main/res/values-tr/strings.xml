@@ -500,4 +500,5 @@
     <string name="quick_action_ring_device">Çaldır</string>
     <string name="quick_action_run_command">Komut Çalıştır</string>
     <string name="quick_action_presenter">Sunucu</string>
+    <string name="device_no_supported_plugins">Bu cihaz için uyumlu özellik bulunmuyor.</string>
 </resources>

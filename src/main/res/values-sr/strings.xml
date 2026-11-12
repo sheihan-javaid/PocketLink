@@ -173,4 +173,5 @@
     <string name="quick_action_ring_device">Позови</string>
     <string name="quick_action_run_command">Изврши наредбу</string>
     <string name="quick_action_presenter">Предавач</string>
+    <string name="device_no_supported_plugins">Za ovaj uređaj nema kompatibilnih funkcija.</string>
 </resources>

@@ -500,4 +500,5 @@
     <string name="quick_action_ring_device">Laten overgaan</string>
     <string name="quick_action_run_command">Opdracht uitvoeren</string>
     <string name="quick_action_presenter">Presentator</string>
+    <string name="device_no_supported_plugins">Er zijn geen compatibele functies beschikbaar voor dit apparaat.</string>
 </resources>

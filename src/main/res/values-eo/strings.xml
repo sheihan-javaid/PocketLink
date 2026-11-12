@@ -435,4 +435,5 @@
     <string name="quick_action_ring_device">Sonigi</string>
     <string name="quick_action_run_command">Plenumi Komandon</string>
     <string name="quick_action_presenter">Prezentilo</string>
+    <string name="device_no_supported_plugins">Neniuj kongruaj funkcioj disponeblas por ĉi tiu aparato.</string>
 </resources>

@@ -478,4 +478,5 @@
     <string name="quick_action_ring_device">Sună dispozitivul</string>
     <string name="quick_action_run_command">Execută comanda</string>
     <string name="quick_action_presenter">Prezentator</string>
+    <string name="device_no_supported_plugins">Nu sunt disponibile funcții compatibile pentru acest dispozitiv.</string>
 </resources>

@@ -409,4 +409,5 @@
     <string name="quick_action_ring_device">Zəng etdir</string>
     <string name="quick_action_run_command">Əmri icra et</string>
     <string name="quick_action_presenter">Təqdimatçı</string>
+    <string name="device_no_supported_plugins">Bu cihaz üçün uyğun funksiyalar mövcud deyil.</string>
 </resources>

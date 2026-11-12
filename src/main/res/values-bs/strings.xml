@@ -138,4 +138,5 @@
     <string name="quick_action_ring_device">Pozvoni</string>
     <string name="quick_action_run_command">Izvrši naredbu</string>
     <string name="quick_action_presenter">Prezenter</string>
+    <string name="device_no_supported_plugins">Za ovaj uređaj nisu dostupne kompatibilne funkcije.</string>
 </resources>

@@ -316,4 +316,5 @@
     <string name="quick_action_ring_device">Helista seadmele</string>
     <string name="quick_action_run_command">Käivita käsk</string>
     <string name="quick_action_presenter">Esitleja</string>
+    <string name="device_no_supported_plugins">Selle seadme jaoks pole ühilduvaid funktsioone saadaval.</string>
 </resources>

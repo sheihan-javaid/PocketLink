@@ -409,4 +409,5 @@
     <string name="quick_action_ring_device">ஒலிக்கச் செய்</string>
     <string name="quick_action_run_command">கட்டளையை இயக்கு</string>
     <string name="quick_action_presenter">வழங்குபவர்</string>
+    <string name="device_no_supported_plugins">இந்தச் சாதனத்திற்கு இணக்கமான அம்சங்கள் எதுவும் இல்லை.</string>
 </resources>

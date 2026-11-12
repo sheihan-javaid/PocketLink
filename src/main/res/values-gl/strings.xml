@@ -441,4 +441,5 @@
     <string name="quick_action_ring_device">Facer soar</string>
     <string name="quick_action_run_command">Executar orde</string>
     <string name="quick_action_presenter">Presentador</string>
+    <string name="device_no_supported_plugins">Non hai funcións compatibles dispoñibles para este dispositivo.</string>
 </resources>

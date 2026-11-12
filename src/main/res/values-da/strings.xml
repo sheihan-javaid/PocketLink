@@ -181,4 +181,5 @@
     <string name="quick_action_ring_device">Ring til enhed</string>
     <string name="quick_action_run_command">Kør kommando</string>
     <string name="quick_action_presenter">Præsentation</string>
+    <string name="device_no_supported_plugins">Der er ingen kompatible funktioner tilgængelige for denne enhed.</string>
 </resources>

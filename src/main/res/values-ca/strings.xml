@@ -500,4 +500,5 @@
     <string name="quick_action_ring_device">Fes sonar</string>
     <string name="quick_action_run_command">Executa una ordre</string>
     <string name="quick_action_presenter">Presentador</string>
+    <string name="device_no_supported_plugins">No hi ha funcions compatibles disponibles per a aquest dispositiu.</string>
 </resources>

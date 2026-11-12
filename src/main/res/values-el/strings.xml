@@ -368,4 +368,5 @@
     <string name="quick_action_ring_device">Κλήση συσκευής</string>
     <string name="quick_action_run_command">Εκτέλεση εντολής</string>
     <string name="quick_action_presenter">Παρουσιαστής</string>
+    <string name="device_no_supported_plugins">Δεν υπάρχουν διαθέσιμες συμβατές λειτουργίες για αυτήν τη συσκευή.</string>
 </resources>

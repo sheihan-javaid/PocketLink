@@ -278,4 +278,5 @@
     <string name="quick_action_ring_device">Facer sonar</string>
     <string name="quick_action_run_command">Executar comandu</string>
     <string name="quick_action_presenter">Presentador</string>
+    <string name="device_no_supported_plugins">Nun hai funciones compatibles disponibles pa esti preséu.</string>
 </resources>

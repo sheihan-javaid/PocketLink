@@ -34,4 +34,5 @@
     <string name="quick_action_ring_device">Подать сигнал</string>
     <string name="quick_action_run_command">Выполнить команду</string>
     <string name="quick_action_presenter">Презентация</string>
+    <string name="device_no_supported_plugins">Для этого устройства нет совместимых функций.</string>
 </resources>

@@ -508,4 +508,5 @@
     <string name="quick_action_ring_device">Zadzwoń</string>
     <string name="quick_action_run_command">Wykonaj polecenie</string>
     <string name="quick_action_presenter">Prezenter</string>
+    <string name="device_no_supported_plugins">Brak zgodnych funkcji dostępnych dla tego urządzenia.</string>
 </resources>

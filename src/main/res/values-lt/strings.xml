@@ -402,4 +402,5 @@
     <string name="quick_action_ring_device">Skambinti</string>
     <string name="quick_action_run_command">Vykdyti komandą</string>
     <string name="quick_action_presenter">Pateikčių valdiklis</string>
+    <string name="device_no_supported_plugins">Šiam įrenginiui nėra prieinamų suderinamų funkcijų.</string>
 </resources>

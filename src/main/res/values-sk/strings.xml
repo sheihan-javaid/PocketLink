@@ -512,4 +512,5 @@
     <string name="quick_action_ring_device">Prezvoniť</string>
     <string name="quick_action_run_command">Spustiť príkaz</string>
     <string name="quick_action_presenter">Prezentér</string>
+    <string name="device_no_supported_plugins">Pre toto zariadenie nie sú dostupné žiadne kompatibilné funkcie.</string>
 </resources>

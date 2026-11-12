@@ -511,4 +511,5 @@
     <string name="quick_action_ring_device">צלצל</string>
     <string name="quick_action_run_command">הפעל פקודה</string>
     <string name="quick_action_presenter">מציג</string>
+    <string name="device_no_supported_plugins">אין תכונות תואמות הזמינות למכשיר זה.</string>
 </resources>

@@ -492,4 +492,5 @@
     <string name="quick_action_ring_device">Ring enhet</string>
     <string name="quick_action_run_command">Kör kommando</string>
     <string name="quick_action_presenter">Presentatör</string>
+    <string name="device_no_supported_plugins">Inga kompatibla funktioner är tillgängliga för den här enheten.</string>
 </resources>

@@ -393,4 +393,5 @@
     <string name="quick_action_ring_device">Fazer Tocar</string>
     <string name="quick_action_run_command">Executar Comando</string>
     <string name="quick_action_presenter">Apresentador</string>
+    <string name="device_no_supported_plugins">Não há funcionalidades compatíveis disponíveis para este dispositivo.</string>
 </resources>

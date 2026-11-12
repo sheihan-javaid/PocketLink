@@ -484,4 +484,5 @@
     <string name="quick_action_ring_device">벨 울리기</string>
     <string name="quick_action_run_command">명령 실행</string>
     <string name="quick_action_presenter">프레젠터</string>
+    <string name="device_no_supported_plugins">이 기기에서 사용할 수 있는 호환 기능이 없습니다.</string>
 </resources>

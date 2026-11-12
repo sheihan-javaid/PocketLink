@@ -451,4 +451,5 @@
     <string name="quick_action_ring_device">端末を鳴らす</string>
     <string name="quick_action_run_command">コマンドを実行</string>
     <string name="quick_action_presenter">プレゼンター</string>
+    <string name="device_no_supported_plugins">このデバイスで利用できる互換機能はありません。</string>
 </resources>

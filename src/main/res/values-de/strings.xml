@@ -470,4 +470,5 @@
     <string name="quick_action_ring_device">Gerät anrufen</string>
     <string name="quick_action_run_command">Befehl ausführen</string>
     <string name="quick_action_presenter">Präsentator</string>
+    <string name="device_no_supported_plugins">Für dieses Gerät sind keine kompatiblen Funktionen verfügbar.</string>
 </resources>

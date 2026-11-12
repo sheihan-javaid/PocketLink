@@ -516,4 +516,5 @@
     <string name="quick_action_ring_device">Подати сигнал</string>
     <string name="quick_action_run_command">Виконати команду</string>
     <string name="quick_action_presenter">Презентація</string>
+    <string name="device_no_supported_plugins">Для цього пристрою немає сумісних функцій.</string>
 </resources>

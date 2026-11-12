@@ -250,4 +250,5 @@
     <string name="quick_action_ring_device">Sonar</string>
     <string name="quick_action_run_command">Executar Commando</string>
     <string name="quick_action_presenter">Presentator</string>
+    <string name="device_no_supported_plugins">Il non ha compatibile functiones disponibile pro iste dispositivo.</string>
 </resources>

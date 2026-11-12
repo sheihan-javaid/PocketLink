@@ -313,4 +313,5 @@
     <string name="quick_action_ring_device">დარეკვა</string>
     <string name="quick_action_run_command">ბრძანების შესრულება</string>
     <string name="quick_action_presenter">პრეზენტატორი</string>
+    <string name="device_no_supported_plugins">ამ მოწყობილობისთვის თავსებადი ფუნქციები ხელმისაწვდომი არ არის.</string>
 </resources>

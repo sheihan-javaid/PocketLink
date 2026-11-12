@@ -532,4 +532,5 @@
     <string name="quick_action_ring_device">رنين</string>
     <string name="quick_action_run_command">تشغيل أمر</string>
     <string name="quick_action_presenter">عارض</string>
+    <string name="device_no_supported_plugins">لا تتوفر ميزات متوافقة لهذا الجهاز.</string>
 </resources>
