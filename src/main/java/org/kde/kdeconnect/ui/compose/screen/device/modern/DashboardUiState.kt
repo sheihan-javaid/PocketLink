@@ -135,6 +135,20 @@ data class ManagePluginsSummary(
 )
 
 /**
+ * State of the desktop wallpaper preview shown for a connected Mac companion.
+ *
+ * Decided by capability presence (remote advertises `pocketlink.wallpaper`), not by device type.
+ */
+sealed interface DesktopPreviewState {
+    object NotApplicable : DesktopPreviewState
+    object NotSupported : DesktopPreviewState
+    object Disabled : DesktopPreviewState
+    object Waiting : DesktopPreviewState
+    data class Available(val wallpaperFilePath: String, val wallpaperSha256: String) : DesktopPreviewState
+    data class AvailableOffline(val wallpaperFilePath: String, val wallpaperSha256: String) : DesktopPreviewState
+}
+
+/**
  * Complete immutable UI state for the modern connected device dashboard.
  */
 @Immutable
@@ -146,7 +160,8 @@ data class DashboardUiState(
     val volume: VolumeControlUiState? = null,
     val sections: List<ServiceSectionUiModel> = emptyList(),
     val managePluginsSummary: ManagePluginsSummary,
-    val isRefreshing: Boolean = false
+    val isRefreshing: Boolean = false,
+    val desktopPreview: DesktopPreviewState = DesktopPreviewState.Waiting
 )
 
 /**

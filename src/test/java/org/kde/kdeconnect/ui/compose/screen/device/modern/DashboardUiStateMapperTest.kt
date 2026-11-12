@@ -42,7 +42,8 @@ class DashboardUiStateMapperTest {
         "SharePlugin",
         "SMSPlugin",
         "SystemVolumePlugin",
-        "TelephonyPlugin"
+        "TelephonyPlugin",
+        "WallpaperPlugin"
     )
 
     private fun createSampleModels(): List<DevicePluginUiModel> {
@@ -80,8 +81,8 @@ class DashboardUiStateMapperTest {
             batteryPercent = 80
         )
 
-        // Verify total visible count is 23 (24 minus ReceiveNotificationsPlugin)
-        assertEquals(23, state.managePluginsSummary.totalCount)
+        // Verify total visible count is 24 (25 minus ReceiveNotificationsPlugin, including WallpaperPlugin)
+        assertEquals(24, state.managePluginsSummary.totalCount)
 
         // Verify ReceiveNotificationsPlugin is not in any service section row
         val allRowKeys = state.sections.flatMap { it.rows }.map { it.pluginKey }
@@ -318,6 +319,46 @@ class DashboardUiStateMapperTest {
         assertEquals(42, state.volume?.volume)
         assertEquals(100, state.volume?.maxVolume)
         assertFalse(state.volume?.isMuted == true)
+    }
+
+    @Test
+    fun desktopPreviewStateIsPropagatedToDashboardState() {
+        val available = DesktopPreviewState.Available("/data/user/0/wallpapers/deviceId/wallpaper.img", "abc123")
+        val state = DashboardUiStateMapper.map(
+            deviceName = "MacBook Pro",
+            deviceIconRes = R.drawable.ic_device_laptop_32dp,
+            isConnected = true,
+            plugins = createSampleModels(),
+            batteryPercent = 80,
+            desktopPreview = available
+        )
+        assertEquals(available, state.desktopPreview)
+    }
+
+    @Test
+    fun desktopPreviewStateDefaultsToWaiting() {
+        val state = DashboardUiStateMapper.map(
+            deviceName = "MacBook Pro",
+            deviceIconRes = R.drawable.ic_device_laptop_32dp,
+            isConnected = true,
+            plugins = createSampleModels(),
+            batteryPercent = 80
+        )
+        assertEquals(DesktopPreviewState.Waiting, state.desktopPreview)
+    }
+
+    @Test
+    fun desktopPreviewStateAvailableOfflinePropagates() {
+        val offline = DesktopPreviewState.AvailableOffline("/data/user/0/wallpapers/deviceId/wallpaper.img", "def456")
+        val state = DashboardUiStateMapper.map(
+            deviceName = "MacBook Pro",
+            deviceIconRes = R.drawable.ic_device_laptop_32dp,
+            isConnected = false,
+            plugins = createSampleModels(),
+            batteryPercent = 80,
+            desktopPreview = offline
+        )
+        assertEquals(offline, state.desktopPreview)
     }
 }
 

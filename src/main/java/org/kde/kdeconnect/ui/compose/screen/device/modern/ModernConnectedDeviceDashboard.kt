@@ -197,7 +197,11 @@ fun ModernConnectedDeviceDashboard(
                             verticalArrangement = Arrangement.spacedBy(12.dp)
                         ) {
                             // Top: Hero Device Card
-                            HeroDeviceCard(hero = state.hero)
+                            HeroDeviceCard(
+                                hero = state.hero,
+                                desktopPreview = state.desktopPreview,
+                                onPreviewEnableClick = { isManagingPlugins = true }
+                            )
 
                             if (!state.hero.isConnected) {
                                 DeviceErrorPanel(onRefresh = actions::onRefresh)

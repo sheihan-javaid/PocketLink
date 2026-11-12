@@ -254,6 +254,7 @@ class DeviceFragment : BaseFragment<ActivityDeviceBinding>() {
                     val liveMedia by viewModel.mediaPlaybackState.collectAsStateWithLifecycle()
                     val liveVolume by viewModel.volumeControlState.collectAsStateWithLifecycle()
                     val liveConnectivity by viewModel.connectivityStatus.collectAsStateWithLifecycle()
+                    val liveDesktopPreview by viewModel.desktopPreviewState.collectAsStateWithLifecycle()
 
                     when (device.pairStatus) {
                         PairingHandler.PairState.Paired -> {
@@ -290,7 +291,8 @@ class DeviceFragment : BaseFragment<ActivityDeviceBinding>() {
                             mediaState = liveMedia,
                             volumeState = liveVolume,
                             isRefreshing = isRefreshing,
-                            localDeviceName = DeviceHelper.getDeviceName(requireContext())
+                            localDeviceName = DeviceHelper.getDeviceName(requireContext()),
+                            desktopPreview = liveDesktopPreview
                         )
 
                             val modernActions = remember(device) {

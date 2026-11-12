@@ -55,7 +55,8 @@ object DashboardUiStateMapper {
         mediaState: MediaPlaybackUiState? = null,
         volumeState: VolumeControlUiState? = null,
         isRefreshing: Boolean = false,
-        localDeviceName: String? = null
+        localDeviceName: String? = null,
+        desktopPreview: DesktopPreviewState = DesktopPreviewState.Waiting
     ): DashboardUiState {
         // Enforce policy: filter out reverse notification plugin
         val activePlugins = plugins.filter { it.pluginKey != POLICY_HIDDEN_PLUGIN_KEY }
@@ -130,7 +131,8 @@ object DashboardUiStateMapper {
             volume = volumeState,
             sections = groupedSections,
             managePluginsSummary = manageSummary,
-            isRefreshing = isRefreshing
+            isRefreshing = isRefreshing,
+            desktopPreview = desktopPreview
         )
     }
 
