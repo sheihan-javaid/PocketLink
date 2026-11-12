@@ -109,11 +109,5 @@ class PluginSettingsActivity : BaseActivity<ActivityPluginSettingsBinding>() {
                 putExtra(EXTRA_DEVICE_ID, deviceId)
                 putExtra(EXTRA_PLUGIN_KEY, pluginKey)
             }
-
-        @Deprecated("Pass a required pluginKey; list mode is removed", ReplaceWith("createIntent(context, deviceId, pluginKey)"))
-        fun createIntent(context: Context, deviceId: String): Intent =
-            Intent(context, PluginSettingsActivity::class.java).apply {
-                putExtra(EXTRA_DEVICE_ID, deviceId)
-            }
     }
 }
