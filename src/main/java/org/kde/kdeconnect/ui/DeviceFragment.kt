@@ -116,12 +116,6 @@ class DeviceFragment : BaseFragment<ActivityDeviceBinding>() {
                     true
                 }
             }
-            menu.add(R.string.device_menu_plugins).setOnMenuItemClickListener {
-                activity?.let { act ->
-                    startActivity(PluginSettingsActivity.createIntent(act, deviceId))
-                }
-                true
-            }
             if (device.isReachable) {
                 val builder = MaterialAlertDialogBuilder(requireContext())
                 builder.setTitle(requireContext().resources.getString(R.string.encryption_info_title))
