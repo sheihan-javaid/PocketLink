@@ -13,7 +13,6 @@ import android.view.MenuItem
 import androidx.activity.enableEdgeToEdge
 import org.kde.kdeconnect.PocketLink
 import org.kde.kdeconnect.base.BaseActivity
-import org.kde.kdeconnect.plugins.Plugin
 import org.kde.kdeconnect_tp.R
 import org.kde.kdeconnect_tp.databinding.ActivityPluginSettingsBinding
 
@@ -26,15 +25,15 @@ class PluginSettingsActivity : BaseActivity<ActivityPluginSettingsBinding>() {
     public override fun onCreate(savedInstanceState: Bundle?) {
         val deviceId = intent.getStringExtra(EXTRA_DEVICE_ID)
         if (deviceId == null) {
-            Log.w(TAG, "Missing $EXTRA_DEVICE_ID extra, finishing activity")
+            Log.w(TAG, "Missing $EXTRA_DEVICE_ID extra; finishing activity")
             super.onCreate(savedInstanceState)
             finish()
             return
         }
         settingsDeviceId = deviceId
 
-        // Don't restore a specific plugin settings fragment if the device is no longer connected
-        val deviceReachable = PocketLink.getInstance().getDevice(settingsDeviceId)?.isReachable == true
+        val device = PocketLink.getInstance().getDevice(settingsDeviceId)
+        val deviceReachable = device?.isReachable == true
         enableEdgeToEdge()
         super.onCreate(if (deviceReachable) savedInstanceState else null)
 
@@ -42,32 +41,43 @@ class PluginSettingsActivity : BaseActivity<ActivityPluginSettingsBinding>() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
 
-        val device = PocketLink.getInstance().getDevice(settingsDeviceId)
         device?.name?.let { binding.toolbarLayout.toolbar.subtitle = it }
 
-        var fragment = supportFragmentManager.findFragmentById(R.id.fragmentPlaceHolder)
+        val fragment = supportFragmentManager.findFragmentById(R.id.fragmentPlaceHolder)
         if (fragment == null) {
             val pluginKey = intent.getStringExtra(EXTRA_PLUGIN_KEY)
-            val plugin = if (pluginKey != null) {
-                device?.getPluginIncludingWithoutPermissions(pluginKey)
-            } else {
-                null
-            }
-
-            fragment = plugin?.getSettingsFragment(this)
-
-            if (fragment != null) {
-                plugin?.displayName?.let { title ->
-                    setTitle(getString(R.string.plugin_settings_with_name, title))
-                }
-                supportFragmentManager
-                    .beginTransaction()
-                    .add(R.id.fragmentPlaceHolder, fragment)
-                    .commit()
-            } else {
-                Log.w(TAG, "No settings fragment available for pluginKey=$pluginKey on device=$settingsDeviceId; finishing")
+            if (pluginKey.isNullOrBlank()) {
+                Log.w(TAG, "Missing $EXTRA_PLUGIN_KEY extra for device=$settingsDeviceId; finishing")
                 finish()
+                return
             }
+
+            val plugin = device?.getPluginIncludingWithoutPermissions(pluginKey)
+            if (plugin == null) {
+                Log.w(TAG, "Plugin $pluginKey not found for device=$settingsDeviceId; finishing")
+                finish()
+                return
+            }
+
+            if (!plugin.hasSettings) {
+                Log.w(TAG, "Plugin $pluginKey has no settings for device=$settingsDeviceId; finishing")
+                finish()
+                return
+            }
+
+            val settingsFragment = try {
+                plugin.getSettingsFragment(this)
+            } catch (e: Exception) {
+                Log.w(TAG, "Failed to instantiate settings fragment for $pluginKey on device=$settingsDeviceId; finishing", e)
+                finish()
+                return
+            }
+
+            setTitle(getString(R.string.plugin_settings_with_name, plugin.displayName))
+            supportFragmentManager
+                .beginTransaction()
+                .add(R.id.fragmentPlaceHolder, settingsFragment)
+                .commit()
         }
     }
 
@@ -94,10 +104,16 @@ class PluginSettingsActivity : BaseActivity<ActivityPluginSettingsBinding>() {
         const val EXTRA_DEVICE_ID: String = "deviceId"
         const val EXTRA_PLUGIN_KEY: String = "pluginKey"
 
-        fun createIntent(context: Context, deviceId: String, pluginKey: String? = null): Intent =
+        fun createIntent(context: Context, deviceId: String, pluginKey: String): Intent =
             Intent(context, PluginSettingsActivity::class.java).apply {
                 putExtra(EXTRA_DEVICE_ID, deviceId)
-                pluginKey?.let { putExtra(EXTRA_PLUGIN_KEY, it) }
+                putExtra(EXTRA_PLUGIN_KEY, pluginKey)
+            }
+
+        @Deprecated("Pass a required pluginKey; list mode is removed", ReplaceWith("createIntent(context, deviceId, pluginKey)"))
+        fun createIntent(context: Context, deviceId: String): Intent =
+            Intent(context, PluginSettingsActivity::class.java).apply {
+                putExtra(EXTRA_DEVICE_ID, deviceId)
             }
     }
 }
