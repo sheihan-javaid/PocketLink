@@ -495,7 +495,9 @@ class ModernConnectedDeviceDashboardTest {
             }
         }
 
+        val noSupportedPluginsTitle = composeRule.activity.getString(R.string.device_no_supported_plugins_title)
         val noSupportedPluginsText = composeRule.activity.getString(R.string.device_no_supported_plugins)
+        composeRule.onNodeWithText(noSupportedPluginsTitle).assertIsDisplayed()
         composeRule.onNodeWithText(noSupportedPluginsText).assertIsDisplayed()
 
         // When sections are non-empty, the panel should not be shown
@@ -513,6 +515,7 @@ class ModernConnectedDeviceDashboardTest {
             }
         }
 
+        composeRule.onNodeWithText(noSupportedPluginsTitle).assertDoesNotExist()
         composeRule.onNodeWithText(noSupportedPluginsText).assertDoesNotExist()
     }
 

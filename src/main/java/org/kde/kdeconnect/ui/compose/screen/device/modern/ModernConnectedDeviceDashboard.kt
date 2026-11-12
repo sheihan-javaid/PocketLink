@@ -227,7 +227,7 @@ fun ModernConnectedDeviceDashboard(
 
                                 if (allSectionsEmpty) {
                                     PocketLinkStatePanel(
-                                        title = stringResource(R.string.device_menu_plugins),
+                                        title = stringResource(R.string.device_no_supported_plugins_title),
                                         description = stringResource(R.string.device_no_supported_plugins),
                                         kind = PocketLinkPanelKind.Unsupported
                                     )
