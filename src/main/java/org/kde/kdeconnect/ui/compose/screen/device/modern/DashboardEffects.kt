@@ -33,6 +33,7 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import org.kde.kdeconnect.ui.compose.ModernLightColorScheme
 
 /**
  * Visual effects execution tier based on device hardware capabilities and accessibility settings.

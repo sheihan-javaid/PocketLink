@@ -35,7 +35,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.kde.kdeconnect.plugins.Plugin
 import org.kde.kdeconnect.ui.compose.screen.device.DevicePluginUiModel
-import org.kde.kdeconnect.ui.compose.screen.device.modern.ModernPocketLinkTheme
+import org.kde.kdeconnect.ui.compose.PocketLinkTheme
 import org.kde.kdeconnect.ui.compose.screen.device.modern.preview.DashboardFixtures
 import org.kde.kdeconnect_tp.R
 import java.util.concurrent.atomic.AtomicBoolean
@@ -51,7 +51,7 @@ class ModernConnectedDeviceDashboardTest {
     @Test
     fun modernDashboardShowsDeviceIdentityBatteryRingAndNetworkChips() {
         composeRule.setContent {
-            ModernPocketLinkTheme(context = composeRule.activity) {
+            PocketLinkTheme(context = composeRule.activity) {
                 ModernConnectedDeviceDashboard(
                     state = DashboardFixtures.fullFeaturedState,
                     actions = DashboardFixtures.mockActions,
@@ -76,7 +76,7 @@ class ModernConnectedDeviceDashboardTest {
         val initialState = DashboardFixtures.fullFeaturedState
 
         composeRule.setContent {
-            ModernPocketLinkTheme(context = composeRule.activity) {
+            PocketLinkTheme(context = composeRule.activity) {
                 val hero = initialState.hero.copy(
                     battery = initialState.hero.battery?.copy(isCharging = isCharging.value)
                 )
@@ -102,7 +102,7 @@ class ModernConnectedDeviceDashboardTest {
         val initialState = DashboardFixtures.fullFeaturedState
 
         composeRule.setContent {
-            ModernPocketLinkTheme(context = composeRule.activity) {
+            PocketLinkTheme(context = composeRule.activity) {
                 ModernConnectedDeviceDashboard(
                     state = initialState.copy(
                         hero = initialState.hero.copy(networkTypes = emptyList())
@@ -123,7 +123,7 @@ class ModernConnectedDeviceDashboardTest {
     @Test
     fun mediaAndAudioSectionAppearsAboveShareAndTransfer() {
         composeRule.setContent {
-            ModernPocketLinkTheme(context = composeRule.activity) {
+            PocketLinkTheme(context = composeRule.activity) {
                 ModernConnectedDeviceDashboard(
                     state = DashboardFixtures.fullFeaturedState,
                     actions = DashboardFixtures.mockActions,
@@ -157,7 +157,7 @@ class ModernConnectedDeviceDashboardTest {
         }
 
         composeRule.setContent {
-            ModernPocketLinkTheme(context = composeRule.activity) {
+            PocketLinkTheme(context = composeRule.activity) {
                 ModernConnectedDeviceDashboard(
                     state = DashboardFixtures.fullFeaturedState,
                     actions = actions,
@@ -185,7 +185,7 @@ class ModernConnectedDeviceDashboardTest {
         }
 
         composeRule.setContent {
-            ModernPocketLinkTheme(context = composeRule.activity) {
+            PocketLinkTheme(context = composeRule.activity) {
                 ModernConnectedDeviceDashboard(
                     state = DashboardFixtures.fullFeaturedState,
                     actions = actions,
@@ -213,7 +213,7 @@ class ModernConnectedDeviceDashboardTest {
         }
 
         composeRule.setContent {
-            ModernPocketLinkTheme(context = composeRule.activity) {
+            PocketLinkTheme(context = composeRule.activity) {
                 ModernConnectedDeviceDashboard(
                     state = DashboardFixtures.fullFeaturedState,
                     actions = actions,
@@ -242,7 +242,7 @@ class ModernConnectedDeviceDashboardTest {
     fun captureLightDashboardScreenshots() {
         // 1. Light Mode Top
         composeRule.setContent {
-            ModernPocketLinkTheme(context = composeRule.activity, darkTheme = false) {
+            PocketLinkTheme(context = composeRule.activity, darkTheme = false) {
                 ModernConnectedDeviceDashboard(
                     state = DashboardFixtures.fullFeaturedState,
                     actions = DashboardFixtures.mockActions,
@@ -294,7 +294,7 @@ class ModernConnectedDeviceDashboardTest {
     fun captureDarkDashboardScreenshots() {
         // 1. Dark Mode Top
         composeRule.setContent {
-            ModernPocketLinkTheme(context = composeRule.activity, darkTheme = true) {
+            PocketLinkTheme(context = composeRule.activity, darkTheme = true) {
                 ModernConnectedDeviceDashboard(
                     state = DashboardFixtures.fullFeaturedState,
                     actions = DashboardFixtures.mockActions,
@@ -398,7 +398,7 @@ class ModernConnectedDeviceDashboardTest {
                     fontScale = 1.35f
                 )
             ) {
-                ModernPocketLinkTheme(context = composeRule.activity, darkTheme = false) {
+                PocketLinkTheme(context = composeRule.activity, darkTheme = false) {
                     ModernConnectedDeviceDashboard(
                         state = DashboardFixtures.fullFeaturedState,
                         actions = DashboardFixtures.mockActions,
@@ -427,7 +427,7 @@ class ModernConnectedDeviceDashboardTest {
                     fontScale = 1.35f
                 )
             ) {
-                ModernPocketLinkTheme(context = composeRule.activity, darkTheme = true) {
+                PocketLinkTheme(context = composeRule.activity, darkTheme = true) {
                     ModernConnectedDeviceDashboard(
                         state = DashboardFixtures.fullFeaturedState,
                         actions = DashboardFixtures.mockActions,
@@ -449,7 +449,7 @@ class ModernConnectedDeviceDashboardTest {
     fun captureBannerHiddenDashboardScreenshot() {
         // State where attention is null (banner hidden)
         composeRule.setContent {
-            ModernPocketLinkTheme(context = composeRule.activity, darkTheme = true) {
+            PocketLinkTheme(context = composeRule.activity, darkTheme = true) {
                 ModernConnectedDeviceDashboard(
                     state = DashboardFixtures.stateWithoutAttention,
                     actions = DashboardFixtures.mockActions,
@@ -485,7 +485,7 @@ class ModernConnectedDeviceDashboardTest {
         val currentPlugins = mutableStateOf(emptyList<DevicePluginUiModel>())
 
         composeRule.setContent {
-            ModernPocketLinkTheme(context = composeRule.activity) {
+            PocketLinkTheme(context = composeRule.activity) {
                 ModernConnectedDeviceDashboard(
                     state = currentDashboardState.value,
                     actions = DashboardFixtures.mockActions,
@@ -523,7 +523,7 @@ class ModernConnectedDeviceDashboardTest {
         val offlineState = DashboardFixtures.fullFeaturedState.copy(hero = offlineHero)
 
         composeRule.setContent {
-            ModernPocketLinkTheme(context = composeRule.activity) {
+            PocketLinkTheme(context = composeRule.activity) {
                 ModernConnectedDeviceDashboard(
                     state = offlineState,
                     actions = actions,
@@ -579,7 +579,7 @@ class ModernConnectedDeviceDashboardTest {
         )
 
         composeRule.setContent {
-            ModernPocketLinkTheme(context = composeRule.activity) {
+            PocketLinkTheme(context = composeRule.activity) {
                 ManagePluginsPage(
                     plugins = testPlugins,
                     onBack = {},
@@ -604,7 +604,7 @@ class ModernConnectedDeviceDashboardTest {
     @Test
     fun managePluginsPageStatsButtonOpensDialog() {
         composeRule.setContent {
-            ModernPocketLinkTheme(context = composeRule.activity) {
+            PocketLinkTheme(context = composeRule.activity) {
                 ModernConnectedDeviceDashboard(
                     state = DashboardFixtures.fullFeaturedState,
                     actions = DashboardFixtures.mockActions,

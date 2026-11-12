@@ -7,6 +7,8 @@
 package org.kde.kdeconnect.ui.compose.screen.device.modern
 
 import androidx.compose.ui.graphics.Color
+import org.kde.kdeconnect.ui.compose.ModernDarkColorScheme
+import org.kde.kdeconnect.ui.compose.ModernLightColorScheme
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -110,7 +112,7 @@ class ModernDashboardColorContractTest {
 
         modernDir.walkTopDown()
             .filter { it.isFile && it.extension == "kt" }
-            .filter { it.name != "ModernPocketLinkTheme.kt" && it.name != "DashboardEffects.kt" } // Theme and DesignTokens definitions
+            .filter { it.name != "DashboardEffects.kt" } // DesignTokens definitions
             .forEach { file ->
                 val text = file.readText()
                 if (hexColorRegex.containsMatchIn(text)) {
