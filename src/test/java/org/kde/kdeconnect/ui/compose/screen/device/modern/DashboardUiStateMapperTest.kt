@@ -396,5 +396,26 @@ class DashboardUiStateMapperTest {
         assertFalse("ContactsPlugin must not have settings", sampleModels.first { it.pluginKey == "ContactsPlugin" }.hasSettings)
         assertFalse("PingPlugin must not have settings", sampleModels.first { it.pluginKey == "PingPlugin" }.hasSettings)
     }
+
+    @Test
+    fun mapperWithEmptyPluginsProducesEmptySectionsAndZeroCounts() {
+        val state = DashboardUiStateMapper.map(
+            deviceName = "MacBook Pro",
+            deviceIconRes = R.drawable.ic_device_laptop_32dp,
+            isConnected = true,
+            plugins = emptyList(),
+            batteryPercent = null
+        )
+
+        assertTrue("Sections must be empty when no plugins provided", state.sections.isEmpty())
+        assertTrue(
+            "All quick actions must be disabled when no plugins provided",
+            state.quickActions.all { it.availability is QuickActionAvailability.Disabled }
+        )
+        assertEquals("Total count in summary must be 0", 0, state.managePluginsSummary.totalCount)
+        assertEquals("Enabled count in summary must be 0", 0, state.managePluginsSummary.enabledCount)
+        assertFalse("Permissions pending must be false", state.managePluginsSummary.hasPermissionsPending)
+        assertNull("Attention must be null", state.attention)
+    }
 }
 

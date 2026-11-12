@@ -98,6 +98,8 @@ import androidx.compose.ui.unit.sp
 import org.kde.kdeconnect.DeviceStats
 import org.kde.kdeconnect.plugins.Plugin
 import org.kde.kdeconnect.ui.compose.PocketLinkSpacing
+import org.kde.kdeconnect.ui.compose.components.PocketLinkPanelKind
+import org.kde.kdeconnect.ui.compose.components.PocketLinkStatePanel
 import org.kde.kdeconnect.ui.compose.screen.device.DeviceErrorPanel
 import org.kde.kdeconnect.ui.compose.screen.device.DevicePluginUiModel
 import org.kde.kdeconnect.ui.compose.screen.device.PairingSuccessBanner
@@ -221,85 +223,95 @@ fun ModernConnectedDeviceDashboard(
                             if (!state.hero.isConnected) {
                                 DeviceErrorPanel(onRefresh = actions::onRefresh)
                             } else {
-                                // Attention Banner (Consolidated pending permission alert)
-                                AnimatedVisibility(
-                                    visible = state.attention != null,
-                                    enter = fadeIn() + expandVertically(),
-                                    exit = fadeOut() + shrinkVertically()
-                                ) {
-                                    state.attention?.let { attentionState ->
-                                        AttentionBanner(
-                                            attention = attentionState,
-                                            onClick = {
-                                                actions.onAttentionBannerClick()
-                                                isManagingPlugins = true
-                                            }
+                                val allSectionsEmpty = state.sections.all { it.rows.isEmpty() }
+
+                                if (allSectionsEmpty) {
+                                    PocketLinkStatePanel(
+                                        title = stringResource(R.string.device_menu_plugins),
+                                        description = stringResource(R.string.device_no_supported_plugins),
+                                        kind = PocketLinkPanelKind.Unsupported
+                                    )
+                                } else {
+                                    // Attention Banner (Consolidated pending permission alert)
+                                    AnimatedVisibility(
+                                        visible = state.attention != null,
+                                        enter = fadeIn() + expandVertically(),
+                                        exit = fadeOut() + shrinkVertically()
+                                    ) {
+                                        state.attention?.let { attentionState ->
+                                            AttentionBanner(
+                                                attention = attentionState,
+                                                onClick = {
+                                                    actions.onAttentionBannerClick()
+                                                    isManagingPlugins = true
+                                                }
+                                            )
+                                        }
+                                    }
+
+                                    // Quick Actions Grid
+                                    if (state.quickActions.isNotEmpty()) {
+                                        QuickActionsGrid(
+                                            actions = state.quickActions,
+                                            onActionClick = actions::onQuickActionClick
                                         )
                                     }
-                                }
 
-                                // Quick Actions Grid
-                                if (state.quickActions.isNotEmpty()) {
-                                    QuickActionsGrid(
-                                        actions = state.quickActions,
-                                        onActionClick = actions::onQuickActionClick
-                                    )
-                                }
+                                    // -------------------------------------------------------------
+                                    // One UI-Style 5 Grouped Cards Layout
+                                    // -------------------------------------------------------------
 
-                                // -------------------------------------------------------------
-                                // One UI-Style 5 Grouped Cards Layout
-                                // -------------------------------------------------------------
-
-                                // Card 1: Media and Audio (integrating contextual media controls & volume slider)
-                                val mediaSection = state.sections.firstOrNull { it.category == PluginCategory.MediaAudio }
-                                    ?: ServiceSectionUiModel(
-                                        category = PluginCategory.MediaAudio,
-                                        title = PluginCategoryRegistry.categoryTitle(PluginCategory.MediaAudio),
-                                        rows = emptyList(),
-                                        titleRes = PluginCategory.MediaAudio.displayNameRes
-                                    )
-                                ServiceSection(
-                                    section = mediaSection,
-                                    onPluginButtonClick = actions::onPluginButtonClick,
-                                    onPermissionClick = actions::onPermissionItemClick,
-                                    mediaState = state.media,
-                                    volumeState = state.volume,
-                                    onMediaPlayPause = actions::onMediaPlayPause,
-                                    onMediaNext = actions::onMediaNext,
-                                    onMediaPrevious = actions::onMediaPrevious,
-                                    onMediaSeek = actions::onMediaSeek,
-                                    onVolumeChange = actions::onVolumeChange,
-                                    onVolumeToggleMute = actions::onVolumeToggleMute
-                                )
-
-                                // Card 2: Share and Transfer
-                                val shareSection = state.sections.firstOrNull { it.category == PluginCategory.ShareTransfer }
-                                if (shareSection != null && shareSection.rows.isNotEmpty()) {
+                                    // Card 1: Media and Audio (integrating contextual media controls & volume slider)
+                                    val mediaSection = state.sections.firstOrNull { it.category == PluginCategory.MediaAudio }
+                                        ?: ServiceSectionUiModel(
+                                            category = PluginCategory.MediaAudio,
+                                            title = PluginCategoryRegistry.categoryTitle(PluginCategory.MediaAudio),
+                                            rows = emptyList(),
+                                            titleRes = PluginCategory.MediaAudio.displayNameRes
+                                        )
                                     ServiceSection(
-                                        section = shareSection,
+                                        section = mediaSection,
                                         onPluginButtonClick = actions::onPluginButtonClick,
-                                        onPermissionClick = actions::onPermissionItemClick
+                                        onPermissionClick = actions::onPermissionItemClick,
+                                        mediaState = state.media,
+                                        volumeState = state.volume,
+                                        onMediaPlayPause = actions::onMediaPlayPause,
+                                        onMediaNext = actions::onMediaNext,
+                                        onMediaPrevious = actions::onMediaPrevious,
+                                        onMediaSeek = actions::onMediaSeek,
+                                        onVolumeChange = actions::onVolumeChange,
+                                        onVolumeToggleMute = actions::onVolumeToggleMute
                                     )
-                                }
 
-                                // Card 3: Control Computer
-                                val controlSection = state.sections.firstOrNull { it.category == PluginCategory.ControlComputer }
-                                if (controlSection != null && controlSection.rows.isNotEmpty()) {
-                                    ServiceSection(
-                                        section = controlSection,
-                                        onPluginButtonClick = actions::onPluginButtonClick,
-                                        onPermissionClick = actions::onPermissionItemClick
-                                    )
-                                }
+                                    // Card 2: Share and Transfer
+                                    val shareSection = state.sections.firstOrNull { it.category == PluginCategory.ShareTransfer }
+                                    if (shareSection != null && shareSection.rows.isNotEmpty()) {
+                                        ServiceSection(
+                                            section = shareSection,
+                                            onPluginButtonClick = actions::onPluginButtonClick,
+                                            onPermissionClick = actions::onPermissionItemClick
+                                        )
+                                    }
 
-                                // Card 4: Device Information
-                                val deviceSection = state.sections.firstOrNull { it.category == PluginCategory.DeviceInfo }
-                                if (deviceSection != null && deviceSection.rows.isNotEmpty()) {
-                                    ServiceSection(
-                                        section = deviceSection,
-                                        onPluginButtonClick = actions::onPluginButtonClick,
-                                        onPermissionClick = actions::onPermissionItemClick
-                                    )
+                                    // Card 3: Control Computer
+                                    val controlSection = state.sections.firstOrNull { it.category == PluginCategory.ControlComputer }
+                                    if (controlSection != null && controlSection.rows.isNotEmpty()) {
+                                        ServiceSection(
+                                            section = controlSection,
+                                            onPluginButtonClick = actions::onPluginButtonClick,
+                                            onPermissionClick = actions::onPermissionItemClick
+                                        )
+                                    }
+
+                                    // Card 4: Device Information
+                                    val deviceSection = state.sections.firstOrNull { it.category == PluginCategory.DeviceInfo }
+                                    if (deviceSection != null && deviceSection.rows.isNotEmpty()) {
+                                        ServiceSection(
+                                            section = deviceSection,
+                                            onPluginButtonClick = actions::onPluginButtonClick,
+                                            onPermissionClick = actions::onPermissionItemClick
+                                        )
+                                    }
                                 }
 
                                 // Card 5: Manage Plugins (summary row with chevron opening management page)
