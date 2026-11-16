@@ -124,13 +124,13 @@ fun ModernConnectedDeviceDashboard(
     onButtonClick: (Plugin.PluginUiButton) -> Unit,
     onRequiredPermissionClick: (pluginKey: String) -> Unit,
     onOptionalPermissionClick: (pluginKey: String) -> Unit,
+    modifier: Modifier = Modifier,
     onPluginSettingsClick: (pluginKey: String) -> Unit = {},
     deviceId: String = "",
     onPluginStatsClick: () -> Unit = {},
     pairingSucceeded: Boolean = false,
     onDismissPairingSuccess: () -> Unit = {},
-    onManagingPluginsChange: (Boolean) -> Unit = {},
-    modifier: Modifier = Modifier
+    onManagingPluginsChange: (Boolean) -> Unit = {}
 ) {
     val context = LocalContext.current
     val isDark = isDarkThemeMode()
