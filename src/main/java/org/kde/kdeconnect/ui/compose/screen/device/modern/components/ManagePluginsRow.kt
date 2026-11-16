@@ -8,6 +8,7 @@ package org.kde.kdeconnect.ui.compose.screen.device.modern.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -79,7 +80,8 @@ fun ManagePluginsRow(
                     modifier = Modifier
                         .size(40.dp)
                         .clip(CircleShape)
-                        .background(mpPalette.accent.copy(alpha = if (tokens.isDark) 0.18f else 0.12f)),
+                        .background(mpPalette.accent.copy(alpha = if (tokens.isDark) 0.22f else 0.14f))
+                        .border(1.dp, mpPalette.accent.copy(alpha = if (tokens.isDark) 0.38f else 0.25f), CircleShape),
                     contentAlignment = Alignment.Center
                 ) {
                     Image(
