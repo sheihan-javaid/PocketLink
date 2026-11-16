@@ -97,6 +97,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.kde.kdeconnect.DeviceStats
 import org.kde.kdeconnect.plugins.Plugin
+import org.kde.kdeconnect.ui.compose.DashboardCardKey
+import org.kde.kdeconnect.ui.compose.LocalDashboardCardPalettes
 import org.kde.kdeconnect.ui.compose.PocketLinkSpacing
 import org.kde.kdeconnect.ui.compose.components.PocketLinkPanelKind
 import org.kde.kdeconnect.ui.compose.components.PocketLinkStatePanel
@@ -549,7 +551,17 @@ fun ManagePluginsPage(
                                 )
                             }
 
-                            AuroraGlassCard {
+                            val catKey = when (category) {
+                                PluginCategory.ShareTransfer -> DashboardCardKey.ShareTransfer
+                                PluginCategory.ControlComputer -> DashboardCardKey.ControlComputer
+                                PluginCategory.MediaAudio -> DashboardCardKey.MediaAudio
+                                PluginCategory.DeviceInfo -> DashboardCardKey.DeviceInfo
+                            }
+                            val catPalette = LocalDashboardCardPalettes.current.getValue(catKey)
+
+                            AuroraGlassCard(
+                                containerColor = catPalette.container
+                            ) {
                                 categoryPlugins.forEachIndexed { index, plugin ->
                                     CompactManagePluginRow(
                                         plugin = plugin,

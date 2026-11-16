@@ -41,6 +41,8 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import org.kde.kdeconnect.ui.compose.DashboardCardKey
+import org.kde.kdeconnect.ui.compose.LocalDashboardCardPalettes
 import org.kde.kdeconnect.ui.compose.PocketLinkSpacing
 import org.kde.kdeconnect.ui.compose.screen.device.modern.DashboardShapes
 import org.kde.kdeconnect.ui.compose.screen.device.modern.LocalDashboardTokens
@@ -89,6 +91,7 @@ private fun QuickActionTile(
 ) {
     val haptic = LocalHapticFeedback.current
     val tokens = LocalDashboardTokens.current
+    val qaPalette = LocalDashboardCardPalettes.current.getValue(DashboardCardKey.QuickActions)
     val tier = LocalEffectsTier.current
     val isEnabled = action.availability !is QuickActionAvailability.Disabled
     val isNeedsPermission = action.availability is QuickActionAvailability.NeedsPermission
@@ -110,7 +113,7 @@ private fun QuickActionTile(
     } else if (isNeedsPermission) {
         tokens.permissionBadgeBg
     } else {
-        tokens.cardBackground
+        qaPalette.container
     }
 
     val border = if (isNeedsPermission) {
@@ -122,7 +125,7 @@ private fun QuickActionTile(
     val textColor = when {
         !isEnabled -> tokens.textTertiary
         isNeedsPermission -> tokens.permissionBadgeText
-        else -> tokens.textPrimary
+        else -> qaPalette.onContainer
     }
 
     Card(

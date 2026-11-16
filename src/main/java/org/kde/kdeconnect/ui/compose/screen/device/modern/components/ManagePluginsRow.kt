@@ -37,6 +37,8 @@ import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import org.kde.kdeconnect.ui.compose.DashboardCardKey
+import org.kde.kdeconnect.ui.compose.LocalDashboardCardPalettes
 import org.kde.kdeconnect.ui.compose.PocketLinkSpacing
 import org.kde.kdeconnect.ui.compose.screen.device.modern.LocalDashboardTokens
 import org.kde.kdeconnect.ui.compose.screen.device.modern.ManagePluginsSummary
@@ -53,10 +55,12 @@ fun ManagePluginsRow(
     modifier: Modifier = Modifier
 ) {
     val tokens = LocalDashboardTokens.current
+    val mpPalette = LocalDashboardCardPalettes.current.getValue(DashboardCardKey.ManagePlugins)
 
     AuroraGlassCard(
         modifier = modifier,
-        onClick = onClick
+        onClick = onClick,
+        containerColor = mpPalette.container
     ) {
         Row(
             modifier = Modifier
@@ -81,7 +85,7 @@ fun ManagePluginsRow(
                     Image(
                         painter = painterResource(R.drawable.ic_settings_24dp),
                         contentDescription = null,
-                        colorFilter = ColorFilter.tint(tokens.onShareContainer),
+                        colorFilter = ColorFilter.tint(mpPalette.accent),
                         modifier = Modifier.size(22.dp)
                     )
                 }
@@ -92,7 +96,7 @@ fun ManagePluginsRow(
                     Text(
                         text = stringResource(R.string.manage_plugins_title),
                         style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold),
-                        color = tokens.textPrimary
+                        color = mpPalette.onContainer
                     )
                     Text(
                         text = stringResource(R.string.manage_plugins_summary, summary.enabledCount, summary.totalCount),

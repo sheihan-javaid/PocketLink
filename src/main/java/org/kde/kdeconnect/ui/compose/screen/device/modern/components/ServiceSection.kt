@@ -44,6 +44,9 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.kde.kdeconnect.plugins.Plugin
+import org.kde.kdeconnect.ui.compose.DashboardCardKey
+import org.kde.kdeconnect.ui.compose.DashboardCardPalette
+import org.kde.kdeconnect.ui.compose.LocalDashboardCardPalettes
 import org.kde.kdeconnect.ui.compose.PocketLinkSpacing
 import org.kde.kdeconnect.ui.compose.screen.device.modern.LocalDashboardTokens
 import org.kde.kdeconnect.ui.compose.screen.device.modern.MediaPlaybackUiState
@@ -83,6 +86,14 @@ fun ServiceSection(
     val tokens = LocalDashboardTokens.current
     val totalInCategory = PluginCategoryRegistry.totalCountFor(section.category)
 
+    val cardKey = when (section.category) {
+        PluginCategory.ShareTransfer -> DashboardCardKey.ShareTransfer
+        PluginCategory.ControlComputer -> DashboardCardKey.ControlComputer
+        PluginCategory.MediaAudio -> DashboardCardKey.MediaAudio
+        PluginCategory.DeviceInfo -> DashboardCardKey.DeviceInfo
+    }
+    val palette = LocalDashboardCardPalettes.current.getValue(cardKey)
+
     Column(
         modifier = modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(8.dp)
@@ -113,7 +124,9 @@ fun ServiceSection(
             )
         }
 
-        AuroraGlassCard {
+        AuroraGlassCard(
+            containerColor = palette.container
+        ) {
             // In Media & Audio card, integrate Contextual Media controls & Volume controls directly
             if (isMediaCategory && mediaState != null) {
                 ContextualMediaContent(
@@ -153,6 +166,7 @@ fun ServiceSection(
                 ServiceRow(
                     row = row,
                     category = section.category,
+                    palette = palette,
                     onPluginButtonClick = onPluginButtonClick,
                     onPermissionClick = onPermissionClick
                 )
@@ -172,6 +186,7 @@ fun ServiceSection(
 private fun ServiceRow(
     row: ServiceRowUiModel,
     category: PluginCategory,
+    palette: DashboardCardPalette? = null,
     onPluginButtonClick: (Plugin.PluginUiButton) -> Unit,
     onPermissionClick: ((pluginKey: String, isRequired: Boolean) -> Unit)? = null,
     modifier: Modifier = Modifier
@@ -242,7 +257,7 @@ private fun ServiceRow(
                         Text(
                             text = row.title,
                             style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Medium),
-                            color = tokens.textPrimary,
+                            color = palette?.onContainer ?: tokens.textPrimary,
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis
                         )

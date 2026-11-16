@@ -17,10 +17,163 @@ import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
+
+enum class DashboardCardKey {
+    Hero,
+    DesktopPreview,
+    QuickActions,
+    ShareTransfer,
+    ControlComputer,
+    MediaAudio,
+    DeviceInfo,
+    ManagePlugins,
+    Attention,
+    ErrorPanel
+}
+
+@Immutable
+data class DashboardCardPalette(
+    val cardKey: DashboardCardKey,
+    val container: Color,
+    val onContainer: Color,
+    val accent: Color
+)
+
+val ModernLightCardPalettes: Map<DashboardCardKey, DashboardCardPalette> = mapOf(
+    DashboardCardKey.Hero to DashboardCardPalette(
+        cardKey = DashboardCardKey.Hero,
+        container = Color(0xFFFFFFFF),
+        onContainer = Color(0xFF140E36),
+        accent = Color(0xFF5B4AC7)
+    ),
+    DashboardCardKey.DesktopPreview to DashboardCardPalette(
+        cardKey = DashboardCardKey.DesktopPreview,
+        container = Color(0xFFE2E8F0),
+        onContainer = Color(0xFF0F172A),
+        accent = Color(0xFF334155)
+    ),
+    DashboardCardKey.QuickActions to DashboardCardPalette(
+        cardKey = DashboardCardKey.QuickActions,
+        container = Color(0xFFF5F3FF),
+        onContainer = Color(0xFF1E1B4B),
+        accent = Color(0xFF6366F1)
+    ),
+    DashboardCardKey.ShareTransfer to DashboardCardPalette(
+        cardKey = DashboardCardKey.ShareTransfer,
+        container = Color(0xFFF0FDFA),
+        onContainer = Color(0xFF042F2E),
+        accent = Color(0xFF0D9488)
+    ),
+    DashboardCardKey.ControlComputer to DashboardCardPalette(
+        cardKey = DashboardCardKey.ControlComputer,
+        container = Color(0xFFF3E8FF),
+        onContainer = Color(0xFF2E1065),
+        accent = Color(0xFF7C3AED)
+    ),
+    DashboardCardKey.MediaAudio to DashboardCardPalette(
+        cardKey = DashboardCardKey.MediaAudio,
+        container = Color(0xFFFCE7F3),
+        onContainer = Color(0xFF500724),
+        accent = Color(0xFFDB2777)
+    ),
+    DashboardCardKey.DeviceInfo to DashboardCardPalette(
+        cardKey = DashboardCardKey.DeviceInfo,
+        container = Color(0xFFECFDF5),
+        onContainer = Color(0xFF022C22),
+        accent = Color(0xFF059669)
+    ),
+    DashboardCardKey.ManagePlugins to DashboardCardPalette(
+        cardKey = DashboardCardKey.ManagePlugins,
+        container = Color(0xFFE0F2FE),
+        onContainer = Color(0xFF082F49),
+        accent = Color(0xFF0284C7)
+    ),
+    DashboardCardKey.Attention to DashboardCardPalette(
+        cardKey = DashboardCardKey.Attention,
+        container = Color(0xFFFFFBEB),
+        onContainer = Color(0xFF451A03),
+        accent = Color(0xFFD97706)
+    ),
+    DashboardCardKey.ErrorPanel to DashboardCardPalette(
+        cardKey = DashboardCardKey.ErrorPanel,
+        container = Color(0xFFFEE2E2),
+        onContainer = Color(0xFF450A0A),
+        accent = Color(0xFFDC2626)
+    )
+)
+
+val ModernDarkCardPalettes: Map<DashboardCardKey, DashboardCardPalette> = mapOf(
+    DashboardCardKey.Hero to DashboardCardPalette(
+        cardKey = DashboardCardKey.Hero,
+        container = Color(0xFF131127),
+        onContainer = Color(0xFFEDE9FE),
+        accent = Color(0xFFA78BFA)
+    ),
+    DashboardCardKey.DesktopPreview to DashboardCardPalette(
+        cardKey = DashboardCardKey.DesktopPreview,
+        container = Color(0xFF111827),
+        onContainer = Color(0xFFF9FAFB),
+        accent = Color(0xFF9CA3AF)
+    ),
+    DashboardCardKey.QuickActions to DashboardCardPalette(
+        cardKey = DashboardCardKey.QuickActions,
+        container = Color(0xFF1A1747),
+        onContainer = Color(0xFFEEF2FF),
+        accent = Color(0xFF818CF8)
+    ),
+    DashboardCardKey.ShareTransfer to DashboardCardPalette(
+        cardKey = DashboardCardKey.ShareTransfer,
+        container = Color(0xFF083D3A),
+        onContainer = Color(0xFFCCFBF1),
+        accent = Color(0xFF2DD4BF)
+    ),
+    DashboardCardKey.ControlComputer to DashboardCardPalette(
+        cardKey = DashboardCardKey.ControlComputer,
+        container = Color(0xFF2E105C),
+        onContainer = Color(0xFFF3E8FF),
+        accent = Color(0xFFC084FC)
+    ),
+    DashboardCardKey.MediaAudio to DashboardCardPalette(
+        cardKey = DashboardCardKey.MediaAudio,
+        container = Color(0xFF3E0F45),
+        onContainer = Color(0xFFFDF2F8),
+        accent = Color(0xFFF472B6)
+    ),
+    DashboardCardKey.DeviceInfo to DashboardCardPalette(
+        cardKey = DashboardCardKey.DeviceInfo,
+        container = Color(0xFF073527),
+        onContainer = Color(0xFFD1FAE5),
+        accent = Color(0xFF34D399)
+    ),
+    DashboardCardKey.ManagePlugins to DashboardCardPalette(
+        cardKey = DashboardCardKey.ManagePlugins,
+        container = Color(0xFF122B61),
+        onContainer = Color(0xFFDBEAFE),
+        accent = Color(0xFF60A5FA)
+    ),
+    DashboardCardKey.Attention to DashboardCardPalette(
+        cardKey = DashboardCardKey.Attention,
+        container = Color(0xFF2E1C05),
+        onContainer = Color(0xFFFEF3C7),
+        accent = Color(0xFFFBBF24)
+    ),
+    DashboardCardKey.ErrorPanel to DashboardCardPalette(
+        cardKey = DashboardCardKey.ErrorPanel,
+        container = Color(0xFF3B0D0D),
+        onContainer = Color(0xFFFEE2E2),
+        accent = Color(0xFFF87171)
+    )
+)
+
+val LocalDashboardCardPalettes = staticCompositionLocalOf<Map<DashboardCardKey, DashboardCardPalette>> {
+    ModernLightCardPalettes
+}
 
 @Composable
 fun PocketLinkTheme(
@@ -41,6 +194,7 @@ fun PocketLinkTheme(
         }
     }
     val semanticColors = if (darkTheme) PocketLinkDarkSemanticColors else PocketLinkLightSemanticColors
+    val cardPalettes = if (darkTheme) ModernDarkCardPalettes else ModernLightCardPalettes
 
     val view = LocalView.current
     if (!view.isInEditMode) {
@@ -54,7 +208,10 @@ fun PocketLinkTheme(
         }
     }
 
-    CompositionLocalProvider(LocalPocketLinkSemanticColors provides semanticColors) {
+    CompositionLocalProvider(
+        LocalPocketLinkSemanticColors provides semanticColors,
+        LocalDashboardCardPalettes provides cardPalettes
+    ) {
         MaterialTheme(
             colorScheme = colorScheme,
             typography = PocketLinkTypography,

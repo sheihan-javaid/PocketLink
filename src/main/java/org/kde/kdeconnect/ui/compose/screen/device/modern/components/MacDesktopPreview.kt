@@ -49,6 +49,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
@@ -65,6 +66,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import org.kde.kdeconnect.ui.compose.DashboardCardKey
+import org.kde.kdeconnect.ui.compose.LocalDashboardCardPalettes
 import org.kde.kdeconnect.ui.compose.screen.device.modern.DesktopPreviewState
 import org.kde.kdeconnect.ui.compose.screen.device.modern.LocalDashboardTokens
 import org.kde.kdeconnect_tp.R
@@ -90,6 +93,7 @@ fun MacDesktopPreview(
     val context = LocalContext.current
     val density = LocalDensity.current
     val tokens = LocalDashboardTokens.current
+    val previewPalette = LocalDashboardCardPalettes.current.getValue(DashboardCardKey.DesktopPreview)
     val isReducedMotion = isReducedMotionMode()
     var showInfoDialog by remember { mutableStateOf(false) }
 
@@ -139,7 +143,7 @@ fun MacDesktopPreview(
                 .width(previewWidth)
                 .aspectRatio(16f / 10f)
                 .clip(RoundedCornerShape(8.dp))
-                .background(tokens.cardBackground)
+                .background(previewPalette.container)
                 .clickable(role = Role.Button) {
                     when (state) {
                         is DesktopPreviewState.NotSupported,
