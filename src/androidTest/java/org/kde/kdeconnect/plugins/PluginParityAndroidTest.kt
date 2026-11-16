@@ -45,7 +45,8 @@ class PluginParityAndroidTest {
         "SharePlugin",
         "SMSPlugin",
         "SystemVolumePlugin",
-        "TelephonyPlugin"
+        "TelephonyPlugin",
+        "WallpaperPlugin"
     )
 
     @Before
@@ -57,7 +58,7 @@ class PluginParityAndroidTest {
     @Test
     fun allExpectedPluginsAreRegisteredAndDiscoverable() {
         val available = PluginFactory.availablePlugins
-        assertEquals("Exactly 24 plugins must be registered in PluginFactory", 24, available.size)
+        assertEquals("Exactly 25 plugins must be registered in PluginFactory", 25, available.size)
         assertEquals("Available plugin set must match expected inventory", expectedPluginKeys, available)
     }
 
