@@ -70,13 +70,14 @@ fun AuroraGlassCard(
     shape: Shape = DashboardShapes.CardShape,
     isElevated: Boolean = false,
     onClick: (() -> Unit)? = null,
+    containerColor: Color? = null,
     content: @Composable ColumnScope.() -> Unit
 ) {
     val tokens = LocalDashboardTokens.current
     val tier = LocalEffectsTier.current
     val isDark = tokens.isDark
 
-    val containerColor = if (isElevated) tokens.cardElevated else tokens.cardBackground
+    val background = containerColor ?: if (isElevated) tokens.cardElevated else tokens.cardBackground
     val border = dashboardCardBorder(tokens, tier)
     val elevation: Dp = if (isDark) 0.dp else if (isElevated) 1.dp else 0.dp
 
@@ -93,7 +94,7 @@ fun AuroraGlassCard(
             ),
         shape = shape,
         border = border,
-        colors = CardDefaults.cardColors(containerColor = containerColor),
+        colors = CardDefaults.cardColors(containerColor = background),
         elevation = CardDefaults.cardElevation(defaultElevation = elevation)
     ) {
         Column(

@@ -7,9 +7,14 @@
 package org.kde.kdeconnect.ui.compose.screen.device.modern
 
 import androidx.compose.ui.graphics.Color
+import org.kde.kdeconnect.ui.compose.DashboardCardKey
+import org.kde.kdeconnect.ui.compose.ModernDarkCardPalettes
 import org.kde.kdeconnect.ui.compose.ModernDarkColorScheme
+import org.kde.kdeconnect.ui.compose.ModernLightCardPalettes
 import org.kde.kdeconnect.ui.compose.ModernLightColorScheme
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import java.io.File
@@ -185,6 +190,57 @@ class ModernDashboardColorContractTest {
 
         // Action tiles standardized to 18dp
         assertEquals(18f, DashboardShapes.TileShape.topStart.toPx(size, density), 0.01f)
+    }
+
+    @Test
+    fun testCardPalettesPairwiseDistinct() {
+        val lightPalettes = ModernLightCardPalettes.values.toList()
+        val darkPalettes = ModernDarkCardPalettes.values.toList()
+
+        for (i in lightPalettes.indices) {
+            for (j in i + 1 until lightPalettes.size) {
+                val a = lightPalettes[i]
+                val b = lightPalettes[j]
+                assertNotEquals("Light mode container clash: ${a.cardKey} vs ${b.cardKey}", a.container, b.container)
+                assertNotEquals("Light mode accent clash: ${a.cardKey} vs ${b.cardKey}", a.accent, b.accent)
+            }
+        }
+
+        for (i in darkPalettes.indices) {
+            for (j in i + 1 until darkPalettes.size) {
+                val a = darkPalettes[i]
+                val b = darkPalettes[j]
+                assertNotEquals("Dark mode container clash: ${a.cardKey} vs ${b.cardKey}", a.container, b.container)
+                assertNotEquals("Dark mode accent clash: ${a.cardKey} vs ${b.cardKey}", a.accent, b.accent)
+            }
+        }
+    }
+
+    @Test
+    fun testCardPalettesWcagContrast() {
+        ModernLightCardPalettes.forEach { (key, palette) ->
+            val textContrast = contrastRatio(palette.onContainer, palette.container)
+            assertTrue("Light mode $key text contrast ($textContrast) must be >= 4.5:1", textContrast >= 4.5)
+            val accentContrast = contrastRatio(palette.accent, palette.container)
+            assertTrue("Light mode $key accent contrast ($accentContrast) must be >= 3.0:1", accentContrast >= 3.0)
+        }
+
+        ModernDarkCardPalettes.forEach { (key, palette) ->
+            val textContrast = contrastRatio(palette.onContainer, palette.container)
+            assertTrue("Dark mode $key text contrast ($textContrast) must be >= 4.5:1", textContrast >= 4.5)
+            val accentContrast = contrastRatio(palette.accent, palette.container)
+            assertTrue("Dark mode $key accent contrast ($accentContrast) must be >= 3.0:1", accentContrast >= 3.0)
+        }
+    }
+
+    @Test
+    fun testEveryCardKeyHasPaletteEntry() {
+        DashboardCardKey.values().forEach { key ->
+            assertTrue("Light palettes missing entry for $key", ModernLightCardPalettes.containsKey(key))
+            assertTrue("Dark palettes missing entry for $key", ModernDarkCardPalettes.containsKey(key))
+            assertNotNull(ModernLightCardPalettes.getValue(key))
+            assertNotNull(ModernDarkCardPalettes.getValue(key))
+        }
     }
 }
 

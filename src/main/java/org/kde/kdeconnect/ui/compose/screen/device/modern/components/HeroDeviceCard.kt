@@ -48,6 +48,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import org.kde.kdeconnect.ui.compose.DashboardCardKey
+import org.kde.kdeconnect.ui.compose.LocalDashboardCardPalettes
 import org.kde.kdeconnect.ui.compose.screen.device.modern.DesktopPreviewState
 import org.kde.kdeconnect.ui.compose.screen.device.modern.HeroUiState
 import org.kde.kdeconnect.ui.compose.screen.device.modern.LocalDashboardTokens
@@ -65,6 +67,7 @@ fun HeroDeviceCard(
 ) {
     val isReducedMotion = isReducedMotionMode()
     val tokens = LocalDashboardTokens.current
+    val heroPalette = LocalDashboardCardPalettes.current.getValue(DashboardCardKey.Hero)
 
     val infiniteTransition = rememberInfiniteTransition(label = "connectedPulse")
     val dotAlpha by if (!isReducedMotion && hero.isConnected) {
@@ -82,7 +85,8 @@ fun HeroDeviceCard(
     }
 
     AuroraGlassCard(
-        modifier = modifier
+        modifier = modifier,
+        containerColor = heroPalette.container
     ) {
         Row(
             modifier = Modifier
@@ -106,7 +110,7 @@ fun HeroDeviceCard(
                 Text(
                     text = hero.deviceName,
                     style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.SemiBold),
-                    color = tokens.textPrimary,
+                    color = heroPalette.onContainer,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                     modifier = Modifier.semantics { heading() }

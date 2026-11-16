@@ -6,9 +6,12 @@
 
 package org.kde.kdeconnect.ui.compose.screen.device.modern.components
 
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import org.kde.kdeconnect.ui.compose.DashboardCardKey
+import org.kde.kdeconnect.ui.compose.LocalDashboardCardPalettes
 import org.kde.kdeconnect.ui.compose.components.PocketLinkPanelKind
 import org.kde.kdeconnect.ui.compose.components.PocketLinkStatePanel
 import org.kde.kdeconnect_tp.R
@@ -18,12 +21,18 @@ internal fun DeviceErrorPanel(
     onRefresh: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    PocketLinkStatePanel(
-        title = stringResource(R.string.error_not_reachable),
-        description = stringResource(R.string.unreachable_description),
-        kind = PocketLinkPanelKind.Offline,
-        actionLabel = stringResource(R.string.refresh),
-        onAction = onRefresh,
-        modifier = modifier
-    )
+    val errorPalette = LocalDashboardCardPalettes.current.getValue(DashboardCardKey.ErrorPanel)
+    AuroraGlassCard(
+        modifier = modifier,
+        containerColor = errorPalette.container
+    ) {
+        PocketLinkStatePanel(
+            title = stringResource(R.string.error_not_reachable),
+            description = stringResource(R.string.unreachable_description),
+            kind = PocketLinkPanelKind.Offline,
+            actionLabel = stringResource(R.string.refresh),
+            onAction = onRefresh,
+            modifier = Modifier.fillMaxWidth()
+        )
+    }
 }

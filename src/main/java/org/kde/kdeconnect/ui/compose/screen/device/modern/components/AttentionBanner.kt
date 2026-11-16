@@ -49,6 +49,8 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import org.kde.kdeconnect.ui.compose.DashboardCardKey
+import org.kde.kdeconnect.ui.compose.LocalDashboardCardPalettes
 import org.kde.kdeconnect.ui.compose.PocketLinkSpacing
 import org.kde.kdeconnect.ui.compose.screen.device.modern.AttentionUiState
 import org.kde.kdeconnect.ui.compose.screen.device.modern.DashboardShapes
@@ -65,12 +67,13 @@ fun AttentionBanner(
     val isDark = isDarkThemeMode()
     val isReducedMotion = isReducedMotionMode()
     val tokens = LocalDashboardTokens.current
+    val attentionPalette = LocalDashboardCardPalettes.current.getValue(DashboardCardKey.Attention)
     val isRequired = attention.severity == PermissionSeverity.Required
 
-    val containerColor = if (isRequired) tokens.permissionBannerBg else tokens.optionalBadgeBg
-    val titleColor = if (isRequired) tokens.permissionBannerTitle else tokens.optionalBadgeText
-    val subtitleColor = if (isRequired) tokens.permissionBannerSubtitle else tokens.optionalBadgeText.copy(alpha = 0.85f)
-    val strokeColor = if (isRequired) tokens.permissionBannerBorder else tokens.optionalBadgeText.copy(alpha = 0.35f)
+    val containerColor = if (isRequired) attentionPalette.container else tokens.optionalBadgeBg
+    val titleColor = if (isRequired) attentionPalette.onContainer else tokens.optionalBadgeText
+    val subtitleColor = if (isRequired) attentionPalette.onContainer.copy(alpha = 0.85f) else tokens.optionalBadgeText.copy(alpha = 0.85f)
+    val strokeColor = if (isRequired) attentionPalette.accent else tokens.optionalBadgeText.copy(alpha = 0.35f)
 
     val infiniteTransition = rememberInfiniteTransition(label = "attentionPulse")
     val pulseScale by if (!isReducedMotion) {
