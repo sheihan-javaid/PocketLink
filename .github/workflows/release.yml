@@ -1,7 +1,7 @@
 name: Release
 
-# Builds the signed universal APK for a version tag and attaches it to a DRAFT GitHub
-# Release. Review the draft and publish it manually. See RELEASING.md.
+# Builds the signed universal APK for a version tag and attaches it to a DRAFT, PRE-RELEASE
+# GitHub Release. Review the draft and publish it manually. See RELEASING.md.
 on:
   push:
     tags: ['v*']
@@ -105,5 +105,6 @@ jobs:
           "PocketLink-$VERSION.apk" \
           "PocketLink-$VERSION.apk.sha256" \
           --draft \
+          --prerelease \
           --title "PocketLink $VERSION" \
           --generate-notes
