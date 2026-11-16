@@ -23,6 +23,14 @@ Template for a new release (copy above the latest entry):
 **Checksum:** see `PocketLink-X.Y.Z.apk.sha256`
 -->
 
+## [1.0.0] - 2026-11-16
+
+First stable release. The code is identical to the 0.1.0 pre-release; this release only
+promotes it to stable and changes the version number (`versionCode` 10000). 0.1.0 updates
+in place to 1.0.0.
+
+**APK:** `PocketLink-1.0.0.apk` (universal, Android 6.0+)
+
 ## [0.1.0] - 2026-11-16
 
 **Pre-release.** First PocketLink release, based on KDE Connect for Android 1.37.2.
