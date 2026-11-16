@@ -281,6 +281,7 @@ private fun PairingHeader(
                 Text(
                     text = stringResource(R.string.pairing_title),
                     style = MaterialTheme.typography.headlineSmall,
+                    color = MaterialTheme.colorScheme.onBackground,
                     modifier = Modifier.semantics { heading() }
                 )
                 Text(
@@ -295,7 +296,11 @@ private fun PairingHeader(
                     contentDescription = refreshLabel
                 }
             ) {
-                Icon(Icons.Default.Refresh, contentDescription = null)
+                Icon(
+                    Icons.Default.Refresh,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant
+                )
             }
         }
         OutlinedButton(
