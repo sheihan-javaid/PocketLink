@@ -12,7 +12,9 @@ import android.util.Log
 import android.view.Gravity
 import android.widget.TextView
 import androidx.annotation.StringRes
+import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.kde.kdeconnect.PocketLink
 import org.kde.kdeconnect_tp.R
 
@@ -23,8 +25,16 @@ class RunCommandUrlActivity : AppCompatActivity() {
 
         if (intent.action != null) {
             try {
-                val uri = intent.data ?: return
+                val uri = intent.data ?: run {
+                    finish()
+                    return
+                }
+                if (uri.pathSegments.size < 2) {
+                    finish()
+                    return
+                }
                 val deviceId = uri.pathSegments[0]
+                val commandKey = uri.pathSegments[1]
 
                 val device = PocketLink.getInstance().getDevice(deviceId)
 
@@ -49,18 +59,42 @@ class RunCommandUrlActivity : AppCompatActivity() {
                     return
                 }
 
-                plugin.runCommand(uri.pathSegments[1])
-                finish()
+                val commandName = plugin.commandList.firstOrNull { it.key == commandKey }?.name ?: commandKey
+                val deviceName = device.name
 
-                val vibrator = getSystemService(Vibrator::class.java)
-                if (vibrator != null && vibrator.hasVibrator()) {
-                    @Suppress("DEPRECATION")
-                    vibrator.vibrate(100)
+                showConfirmationDialog(deviceName, commandName) {
+                    plugin.runCommand(commandKey)
+                    val vibrator = getSystemService(Vibrator::class.java)
+                    if (vibrator != null && vibrator.hasVibrator()) {
+                        @Suppress("DEPRECATION")
+                        vibrator.vibrate(100)
+                    }
+                    finish()
                 }
             } catch (e: Exception) {
                 Log.e("RuncommandPlugin", "Exception", e)
+                finish()
             }
+        } else {
+            finish()
         }
+    }
+
+    @VisibleForTesting
+    fun showConfirmationDialog(deviceName: String, commandName: String, onConfirm: () -> Unit) {
+        MaterialAlertDialogBuilder(this)
+            .setTitle(R.string.runcommand_confirm_title)
+            .setMessage(getString(R.string.runcommand_confirm_description, commandName, deviceName))
+            .setPositiveButton(R.string.runcommand_confirm_button) { _, _ ->
+                onConfirm()
+            }
+            .setNegativeButton(R.string.cancel) { _, _ ->
+                finish()
+            }
+            .setOnCancelListener {
+                finish()
+            }
+            .show()
     }
 
     private fun error(@StringRes message: Int) {

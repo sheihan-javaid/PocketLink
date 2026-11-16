@@ -431,6 +431,9 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
     <string name="runcommand_notpaired">Device is not paired</string>
     <string name="runcommand_nosuchdevice">There is no such device</string>
     <string name="runcommand_noruncommandplugin">This device does not have the Run Command Plugin enabled</string>
+    <string name="runcommand_confirm_title">Run Command</string>
+    <string name="runcommand_confirm_description">Do you want to run \"%1$s\" on %2$s?</string>
+    <string name="runcommand_confirm_button">Confirm</string>
     <string name="runcommand_widget_no_device">Click the title to select a device.</string>
     <string name="runcommand_category_device_controls_title">Device Controls</string>
     <string name="runcommand_category_device_controls" translatable="false">runcommand_category_device_controls</string>
