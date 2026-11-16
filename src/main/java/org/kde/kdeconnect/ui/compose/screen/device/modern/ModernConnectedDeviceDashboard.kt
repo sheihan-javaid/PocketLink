@@ -182,16 +182,9 @@ fun ModernConnectedDeviceDashboard(
             Box(
                 modifier = modifier
                     .fillMaxSize()
-                    .background(
-                        Brush.verticalGradient(
-                            listOf(
-                                tokens.backgroundGradientTop,
-                                tokens.backgroundGradientMid,
-                                tokens.backgroundGradientBottom
-                            )
-                        )
-                    )
             ) {
+                DashboardAurora(modifier = Modifier.fillMaxSize())
+
                 PullToRefreshBox(
                     isRefreshing = state.isRefreshing,
                     onRefresh = actions::onRefresh,

@@ -60,7 +60,7 @@ fun ManagePluginsRow(
     AuroraGlassCard(
         modifier = modifier,
         onClick = onClick,
-        containerColor = mpPalette.container
+        cardKey = DashboardCardKey.ManagePlugins
     ) {
         Row(
             modifier = Modifier
