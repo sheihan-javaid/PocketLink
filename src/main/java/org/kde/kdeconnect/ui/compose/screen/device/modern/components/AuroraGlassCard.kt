@@ -79,7 +79,7 @@ fun AuroraGlassCard(
 
     val background = containerColor ?: if (isElevated) tokens.cardElevated else tokens.cardBackground
     val border = dashboardCardBorder(tokens, tier)
-    val elevation: Dp = if (isDark) 0.dp else if (isElevated) 1.dp else 0.dp
+    val elevation: Dp = 0.dp
 
     Card(
         modifier = modifier
