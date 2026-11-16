@@ -70,17 +70,18 @@ export POCKETLINK_KEY_PASSWORD="$POCKETLINK_KEYSTORE_PASSWORD"
 Both values are in `defaultConfig` in `build.gradle.kts`:
 
 ```kotlin
-versionCode = 100
-versionName = "0.1.0"
+versionCode = 10000
+versionName = "1.0.0"
 ```
 
-- `versionName` is the user-visible version and the APK/tag name (`v0.1.0`).
+- `versionName` is the user-visible version and the APK/tag name (`v1.0.0`).
   It follows semantic versioning, `MAJOR.MINOR.PATCH`.
 - `versionCode` **must increase with every release**, or Android refuses the update.
-  The formula is `MAJOR * 10000 + MINOR * 100 + PATCH`, so `0.1.0` gives `100`,
-  `0.1.1` gives `101` and `1.0.0` gives `10000`. Keep `MINOR` and `PATCH` below 100.
-  Upstream KDE Connect used 100 for 0.1.0, so a phone that still has a pre-0.1.0
-  PocketLink build must uninstall it first (Android refuses version-code downgrades).
+  The formula is `MAJOR * 10000 + MINOR * 100 + PATCH`, so `0.1.0` gave `100`,
+  `1.0.0` gives `10000` and `1.2.3` gives `10203`. Keep `MINOR` and `PATCH` below 100.
+  Early development builds of PocketLink used `13702`, inherited from KDE Connect 1.37.2.
+  That is higher than any release so far, so a phone that still has one of those builds
+  must uninstall it first (Android refuses version-code downgrades).
 
 Add an entry to `CHANGELOG.md` in the same commit.
 
@@ -133,13 +134,13 @@ gh release create v<version> \
 
 `.github/workflows/release.yml` runs when a `v*` tag is pushed. It:
 
-1. checks that the tag matches `versionName` (tag `v0.1.0` needs `versionName = "0.1.0"`),
+1. checks that the tag matches `versionName` (tag `v1.0.0` needs `versionName = "1.0.0"`),
 2. runs the unit tests,
 3. decodes the keystore from secrets and builds the signed release APK,
 4. runs `apksigner verify` and checks the SHA-256 file,
-5. creates a **draft pre-release** on GitHub with the APK and checksum attached.
+5. creates a **draft** GitHub Release with the APK and checksum attached. Versions that start with `0.` or contain a `-` (for example `1.1.0-rc1`) are marked as a pre-release automatically.
 
-You review the draft, paste the notes from `CHANGELOG.md`, and click **Publish**. While the major version is 0, it stays marked as a pre-release.
+You review the draft, paste the notes from `CHANGELOG.md`, and click **Publish**.
 
 Add these repository secrets under *Settings → Secrets and variables → Actions*:
 
