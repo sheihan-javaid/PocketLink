@@ -45,6 +45,9 @@ abstract class Plugin {
 
         if (device != null) {
             this.device = device
+
+            // PluginFactory checks migration readiness before calling setContext for a device.
+            // Bind preferences only after assigning the device because PER_DEVICE needs its id.
             this.preferences = sharedPreferencesName?.let { context.getSharedPreferences(it, Context.MODE_PRIVATE) }
                 ?: PreferenceManager.getDefaultSharedPreferences(context)
         }

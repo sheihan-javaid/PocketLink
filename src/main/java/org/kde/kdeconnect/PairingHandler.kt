@@ -217,6 +217,8 @@ class PairingHandler(private val device: Device, private val callback: PairingCa
     fun pairingDone() {
         Log.i("PairingHandler", "Pairing done")
         state = PairState.Paired
+        // The device callback persists trust and completes settings-scope migration before it
+        // reloads plugins. Keep this callback synchronous so no plugin can observe old storage.
         kotlin.runCatching {
             callback.pairingSuccessful()
         }.onFailure { e ->

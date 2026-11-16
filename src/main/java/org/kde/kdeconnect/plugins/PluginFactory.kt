@@ -42,6 +42,10 @@ object PluginFactory {
 
     fun instantiatePluginForDevice(context: Context, pluginKey: String, device: Device): Plugin? {
         try {
+            if (!SettingsScopeMigration.isMigrationReady(context, pluginKey, device.deviceId)) {
+                Log.w("PluginFactory", "Deferring $pluginKey for device ${device.deviceId} until its settings migration is ready")
+                return null
+            }
             val plugin = pluginInfo[pluginKey]?.instantiableClass?.getDeclaredConstructor()?.newInstance()?.apply { setContext(context, device) }
             return plugin
         } catch (e: Exception) {

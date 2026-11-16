@@ -27,6 +27,7 @@ import org.kde.kdeconnect.helpers.security.RsaHelper
 import org.kde.kdeconnect.helpers.security.SslHelper
 import org.kde.kdeconnect.plugins.Plugin
 import org.kde.kdeconnect.plugins.PluginFactory
+import org.kde.kdeconnect.plugins.SettingsScopeMigration
 import org.kde.kdeconnect.plugins.wallpaper.WallpaperRepository
 import org.kde.kdeconnect.ui.ThemeUtil
 import org.kde.kdeconnect_tp.BuildConfig
@@ -61,10 +62,12 @@ class PocketLink : Application() {
         RsaHelper.initialiseRsaKeys(this)
         SslHelper.initialiseCertificate(this)
         PluginFactory.initPluginInfo(this)
+        SettingsScopeMigration.initializeMigration(this)
         WallpaperRepository.initialize(this)
         NotificationHelper.initializeChannels(this)
         LifecycleHelper.initializeObserver()
-        loadRememberedDevicesFromSettings()
+        val trustedDeviceIds = loadRememberedDevicesFromSettings()
+        runWallpaperAndPluginMigration(trustedDeviceIds)
 
         if (BuildConfig.DEBUG && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             val vmPolicyBuilder = VmPolicy.Builder(StrictMode.getVmPolicy())
@@ -135,7 +138,7 @@ class PocketLink : Application() {
         }
     }
 
-    private fun loadRememberedDevicesFromSettings() {
+    private fun loadRememberedDevicesFromSettings(): Set<String> {
         // Log.e("BackgroundService", "Loading remembered trusted devices")
         val trustedDevices = TrustedDevices.getAllTrustedDevices(this)
         trustedDevices.asSequence()
@@ -144,7 +147,8 @@ class PocketLink : Application() {
                 try {
                     val device = Device(applicationContext, it)
                     val now = Date()
-                    val x509Cert = device.certificate as X509Certificate
+                    val x509Cert = device.certificate as? X509Certificate
+                        ?: throw CertificateException("Remembered device certificate is not X.509")
                     if(now < x509Cert.notBefore) {
                         throw CertificateException("Certificate not effective yet: "+x509Cert.notBefore)
                     }
@@ -161,6 +165,14 @@ class PocketLink : Application() {
                     TrustedDevices.removeTrustedDevice(this, it)
                 }
             }
+        // Exclude devices whose certificate failed validation. They are no longer trusted and
+        // must not receive migrated settings during this process start.
+        return devices.keys.toSet()
+    }
+
+    private fun runWallpaperAndPluginMigration(trustedDeviceIds: Set<String>) {
+        SettingsScopeMigration.initializeMigration(this)
+        SettingsScopeMigration.runMigration(this, trustedDeviceIds)
     }
 
     private val devicePairingCallback: PairingCallback = object : PairingCallback {

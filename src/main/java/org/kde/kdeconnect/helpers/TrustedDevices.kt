@@ -7,6 +7,7 @@ import android.util.Base64
 import android.util.Log
 import androidx.core.content.edit
 import org.kde.kdeconnect.helpers.security.SslHelper
+import org.kde.kdeconnect.plugins.SettingsScopeMigration
 import java.security.cert.Certificate
 
 object TrustedDevices {
@@ -22,6 +23,7 @@ object TrustedDevices {
     }
 
     fun removeTrustedDevice(context: Context, deviceId: String) {
+        SettingsScopeMigration.clearDeviceReadiness(context, deviceId)
         val preferences = context.getSharedPreferences("trusted_devices", MODE_PRIVATE)
         preferences.edit { remove(deviceId) }
         val deviceSettings = context.getSharedPreferences(deviceId, MODE_PRIVATE)
