@@ -86,7 +86,7 @@ fun HeroDeviceCard(
 
     AuroraGlassCard(
         modifier = modifier,
-        containerColor = heroPalette.container
+        cardKey = DashboardCardKey.Hero
     ) {
         Row(
             modifier = Modifier

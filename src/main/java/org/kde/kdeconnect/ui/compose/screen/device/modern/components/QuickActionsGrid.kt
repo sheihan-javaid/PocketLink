@@ -30,6 +30,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
@@ -50,6 +51,7 @@ import org.kde.kdeconnect.ui.compose.screen.device.modern.LocalEffectsTier
 import org.kde.kdeconnect.ui.compose.screen.device.modern.QuickActionAvailability
 import org.kde.kdeconnect.ui.compose.screen.device.modern.QuickActionUiModel
 import org.kde.kdeconnect.ui.compose.screen.device.modern.dashboardCardBorder
+import org.kde.kdeconnect.ui.compose.screen.device.modern.glassSurface
 import org.kde.kdeconnect.ui.compose.screen.device.modern.springPressScale
 import org.kde.kdeconnect_tp.R
 
@@ -108,18 +110,8 @@ private fun QuickActionTile(
         else -> Pair(tokens.qaSendFilesBg, tokens.qaSendFilesIcon)
     }
 
-    val cardBg = if (!isEnabled) {
-        tokens.cardPressed
-    } else if (isNeedsPermission) {
-        tokens.permissionBadgeBg
-    } else {
-        qaPalette.container
-    }
-
-    val border = if (isNeedsPermission) {
-        BorderStroke(1.dp, MaterialTheme.colorScheme.error.copy(alpha = 0.5f))
-    } else {
-        dashboardCardBorder(tokens, tier)
+    val tilePalette = remember(qaPalette, iconTintColor) {
+        qaPalette.copy(accent = iconTintColor)
     }
 
     val textColor = when {
@@ -128,27 +120,32 @@ private fun QuickActionTile(
         else -> qaPalette.onContainer
     }
 
-    Card(
-        modifier = modifier
+    val tileModifier = if (!isEnabled) {
+        modifier
+            .defaultMinSize(minHeight = 88.dp)
+            .clip(DashboardShapes.TileShape)
+            .background(tokens.cardPressed, DashboardShapes.TileShape)
+    } else {
+        modifier
             .defaultMinSize(minHeight = 88.dp)
             .springPressScale(interactionSource = interactionSource, effectsTier = tier)
-            .clip(DashboardShapes.TileShape)
+            .glassSurface(tilePalette, DashboardShapes.TileShape, tokens.isDark, tier)
             .semantics { role = Role.Button }
-            .then(
-                if (isEnabled) {
-                    Modifier.clickable(
-                        interactionSource = interactionSource,
-                        indication = null
-                    ) {
-                        haptic.performHapticFeedback(HapticFeedbackType.LongPress)
-                        onClick()
-                    }
-                } else Modifier
-            ),
+            .clickable(
+                interactionSource = interactionSource,
+                indication = null
+            ) {
+                haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                onClick()
+            }
+    }
+
+    Card(
+        modifier = tileModifier,
         shape = DashboardShapes.TileShape,
-        border = border,
-        colors = CardDefaults.cardColors(containerColor = cardBg),
-        elevation = CardDefaults.cardElevation(defaultElevation = if (tokens.isDark) 0.dp else 1.dp)
+        border = if (isNeedsPermission) BorderStroke(1.dp, MaterialTheme.colorScheme.error.copy(alpha = 0.5f)) else null,
+        colors = CardDefaults.cardColors(containerColor = Color.Transparent),
+        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
     ) {
         Column(
             modifier = Modifier

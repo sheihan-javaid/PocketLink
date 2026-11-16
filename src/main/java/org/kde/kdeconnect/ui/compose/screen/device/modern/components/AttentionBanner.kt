@@ -55,7 +55,9 @@ import org.kde.kdeconnect.ui.compose.PocketLinkSpacing
 import org.kde.kdeconnect.ui.compose.screen.device.modern.AttentionUiState
 import org.kde.kdeconnect.ui.compose.screen.device.modern.DashboardShapes
 import org.kde.kdeconnect.ui.compose.screen.device.modern.LocalDashboardTokens
+import org.kde.kdeconnect.ui.compose.screen.device.modern.LocalEffectsTier
 import org.kde.kdeconnect.ui.compose.screen.device.modern.PermissionSeverity
+import org.kde.kdeconnect.ui.compose.screen.device.modern.glassSurface
 import org.kde.kdeconnect_tp.R
 
 @Composable
@@ -90,15 +92,17 @@ fun AttentionBanner(
         remember { mutableFloatStateOf(1f) }
     }
 
+    val tier = LocalEffectsTier.current
+
     Card(
         modifier = modifier
             .fillMaxWidth()
-            .clip(DashboardShapes.CardShape)
+            .glassSurface(attentionPalette, DashboardShapes.CardShape, isDark, tier)
             .clickable(role = Role.Button, onClick = onClick),
         shape = DashboardShapes.CardShape,
-        border = BorderStroke(1.dp, strokeColor),
-        colors = CardDefaults.cardColors(containerColor = containerColor),
-        elevation = CardDefaults.cardElevation(defaultElevation = if (isDark) 0.dp else 2.dp)
+        border = null,
+        colors = CardDefaults.cardColors(containerColor = Color.Transparent),
+        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
     ) {
         Row(
             modifier = Modifier

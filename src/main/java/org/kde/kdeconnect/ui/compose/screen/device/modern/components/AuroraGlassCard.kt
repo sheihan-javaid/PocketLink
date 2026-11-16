@@ -32,11 +32,13 @@ import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import org.kde.kdeconnect.ui.compose.DashboardCardKey
+import org.kde.kdeconnect.ui.compose.LocalDashboardCardPalettes
 import org.kde.kdeconnect.ui.compose.screen.device.modern.DashboardShapes
 import org.kde.kdeconnect.ui.compose.screen.device.modern.EffectsTier
 import org.kde.kdeconnect.ui.compose.screen.device.modern.LocalDashboardTokens
 import org.kde.kdeconnect.ui.compose.screen.device.modern.LocalEffectsTier
-import org.kde.kdeconnect.ui.compose.screen.device.modern.dashboardCardBorder
+import org.kde.kdeconnect.ui.compose.screen.device.modern.glassSurface
 
 @Composable
 fun isDarkThemeMode(): Boolean {
@@ -60,9 +62,9 @@ fun isReducedMotionMode(): Boolean {
 }
 
 /**
- * Premium One UI-style grouped surface container card.
- * Features tonal surface fill, a 1dp top-edge highlight stroke, soft sheen, and 26dp rounded corners.
- * Strictly uses Material 3 colorScheme tokens with zero hardcoded colors.
+ * Premium One UI-style grouped surface container card with genuine frosted glassmorphism.
+ * Features translucent glass veil, specular rim highlight, corner accent glow, and 26dp rounded corners.
+ * Strictly uses Material 3 / design token palettes with zero hardcoded colors.
  */
 @Composable
 fun AuroraGlassCard(
@@ -70,21 +72,20 @@ fun AuroraGlassCard(
     shape: Shape = DashboardShapes.CardShape,
     isElevated: Boolean = false,
     onClick: (() -> Unit)? = null,
+    cardKey: DashboardCardKey = DashboardCardKey.Hero,
     containerColor: Color? = null,
     content: @Composable ColumnScope.() -> Unit
 ) {
     val tokens = LocalDashboardTokens.current
     val tier = LocalEffectsTier.current
     val isDark = tokens.isDark
-
-    val background = containerColor ?: if (isElevated) tokens.cardElevated else tokens.cardBackground
-    val border = dashboardCardBorder(tokens, tier)
-    val elevation: Dp = 0.dp
+    val palettes = LocalDashboardCardPalettes.current
+    val palette = palettes[cardKey] ?: palettes.getValue(DashboardCardKey.Hero)
 
     Card(
         modifier = modifier
             .fillMaxWidth()
-            .clip(shape)
+            .glassSurface(palette, shape, isDark, tier)
             .then(
                 if (onClick != null) {
                     Modifier
@@ -93,9 +94,9 @@ fun AuroraGlassCard(
                 } else Modifier
             ),
         shape = shape,
-        border = border,
-        colors = CardDefaults.cardColors(containerColor = background),
-        elevation = CardDefaults.cardElevation(defaultElevation = elevation)
+        border = null,
+        colors = CardDefaults.cardColors(containerColor = Color.Transparent),
+        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
     ) {
         Column(
             modifier = Modifier.fillMaxWidth(),

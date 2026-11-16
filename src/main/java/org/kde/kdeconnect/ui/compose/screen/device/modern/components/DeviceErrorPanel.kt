@@ -24,7 +24,7 @@ internal fun DeviceErrorPanel(
     val errorPalette = LocalDashboardCardPalettes.current.getValue(DashboardCardKey.ErrorPanel)
     AuroraGlassCard(
         modifier = modifier,
-        containerColor = errorPalette.container
+        cardKey = DashboardCardKey.ErrorPanel
     ) {
         PocketLinkStatePanel(
             title = stringResource(R.string.error_not_reachable),

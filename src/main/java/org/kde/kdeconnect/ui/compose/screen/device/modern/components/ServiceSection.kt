@@ -125,7 +125,7 @@ fun ServiceSection(
         }
 
         AuroraGlassCard(
-            containerColor = palette.container
+            cardKey = cardKey
         ) {
             // In Media & Audio card, integrate Contextual Media controls & Volume controls directly
             if (isMediaCategory && mediaState != null) {

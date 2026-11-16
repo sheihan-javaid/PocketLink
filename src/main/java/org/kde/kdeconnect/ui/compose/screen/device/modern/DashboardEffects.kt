@@ -15,8 +15,11 @@ import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
@@ -27,12 +30,18 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.draw.drawWithCache
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import org.kde.kdeconnect.ui.compose.DashboardCardPalette
 import org.kde.kdeconnect.ui.compose.ModernLightColorScheme
 
 /**
@@ -256,5 +265,179 @@ fun dashboardCardBorder(tokens: DashboardDesignTokens, tier: EffectsTier = Effec
                 listOf(tokens.cardBorderTop, tokens.cardBorderBottom)
             )
         )
+    }
+}
+
+/**
+ * Ambient canvas fixed behind the scrolling dashboard content.
+ * Draws the vertical background gradient and soft, organic radial color blobs (aurora effect)
+ * that illuminate and show through the translucent frosted glass cards.
+ */
+@Composable
+fun DashboardAurora(
+    modifier: Modifier = Modifier,
+    tokens: DashboardDesignTokens = LocalDashboardTokens.current,
+    tier: EffectsTier = LocalEffectsTier.current
+) {
+    if (tier == EffectsTier.Minimal) {
+        Box(
+            modifier = modifier.background(
+                Brush.verticalGradient(
+                    listOf(
+                        tokens.backgroundGradientTop,
+                        tokens.backgroundGradientMid,
+                        tokens.backgroundGradientBottom
+                    )
+                )
+            )
+        )
+        return
+    }
+
+    val isDark = tokens.isDark
+    // 4 vibrant ambient aurora blobs:
+    // 1. Hero / brand indigo aura near top-left
+    // 2. Control violet aura near mid-right
+    // 3. Media rose aura near mid-left
+    // 4. Share teal aura near bottom-right
+    val auraIndigo = if (isDark) Color(0x555B4AC7) else Color(0x385B4AC7)
+    val auraViolet = if (isDark) Color(0x457C3AED) else Color(0x307C3AED)
+    val auraRose = if (isDark) Color(0x40DB2777) else Color(0x28DB2777)
+    val auraTeal = if (isDark) Color(0x400D9488) else Color(0x280D9488)
+
+    Box(
+        modifier = modifier
+            .drawWithCache {
+                val base = Brush.verticalGradient(
+                    listOf(
+                        tokens.backgroundGradientTop,
+                        tokens.backgroundGradientMid,
+                        tokens.backgroundGradientBottom
+                    )
+                )
+                val blob1 = Brush.radialGradient(
+                    colors = listOf(auraIndigo, Color.Transparent),
+                    center = Offset(size.width * 0.15f, size.height * 0.08f),
+                    radius = size.width * 0.90f
+                )
+                val blob2 = Brush.radialGradient(
+                    colors = listOf(auraViolet, Color.Transparent),
+                    center = Offset(size.width * 0.92f, size.height * 0.32f),
+                    radius = size.width * 0.85f
+                )
+                val blob3 = Brush.radialGradient(
+                    colors = listOf(auraRose, Color.Transparent),
+                    center = Offset(size.width * 0.08f, size.height * 0.58f),
+                    radius = size.width * 0.85f
+                )
+                val blob4 = Brush.radialGradient(
+                    colors = listOf(auraTeal, Color.Transparent),
+                    center = Offset(size.width * 0.90f, size.height * 0.82f),
+                    radius = size.width * 0.85f
+                )
+
+                onDrawBehind {
+                    drawRect(base)
+                    drawRect(blob1)
+                    drawRect(blob2)
+                    drawRect(blob3)
+                    drawRect(blob4)
+                }
+            }
+    )
+}
+
+/**
+ * Creates genuine frosted glassmorphism across dashboard card surfaces:
+ * - Subtle ambient halo bleeding softly outside the card boundary
+ * - Translucent glass veil (white veil in light mode, smoked glass in dark mode)
+ * - Directional tint wash and corner glow in the card's accent color
+ * - Specular vertical reflection sheen across the top portion
+ * - 1dp diagonal refraction rim (border) that catches ambient light
+ */
+fun Modifier.glassSurface(
+    palette: DashboardCardPalette,
+    shape: Shape = DashboardShapes.CardShape,
+    isDark: Boolean = false,
+    tier: EffectsTier = EffectsTier.Full
+): Modifier = composed {
+    if (tier == EffectsTier.Minimal) {
+        this
+            .background(palette.container, shape)
+            .border(1.dp, if (isDark) Color(0xFF2D2F37) else Color(0xFFE2E8F0), shape)
+    } else {
+        val haloAlpha = if (isDark) 0.18f else 0.12f
+        val veilColor = if (isDark) Color(0x8C0B0A14) else Color(0xA6FFFFFF) // ~55% dark smoke, ~65% white veil
+        val washStartAlpha = if (isDark) 0.14f else 0.12f
+        val washEndAlpha = if (isDark) 0.04f else 0.02f
+        val glowAlpha = if (isDark) 0.22f else 0.18f
+        val sheenAlpha = if (isDark) 0.08f else 0.26f
+        val liftAlpha = if (isDark) 0.05f else 0f
+
+        val rimColors = if (isDark) {
+            listOf(
+                Color.White.copy(alpha = 0.35f),
+                palette.accent.copy(alpha = 0.22f),
+                Color.White.copy(alpha = 0.06f)
+            )
+        } else {
+            listOf(
+                Color.White.copy(alpha = 0.92f),
+                palette.accent.copy(alpha = 0.35f),
+                Color.White.copy(alpha = 0.35f)
+            )
+        }
+
+        this
+            .drawBehind {
+                drawRect(
+                    Brush.radialGradient(
+                        colors = listOf(palette.accent.copy(alpha = haloAlpha), Color.Transparent),
+                        center = center,
+                        radius = size.maxDimension * 0.85f
+                    )
+                )
+            }
+            .clip(shape)
+            .background(veilColor)
+            .drawWithCache {
+                val wash = Brush.linearGradient(
+                    colors = listOf(
+                        palette.accent.copy(alpha = washStartAlpha),
+                        palette.accent.copy(alpha = washEndAlpha)
+                    ),
+                    start = Offset.Zero,
+                    end = Offset(size.width, size.height)
+                )
+                val glow = Brush.radialGradient(
+                    colors = listOf(
+                        palette.accent.copy(alpha = glowAlpha),
+                        Color.Transparent
+                    ),
+                    center = Offset(size.width * 0.12f, 0f),
+                    radius = size.maxDimension * 0.65f
+                )
+                val sheen = Brush.verticalGradient(
+                    colors = listOf(
+                        Color.White.copy(alpha = sheenAlpha),
+                        Color.Transparent
+                    ),
+                    startY = 0f,
+                    endY = size.height * 0.45f
+                )
+                onDrawBehind {
+                    if (liftAlpha > 0f) {
+                        drawRect(Color.White.copy(alpha = liftAlpha))
+                    }
+                    drawRect(wash)
+                    drawRect(glow)
+                    drawRect(sheen)
+                }
+            }
+            .border(
+                1.dp,
+                Brush.linearGradient(rimColors),
+                shape
+            )
     }
 }
