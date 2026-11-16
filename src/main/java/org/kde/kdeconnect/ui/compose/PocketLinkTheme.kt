@@ -48,61 +48,61 @@ data class DashboardCardPalette(
 val ModernLightCardPalettes: Map<DashboardCardKey, DashboardCardPalette> = mapOf(
     DashboardCardKey.Hero to DashboardCardPalette(
         cardKey = DashboardCardKey.Hero,
-        container = Color(0xFFE5E2F6),
-        onContainer = Color(0xFF140E36),
+        container = Color(0xFFEFEDF9),
+        onContainer = Color(0xFF0F172A),
         accent = Color(0xFF4F3FC0)
     ),
     DashboardCardKey.DesktopPreview to DashboardCardPalette(
         cardKey = DashboardCardKey.DesktopPreview,
-        container = Color(0xFFE1E2E9),
+        container = Color(0xFFECEDF1),
         onContainer = Color(0xFF0F172A),
         accent = Color(0xFF334155)
     ),
     DashboardCardKey.QuickActions to DashboardCardPalette(
         cardKey = DashboardCardKey.QuickActions,
-        container = Color(0xFFE5E3FA),
-        onContainer = Color(0xFF1E1B4B),
+        container = Color(0xFFEFEEFC),
+        onContainer = Color(0xFF0F172A),
         accent = Color(0xFF4F46E5)
     ),
     DashboardCardKey.ShareTransfer to DashboardCardPalette(
         cardKey = DashboardCardKey.ShareTransfer,
-        container = Color(0xFFDDE9EC),
+        container = Color(0xFFE9F1F3),
         onContainer = Color(0xFF042F2E),
         accent = Color(0xFF0F766E)
     ),
     DashboardCardKey.ControlComputer to DashboardCardPalette(
         cardKey = DashboardCardKey.ControlComputer,
-        container = Color(0xFFE8DFF9),
+        container = Color(0xFFF1EBFB),
         onContainer = Color(0xFF2E1065),
         accent = Color(0xFF6D28D9)
     ),
     DashboardCardKey.MediaAudio to DashboardCardPalette(
         cardKey = DashboardCardKey.MediaAudio,
-        container = Color(0xFFF2DDEA),
+        container = Color(0xFFF7EAF1),
         onContainer = Color(0xFF500724),
         accent = Color(0xFFBE185D)
     ),
     DashboardCardKey.DeviceInfo to DashboardCardPalette(
         cardKey = DashboardCardKey.DeviceInfo,
-        container = Color(0xFFDCE9E9),
+        container = Color(0xFFE9F2F1),
         onContainer = Color(0xFF022C22),
         accent = Color(0xFF047857)
     ),
     DashboardCardKey.ManagePlugins to DashboardCardPalette(
         cardKey = DashboardCardKey.ManagePlugins,
-        container = Color(0xFFDCE7F2),
+        container = Color(0xFFE8F0F7),
         onContainer = Color(0xFF082F49),
         accent = Color(0xFF0369A1)
     ),
     DashboardCardKey.Attention to DashboardCardPalette(
         cardKey = DashboardCardKey.Attention,
-        container = Color(0xFFEDE2E0),
+        container = Color(0xFFF4EDEB),
         onContainer = Color(0xFF451A03),
         accent = Color(0xFF92400E)
     ),
     DashboardCardKey.ErrorPanel to DashboardCardPalette(
         cardKey = DashboardCardKey.ErrorPanel,
-        container = Color(0xFFF1DEE2),
+        container = Color(0xFFF7EAEC),
         onContainer = Color(0xFF450A0A),
         accent = Color(0xFFB91C1C)
     )
@@ -111,61 +111,61 @@ val ModernLightCardPalettes: Map<DashboardCardKey, DashboardCardPalette> = mapOf
 val ModernDarkCardPalettes: Map<DashboardCardKey, DashboardCardPalette> = mapOf(
     DashboardCardKey.Hero to DashboardCardPalette(
         cardKey = DashboardCardKey.Hero,
-        container = Color(0xFF2E2B41),
-        onContainer = Color(0xFFEDE9FE),
+        container = Color(0xFF1B192C),
+        onContainer = Color(0xFFFFFFFF),
         accent = Color(0xFFB7A1FF)
     ),
     DashboardCardKey.DesktopPreview to DashboardCardPalette(
         cardKey = DashboardCardKey.DesktopPreview,
-        container = Color(0xFF31323D),
-        onContainer = Color(0xFFF9FAFB),
+        container = Color(0xFF1D1D2A),
+        onContainer = Color(0xFFFFFFFF),
         accent = Color(0xFFCBD5E1)
     ),
     DashboardCardKey.QuickActions to DashboardCardPalette(
         cardKey = DashboardCardKey.QuickActions,
-        container = Color(0xFF2C2D41),
-        onContainer = Color(0xFFEEF2FF),
+        container = Color(0xFF1A1A2C),
+        onContainer = Color(0xFFFFFFFF),
         accent = Color(0xFFA5B4FC)
     ),
     DashboardCardKey.ShareTransfer to DashboardCardPalette(
         cardKey = DashboardCardKey.ShareTransfer,
-        container = Color(0xFF1B3238),
-        onContainer = Color(0xFFCCFBF1),
+        container = Color(0xFF101D27),
+        onContainer = Color(0xFFFFFFFF),
         accent = Color(0xFF2DD4BF)
     ),
     DashboardCardKey.ControlComputer to DashboardCardPalette(
         cardKey = DashboardCardKey.ControlComputer,
-        container = Color(0xFF302741),
-        onContainer = Color(0xFFF3E8FF),
+        container = Color(0xFF1C172C),
+        onContainer = Color(0xFFFFFFFF),
         accent = Color(0xFFC084FC)
     ),
     DashboardCardKey.MediaAudio to DashboardCardPalette(
         cardKey = DashboardCardKey.MediaAudio,
-        container = Color(0xFF372437),
-        onContainer = Color(0xFFFDF2F8),
+        container = Color(0xFF201526),
+        onContainer = Color(0xFFFFFFFF),
         accent = Color(0xFFF472B6)
     ),
     DashboardCardKey.DeviceInfo to DashboardCardPalette(
         cardKey = DashboardCardKey.DeviceInfo,
-        container = Color(0xFF1C3233),
-        onContainer = Color(0xFFD1FAE5),
+        container = Color(0xFF111D24),
+        onContainer = Color(0xFFFFFFFF),
         accent = Color(0xFF34D399)
     ),
     DashboardCardKey.ManagePlugins to DashboardCardPalette(
         cardKey = DashboardCardKey.ManagePlugins,
-        container = Color(0xFF222B41),
-        onContainer = Color(0xFFDBEAFE),
+        container = Color(0xFF14192C),
+        onContainer = Color(0xFFFFFFFF),
         accent = Color(0xFF60A5FA)
     ),
     DashboardCardKey.Attention to DashboardCardPalette(
         cardKey = DashboardCardKey.Attention,
-        container = Color(0xFF382F23),
+        container = Color(0xFF211B1B),
         onContainer = Color(0xFFFEF3C7),
         accent = Color(0xFFFBBF24)
     ),
     DashboardCardKey.ErrorPanel to DashboardCardPalette(
         cardKey = DashboardCardKey.ErrorPanel,
-        container = Color(0xFF37242D),
+        container = Color(0xFF211521),
         onContainer = Color(0xFFFEE2E2),
         accent = Color(0xFFF87171)
     )

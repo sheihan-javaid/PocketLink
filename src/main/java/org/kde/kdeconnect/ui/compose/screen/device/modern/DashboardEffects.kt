@@ -366,25 +366,25 @@ fun Modifier.glassSurface(
             .background(palette.container, shape)
             .border(1.dp, if (isDark) Color(0xFF2D2F37) else Color(0xFFE2E8F0), shape)
     } else {
-        val haloAlpha = if (isDark) 0.18f else 0.12f
-        val veilColor = if (isDark) Color(0x8C0B0A14) else Color(0xA6FFFFFF) // ~55% dark smoke, ~65% white veil
-        val washStartAlpha = if (isDark) 0.14f else 0.12f
-        val washEndAlpha = if (isDark) 0.04f else 0.02f
-        val glowAlpha = if (isDark) 0.22f else 0.18f
-        val sheenAlpha = if (isDark) 0.08f else 0.26f
-        val liftAlpha = if (isDark) 0.05f else 0f
+        val haloAlpha = if (isDark) 0.15f else 0.10f
+        val veilColor = if (isDark) Color(0xCC0E0D1A) else Color(0xD9FFFFFF) // 80% deep obsidian glass in dark, 85% luminous white glass in light
+        val washStartAlpha = if (isDark) 0.08f else 0.06f
+        val washEndAlpha = 0.01f
+        val glowAlpha = if (isDark) 0.16f else 0.12f
+        val sheenAlpha = if (isDark) 0.06f else 0.28f
+        val liftAlpha = 0f
 
         val rimColors = if (isDark) {
             listOf(
-                Color.White.copy(alpha = 0.35f),
-                palette.accent.copy(alpha = 0.22f),
-                Color.White.copy(alpha = 0.06f)
+                Color.White.copy(alpha = 0.38f),
+                palette.accent.copy(alpha = 0.24f),
+                Color(0x182D2F37)
             )
         } else {
             listOf(
-                Color.White.copy(alpha = 0.92f),
-                palette.accent.copy(alpha = 0.35f),
-                Color.White.copy(alpha = 0.35f)
+                Color.White.copy(alpha = 0.95f),
+                palette.accent.copy(alpha = 0.30f),
+                Color(0x35CBD5E1)
             )
         }
 
