@@ -36,6 +36,7 @@ import java.security.cert.CertificateException
 import javax.net.ssl.SSLHandshakeException
 import javax.net.ssl.SSLSocket
 import kotlin.concurrent.Volatile
+import java.util.concurrent.atomic.AtomicBoolean
 
 class LanLink(
     context: Context,
@@ -107,6 +108,7 @@ class LanLink(
         callback: Device.SendPacketStatusCallback,
         sendPayloadFromSameThread: Boolean
     ): Boolean {
+        val terminalCallback = OnceCallback(callback)
         var payloadTransferStarted = false
         try {
             // Prepare socket for the payload
@@ -135,32 +137,58 @@ class LanLink(
             if (server != null) {
                 if (sendPayloadFromSameThread) {
                     payloadTransferStarted = true
-                    sendPayload(np, callback, server)
+                    sendPayload(np, terminalCallback, server)
+                    if (np.isCanceled) {
+                        terminalCallback.onFailure(IOException("Payload transmission cancelled for ${np.type}"))
+                    } else {
+                        terminalCallback.onSuccess()
+                    }
                 } else {
                     ThreadHelper.runOnNewThread {
                         try {
-                            sendPayload(np, callback, server)
-                        } catch (e: IOException) {
-                            e.printStackTrace()
-                            Log.e(TAG, "Async sendPayload failed for packet of type ${np.type}. The Plugin was NOT notified.")
+                            sendPayload(np, terminalCallback, server)
+                            if (np.isCanceled) {
+                                terminalCallback.onFailure(IOException("Payload transmission cancelled for ${np.type}"))
+                            } else {
+                                terminalCallback.onSuccess()
+                            }
+                        } catch (e: Throwable) {
+                            Log.e(TAG, "Async sendPayload failed for packet of type ${np.type}", e)
+                            terminalCallback.onFailure(e)
                         }
                     }
                     payloadTransferStarted = true
                 }
-            }
-
-            if (!np.isCanceled) {
-                callback.onSuccess()
+            } else if (!np.isCanceled) {
+                terminalCallback.onSuccess()
+            } else {
+                terminalCallback.onFailure(IOException("Packet ${np.type} was cancelled"))
             }
             return true
         } catch (e: Exception) {
-            callback.onFailure(e)
+            terminalCallback.onFailure(e)
             return false
         } finally {
             // Close the payload if we never called sendPayload(). Otherwise it will close it.
             if (!payloadTransferStarted) {
                 np.payload?.close()
             }
+        }
+    }
+
+    private class OnceCallback(private val delegate: Device.SendPacketStatusCallback) : Device.SendPacketStatusCallback() {
+        private val completed = AtomicBoolean(false)
+
+        override fun onSuccess() {
+            if (completed.compareAndSet(false, true)) delegate.onSuccess()
+        }
+
+        override fun onFailure(e: Throwable) {
+            if (completed.compareAndSet(false, true)) delegate.onFailure(e)
+        }
+
+        override fun onPayloadProgressChanged(percent: Int) {
+            if (!completed.get()) delegate.onPayloadProgressChanged(percent)
         }
     }
 
