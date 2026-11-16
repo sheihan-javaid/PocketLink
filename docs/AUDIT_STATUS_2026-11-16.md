@@ -11,7 +11,7 @@ Reconstructed status summary. The original audit file was not committed and is n
 | F-05 | Medium | onSuccess fires before async payload completes | FIXED (6b86b30) |
 | F-06 | Medium | send-coroutine exceptional completion | FIXED (e50dff4) |
 | F-07 | Medium | cleartext traffic permitted | FIXED |
-| F-08 | Medium | exported components | PARTLY FIXED (TransactionService not exported, 6490223; RunCommandUrlActivity still runs commands without confirmation until its PR merges) |
+| F-08 | Medium | exported components | FIXED (TransactionService not exported, 6490223; RunCommandUrlActivity confirmation dialog, e0804fc) |
 | F-09 | Low | empty device_dashboard_strings.xml files | FIXED |
 | F-10 | Low | "KDE Connect" strings / applicationId | LEFT ALONE (strings refer to the desktop app or credit contributors; applicationId must never change) |
 | F-11 | Low | deprecated APP_WIDE settings scope | FIXED (48ad58f) |
