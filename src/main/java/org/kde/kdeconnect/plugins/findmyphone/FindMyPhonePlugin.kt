@@ -198,7 +198,7 @@ class FindMyPhonePlugin : Plugin() {
 
     override val hasSettings: Boolean = true
 
-    override val settingsScope = SettingsScope.APP_WIDE
+    override val settingsScope = SettingsScope.PER_PLUGIN
 
     override fun getSettingsFragment(activity: Activity): PluginSettingsFragment =
         FindMyPhoneSettingsFragment.newInstance(pluginKey, device.deviceId, R.xml.findmyphoneplugin_preferences)

@@ -42,6 +42,7 @@ import org.kde.kdeconnect.helpers.TrustedDevices
 import org.kde.kdeconnect.plugins.Plugin
 import org.kde.kdeconnect.plugins.Plugin.Companion.getPluginKey
 import org.kde.kdeconnect.plugins.PluginFactory
+import org.kde.kdeconnect.plugins.SettingsScopeMigration
 import org.kde.kdeconnect.plugins.wallpaper.WallpaperPlugin
 import org.kde.kdeconnect.plugins.wallpaper.WallpaperRepository
 import org.kde.kdeconnect.ui.MainActivity
@@ -246,6 +247,9 @@ class Device : PacketReceiver {
                 TrustedDevices.addTrustedDevice(context, deviceInfo.id)
 
                 try {
+                    // Copy any retained legacy values before reloadPluginsFromSettings binds
+                    // plugin instances to their scope-specific preference files.
+                    SettingsScopeMigration.runMigration(context, TrustedDevices.getAllTrustedDevices(context).toSet())
                     reloadPluginsFromSettings()
 
                     pairingCallbacks.forEach(PairingCallback::pairingSuccessful)

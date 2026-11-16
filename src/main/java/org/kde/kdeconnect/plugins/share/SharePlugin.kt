@@ -149,7 +149,7 @@ class SharePlugin : Plugin() {
 
     override val hasSettings: Boolean = true
 
-    override val settingsScope = SettingsScope.APP_WIDE
+    override val settingsScope = SettingsScope.PER_DEVICE
 
     override fun onPacketReceived(np: NetworkPacket): Boolean {
         try {

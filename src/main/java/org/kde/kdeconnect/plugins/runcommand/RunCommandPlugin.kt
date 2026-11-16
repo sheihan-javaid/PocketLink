@@ -72,7 +72,7 @@ class RunCommandPlugin : Plugin() {
 
     override val keepAliveWhenUnreachable: Boolean = true
 
-    override val settingsScope = SettingsScope.APP_WIDE
+    override val settingsScope = SettingsScope.PER_DEVICE
 
     override fun getSettingsFragment(activity: Activity): PluginSettingsFragment {
         return PluginSettingsFragment.newInstance(pluginKey, device.deviceId, R.xml.runcommand_preferences)

@@ -31,6 +31,7 @@ class RunCommandPluginTest {
     fun setup() {
         context = ApplicationProvider.getApplicationContext<Application>()
         device = mockk {
+            every { deviceId } returns "0".repeat(32)
             every { sendPacket(any()) } answers {
                 val sentPacket = arg<NetworkPacket>(0)
                 packet = sentPacket

@@ -248,7 +248,7 @@ class SMSPlugin : Plugin() {
 
     override val hasSettings: Boolean = true
 
-    override val settingsScope = SettingsScope.APP_WIDE
+    override val settingsScope = SettingsScope.PER_DEVICE
 
     override fun getSettingsFragment(activity: Activity): PluginSettingsFragment {
         return PluginSettingsFragment.newInstance(pluginKey, device.deviceId, R.xml.smsplugin_preferences)
