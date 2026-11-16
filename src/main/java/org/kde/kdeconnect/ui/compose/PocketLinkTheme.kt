@@ -159,9 +159,9 @@ val ModernDarkCardPalettes: Map<DashboardCardKey, DashboardCardPalette> = mapOf(
     ),
     DashboardCardKey.Attention to DashboardCardPalette(
         cardKey = DashboardCardKey.Attention,
-        container = Color(0xFF211B1B),
-        onContainer = Color(0xFFFEF3C7),
-        accent = Color(0xFFFBBF24)
+        container = Color(0xFF2A2214),
+        onContainer = Color(0xFFFFF4D6),
+        accent = Color(0xFFFFC53D)
     ),
     DashboardCardKey.ErrorPanel to DashboardCardPalette(
         cardKey = DashboardCardKey.ErrorPanel,
@@ -238,7 +238,7 @@ val ModernLightColorScheme = lightColorScheme(
     onError = Color(0xFFFFFFFF),
     errorContainer = Color(0xFFFFDAD6),         // Soft red container light
     onErrorContainer = Color(0xFF410002),       // Dark crimson text light (> 7.4:1 contrast)
-    background = Color(0xFFF7F5FC),             // Soft lavender-tinted pearl background
+    background = Color(0xFFEFE8FC),             // Violet-tinted lavender background
     onBackground = Color(0xFF191528),
     surface = Color(0xFFFFFFFF),                // Pure white card surface
     onSurface = Color(0xFF191528),              // Crisp high-contrast dark indigo-charcoal (> 16:1)
@@ -273,7 +273,7 @@ val ModernDarkColorScheme = darkColorScheme(
     onError = Color(0xFF690005),
     errorContainer = Color(0xFF93000A),         // Deep red container
     onErrorContainer = Color(0xFFFFDAD6),       // Soft readable coral text (> 11:1)
-    background = Color(0xFF0E0C15),             // Deep charcoal with subtle dark violet tint
+    background = Color(0xFF150F26),             // Deep violet-tinted background
     onBackground = Color(0xFFF4F0FA),
     surface = Color(0xFF181524),                // Dark violet-charcoal card surface
     onSurface = Color(0xFFF4F0FA),              // Crisp readable text (> 14.5:1)

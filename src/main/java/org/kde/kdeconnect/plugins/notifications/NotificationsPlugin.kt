@@ -325,7 +325,11 @@ class NotificationsPlugin : Plugin(), NotificationReceiver.NotificationListener 
             }
         }
 
-        if ("org.kde.kdeconnect_tp" == packageName || "org.kde.kdeconnect_tp.debug" == packageName) {
+        if (context.packageName == packageName ||
+            "com.pocketlink" == packageName ||
+            "com.pocketlink.debug" == packageName ||
+            "org.kde.kdeconnect_tp" == packageName ||
+            "org.kde.kdeconnect_tp.debug" == packageName) {
             // Don't send our own notifications
             return null
         }

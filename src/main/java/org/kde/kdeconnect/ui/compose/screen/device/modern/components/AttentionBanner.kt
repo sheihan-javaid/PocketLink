@@ -124,7 +124,7 @@ fun AttentionBanner(
                             scaleY = pulseScale
                         }
                         .clip(RoundedCornerShape(12.dp))
-                        .background(titleColor.copy(alpha = if (isDark) 0.22f else 0.14f))
+                        .background(titleColor.copy(alpha = if (isDark) 0.30f else 0.18f))
                         .border(1.dp, strokeColor.copy(alpha = if (isDark) 0.38f else 0.25f), RoundedCornerShape(12.dp)),
                     contentAlignment = Alignment.Center
                 ) {

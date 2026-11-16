@@ -411,8 +411,9 @@ class ModernConnectedDeviceDashboardTest {
 
     private fun captureGfxInfo(outputFilename: String) {
         try {
+            val targetPkg = InstrumentationRegistry.getInstrumentation().targetContext.packageName
             val pfd = InstrumentationRegistry.getInstrumentation().uiAutomation.executeShellCommand(
-                "dumpsys gfxinfo org.kde.kdeconnect_tp.debug"
+                "dumpsys gfxinfo $targetPkg"
             )
             val output = java.io.InputStreamReader(java.io.FileInputStream(pfd.fileDescriptor)).readText()
             pfd.close()

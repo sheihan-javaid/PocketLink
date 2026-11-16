@@ -111,8 +111,8 @@ private fun QuickActionTile(
         else -> qaPalette.accent
     }
     val tilePalette = remember(qaPalette, tileAccent) { qaPalette.copy(accent = tileAccent) }
-    val chipBg = tileAccent.copy(alpha = if (tokens.isDark) 0.22f else 0.14f)
-    val chipBorderColor = tileAccent.copy(alpha = if (tokens.isDark) 0.38f else 0.25f)
+    val chipBg = tileAccent.copy(alpha = if (tokens.isDark) 0.30f else 0.18f)
+    val chipBorderColor = tileAccent.copy(alpha = if (tokens.isDark) 0.55f else 0.32f)
 
     val textColor = when {
         !isEnabled -> tokens.textTertiary
@@ -166,7 +166,7 @@ private fun QuickActionTile(
                     painter = painterResource(action.iconRes),
                     contentDescription = null,
                     colorFilter = ColorFilter.tint(tileAccent),
-                    modifier = Modifier.size(24.dp)
+                    modifier = Modifier.size(26.dp)
                 )
             }
 
