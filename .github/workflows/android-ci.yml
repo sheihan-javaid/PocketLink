@@ -25,9 +25,10 @@ jobs:
         java-version: 17
 
     - name: Set up Android SDK
-      uses: android-actions/setup-android@v4.0.0
-      with:
-        sdk-version: 37
+      run: |
+        export PATH="$ANDROID_HOME/cmdline-tools/latest/bin:$PATH"
+        yes | sdkmanager --licenses || true
+        yes | sdkmanager "platforms;android-37.0" "build-tools;37.0.0" "platform-tools" || true
 
     - name: Validate Gradle wrapper
       uses: gradle/actions/wrapper-validation@v4
