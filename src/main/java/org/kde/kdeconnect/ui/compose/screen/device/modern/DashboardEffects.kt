@@ -167,7 +167,9 @@ data class DashboardDesignTokens(
 )
 
 fun createDashboardTokens(colorScheme: ColorScheme, isDark: Boolean): DashboardDesignTokens {
-    val cardBackground = if (isDark) Color(0xFF0F111A) else Color(0xFFFFFFFF)
+    val cardBackground = if (isDark) Color(0xB80F111A) else Color(0xB8FFFFFF)
+    val cardBorderTop = if (isDark) Color(0x38FFFFFF) else Color(0x80FFFFFF)
+    val cardBorderBottom = if (isDark) Color(0x1F2D2F37) else Color(0x28CBD5E1)
     val cardBorder = if (isDark) Color(0xFF2D2F37) else Color(0xFFE2E8F0)
     val textPrimary = if (isDark) Color(0xFFF1F5F9) else Color(0xFF0F172A)
     val textSecondary = if (isDark) Color(0xFF94A3B8) else Color(0xFF475569)
@@ -180,9 +182,9 @@ fun createDashboardTokens(colorScheme: ColorScheme, isDark: Boolean): DashboardD
         pageBackground = if (isDark) Color(0xFF0D0D1A) else Color(0xFFEEECF9),
         cardBackground = cardBackground,
         cardElevated = cardBackground,
-        cardPressed = if (isDark) Color(0xFF141724) else Color(0xFFF1F5F9),
-        cardBorderTop = cardBorder,
-        cardBorderBottom = cardBorder,
+        cardPressed = if (isDark) Color(0xD0141724) else Color(0xD0F1F5F9),
+        cardBorderTop = cardBorderTop,
+        cardBorderBottom = cardBorderBottom,
         cardSheenTop = Color.Transparent, // No sheen or shadow per prompt
         divider = divider,
         glow = if (isDark) Color(0x30191731) else Color(0x20E9E7F7),
