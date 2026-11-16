@@ -46,6 +46,8 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import org.kde.kdeconnect.ui.compose.DashboardCardKey
+import org.kde.kdeconnect.ui.compose.LocalDashboardCardPalettes
 import org.kde.kdeconnect.ui.compose.PocketLinkSpacing
 import org.kde.kdeconnect.ui.compose.screen.device.modern.LocalDashboardTokens
 import org.kde.kdeconnect.ui.compose.screen.device.modern.MediaPlaybackUiState
@@ -97,18 +99,20 @@ fun ContextualMediaContent(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.fillMaxWidth()
         ) {
+            val mediaPalette = LocalDashboardCardPalettes.current.getValue(DashboardCardKey.MediaAudio)
+
             // Album Art Fallback with container gradient & music note
             Box(
                 modifier = Modifier
                     .size(48.dp)
                     .clip(RoundedCornerShape(12.dp))
-                    .background(tokens.mediaContainer),
+                    .background(mediaPalette.accent.copy(alpha = if (tokens.isDark) 0.18f else 0.12f)),
                 contentAlignment = Alignment.Center
             ) {
                 Image(
                     painter = painterResource(R.drawable.ic_modern_album_art),
                     contentDescription = null,
-                    colorFilter = ColorFilter.tint(tokens.onMediaContainer),
+                    colorFilter = ColorFilter.tint(mediaPalette.accent),
                     modifier = Modifier.size(28.dp)
                 )
             }

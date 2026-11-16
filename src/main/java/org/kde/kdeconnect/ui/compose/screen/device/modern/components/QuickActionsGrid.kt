@@ -100,19 +100,8 @@ private fun QuickActionTile(
 
     val interactionSource = remember { MutableInteractionSource() }
 
-    val (chipBg, iconTintColor) = when (action.id) {
-        "send_files" -> Pair(tokens.qaSendFilesBg, tokens.qaSendFilesIcon)
-        "clipboard" -> Pair(tokens.qaClipboardBg, tokens.qaClipboardIcon)
-        "remote_input" -> Pair(tokens.qaRemoteInputBg, tokens.qaRemoteInputIcon)
-        "ring_device" -> Pair(tokens.qaRingMacBg, tokens.qaRingMacIcon)
-        "run_command" -> Pair(tokens.qaRunCommandBg, tokens.qaRunCommandIcon)
-        "presenter" -> Pair(tokens.qaPresenterBg, tokens.qaPresenterIcon)
-        else -> Pair(tokens.qaSendFilesBg, tokens.qaSendFilesIcon)
-    }
-
-    val tilePalette = remember(qaPalette, iconTintColor) {
-        qaPalette.copy(accent = iconTintColor)
-    }
+    val iconTintColor = qaPalette.accent
+    val chipBg = qaPalette.accent.copy(alpha = if (tokens.isDark) 0.18f else 0.12f)
 
     val textColor = when {
         !isEnabled -> tokens.textTertiary
@@ -129,7 +118,7 @@ private fun QuickActionTile(
         modifier
             .defaultMinSize(minHeight = 88.dp)
             .springPressScale(interactionSource = interactionSource, effectsTier = tier)
-            .glassSurface(tilePalette, DashboardShapes.TileShape, tokens.isDark, tier)
+            .glassSurface(qaPalette, DashboardShapes.TileShape, tokens.isDark, tier)
             .semantics { role = Role.Button }
             .clickable(
                 interactionSource = interactionSource,

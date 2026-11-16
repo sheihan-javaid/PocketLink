@@ -79,7 +79,7 @@ fun ManagePluginsRow(
                     modifier = Modifier
                         .size(40.dp)
                         .clip(CircleShape)
-                        .background(tokens.shareContainer),
+                        .background(mpPalette.accent.copy(alpha = if (tokens.isDark) 0.18f else 0.12f)),
                     contentAlignment = Alignment.Center
                 ) {
                     Image(

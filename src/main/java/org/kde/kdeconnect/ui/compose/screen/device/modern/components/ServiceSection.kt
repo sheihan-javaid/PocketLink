@@ -193,12 +193,13 @@ private fun ServiceRow(
 ) {
     val tokens = LocalDashboardTokens.current
 
-    val (iconBg, iconTint) = when (category) {
-        PluginCategory.ShareTransfer -> Pair(tokens.rowShareBg, tokens.rowShareIcon)
-        PluginCategory.ControlComputer -> Pair(tokens.rowControlBg, tokens.rowControlIcon)
-        PluginCategory.MediaAudio -> Pair(tokens.mediaContainer, tokens.onMediaContainer)
-        PluginCategory.DeviceInfo -> Pair(tokens.rowDeviceInfoBg, tokens.rowDeviceInfoIcon)
+    val iconTint = palette?.accent ?: when (category) {
+        PluginCategory.ShareTransfer -> tokens.rowShareIcon
+        PluginCategory.ControlComputer -> tokens.rowControlIcon
+        PluginCategory.MediaAudio -> tokens.onMediaContainer
+        PluginCategory.DeviceInfo -> tokens.rowDeviceInfoIcon
     }
+    val iconBg = palette?.accent?.copy(alpha = if (tokens.isDark) 0.18f else 0.12f) ?: tokens.actionPillBg
 
     Column(
         modifier = modifier
