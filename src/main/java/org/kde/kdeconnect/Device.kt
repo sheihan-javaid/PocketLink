@@ -23,6 +23,7 @@ import androidx.core.content.edit
 import androidx.core.content.getSystemService
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
@@ -50,6 +51,8 @@ import java.security.cert.Certificate
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.ConcurrentMap
 import java.util.concurrent.CopyOnWriteArrayList
+import java.util.concurrent.atomic.AtomicBoolean
+import java.util.concurrent.atomic.AtomicInteger
 
 class Device : PacketReceiver {
 
@@ -110,9 +113,10 @@ class Device : PacketReceiver {
     private val pairingCallbacks = CopyOnWriteArrayList<PairingCallback>()
     private val pluginsChangedListeners = CopyOnWriteArrayList<PluginsChangedListener>()
 
-    private val sendChannel = Channel<NetworkPacketWithCallback>(Channel.UNLIMITED)
-    @Volatile
-    private var sendCoroutine : Job? = null
+    private val sendLock = Any()
+    private val sendChannel = Channel<NetworkPacketWithCallback>(SEND_QUEUE_CAPACITY)
+    private val queuedPacketCount = AtomicInteger(0)
+    private var sendCoroutine: Job? = null
 
     /**
      * Constructor for remembered, already-trusted devices.
@@ -347,20 +351,6 @@ class Device : PacketReceiver {
         get() = links.isNotEmpty()
 
     fun addLink(link: BaseLink) {
-        var unsent = emptyList<NetworkPacketWithCallback>()
-        synchronized(sendChannel) {
-            if (sendCoroutine == null) {
-                // Packets that raced with removeLink() could still be in the channel, don't send them now
-                unsent = drainSendChannel()
-                sendCoroutine = CoroutineScope(Dispatchers.IO).launch {
-                    for ((np, callback) in sendChannel) {
-                        sendPacketBlocking(np, callback)
-                    }
-                }
-            }
-        }
-        failUnsentPackets(unsent)
-
         // FilesHelper.LogOpenFileCount();
         links.add(link)
 
@@ -379,6 +369,10 @@ class Device : PacketReceiver {
         }
 
         link.addPacketReceiver(this)
+
+        synchronized(sendLock) {
+            ensureSendConsumerLocked()
+        }
 
         val hasChanges = updateDeviceInfo(link.deviceInfo)
 
@@ -401,7 +395,7 @@ class Device : PacketReceiver {
         )
         if (links.isEmpty()) {
             reloadPluginsFromSettings()
-            val unsent = synchronized(sendChannel) {
+            val unsent = synchronized(sendLock) {
                 sendCoroutine?.cancel(CancellationException("Device disconnected"))
                 sendCoroutine = null
                 drainSendChannel()
@@ -414,7 +408,7 @@ class Device : PacketReceiver {
 
     private fun drainSendChannel(): List<NetworkPacketWithCallback> = buildList {
         while (true) {
-            add(sendChannel.tryReceive().getOrNull() ?: break)
+            add(sendChannel.tryReceive().getOrNull()?.also { queuedPacketCount.decrementAndGet() } ?: break)
         }
     }
 
@@ -422,6 +416,41 @@ class Device : PacketReceiver {
         unsent.forEach { (np, callback) ->
             callback.onFailure(Exception("Device disconnected, packet ${np.type} not sent"))
         }
+    }
+
+    /** Starts exactly one consumer while a link exists. Call while holding [sendLock]. */
+    private fun ensureSendConsumerLocked() {
+        if (links.isEmpty() || sendCoroutine?.isActive == true) return
+        val consumer = CoroutineScope(Dispatchers.IO).launch(start = CoroutineStart.LAZY) {
+            try {
+                for ((np, callback) in sendChannel) {
+                    queuedPacketCount.decrementAndGet()
+                    try {
+                        if (!sendPacketBlocking(np, callback)) {
+                            callback.onFailure(IOException("No active link could send packet ${np.type}"))
+                        }
+                    } catch (e: CancellationException) {
+                        callback.onFailure(IOException("Device disconnected, packet ${np.type} not sent", e))
+                        throw e
+                    } catch (e: Throwable) {
+                        callback.onFailure(e)
+                    }
+                }
+            } finally {
+                synchronized(sendLock) {
+                    if (sendCoroutine === coroutineContext[Job]) {
+                        sendCoroutine = null
+                    }
+                    // A failed consumer must not leave packets stranded. A new consumer is
+                    // created only after this one has stopped, preserving FIFO delivery.
+                    if (links.isNotEmpty() && queuedPacketCount.get() > 0) {
+                        ensureSendConsumerLocked()
+                    }
+                }
+            }
+        }
+        sendCoroutine = consumer
+        consumer.start()
     }
 
     fun updateDeviceInfo(newDeviceInfo: DeviceInfo): Boolean {
@@ -534,11 +563,28 @@ class Device : PacketReceiver {
      */
     @AnyThread
     fun sendPacket(np: NetworkPacket, callback: SendPacketStatusCallback) {
-        if (sendCoroutine == null) {
-            callback.onFailure(Exception("Device disconnected, packet ${np.type} not sent"))
-            return
+        val onceCallback = OnceSendPacketStatusCallback(callback)
+        synchronized(sendLock) {
+            ensureSendConsumerLocked()
+            if (sendCoroutine?.isActive != true) {
+                onceCallback.onFailure(IOException("Device disconnected, packet ${np.type} not sent"))
+                return
+            }
+            // trySend is deliberately non-blocking: UI callers receive a deterministic failure
+            // under backpressure rather than blocking the main thread or growing memory.
+            queuedPacketCount.incrementAndGet()
+            val result = sendChannel.trySend(NetworkPacketWithCallback(np, onceCallback))
+            if (result.isFailure) {
+                queuedPacketCount.decrementAndGet()
+                onceCallback.onFailure(
+                    IOException(
+                        if (result.isClosed) "Device disconnected, packet ${np.type} not sent"
+                        else "Device send queue is full, packet ${np.type} not sent",
+                        result.exceptionOrNull()
+                    )
+                )
+            }
         }
-        sendChannel.trySend(NetworkPacketWithCallback(np, callback))
     }
 
     @AnyThread
@@ -568,14 +614,16 @@ class Device : PacketReceiver {
         callback: SendPacketStatusCallback,
         sendPayloadFromSameThread: Boolean
     ): Boolean {
+        val onceCallback = if (callback is OnceSendPacketStatusCallback) callback else OnceSendPacketStatusCallback(callback)
         if (!remoteCanReceive(np.type)) {
             Log.e("KDE/sendPacket", "Tried to send an unsupported packet type ${np.type} to: ${deviceInfo.name}")
+            onceCallback.onFailure(IOException("Unsupported packet type ${np.type}"))
             return false
         }
 
         val success = links.any { link ->
             try {
-                link.sendPacket(np, callback, sendPayloadFromSameThread)
+                link.sendPacket(np, onceCallback, sendPayloadFromSameThread)
             } catch (e: IOException) {
                 Log.w("KDE/sendPacket", "Failed to send packet", e)
                 false
@@ -592,6 +640,24 @@ class Device : PacketReceiver {
         }
 
         return success
+    }
+
+    private class OnceSendPacketStatusCallback(
+        private val delegate: SendPacketStatusCallback
+    ) : SendPacketStatusCallback() {
+        private val completed = AtomicBoolean(false)
+
+        override fun onSuccess() {
+            if (completed.compareAndSet(false, true)) delegate.onSuccess()
+        }
+
+        override fun onFailure(e: Throwable) {
+            if (completed.compareAndSet(false, true)) delegate.onFailure(e)
+        }
+
+        override fun onPayloadProgressChanged(percent: Int) {
+            if (!completed.get()) delegate.onPayloadProgressChanged(percent)
+        }
     }
 
     //
@@ -775,5 +841,10 @@ class Device : PacketReceiver {
 
     override fun hashCode(): Int {
         return deviceId.hashCode()
+    }
+
+    private companion object {
+        // Enough for bursty input while bounding retained packet/payload metadata at 64 items.
+        const val SEND_QUEUE_CAPACITY = 64
     }
 }
