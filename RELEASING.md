@@ -70,16 +70,17 @@ export POCKETLINK_KEY_PASSWORD="$POCKETLINK_KEYSTORE_PASSWORD"
 Both values are in `defaultConfig` in `build.gradle.kts`:
 
 ```kotlin
-versionCode = 13702
-versionName = "1.37.2"
+versionCode = 100
+versionName = "0.1.0"
 ```
 
-- `versionName` is the user-visible version and the APK/tag name (`v1.37.2`).
+- `versionName` is the user-visible version and the APK/tag name (`v0.1.0`).
   It follows semantic versioning, `MAJOR.MINOR.PATCH`.
 - `versionCode` **must increase with every release**, or Android refuses the update.
-  The convention inherited from KDE Connect is
-  `MAJOR * 10000 + MINOR * 100 + PATCH`, so `1.37.2` gives `13702` and `1.38.0`
-  gives `13800`. Keep `MINOR` and `PATCH` below 100.
+  The formula is `MAJOR * 10000 + MINOR * 100 + PATCH`, so `0.1.0` gives `100`,
+  `0.1.1` gives `101` and `1.0.0` gives `10000`. Keep `MINOR` and `PATCH` below 100.
+  Upstream KDE Connect used 100 for 0.1.0, so a phone that still has a pre-0.1.0
+  PocketLink build must uninstall it first (Android refuses version-code downgrades).
 
 Add an entry to `CHANGELOG.md` in the same commit.
 
@@ -132,13 +133,13 @@ gh release create v<version> \
 
 `.github/workflows/release.yml` runs when a `v*` tag is pushed. It:
 
-1. checks that the tag matches `versionName` (tag `v1.37.2` needs `versionName = "1.37.2"`),
+1. checks that the tag matches `versionName` (tag `v0.1.0` needs `versionName = "0.1.0"`),
 2. runs the unit tests,
 3. decodes the keystore from secrets and builds the signed release APK,
 4. runs `apksigner verify` and checks the SHA-256 file,
-5. creates a **draft** GitHub Release with the APK and checksum attached.
+5. creates a **draft pre-release** on GitHub with the APK and checksum attached.
 
-You review the draft, paste the notes from `CHANGELOG.md`, and click **Publish**.
+You review the draft, paste the notes from `CHANGELOG.md`, and click **Publish**. While the major version is 0, it stays marked as a pre-release.
 
 Add these repository secrets under *Settings → Secrets and variables → Actions*:
 

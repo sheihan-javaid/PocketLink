@@ -23,15 +23,16 @@ Template for a new release (copy above the latest entry):
 **Checksum:** see `PocketLink-X.Y.Z.apk.sha256`
 -->
 
-## [1.37.2] - Unreleased
+## [0.1.0] - 2026-11-16
 
-First PocketLink release, forked from KDE Connect for Android 1.37.2.
+**Pre-release.** First PocketLink release, based on KDE Connect for Android 1.37.2.
 
 ### Changed
 - Rebranded as PocketLink with its own app ID, `com.pocketlink`. It can be installed alongside KDE Connect.
-- Modern Compose dashboard with flat cards and plugin settings from a gear icon.
+- Modern Compose dashboard with flat cards, a violet-tinted background and plugin settings from a gear icon.
 - Settings are now stored per device and per plugin. See [docs/RELEASE_NOTES_2026-11-16.md](docs/RELEASE_NOTES_2026-11-16.md) for migration details.
-- About screen links point to the PocketLink GitHub repository. KDE Connect credit is kept.
+- About screen links point to the PocketLink GitHub repository and show an "A fork of KDE Connect" line. KDE Connect credit is kept.
+- Version numbering restarted at 0.1.0 (`versionCode` 100).
 
 ### Fixed
 - The outbound send queue is bounded at 64 packets, which prevents unbounded memory growth.
@@ -41,4 +42,4 @@ First PocketLink release, forked from KDE Connect for Android 1.37.2.
 - URL-triggered run-command requests require confirmation.
 - `FileProvider` is private.
 
-**APK:** `PocketLink-1.37.2.apk` (universal, Android 6.0+)
+**APK:** `PocketLink-0.1.0.apk` (universal, Android 6.0+)
