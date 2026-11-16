@@ -192,6 +192,33 @@ class ModernDashboardColorContractTest {
         assertEquals(18f, DashboardShapes.TileShape.topStart.toPx(size, density), 0.01f)
     }
 
+    private fun srgbToLab(color: Color): DoubleArray {
+        val r = linearize(color.red)
+        val g = linearize(color.green)
+        val b = linearize(color.blue)
+        val x = (r * 0.4124564 + g * 0.3575761 + b * 0.1804375) / 0.95047
+        val y = (r * 0.2126729 + g * 0.7151522 + b * 0.0721750) / 1.00000
+        val z = (r * 0.0193339 + g * 0.1191920 + b * 0.9503041) / 1.08883
+
+        fun f(t: Double): Double = if (t > 0.008856) t.pow(1.0 / 3.0) else (7.787 * t) + (16.0 / 116.0)
+        val fx = f(x)
+        val fy = f(y)
+        val fz = f(z)
+        val l = 116.0 * fy - 16.0
+        val a = 500.0 * (fx - fy)
+        val bVal = 200.0 * (fy - fz)
+        return doubleArrayOf(l, a, bVal)
+    }
+
+    private fun deltaE76(c1: Color, c2: Color): Double {
+        val lab1 = srgbToLab(c1)
+        val lab2 = srgbToLab(c2)
+        val dl = lab1[0] - lab2[0]
+        val da = lab1[1] - lab2[1]
+        val db = lab1[2] - lab2[2]
+        return kotlin.math.sqrt(dl * dl + da * da + db * db)
+    }
+
     @Test
     fun testCardPalettesPairwiseDistinct() {
         val lightPalettes = ModernLightCardPalettes.values.toList()
@@ -202,7 +229,6 @@ class ModernDashboardColorContractTest {
                 val a = lightPalettes[i]
                 val b = lightPalettes[j]
                 assertNotEquals("Light mode container clash: ${a.cardKey} vs ${b.cardKey}", a.container, b.container)
-                assertNotEquals("Light mode accent clash: ${a.cardKey} vs ${b.cardKey}", a.accent, b.accent)
             }
         }
 
@@ -211,7 +237,47 @@ class ModernDashboardColorContractTest {
                 val a = darkPalettes[i]
                 val b = darkPalettes[j]
                 assertNotEquals("Dark mode container clash: ${a.cardKey} vs ${b.cardKey}", a.container, b.container)
-                assertNotEquals("Dark mode accent clash: ${a.cardKey} vs ${b.cardKey}", a.accent, b.accent)
+            }
+        }
+
+        // Test pairwise distinctness across all cards AND quick-action tiles
+        val tokensLight = createDashboardTokens(ModernLightColorScheme, isDark = false)
+        val allLightAccents = lightPalettes.map { "Card:${it.cardKey}" to it.accent } + listOf(
+            "Tile:SendFiles" to tokensLight.qaSendFilesIcon,
+            "Tile:Clipboard" to tokensLight.qaClipboardIcon,
+            "Tile:RemoteInput" to tokensLight.qaRemoteInputIcon,
+            "Tile:RingDevice" to tokensLight.qaRingMacIcon,
+            "Tile:RunCommand" to tokensLight.qaRunCommandIcon,
+            "Tile:Presenter" to tokensLight.qaPresenterIcon
+        )
+
+        for (i in allLightAccents.indices) {
+            for (j in i + 1 until allLightAccents.size) {
+                val (nameA, colorA) = allLightAccents[i]
+                val (nameB, colorB) = allLightAccents[j]
+                assertNotEquals("Light mode accent identical: $nameA vs $nameB", colorA, colorB)
+                val de = deltaE76(colorA, colorB)
+                assertTrue("Light mode accent deltaE ($de) between $nameA and $nameB must be >= 15.0", de >= 15.0)
+            }
+        }
+
+        val tokensDark = createDashboardTokens(ModernDarkColorScheme, isDark = true)
+        val allDarkAccents = darkPalettes.map { "Card:${it.cardKey}" to it.accent } + listOf(
+            "Tile:SendFiles" to tokensDark.qaSendFilesIcon,
+            "Tile:Clipboard" to tokensDark.qaClipboardIcon,
+            "Tile:RemoteInput" to tokensDark.qaRemoteInputIcon,
+            "Tile:RingDevice" to tokensDark.qaRingMacIcon,
+            "Tile:RunCommand" to tokensDark.qaRunCommandIcon,
+            "Tile:Presenter" to tokensDark.qaPresenterIcon
+        )
+
+        for (i in allDarkAccents.indices) {
+            for (j in i + 1 until allDarkAccents.size) {
+                val (nameA, colorA) = allDarkAccents[i]
+                val (nameB, colorB) = allDarkAccents[j]
+                assertNotEquals("Dark mode accent identical: $nameA vs $nameB", colorA, colorB)
+                val de = deltaE76(colorA, colorB)
+                assertTrue("Dark mode accent deltaE ($de) between $nameA and $nameB must be >= 15.0", de >= 15.0)
             }
         }
     }
