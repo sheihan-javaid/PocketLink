@@ -151,7 +151,7 @@ object DashboardUiStateMapper {
             ActionSpec("send_files", "Send Files", "SharePlugin", R.drawable.ic_share_white, R.string.quick_action_send_files),
             ActionSpec("clipboard", "Clipboard", "ClipboardPlugin", R.drawable.ic_baseline_content_paste_24, R.string.quick_action_clipboard),
             ActionSpec("remote_input", "Remote Input", "MousePadPlugin", R.drawable.ic_finger_24dp, R.string.quick_action_remote_input),
-            ActionSpec("ring_device", "Ring $deviceName", "FindRemoteDevicePlugin", R.drawable.ic_notification, R.string.quick_action_ring_device),
+            ActionSpec("ring_device", "Ring $deviceName", "FindRemoteDevicePlugin", R.drawable.ic_bell_24dp, R.string.quick_action_ring_device),
             ActionSpec("run_command", "Run Command", "RunCommandPlugin", R.drawable.ic_baseline_code_24, R.string.quick_action_run_command),
             ActionSpec("presenter", "Presenter", "PresenterPlugin", R.drawable.ic_presenter_24dp, R.string.quick_action_presenter)
         )
@@ -235,7 +235,7 @@ object DashboardUiStateMapper {
             "mousepad" -> R.drawable.touchpad_plugin_action_24dp
             "runcommand" -> R.drawable.run_command_plugin_icon_24dp
             "presenter" -> R.drawable.ic_presenter_24dp
-            "findremotedevice" -> R.drawable.ic_modern_bell
+            "findremotedevice" -> R.drawable.ic_bell_24dp
             "findmyphone" -> R.drawable.ic_modern_phone_ring
             "lockdevice" -> R.drawable.ic_key
             "remotekeyboard" -> R.drawable.ic_action_keyboard_24dp
