@@ -61,7 +61,7 @@ class RunCommandWidgetConfigActivity : AppCompatActivity() {
     }
 }
 
-private const val PREFS_NAME = "org.kde.kdeconnect_tp.WidgetProvider"
+private const val PREFS_NAME = "com.pocketlink.WidgetProvider"
 private const val PREF_PREFIX_KEY = "appwidget_"
 
 internal fun saveWidgetDeviceIdPref(context: Context, appWidgetId: Int, deviceName: String) {

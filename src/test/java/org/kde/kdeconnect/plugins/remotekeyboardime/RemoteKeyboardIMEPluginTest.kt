@@ -57,7 +57,7 @@ class RemoteKeyboardIMEPluginTest {
 
         every { context.getString(any()) } returns "test_key"
         every { context.getSharedPreferences(any(), any()) } returns sharedPreferences
-        every { context.packageName } returns "org.kde.kdeconnect_tp"
+        every { context.packageName } returns "com.pocketlink"
 
         remoteKeyboardPlugin = RemoteKeyboardIMEPlugin().apply {
             setContext(context, device)

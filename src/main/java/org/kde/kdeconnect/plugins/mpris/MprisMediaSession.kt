@@ -519,7 +519,7 @@ class MprisMediaSession : OnSharedPreferenceChangeListener, NotificationReceiver
 
         private const val MPRIS_MEDIA_NOTIFICATION_ID =
             0x91b70463.toInt() // echo MprisNotification | md5sum | head -c 8
-        private const val MPRIS_MEDIA_SESSION_TAG = "org.kde.kdeconnect_tp.media_session"
+        private const val MPRIS_MEDIA_SESSION_TAG = "com.pocketlink.media_session"
 
         private const val SPOTIFY_PACKAGE_NAME = "com.spotify.music"
 

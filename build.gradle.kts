@@ -38,11 +38,15 @@ kotlin {
     }
 }
 
+base {
+    archivesName.set("com.pocketlink")
+}
+
 android {
     namespace = "org.kde.kdeconnect_tp"
     compileSdk = 37
     defaultConfig {
-        applicationId = "org.kde.kdeconnect_tp"
+        applicationId = "com.pocketlink"
         minSdk = 23
         targetSdk = 37
         versionCode = 13702
@@ -93,7 +97,6 @@ android {
             isMinifyEnabled = false
             isShrinkResources = false
             signingConfig = signingConfigs.getByName("debug")
-            applicationIdSuffix = ".debug"
             versionNameSuffix = "-debug"
         }
         getByName("release") {
@@ -106,6 +109,7 @@ android {
         checkReleaseBuilds = false
     }
 }
+
 
 tasks.withType<Test>().configureEach {
     // Objenesis 3.4 (transitive from mockk) contains an obsolete META-INF/INDEX.LIST
@@ -427,5 +431,38 @@ tasks.named("generateLicenseReport") {
 
 tasks.named("preBuild") {
     dependsOn("generateLicenseReport")
+}
+
+tasks.matching { it.name == "assembleDebug" }.configureEach {
+    doLast {
+        val debugApk = layout.buildDirectory.file("outputs/apk/debug/com.pocketlink-debug.apk").get().asFile
+        if (debugApk.exists()) {
+            val rootApk = layout.buildDirectory.file("outputs/apk/com.pocketlink.apk").get().asFile
+            val debugDirApk = layout.buildDirectory.file("outputs/apk/debug/com.pocketlink.apk").get().asFile
+            debugApk.copyTo(rootApk, overwrite = true)
+            debugApk.copyTo(debugDirApk, overwrite = true)
+        }
+    }
+}
+
+tasks.matching { it.name == "assembleRelease" }.configureEach {
+    doLast {
+        val releaseDir = layout.buildDirectory.dir("outputs/apk/release").get().asFile
+        val releaseApk = releaseDir.listFiles()?.firstOrNull { it.extension == "apk" }
+        if (releaseApk != null && releaseApk.exists()) {
+            val rootApk = layout.buildDirectory.file("outputs/apk/com.pocketlink.apk").get().asFile
+            val releaseTarget = File(releaseDir, "com.pocketlink.apk")
+            releaseApk.copyTo(rootApk, overwrite = true)
+            if (releaseApk.name != "com.pocketlink.apk") {
+                releaseApk.copyTo(releaseTarget, overwrite = true)
+            }
+        }
+    }
+}
+
+tasks.register("assemblePocketLinkApk") {
+    description = "Compiles PocketLink and ensures com.pocketlink.apk is generated"
+    group = "build"
+    dependsOn("assembleDebug")
 }
 
