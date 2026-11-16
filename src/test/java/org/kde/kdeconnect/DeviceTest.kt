@@ -22,12 +22,16 @@ import org.junit.Test
 import org.kde.kdeconnect.PairingHandler.PairingCallback
 import org.kde.kdeconnect.backends.lan.LanLink
 import org.kde.kdeconnect.backends.lan.LanLinkProvider
+import org.kde.kdeconnect.backends.BaseLinkProvider
 import org.kde.kdeconnect.helpers.DeviceHelper
 import org.kde.kdeconnect.helpers.TrustedDevices
 import org.kde.kdeconnect.helpers.security.RsaHelper
 import org.kde.kdeconnect.helpers.security.SslHelper
 import org.kde.kdeconnect.plugins.wallpaper.WallpaperPlugin
 import java.security.cert.CertificateException
+import java.util.concurrent.CountDownLatch
+import java.util.concurrent.TimeUnit
+import java.util.concurrent.atomic.AtomicInteger
 
 class DeviceTest {
     private val context: Context = mockk()
@@ -195,6 +199,56 @@ class DeviceTest {
             listOf("receiver registered", "plugins loaded"),
             events
         )
+    }
+
+    @Test
+    fun boundedSendQueueFailsFastWithoutDroppingQueuedPackets() {
+        val device = Device(context, "testDevice")
+        val provider = mockk<BaseLinkProvider>()
+        every { provider.priority } returns 1
+        val link = mockk<LanLink>()
+        every { link.deviceInfo } returns device.deviceInfo
+        every { link.linkProvider } returns provider
+        every { link.addPacketReceiver(any()) } returns Unit
+
+        val firstSendStarted = CountDownLatch(1)
+        val releaseFirstSend = CountDownLatch(1)
+        val completed = CountDownLatch(65)
+        val failed = AtomicInteger(0)
+        every { link.sendPacket(any(), any(), any()) } answers {
+            val callback = secondArg<Device.SendPacketStatusCallback>()
+            firstSendStarted.countDown()
+            releaseFirstSend.await(5, TimeUnit.SECONDS)
+            callback.onSuccess()
+            true
+        }
+        device.addLink(link)
+
+        device.sendPacket(NetworkPacket("test.0"), object : Device.SendPacketStatusCallback() {
+            override fun onSuccess() = completed.countDown()
+            override fun onFailure(e: Throwable) { failed.incrementAndGet() }
+        })
+        Assert.assertTrue(firstSendStarted.await(2, TimeUnit.SECONDS))
+        repeat(64) { index ->
+            device.sendPacket(NetworkPacket("test.$index"), object : Device.SendPacketStatusCallback() {
+                override fun onSuccess() = completed.countDown()
+                override fun onFailure(e: Throwable) { failed.incrementAndGet() }
+            })
+        }
+
+        val queueFull = CountDownLatch(1)
+        device.sendPacket(NetworkPacket("test.full"), object : Device.SendPacketStatusCallback() {
+            override fun onSuccess() = Assert.fail("A full queue must not report success")
+            override fun onFailure(e: Throwable) {
+                failed.incrementAndGet()
+                queueFull.countDown()
+            }
+        })
+        Assert.assertTrue("sendPacket must fail immediately when the bounded queue is full", queueFull.await(2, TimeUnit.SECONDS))
+
+        releaseFirstSend.countDown()
+        Assert.assertTrue(completed.await(5, TimeUnit.SECONDS))
+        Assert.assertEquals(1, failed.get())
     }
 
     @Test
