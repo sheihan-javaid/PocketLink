@@ -1,4 +1,5 @@
 import java.security.MessageDigest
+import java.util.Properties
 import java.util.zip.ZipEntry
 import java.util.zip.ZipFile
 import java.util.zip.ZipOutputStream
@@ -31,6 +32,38 @@ plugins {
 }
 
 val licenseResDir = "$projectDir/build/dependency-license-res"
+
+// ---------------------------------------------------------------------------
+// Release signing (see RELEASING.md)
+//
+// Values are read from environment variables first, then from the (gitignored)
+// local.properties file. If any value is missing, or the keystore file does not
+// exist, the release build is left unsigned instead of failing, so debug builds
+// and CI jobs without secrets keep working.
+// ---------------------------------------------------------------------------
+val localProperties = Properties().apply {
+    val file = rootProject.file("local.properties")
+    if (file.isFile) file.inputStream().use { load(it) }
+}
+
+fun releaseSigningValue(envName: String, propertyName: String): String? =
+    providers.environmentVariable(envName).orNull?.takeIf { it.isNotBlank() }
+        ?: localProperties.getProperty(propertyName)?.takeIf { it.isNotBlank() }
+
+val releaseKeystorePath = releaseSigningValue("POCKETLINK_KEYSTORE_PATH", "pocketlink.keystore.path")
+val releaseKeystorePassword = releaseSigningValue("POCKETLINK_KEYSTORE_PASSWORD", "pocketlink.keystore.password")
+val releaseKeyAlias = releaseSigningValue("POCKETLINK_KEY_ALIAS", "pocketlink.key.alias")
+val releaseKeyPassword = releaseSigningValue("POCKETLINK_KEY_PASSWORD", "pocketlink.key.password")
+val releaseKeystoreFile = releaseKeystorePath?.let { file(it) }
+val hasReleaseSigning = releaseKeystoreFile?.isFile == true &&
+    releaseKeystorePassword != null && releaseKeyAlias != null && releaseKeyPassword != null
+
+if (!hasReleaseSigning && gradle.startParameter.taskNames.any { it.contains("Release", ignoreCase = true) }) {
+    logger.warn(
+        "PocketLink: release signing is not configured (POCKETLINK_KEYSTORE_PATH, POCKETLINK_KEYSTORE_PASSWORD, " +
+            "POCKETLINK_KEY_ALIAS, POCKETLINK_KEY_PASSWORD). The release APK will be UNSIGNED. See RELEASING.md."
+    )
+}
 
 kotlin {
     compilerOptions {
@@ -91,6 +124,17 @@ android {
                 keyPassword = "android"
             }
         }
+        if (hasReleaseSigning) {
+            create("release") {
+                storeFile = releaseKeystoreFile
+                storePassword = releaseKeystorePassword
+                keyAlias = releaseKeyAlias
+                keyPassword = releaseKeyPassword
+                enableV1Signing = true // minSdk 23 < 24, so keep the JAR signature for Android 6
+                enableV2Signing = true
+                enableV3Signing = true
+            }
+        }
     }
     buildTypes {
         getByName("debug") {
@@ -102,6 +146,8 @@ android {
         getByName("release") {
             isMinifyEnabled = true
             isShrinkResources = true
+            // Left null when no release key is configured -> AGP produces an unsigned APK.
+            signingConfig = if (hasReleaseSigning) signingConfigs.getByName("release") else null
         }
     }
     lint {
@@ -445,18 +491,46 @@ tasks.matching { it.name == "assembleDebug" }.configureEach {
     }
 }
 
+// Release artifacts for GitHub Releases (see RELEASING.md):
+//   build/outputs/apk/release/PocketLink-<versionName>.apk          (signed)
+//   build/outputs/apk/release/PocketLink-<versionName>-unsigned.apk (no release key configured)
+// plus a matching <apk>.sha256 file in `sha256sum -c` format.
 tasks.matching { it.name == "assembleRelease" }.configureEach {
+    val releaseVersionName = android.defaultConfig.versionName
+    val signed = hasReleaseSigning
     doLast {
         val releaseDir = layout.buildDirectory.dir("outputs/apk/release").get().asFile
-        val releaseApk = releaseDir.listFiles()?.firstOrNull { it.extension == "apk" }
-        if (releaseApk != null && releaseApk.exists()) {
-            val rootApk = layout.buildDirectory.file("outputs/apk/com.pocketlink.apk").get().asFile
-            val releaseTarget = File(releaseDir, "com.pocketlink.apk")
-            releaseApk.copyTo(rootApk, overwrite = true)
-            if (releaseApk.name != "com.pocketlink.apk") {
-                releaseApk.copyTo(releaseTarget, overwrite = true)
+        // AGP's own output name, chosen explicitly so stale copies in the folder are never picked up.
+        val agpApk = File(releaseDir, if (signed) "com.pocketlink-release.apk" else "com.pocketlink-release-unsigned.apk")
+        check(agpApk.isFile) { "Expected release APK not found: $agpApk" }
+
+        // Remove PocketLink-*.apk / .sha256 from earlier builds so only the current artifact remains.
+        releaseDir.listFiles()
+            ?.filter { it.name.startsWith("PocketLink-") && (it.extension == "apk" || it.extension == "sha256") }
+            ?.forEach { it.delete() }
+
+        val artifactName = "PocketLink-$releaseVersionName" + (if (signed) "" else "-unsigned") + ".apk"
+        val artifact = agpApk.copyTo(File(releaseDir, artifactName), overwrite = true)
+
+        val digest = MessageDigest.getInstance("SHA-256")
+        artifact.inputStream().use { input ->
+            val buffer = ByteArray(DEFAULT_BUFFER_SIZE)
+            while (true) {
+                val read = input.read(buffer)
+                if (read < 0) break
+                digest.update(buffer, 0, read)
             }
         }
+        val sha256 = digest.digest().joinToString("") { "%02x".format(it) }
+        File(releaseDir, "$artifactName.sha256").writeText("$sha256  $artifactName\n")
+
+        // Keep the legacy com.pocketlink.apk copies used by local install scripts.
+        agpApk.copyTo(layout.buildDirectory.file("outputs/apk/com.pocketlink.apk").get().asFile, overwrite = true)
+        agpApk.copyTo(File(releaseDir, "com.pocketlink.apk"), overwrite = true)
+
+        logger.lifecycle("PocketLink release artifact: $artifact")
+        logger.lifecycle("SHA-256: $sha256")
+        if (!signed) logger.warn("PocketLink: release APK is UNSIGNED and cannot be installed. See RELEASING.md.")
     }
 }
 

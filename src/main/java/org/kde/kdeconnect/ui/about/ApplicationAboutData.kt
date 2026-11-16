@@ -16,10 +16,13 @@ val applicationAboutData = AboutData(
         name = R.string.kde_connect,
         icon = R.drawable.icon,
         versionName = BuildConfig.VERSION_NAME,
-        bugURL = "https://bugs.kde.org/enter_bug.cgi?product=kdeconnect&amp;component=android-application",
-        websiteURL = "https://kdeconnect.kde.org/",
-        sourceCodeURL = "https://invent.kde.org/network/kdeconnect-android/",
-        donateURL = "https://kde.org/community/donations/?app=kdeconnect-android",
+        // PocketLink is a fork of KDE Connect for Android (https://invent.kde.org/network/kdeconnect-android).
+        // Upstream credit is kept in the authors list below and in the "About KDE" screen.
+        bugURL = "https://github.com/sheihan-javaid/PocketLink/issues",
+        websiteURL = "https://github.com/sheihan-javaid/PocketLink",
+        sourceCodeURL = "https://github.com/sheihan-javaid/PocketLink",
+        // No PocketLink donation channel; KDE donations remain reachable via About KDE -> Support KDE.
+        donateURL = null,
         authorsFooterText = R.string.everyone_else,
         authors = listOf(
             // Have you made some contributions and think your name should be here? Open a MR to add yourself to the list :)

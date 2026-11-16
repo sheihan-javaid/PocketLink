@@ -6,7 +6,7 @@ SPDX-FileCopyrightText: 2023 Albert Vaca Cintora <albertvaka@gmail.com>
 SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 -->
 
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
   <!--  # Dear potential translators:
 
         Thank you for your interest in KDE Connect! We do not actually handle our own translations.
@@ -369,7 +369,7 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
     <string name="block_notification_images">Block notification images</string>
 
     <string name="pairing_title">PocketLink Devices</string>
-    <string name="pairing_description">Other devices running KDE Connect in your same network should appear here.</string>
+    <string name="pairing_description">Other devices running PocketLink or KDE Connect in your same network should appear here.</string>
     <string name="device_rename_title">Rename device</string>
     <string name="device_rename_confirm">Rename</string>
     <string name="refresh">Refresh</string>
@@ -606,6 +606,7 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
     <string name="holger_kaelberer_task">Remote keyboard plugin and bug fixes</string>
     <string name="saikrishna_arcot_task">Support for using the keyboard in the remote input plugin, bug fixes and general improvements</string>
     <string name="shellwen_chen_task">Improve the security of SFTP, improve the maintainability of this project, bug fixes and general improvements</string>
+    <string name="about_fork_of_kde_connect" tools:ignore="MissingTranslation">A fork of KDE Connect</string>
     <string name="everyone_else">Everyone else who has contributed to KDE Connect over the years</string>
 
     <string name="send_clipboard">Send clipboard</string>
