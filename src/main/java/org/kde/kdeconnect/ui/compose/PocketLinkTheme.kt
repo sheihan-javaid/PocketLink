@@ -50,7 +50,7 @@ val ModernLightCardPalettes: Map<DashboardCardKey, DashboardCardPalette> = mapOf
         cardKey = DashboardCardKey.Hero,
         container = Color(0xFFEFEDF9),
         onContainer = Color(0xFF0F172A),
-        accent = Color(0xFF4F3FC0)
+        accent = Color(0xFF3730A3)
     ),
     DashboardCardKey.DesktopPreview to DashboardCardPalette(
         cardKey = DashboardCardKey.DesktopPreview,
@@ -74,7 +74,7 @@ val ModernLightCardPalettes: Map<DashboardCardKey, DashboardCardPalette> = mapOf
         cardKey = DashboardCardKey.ControlComputer,
         container = Color(0xFFF2EDFD),
         onContainer = Color(0xFF2E1065),
-        accent = Color(0xFF7C3AED)
+        accent = Color(0xFF6D28D9)
     ),
     DashboardCardKey.MediaAudio to DashboardCardPalette(
         cardKey = DashboardCardKey.MediaAudio,
@@ -98,7 +98,7 @@ val ModernLightCardPalettes: Map<DashboardCardKey, DashboardCardPalette> = mapOf
         cardKey = DashboardCardKey.Attention,
         container = Color(0xFFF4EDEB),
         onContainer = Color(0xFF451A03),
-        accent = Color(0xFF92400E)
+        accent = Color(0xFF78350F)
     ),
     DashboardCardKey.ErrorPanel to DashboardCardPalette(
         cardKey = DashboardCardKey.ErrorPanel,
