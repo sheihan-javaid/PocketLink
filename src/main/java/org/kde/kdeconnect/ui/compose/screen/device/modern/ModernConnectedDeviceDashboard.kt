@@ -722,7 +722,7 @@ private fun getPluginIconRes(pluginKey: String): Int = when (pluginKey) {
     "MousePadPlugin" -> R.drawable.touchpad_plugin_action_24dp
     "RunCommandPlugin" -> R.drawable.run_command_plugin_icon_24dp
     "PresenterPlugin" -> R.drawable.ic_presenter_24dp
-    "FindRemoteDevicePlugin" -> R.drawable.ic_modern_bell
+    "FindRemoteDevicePlugin" -> R.drawable.ic_bell_24dp
     "RemoteKeyboardPlugin" -> R.drawable.ic_action_keyboard_24dp
     "RemoteKeyboardIMEPlugin" -> R.drawable.ic_keyboard_return_black_24dp
     "DigitizerPlugin" -> R.drawable.ic_draw_24dp

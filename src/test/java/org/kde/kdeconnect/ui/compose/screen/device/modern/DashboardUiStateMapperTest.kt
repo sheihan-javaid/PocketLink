@@ -206,6 +206,7 @@ class DashboardUiStateMapperTest {
         val ringAction = state.quickActions.find { it.id == "ring_device" }
         assertNotNull(ringAction)
         assertEquals("Ring MacBook Pro", ringAction?.label)
+        assertEquals(R.drawable.ic_bell_24dp, ringAction?.iconRes)
     }
 
     @Test

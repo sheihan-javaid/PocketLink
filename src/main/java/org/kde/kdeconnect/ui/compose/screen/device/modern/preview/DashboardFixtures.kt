@@ -69,7 +69,7 @@ object DashboardFixtures {
             QuickActionUiModel("send_files", "Send Files", R.drawable.share_plugin_action_24dp, QuickActionAvailability.Ready),
             QuickActionUiModel("clipboard", "Clipboard", R.drawable.ic_baseline_content_paste_24, QuickActionAvailability.Ready),
             QuickActionUiModel("remote_input", "Remote Input", R.drawable.touchpad_plugin_action_24dp, QuickActionAvailability.Ready),
-            QuickActionUiModel("ring_device", "Ring Mac", R.drawable.ic_modern_bell, QuickActionAvailability.Ready),
+            QuickActionUiModel("ring_device", "Ring Mac", R.drawable.ic_bell_24dp, QuickActionAvailability.Ready),
             QuickActionUiModel("run_command", "Run Command", R.drawable.run_command_plugin_icon_24dp, QuickActionAvailability.Ready),
             QuickActionUiModel("presenter", "Presenter", R.drawable.ic_presenter_24dp, QuickActionAvailability.Ready)
         ),
@@ -101,7 +101,7 @@ object DashboardFixtures {
                     ServiceRowUiModel("MousePadPlugin", "Remote input", "Touchpad and keyboard control", iconRes = R.drawable.touchpad_plugin_action_24dp, isEnabled = true),
                     ServiceRowUiModel("RunCommandPlugin", "Run Command", "Execute configured Mac scripts", iconRes = R.drawable.run_command_plugin_icon_24dp, isEnabled = true),
                     ServiceRowUiModel("PresenterPlugin", "Presentation remote", "Slide navigation and laser pointer", iconRes = R.drawable.ic_presenter_24dp, isEnabled = true),
-                    ServiceRowUiModel("FindRemoteDevicePlugin", "Find remote device", "Ring remote computer", iconRes = R.drawable.ic_modern_bell, isEnabled = true)
+                    ServiceRowUiModel("FindRemoteDevicePlugin", "Find remote device", "Ring remote computer", iconRes = R.drawable.ic_bell_24dp, isEnabled = true)
                 )
             ),
             ServiceSectionUiModel(
@@ -134,7 +134,7 @@ object DashboardFixtures {
         DevicePluginUiModel("MousePadPlugin", "Remote input", "Touchpad and keyboard control for your computer", true, true, listOf(Plugin.PluginUiButton("Open Touchpad", R.drawable.touchpad_plugin_action_24dp) {}), false, false),
         DevicePluginUiModel("RunCommandPlugin", "Run Command", "Execute configured Mac scripts and commands", true, true, listOf(Plugin.PluginUiButton("Commands", R.drawable.run_command_plugin_icon_24dp) {}), false, false),
         DevicePluginUiModel("PresenterPlugin", "Presentation remote", "Slide navigation and laser pointer control", true, true, listOf(Plugin.PluginUiButton("Presenter", R.drawable.ic_presenter_24dp) {}), false, false),
-        DevicePluginUiModel("FindRemoteDevicePlugin", "Find remote device", "Ring remote computer to locate it", true, false, listOf(Plugin.PluginUiButton("Ring", R.drawable.ic_modern_bell) {}), false, false),
+        DevicePluginUiModel("FindRemoteDevicePlugin", "Find remote device", "Ring remote computer to locate it", true, false, listOf(Plugin.PluginUiButton("Ring", R.drawable.ic_bell_24dp) {}), false, false),
         DevicePluginUiModel("RemoteKeyboardPlugin", "Remote keyboard", "Receive keyboard input from remote device", true, false, emptyList(), false, false),
         DevicePluginUiModel("RemoteKeyboardIMEPlugin", "Remote keyboard IME", "Input method for remote keyboard entry", false, true, emptyList(), false, false),
         DevicePluginUiModel("DigitizerPlugin", "Drawing tablet", "Send stylus and touch input to computer", false, true, emptyList(), false, false),
