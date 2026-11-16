@@ -84,9 +84,9 @@ val ModernLightCardPalettes: Map<DashboardCardKey, DashboardCardPalette> = mapOf
     ),
     DashboardCardKey.DeviceInfo to DashboardCardPalette(
         cardKey = DashboardCardKey.DeviceInfo,
-        container = Color(0xFFE9F2F1),
-        onContainer = Color(0xFF022C22),
-        accent = Color(0xFF047857)
+        container = Color(0xFFF8EDEB),
+        onContainer = Color(0xFF431407),
+        accent = Color(0xFFC2410C)
     ),
     DashboardCardKey.ManagePlugins to DashboardCardPalette(
         cardKey = DashboardCardKey.ManagePlugins,
@@ -147,9 +147,9 @@ val ModernDarkCardPalettes: Map<DashboardCardKey, DashboardCardPalette> = mapOf(
     ),
     DashboardCardKey.DeviceInfo to DashboardCardPalette(
         cardKey = DashboardCardKey.DeviceInfo,
-        container = Color(0xFF111D24),
+        container = Color(0xFF21181D),
         onContainer = Color(0xFFFFFFFF),
-        accent = Color(0xFF34D399)
+        accent = Color(0xFFFB923C)
     ),
     DashboardCardKey.ManagePlugins to DashboardCardPalette(
         cardKey = DashboardCardKey.ManagePlugins,

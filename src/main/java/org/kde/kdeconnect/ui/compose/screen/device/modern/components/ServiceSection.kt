@@ -8,6 +8,7 @@ package org.kde.kdeconnect.ui.compose.screen.device.modern.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -199,7 +200,8 @@ private fun ServiceRow(
         PluginCategory.MediaAudio -> tokens.onMediaContainer
         PluginCategory.DeviceInfo -> tokens.rowDeviceInfoIcon
     }
-    val iconBg = palette?.accent?.copy(alpha = if (tokens.isDark) 0.18f else 0.12f) ?: tokens.actionPillBg
+    val iconBg = palette?.accent?.copy(alpha = if (tokens.isDark) 0.22f else 0.14f) ?: tokens.actionPillBg
+    val iconBorderColor = iconTint.copy(alpha = if (tokens.isDark) 0.38f else 0.25f)
 
     Column(
         modifier = modifier
@@ -229,7 +231,8 @@ private fun ServiceRow(
                     modifier = Modifier
                         .size(40.dp)
                         .clip(CircleShape)
-                        .background(iconBg),
+                        .background(iconBg)
+                        .border(1.dp, iconBorderColor, CircleShape),
                     contentAlignment = Alignment.Center
                 ) {
                     if (row.iconRes != null) {

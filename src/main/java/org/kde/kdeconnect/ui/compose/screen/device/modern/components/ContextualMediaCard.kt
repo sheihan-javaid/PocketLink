@@ -14,6 +14,7 @@ import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -106,7 +107,8 @@ fun ContextualMediaContent(
                 modifier = Modifier
                     .size(48.dp)
                     .clip(RoundedCornerShape(12.dp))
-                    .background(mediaPalette.accent.copy(alpha = if (tokens.isDark) 0.18f else 0.12f)),
+                    .background(mediaPalette.accent.copy(alpha = if (tokens.isDark) 0.22f else 0.14f))
+                    .border(1.dp, mediaPalette.accent.copy(alpha = if (tokens.isDark) 0.38f else 0.25f), RoundedCornerShape(12.dp)),
                 contentAlignment = Alignment.Center
             ) {
                 Image(

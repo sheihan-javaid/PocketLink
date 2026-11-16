@@ -9,6 +9,7 @@ package org.kde.kdeconnect.ui.compose.screen.device.modern.components
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -100,8 +101,18 @@ private fun QuickActionTile(
 
     val interactionSource = remember { MutableInteractionSource() }
 
-    val iconTintColor = qaPalette.accent
-    val chipBg = qaPalette.accent.copy(alpha = if (tokens.isDark) 0.18f else 0.12f)
+    val tileAccent = when (action.id) {
+        "send_files" -> tokens.qaSendFilesIcon
+        "clipboard" -> tokens.qaClipboardIcon
+        "remote_input" -> tokens.qaRemoteInputIcon
+        "ring_device" -> tokens.qaRingMacIcon
+        "run_command" -> tokens.qaRunCommandIcon
+        "presenter" -> tokens.qaPresenterIcon
+        else -> qaPalette.accent
+    }
+    val tilePalette = remember(qaPalette, tileAccent) { qaPalette.copy(accent = tileAccent) }
+    val chipBg = tileAccent.copy(alpha = if (tokens.isDark) 0.22f else 0.14f)
+    val chipBorderColor = tileAccent.copy(alpha = if (tokens.isDark) 0.38f else 0.25f)
 
     val textColor = when {
         !isEnabled -> tokens.textTertiary
@@ -118,7 +129,7 @@ private fun QuickActionTile(
         modifier
             .defaultMinSize(minHeight = 88.dp)
             .springPressScale(interactionSource = interactionSource, effectsTier = tier)
-            .glassSurface(qaPalette, DashboardShapes.TileShape, tokens.isDark, tier)
+            .glassSurface(tilePalette, DashboardShapes.TileShape, tokens.isDark, tier)
             .semantics { role = Role.Button }
             .clickable(
                 interactionSource = interactionSource,
@@ -147,13 +158,14 @@ private fun QuickActionTile(
                 modifier = Modifier
                     .size(44.dp)
                     .clip(DashboardShapes.IconCircleShape)
-                    .background(chipBg),
+                    .background(chipBg)
+                    .border(1.dp, chipBorderColor, DashboardShapes.IconCircleShape),
                 contentAlignment = Alignment.Center
             ) {
                 Image(
                     painter = painterResource(action.iconRes),
                     contentDescription = null,
-                    colorFilter = ColorFilter.tint(iconTintColor),
+                    colorFilter = ColorFilter.tint(tileAccent),
                     modifier = Modifier.size(24.dp)
                 )
             }
