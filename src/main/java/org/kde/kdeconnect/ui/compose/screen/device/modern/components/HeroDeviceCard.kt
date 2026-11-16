@@ -202,13 +202,13 @@ fun HeroDeviceCard(
                         modifier = Modifier
                             .size(72.dp)
                             .clip(CircleShape)
-                            .background(tokens.deviceContainer),
+                            .background(heroPalette.accent.copy(alpha = if (tokens.isDark) 0.18f else 0.12f)),
                         contentAlignment = Alignment.Center
                     ) {
                         Image(
                             painter = painterResource(R.drawable.ic_device_laptop_32dp),
                             contentDescription = null,
-                            colorFilter = ColorFilter.tint(tokens.onDeviceContainer),
+                            colorFilter = ColorFilter.tint(heroPalette.accent),
                             modifier = Modifier.size(24.dp)
                         )
                     }

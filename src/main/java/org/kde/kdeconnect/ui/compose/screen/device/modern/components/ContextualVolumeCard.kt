@@ -43,6 +43,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import org.kde.kdeconnect.ui.compose.DashboardCardKey
+import org.kde.kdeconnect.ui.compose.LocalDashboardCardPalettes
 import org.kde.kdeconnect.ui.compose.PocketLinkSpacing
 import org.kde.kdeconnect.ui.compose.screen.device.modern.LocalDashboardTokens
 import org.kde.kdeconnect.ui.compose.screen.device.modern.VolumeControlUiState
@@ -85,11 +87,11 @@ fun ContextualVolumeContent(
     val isMuted = sliderPosition <= 0f || volumeState.isMuted
     val isLowVolume = sliderPosition in 1f..33f
 
+    val mediaPalette = LocalDashboardCardPalettes.current.getValue(DashboardCardKey.MediaAudio)
     val speakerIconRes = if (isMuted) R.drawable.ic_modern_volume_mute else R.drawable.ic_modern_volume
     val speakerIconTint = when {
         isMuted -> MaterialTheme.colorScheme.error
-        isLowVolume -> MaterialTheme.colorScheme.secondary
-        else -> MaterialTheme.colorScheme.primary
+        else -> mediaPalette.accent
     }
 
     val speakerContentDesc = when {

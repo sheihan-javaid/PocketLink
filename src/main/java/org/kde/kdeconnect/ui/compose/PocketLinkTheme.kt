@@ -60,9 +60,9 @@ val ModernLightCardPalettes: Map<DashboardCardKey, DashboardCardPalette> = mapOf
     ),
     DashboardCardKey.QuickActions to DashboardCardPalette(
         cardKey = DashboardCardKey.QuickActions,
-        container = Color(0xFFEFEEFC),
+        container = Color(0xFFEBEEFB),
         onContainer = Color(0xFF0F172A),
-        accent = Color(0xFF4F46E5)
+        accent = Color(0xFF1D4ED8)
     ),
     DashboardCardKey.ShareTransfer to DashboardCardPalette(
         cardKey = DashboardCardKey.ShareTransfer,
@@ -72,9 +72,9 @@ val ModernLightCardPalettes: Map<DashboardCardKey, DashboardCardPalette> = mapOf
     ),
     DashboardCardKey.ControlComputer to DashboardCardPalette(
         cardKey = DashboardCardKey.ControlComputer,
-        container = Color(0xFFF1EBFB),
+        container = Color(0xFFF2EDFD),
         onContainer = Color(0xFF2E1065),
-        accent = Color(0xFF6D28D9)
+        accent = Color(0xFF7C3AED)
     ),
     DashboardCardKey.MediaAudio to DashboardCardPalette(
         cardKey = DashboardCardKey.MediaAudio,
@@ -90,9 +90,9 @@ val ModernLightCardPalettes: Map<DashboardCardKey, DashboardCardPalette> = mapOf
     ),
     DashboardCardKey.ManagePlugins to DashboardCardPalette(
         cardKey = DashboardCardKey.ManagePlugins,
-        container = Color(0xFFE8F0F7),
+        container = Color(0xFFE8F3FA),
         onContainer = Color(0xFF082F49),
-        accent = Color(0xFF0369A1)
+        accent = Color(0xFF0284C7)
     ),
     DashboardCardKey.Attention to DashboardCardPalette(
         cardKey = DashboardCardKey.Attention,
@@ -123,9 +123,9 @@ val ModernDarkCardPalettes: Map<DashboardCardKey, DashboardCardPalette> = mapOf(
     ),
     DashboardCardKey.QuickActions to DashboardCardPalette(
         cardKey = DashboardCardKey.QuickActions,
-        container = Color(0xFF1A1A2C),
+        container = Color(0xFF17172C),
         onContainer = Color(0xFFFFFFFF),
-        accent = Color(0xFFA5B4FC)
+        accent = Color(0xFF818CF8)
     ),
     DashboardCardKey.ShareTransfer to DashboardCardPalette(
         cardKey = DashboardCardKey.ShareTransfer,
@@ -153,9 +153,9 @@ val ModernDarkCardPalettes: Map<DashboardCardKey, DashboardCardPalette> = mapOf(
     ),
     DashboardCardKey.ManagePlugins to DashboardCardPalette(
         cardKey = DashboardCardKey.ManagePlugins,
-        container = Color(0xFF14192C),
+        container = Color(0xFF111B2C),
         onContainer = Color(0xFFFFFFFF),
-        accent = Color(0xFF60A5FA)
+        accent = Color(0xFF38BDF8)
     ),
     DashboardCardKey.Attention to DashboardCardPalette(
         cardKey = DashboardCardKey.Attention,
