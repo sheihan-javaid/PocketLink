@@ -11,6 +11,7 @@
 
 ### Security
 - **TransactionService Non-Exported**: `TransactionService` is no longer exported in the Android Manifest (`android:exported="false"`) and does not accept external intents.
+- **URL-Triggered Command Confirmation**: URL-triggered commands now ask for confirmation (device and command name shown).
 
 ### User Interface
 - **Plugin Settings Access**: Plugin settings now open directly from a settings gear icon on the modern dashboard; the legacy "Plugins" menu item has been removed.
