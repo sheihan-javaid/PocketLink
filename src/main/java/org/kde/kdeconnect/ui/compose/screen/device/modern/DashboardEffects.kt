@@ -360,8 +360,8 @@ fun Modifier.glassSurface(
     shape: Shape = DashboardShapes.CardShape,
     isDark: Boolean = false,
     tier: EffectsTier = EffectsTier.Full
-): Modifier = composed {
-    if (tier == EffectsTier.Minimal) {
+): Modifier {
+    return if (tier == EffectsTier.Minimal) {
         this
             .background(palette.container, shape)
             .border(1.dp, if (isDark) Color(0xFF2D2F37) else Color(0xFFE2E8F0), shape)
