@@ -6,6 +6,7 @@
 
 package org.kde.kdeconnect.ui.compose.screen.device.modern
 
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.getBoundsInRoot
@@ -19,6 +20,7 @@ import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollTo
 import androidx.compose.ui.test.performTouchInput
+import androidx.compose.ui.test.printToString
 import androidx.compose.ui.test.swipeUp
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.mutableStateOf
@@ -240,106 +242,140 @@ class ModernConnectedDeviceDashboardTest {
 
     @Test
     fun captureLightDashboardScreenshots() {
-        // 1. Light Mode Top
-        composeRule.setContent {
-            PocketLinkTheme(context = composeRule.activity, darkTheme = false) {
-                ModernConnectedDeviceDashboard(
-                    state = DashboardFixtures.fullFeaturedState,
-                    actions = DashboardFixtures.mockActions,
-                    pluginModelsForManagePage = DashboardFixtures.samplePluginModels,
-                    onPluginEnabledChange = { _, _ -> },
-                    onButtonClick = {},
-                    onRequiredPermissionClick = {},
-                    onOptionalPermissionClick = {}
-                )
+        try {
+            // 1. Light Mode Top
+            composeRule.setContent {
+                PocketLinkTheme(context = composeRule.activity, darkTheme = false) {
+                    ModernConnectedDeviceDashboard(
+                        state = DashboardFixtures.fullFeaturedState,
+                        actions = DashboardFixtures.mockActions,
+                        pluginModelsForManagePage = DashboardFixtures.samplePluginModels,
+                        onPluginEnabledChange = { _, _ -> },
+                        onButtonClick = {},
+                        onRequiredPermissionClick = {},
+                        onOptionalPermissionClick = {}
+                    )
+                }
             }
+            composeRule.waitForIdle()
+            Thread.sleep(600)
+            takeScreencap("/sdcard/Download/modern_dashboard_light_top.png")
+
+            // 2. Light Mode Scrolled to TRUE End with clearance assertion
+            scrollToTrueEnd()
+            assertLastItemClearance("Manage Plugins")
+            captureGfxInfo("modern_dashboard_gfxinfo.txt")
+            Thread.sleep(600)
+            takeScreencap("/sdcard/Download/modern_dashboard_light_end.png")
+
+            // 3. Manage Plugins subpage (Light Top)
+            composeRule.onNodeWithText("Manage Plugins").performScrollTo().performClick()
+            composeRule.waitForIdle()
+            composeRule.waitUntil(timeoutMillis = 5000) {
+                composeRule.onAllNodesWithContentDescription("Back to dashboard").fetchSemanticsNodes().isNotEmpty()
+            }
+            composeRule.onNodeWithContentDescription("Back to dashboard").assertExists()
+            Thread.sleep(600)
+            takeScreencap("/sdcard/Download/modern_dashboard_manage_plugins_light_top.png")
+
+            // 4. Manage Plugins subpage (Light Mid 1 - Media control / Control Computer end)
+            composeRule.waitUntil(timeoutMillis = 5000) {
+                composeRule.onAllNodesWithText("Media control").fetchSemanticsNodes().isNotEmpty()
+            }
+            composeRule.onNodeWithText("Media control").assertExists()
+            composeRule.onNodeWithText("Media control").performScrollTo()
+            composeRule.waitForIdle()
+            Thread.sleep(600)
+            takeScreencap("/sdcard/Download/modern_dashboard_manage_plugins_light_mid1.png")
+
+            // 5. Manage Plugins subpage (Light Mid 2 - Device Info start: Contacts synchroniser / Notification sync)
+            composeRule.waitUntil(timeoutMillis = 5000) {
+                composeRule.onAllNodesWithText("Contacts synchroniser").fetchSemanticsNodes().isNotEmpty()
+            }
+            composeRule.onNodeWithText("Contacts synchroniser").assertExists()
+            composeRule.onNodeWithText("Contacts synchroniser").performScrollTo()
+            composeRule.waitForIdle()
+            Thread.sleep(600)
+            takeScreencap("/sdcard/Download/modern_dashboard_manage_plugins_light_mid2.png")
+
+            // 6. Manage Plugins subpage (Light True End - Telephony) with clearance assertion
+            scrollToTrueEnd()
+            assertLastItemClearance("Telephony")
+            Thread.sleep(600)
+            takeScreencap("/sdcard/Download/modern_dashboard_manage_plugins_light_end.png")
+        } catch (t: Throwable) {
+            Log.e("ScreenshotTest", "captureLightDashboardScreenshots failed. Semantics tree:\n${composeRule.onRoot().printToString()}", t)
+            throw t
         }
-        composeRule.waitForIdle()
-        Thread.sleep(600)
-        takeScreencap("/sdcard/Download/modern_dashboard_light_top.png")
-
-        // 2. Light Mode Scrolled to TRUE End with clearance assertion
-        scrollToTrueEnd()
-        assertLastItemClearance("Manage Plugins")
-        captureGfxInfo("modern_dashboard_gfxinfo.txt")
-        Thread.sleep(600)
-        takeScreencap("/sdcard/Download/modern_dashboard_light_end.png")
-
-        // 3. Manage Plugins subpage (Light Top)
-        composeRule.onNodeWithText("Manage Plugins").performClick()
-        composeRule.waitForIdle()
-        Thread.sleep(600)
-        takeScreencap("/sdcard/Download/modern_dashboard_manage_plugins_light_top.png")
-
-        // 4. Manage Plugins subpage (Light Mid 1 - Media control / Control Computer end)
-        composeRule.onNodeWithText("Media control").performScrollTo()
-        composeRule.waitForIdle()
-        Thread.sleep(600)
-        takeScreencap("/sdcard/Download/modern_dashboard_manage_plugins_light_mid1.png")
-
-        // 5. Manage Plugins subpage (Light Mid 2 - Device Info start: Contacts synchroniser / Notification sync)
-        composeRule.onNodeWithText("Contacts synchroniser").performScrollTo()
-        composeRule.waitForIdle()
-        Thread.sleep(600)
-        takeScreencap("/sdcard/Download/modern_dashboard_manage_plugins_light_mid2.png")
-
-        // 6. Manage Plugins subpage (Light True End - Telephony) with clearance assertion
-        scrollToTrueEnd()
-        assertLastItemClearance("Telephony")
-        Thread.sleep(600)
-        takeScreencap("/sdcard/Download/modern_dashboard_manage_plugins_light_end.png")
     }
 
     @Test
     fun captureDarkDashboardScreenshots() {
-        // 1. Dark Mode Top
-        composeRule.setContent {
-            PocketLinkTheme(context = composeRule.activity, darkTheme = true) {
-                ModernConnectedDeviceDashboard(
-                    state = DashboardFixtures.fullFeaturedState,
-                    actions = DashboardFixtures.mockActions,
-                    pluginModelsForManagePage = DashboardFixtures.samplePluginModels,
-                    onPluginEnabledChange = { _, _ -> },
-                    onButtonClick = {},
-                    onRequiredPermissionClick = {},
-                    onOptionalPermissionClick = {}
-                )
+        try {
+            // 1. Dark Mode Top
+            composeRule.setContent {
+                PocketLinkTheme(context = composeRule.activity, darkTheme = true) {
+                    ModernConnectedDeviceDashboard(
+                        state = DashboardFixtures.fullFeaturedState,
+                        actions = DashboardFixtures.mockActions,
+                        pluginModelsForManagePage = DashboardFixtures.samplePluginModels,
+                        onPluginEnabledChange = { _, _ -> },
+                        onButtonClick = {},
+                        onRequiredPermissionClick = {},
+                        onOptionalPermissionClick = {}
+                    )
+                }
             }
+            composeRule.waitForIdle()
+            Thread.sleep(600)
+            takeScreencap("/sdcard/Download/modern_dashboard_dark_top.png")
+
+            // 2. Dark Mode Scrolled to TRUE End with clearance assertion
+            scrollToTrueEnd()
+            assertLastItemClearance("Manage Plugins")
+            captureGfxInfo("modern_dashboard_gfxinfo_dark.txt")
+            Thread.sleep(600)
+            takeScreencap("/sdcard/Download/modern_dashboard_dark_end.png")
+
+            // 3. Manage Plugins subpage (Dark Top)
+            composeRule.onNodeWithText("Manage Plugins").performScrollTo().performClick()
+            composeRule.waitForIdle()
+            composeRule.waitUntil(timeoutMillis = 5000) {
+                composeRule.onAllNodesWithContentDescription("Back to dashboard").fetchSemanticsNodes().isNotEmpty()
+            }
+            composeRule.onNodeWithContentDescription("Back to dashboard").assertExists()
+            Thread.sleep(600)
+            takeScreencap("/sdcard/Download/modern_dashboard_manage_plugins_dark_top.png")
+
+            // 4. Manage Plugins subpage (Dark Mid 1 - Media control)
+            composeRule.waitUntil(timeoutMillis = 5000) {
+                composeRule.onAllNodesWithText("Media control").fetchSemanticsNodes().isNotEmpty()
+            }
+            composeRule.onNodeWithText("Media control").assertExists()
+            composeRule.onNodeWithText("Media control").performScrollTo()
+            composeRule.waitForIdle()
+            Thread.sleep(600)
+            takeScreencap("/sdcard/Download/modern_dashboard_manage_plugins_dark_mid1.png")
+
+            // 5. Manage Plugins subpage (Dark Mid 2 - Contacts synchroniser)
+            composeRule.waitUntil(timeoutMillis = 5000) {
+                composeRule.onAllNodesWithText("Contacts synchroniser").fetchSemanticsNodes().isNotEmpty()
+            }
+            composeRule.onNodeWithText("Contacts synchroniser").assertExists()
+            composeRule.onNodeWithText("Contacts synchroniser").performScrollTo()
+            composeRule.waitForIdle()
+            Thread.sleep(600)
+            takeScreencap("/sdcard/Download/modern_dashboard_manage_plugins_dark_mid2.png")
+
+            // 6. Manage Plugins subpage (Dark True End - Telephony) with clearance assertion
+            scrollToTrueEnd()
+            assertLastItemClearance("Telephony")
+            Thread.sleep(600)
+            takeScreencap("/sdcard/Download/modern_dashboard_manage_plugins_dark_end.png")
+        } catch (t: Throwable) {
+            Log.e("ScreenshotTest", "captureDarkDashboardScreenshots failed. Semantics tree:\n${composeRule.onRoot().printToString()}", t)
+            throw t
         }
-        composeRule.waitForIdle()
-        Thread.sleep(600)
-        takeScreencap("/sdcard/Download/modern_dashboard_dark_top.png")
-
-        // 2. Dark Mode Scrolled to TRUE End with clearance assertion
-        scrollToTrueEnd()
-        assertLastItemClearance("Manage Plugins")
-        captureGfxInfo("modern_dashboard_gfxinfo_dark.txt")
-        Thread.sleep(600)
-        takeScreencap("/sdcard/Download/modern_dashboard_dark_end.png")
-
-        // 3. Manage Plugins subpage (Dark Top)
-        composeRule.onNodeWithText("Manage Plugins").performClick()
-        composeRule.waitForIdle()
-        Thread.sleep(600)
-        takeScreencap("/sdcard/Download/modern_dashboard_manage_plugins_dark_top.png")
-
-        // 4. Manage Plugins subpage (Dark Mid 1 - Media control)
-        composeRule.onNodeWithText("Media control").performScrollTo()
-        composeRule.waitForIdle()
-        Thread.sleep(600)
-        takeScreencap("/sdcard/Download/modern_dashboard_manage_plugins_dark_mid1.png")
-
-        // 5. Manage Plugins subpage (Dark Mid 2 - Contacts synchroniser)
-        composeRule.onNodeWithText("Contacts synchroniser").performScrollTo()
-        composeRule.waitForIdle()
-        Thread.sleep(600)
-        takeScreencap("/sdcard/Download/modern_dashboard_manage_plugins_dark_mid2.png")
-
-        // 6. Manage Plugins subpage (Dark True End - Telephony) with clearance assertion
-        scrollToTrueEnd()
-        assertLastItemClearance("Telephony")
-        Thread.sleep(600)
-        takeScreencap("/sdcard/Download/modern_dashboard_manage_plugins_dark_end.png")
     }
 
     private fun scrollToTrueEnd() {
