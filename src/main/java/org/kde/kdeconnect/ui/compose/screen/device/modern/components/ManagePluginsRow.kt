@@ -80,7 +80,7 @@ fun ManagePluginsRow(
                     modifier = Modifier
                         .size(40.dp)
                         .clip(CircleShape)
-                        .background(mpPalette.accent.copy(alpha = if (tokens.isDark) 0.22f else 0.14f))
+                        .background(mpPalette.accent.copy(alpha = if (tokens.isDark) 0.30f else 0.18f))
                         .border(1.dp, mpPalette.accent.copy(alpha = if (tokens.isDark) 0.38f else 0.25f), CircleShape),
                     contentAlignment = Alignment.Center
                 ) {

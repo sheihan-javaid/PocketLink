@@ -107,7 +107,7 @@ fun ContextualMediaContent(
                 modifier = Modifier
                     .size(48.dp)
                     .clip(RoundedCornerShape(12.dp))
-                    .background(mediaPalette.accent.copy(alpha = if (tokens.isDark) 0.22f else 0.14f))
+                    .background(mediaPalette.accent.copy(alpha = if (tokens.isDark) 0.30f else 0.18f))
                     .border(1.dp, mediaPalette.accent.copy(alpha = if (tokens.isDark) 0.38f else 0.25f), RoundedCornerShape(12.dp)),
                 contentAlignment = Alignment.Center
             ) {

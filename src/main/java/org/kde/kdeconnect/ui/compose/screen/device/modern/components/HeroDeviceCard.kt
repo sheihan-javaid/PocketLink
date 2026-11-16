@@ -202,7 +202,7 @@ fun HeroDeviceCard(
                         modifier = Modifier
                             .size(72.dp)
                             .clip(CircleShape)
-                            .background(heroPalette.accent.copy(alpha = if (tokens.isDark) 0.18f else 0.12f)),
+                            .background(heroPalette.accent.copy(alpha = if (tokens.isDark) 0.28f else 0.16f)),
                         contentAlignment = Alignment.Center
                     ) {
                         Image(

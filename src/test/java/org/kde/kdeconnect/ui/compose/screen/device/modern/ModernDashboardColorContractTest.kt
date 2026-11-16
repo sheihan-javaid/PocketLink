@@ -188,8 +188,8 @@ class ModernDashboardColorContractTest {
         // Main cards standardized to 26dp
         assertEquals(26f, DashboardShapes.CardShape.topStart.toPx(size, density), 0.01f)
 
-        // Action tiles standardized to 18dp
-        assertEquals(18f, DashboardShapes.TileShape.topStart.toPx(size, density), 0.01f)
+        // Action tiles standardized to 22dp
+        assertEquals(22f, DashboardShapes.TileShape.topStart.toPx(size, density), 0.01f)
     }
 
     private fun srgbToLab(color: Color): DoubleArray {

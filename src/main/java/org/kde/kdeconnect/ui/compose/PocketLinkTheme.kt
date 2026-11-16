@@ -159,9 +159,9 @@ val ModernDarkCardPalettes: Map<DashboardCardKey, DashboardCardPalette> = mapOf(
     ),
     DashboardCardKey.Attention to DashboardCardPalette(
         cardKey = DashboardCardKey.Attention,
-        container = Color(0xFF211B1B),
-        onContainer = Color(0xFFFEF3C7),
-        accent = Color(0xFFFBBF24)
+        container = Color(0xFF2A2214),
+        onContainer = Color(0xFFFFF4D6),
+        accent = Color(0xFFFFC53D)
     ),
     DashboardCardKey.ErrorPanel to DashboardCardPalette(
         cardKey = DashboardCardKey.ErrorPanel,
